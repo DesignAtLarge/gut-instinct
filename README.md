@@ -25,10 +25,11 @@ Environments in which to use Gut Instinct
 
 What you need to build your own Gut Instinct
 --------------------------------------
-- Web Server: Node.js >= 4.6, npm >= 2.15.9, Meteor >= 1.4
+- Web Server: Node.js >= 8.11.1, npm >= 6.0.1, Meteor = 1.6.1.4
 - Database: MongoDB
-- Email: [Deploy and config Email Notification System](http://github.com/)
+- Email: [Deploy and config Email Notification System - TODO](http://github.com/)
 - File Storage: AWS S3
+- OAuth APIs: Google, Facebook, Reddit, OpenHumans
 - Media Storage: YouTube
 
 How to build your own Gut Instinct
@@ -36,31 +37,14 @@ How to build your own Gut Instinct
 ### Building Gut Instinct on Internet?
 TODO: Update deployment google doc to here.
 
-#### How to populate starter DB to remote server (mlab)?
-+ Step 1: Make sure ```DB_CONFIG.py``` is in the ```INPROGRESS/scripts/POPULATE``` folder, and it is up to date.  This file is ignored in git system due to security purpose.
-
-+ Step 2: Open ```DB_CONFIG.py``` in text editor, comment out all ```DB_AUTH_URL``` and ```DB_INSTANCE```. Only leave the db info strings you want to populate into.
-
-+ Step 3: ```cd``` into ```INPROGRESS/scripts/POPULATE``` folder.
-
-+ Step 4: Run these four python scripts in your terminal (must in this order):
-
-  * ```python 0_populate_guide_questions.py heroku```
-  * ```python 1_populate_tags.py heroku```
-  * ```python 2_populate_questions.py heroku```
-  * ```python 3_populate_personal_questions.py heroku```
-  * ```python 4_populate_galileo_intuition.py heroku```
-  * ```python 5_populate_galileo_experiments.p heroku```
-  * ```python 6_populate_test_questions.py heroku```
-
-
-
 ### Building Gut Instinct on localhost?
-+ Step 1: Make sure ```settings_dev.json``` is in the ```INPROGRESS``` folder, and it is up to date. This file is ignored in git system due to security purpose.
++ Step 1: Make sure ```settings_dev.json``` is in the ```INPROGRESS``` folder, and it contains all the API keys. We highly recommended you to add this file to ```.gitignore``` due to security purpose.
 
-+ Step 2: ```cd``` into ```INPROGRESS``` folder, and run ```npm run start``` in your terminal.
++ Step 2: ```cd``` into this repo, and run ```npm install``` and ```meteor npm install``` in your terminal.
 
-+ Step 3: Before open ```http://localhost:3000```, make sure all data is ready in DB, and all the document fields are updated.
++ Step 3: Run ```npm run start``` in your terminal.
+
++ Step 4: Before open ```http://localhost:3000```, make sure all data is ready in DB, and all the document fields are updated.
 
 #### How to populate starter DB to localhost?
 

@@ -1,0 +1,18 @@
+template(name="gaSummary")
+    +cardLayout(heading="Summary" cardId=cardId hideNav=false)
+        p(class='card-title' style='font-size: 20px; font-weight: 100;') Let's take a look at what we've achieved so far.
+        br
+        
+        p(style='font-size: 20px; font-weight: 100;') Hypothesis:
+        span(class="blue-text text-darken-2" style='font-size: 20px; font-weight: 100; font-color: black') #{hypothesis}
+        br
+        br
+        
+        p(style='font-size: 20px; font-weight: 100;') Cause :
+        p(class="blue-text text-darken-2" style='font-size: 20px; font-weight: 100; font-color: black') #{cause} - #{causeMeasures}
+        br
+        
+        p(style='font-size: 20px; font-weight: 100;') Effect :
+        
+        p(class="blue-text text-darken-2" style='font-size: 20px; font-weight: 100; font-color: black') #{effect} - #{effectMeasures}
+        

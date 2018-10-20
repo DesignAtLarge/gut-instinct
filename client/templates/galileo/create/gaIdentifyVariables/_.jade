@@ -1,0 +1,83 @@
+template(name="gaIdentifyVariables")
+    +cardLayout(heading="Improve your odds of a successful experiment" cardId=cardId stepnumber=stepnumber nextDisabled=nextDisabled)
+        //span(class='card-title' style='font-size: 30px; font-weight: 100;') Your hypothesis is
+        //span(class="blue-text text-darken-2" style='font-size: 20px; font-weight: 100; font-color: black')
+            p #{hypothesis}
+        //br
+
+        //p(style='font-size: 20px; font-weight: 100;')
+            | Cause :
+            a(href="#" id="help-#{cardId}-1" class="helpbtn") (?)
+            span.edit-variables #{cause}
+            +helpLayout(cardId=cardId helpId="1" title="Help" learnLink="https://google.com"
+            description="Cause is also known as the 'independant variable', or the 'manipulation'. An independent variable is something that you will modify throughout your experiment. As you manipulate this variable, you will measure your dependant variable over a period of time. At the end of your experiment you will analyze how your dependant variable behaves with respect to different values of independant variable.")
+        ////p(style='font-size: 20px; font-weight: 100;')
+            | Relation :
+            a(href="#" id="help-#{cardId}-2" class="helpbtn") (?)
+            span.edit-variables #{relation}
+            +helpLayout(cardId=cardId helpId="2" title="Help" learnLink="https://google.com"
+            description="Relation is what links together a cause and an effect. A few examples of relation could be - 'Cause increases Effect', 'Cause results in presence of Effect', 'Cause reduces Effect' etc.")
+        //p(style='font-size: 20px; font-weight: 100;')
+            | Effect :
+            a(href="#" id="help-#{cardId}-3" class="helpbtn") (?)
+            span.edit-variables #{effect}
+            +helpLayout(cardId=cardId helpId="3" title="Help" learnLink="https://google.com"
+            description="Effect is also known as the dependant variable. A dependent variable is something that you can not directly modify or control. This is something you measure as you manipulate the independent variable")
+
+        p(style='font-size: 20px; font-weight: 100;') Remember,
+            i the main purpose of an experiment is to vary the cause (independent variable) and track the effect (the dependent variable). So we need to ensure that we can measure them in some way!
+        br
+
+        p(style='font-size: 20px; font-weight: 100;') Do you think your cause and effect can be measured? Or do you need to convert them to something concrete?
+        br
+
+        //- p(style='font-size: 20px; font-weight: 100;') #[b Experiments are difficult to run and/or analyze when...]
+        //- span(class="blue-text text-darken-2" style='font-size: 20px; font-weight: 100; font-color: black') #[b Experiments are easier to run when...]
+        //- br
+        
+        p(style="font-size: 20px; font-weight: 100;") Please make sure that the following can apply to your experiment: 
+        
+        ul.variable-checklist(style="list-style: none")
+            li
+                input.check(style="float: right" type="checkbox" class="filled-in" id="can-observe-track-check")
+                label(for="can-observe-track-check" class="blue-text text-darken-2" style='font-size: 20px; font-weight: 100; font-color: black') 
+                    span Changes can be easily observed and tracked - e.g. sleep quality and quantity, daily attentivity
+                    br
+                    span(style="color: black; font-size: 16px;") vs. Changes cannot be quickly observed e.g. change in eyesight
+            li
+                input.check(style="float: right" type="checkbox" class="filled-in" id="only-minor-tweaks-check")
+                label(for="only-minor-tweaks-check" class="blue-text text-darken-2" style='font-size: 20px; font-weight: 100; font-color: black') 
+                    span You only need to make minor tweaks to your lifestyle
+                    br
+                    span(style="color: black; font-size: 16px;") vs. You need to alter your lifestyle immensely
+            li
+                input.check(style="float: right" type="checkbox" class="filled-in" id="reasonable-time-check")
+                label(for="reasonable-time-check" class="blue-text text-darken-2" style='font-size: 20px; font-weight: 100; font-color: black') 
+                    span They can be completed in a reasonable time (like days or weeks)
+                    br
+                    span(style="color: black; font-size: 16px;") vs. They need years
+            li
+                input.check(style="float: right" type="checkbox" class="filled-in" id="easily-track-effect-check")
+                label(for="easily-track-effect-check" class="blue-text text-darken-2" style='font-size: 20px; font-weight: 100; font-color: black') 
+                    span You can easily track the effects yourself (you don't need gadgets or experts' help) - (e.g. asking people to eat grilled-cheese-sandwich but not discussing its specific ingredients - e.g. salt, pepper etc..)
+                    br
+                    span(style="color: black; font-size: 16px;") vs. Causes are open to interpretation
+            li
+                input.check(style="float: right" type="checkbox" class="filled-in" id="significant-effect-check")
+                label(for="significant-effect-check" class="blue-text text-darken-2" style='font-size: 20px; font-weight: 100; font-color: black') 
+                    span Show #[b significant] changes with small number of participants - e.g. effects of eating one kind of greens over another.. 
+                    br
+                    span(style="color: black; font-size: 16px;") vs. They require large sets of people to gain insights
+
+        p(style='font-size: 20px; font-weight: 100;') Remember, a specific hypothesis with measurable cause and effect is much more useful than vague, general intuitions.
+
+        //a(href="#" id="help-#{cardId}-4" class="helpbtn") Selecting hypotheses that increase your chances of running an experiment successfully
+        //+helpLayout(cardId=cardId helpId="4" title="" learnLink="")
+            br
+
+        //br
+        //a.btn.green.lighten-2#identifyVar-proceed Yes, proceed
+        //a.btn.red.lighten-2#identifyVar-pickAgain No, pick again
+
+        // go to next hypothesis
+        // repeat this page for every hypothesis :-)

@@ -1,0 +1,81 @@
+//- template(name="gaExperimentFeedbackDetailOld")
+//-     div.detail-feedback-container(id="detail-feedback-{{field}}" style="{{panelContainerStyle}}")
+//-         if isNotOverallPanel
+//-             if isHypothesisPanel
+//-                 div.detail-feedback-header(style="font-size: 20px;") Step 1: Review the hypothesis
+//-                     i.fa.fa-times.close-container(style="float: right; line-height: 24px; cursor: pointer;")
+//-             else
+//-                 div.detail-feedback-header(style="font-size: 20px;") Your review of {{name}}
+//-                     i.fa.fa-times.close-container(style="float: right; line-height: 24px; cursor: pointer;")
+//-         else
+//-             div.detail-feedback-header(style="font-size: 20px;") Guidelines for overall comments
+//-                 i.fa.fa-times.close-container(style="float: right; line-height: 24px; cursor: pointer;")
+//- 
+//- 
+//-         ul.detail-feedback-checklist
+//-             each c in checklist
+//-                 li
+//-                     if isNotOverallPanel
+//-                         p(style="font-size: 18px; font-weight: 100;")
+//-                             | {{c.option}}
+//-                         div
+//-                             span(style="font-size: 16px; font-weight: 100; cursor:pointer;"): a.green-text.feedback-agree(id="detail-feedback-agree-{{field}}-{{c.index}}")
+//-                                 span(style="font-size: 16px; font-weight: 100;") Yes
+//-                                 i(class="fa fa-lg {{agreeButtonClass c.currentUserReview}}")
+//-                                 span(style="font-size: 16px; font-weight: 100; cursor:pointer;") {{c.agreeCount}}
+//-                             span(style="font-size: 16px; font-weight: 100;") &nbsp; | &nbsp;
+//-                             span(style="font-size: 12px; font-weight: 100; cursor:pointer;"): a.red-text.feedback-disagree(id="detail-feedback-disagree-{{field}}-{{c.index}}")
+//-                                 span(style="font-size: 16px; font-weight: 100;") No
+//-                                 i(class="fa fa-lg {{disagreeButtonClass c.currentUserReview}}")
+//-                                 span(style="font-size: 16px; font-weight: 100;") {{c.disagreeCount}}
+//-                     else
+//-                         span(style="font-size: 18px; font-weight: 100;")
+//-                             | {{c.option}}
+//-                 br
+//-         if notNextClicked
+//-             br
+//-             button.btn.light-blue.next Next
+//- 
+//-         if nextClicked
+//-             if isHypothesisPanel
+//-                 div.detail-feedback-suggestion
+//-                     div.detail-feedback-header.no-border(style="font-size: 20px;") Step 2: Suggest changes
+//-                 blockquote.info Give your suggestions by clicking on the button below
+//-                     br
+//-                     button.btn.light-blue Provide Suggestion
+//-                 ul.suggestion-list
+//-                     each s in suggestions
+//-                         li(class="{{#if s.isNew}}highlight{{/if}}")
+//-                             span(style="font-weight: 100;") #[b {{s.username}}]
+//-                                  span(style="color:darkgray;")  - {{livestamp s.date_time}}
+//-                             p {{s.cause}} {{s.relation}} {{s.effect}}
+//- 
+//-             if isNotOverallPanel
+//-                 if isGuestMode
+//-                     h6(style='text-align: center; margin-bottom: 10px; margin-top: 10px;') You will be able to review this (or any) experiment after signing in!
+//-                         a.btn.light-blue#sign-in Sign In Now!
+//-                 else
+//-                     if isHypothesisPanel
+//-                         div.detail-feedback-header.top-border(style="font-size: 20px;") Step 3: Discuss your feedback
+//-                     textarea.materialize-textarea(class="textarea-comment" id="addl-comment-{{field}}" data-id="{{field}}" name="feedback" placeholder="Additional comments here..." required)
+//-                     button.btn.light-blue.submit(id="submit-{{field}}" data-id="{{field}}" type="submit").hide Add Comment
+//-                     div.detail-feedback-list
+//-                         if hasFeedback
+//-                             //div.detail-feedback-header(style="font-size: 20px;") All Comments
+//-                             each fb in feedbacks
+//-                                 div.detail-feedback-item
+//-                                     span(style="font-size: 16px; font-weight: 100;") #[b {{fb.username}}]
+//-                                          span(style="color:darkgray;")  - {{livestamp fb.date_time}}
+//-                                              button.save.column(type="button" id="save-{{fb._id}}" data-id="{{fb._id}}" style="display: none; border: 0px; font-size: 12px; border-color: transparent; background-color: transparent; color: rgba(0, 203, 20, 1);") Save
+//-                                              button.cancel.column(type="button" id="cancel-{{fb._id}}" data-id="{{fb._id}}" style="display: none; border: 0px; font-size: 12px; border-color: transparent; background-color: transparent; color: #FF0000;") Cancel
+//-                                     div.edit-comment
+//-                                         form.detail-feedback-comment
+//-                                             textarea.column(id="text-{{fb._id}}" name="feedback" style="display: none;" required)
+//-                                     div.comment(id="comment-{{fb._id}}")
+//-                                         p
+//-                                             span(id="content-{{fb._id}}" style="font-size: 16px; font-weight: 100;") {{fb.content}}
+//-                                             if canEdit fb.user_id
+//-                                                 button.edit.column(type="button" id="edit-{{fb._id}}" data-id="{{fb._id}}" style="border: 0px; font-size: 12px; border-color: transparent; background-color: transparent; color: #03a9f4") Edit
+//- 
+//-                                     //p {{fb.username}}:  #[b {{fb.content}} ]
+//-                                     //    span(style="font:10px; color:darkgray;")  - {{livestamp fb.date_time}}

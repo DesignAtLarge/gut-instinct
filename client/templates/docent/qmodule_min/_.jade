@@ -1,0 +1,181 @@
+template(name='qmodule_min')
+    //div(class='card qmodule cardquestion', question-hash='#{hash}', question-id='#{_id}' data-step='2' data-intro='Every question is added by either a citizen scientist or an expert researcher')
+    //commented by vineet
+    div(class='card qmodule cardquestion', question-hash='#{hash}', question-id='#{_id}')
+        //div(class='card-content layer-1' style='background: #fffde7')
+        //div(class='card-content layer-1' data-step='7' data-intro='Every question is added by either a citizen scientist')
+        //commented by vineet
+        div(class='card-content layer-1')
+            span(class='timestamp') {{livestamp created_at}} &bull;
+            span(class='mark' style='text-transform:none;background-color: white;') Added by:
+                if expert_question
+                    span(class='expert-mark mark expertQuestion' style='background-color: #ffebee;') Researchers
+                else
+                    span(class='blue-text crowd-mark mark nonExpertQuestion') Citizen Scientists
+                    unless isUserExpert
+                        span(style='color:#757575') &nbsp;&nbsp;[#{this.owner.username}]
+            //a(href='javascript:void(0);', class='glasspane', style='color:black') <i class="fa fa-question-circle-o" aria-hidden="true"></i> Confused?
+            br
+            //div(class='card-title' data-step='4' data-intro='This is the filter question. Provide your reply using the options below or add your own options(s)!')
+            //filter question by vineet
+            div(class='card-title')
+                span #{layer_1.text}
+
+            if isUserExpert
+                if isStarQuestion
+                    //div(class='removeStarQuestion' style='float: right; color: #fdd835; margin-right: 30px;')
+                    div(class='removeStarQuestion animated bounceIn' style='bottom: 31px; left: 74%; position: absolute; color: #f44336;')
+                        i(class='fa fa-star fa-4x' aria-hidden='true')
+                else
+                    div(class='addStarQuestion' style='bottom: 31px; left: 74%; position: absolute; color: #f44336;')
+                        i(class='fa fa-star-o fa-4x' aria-hidden='true')
+            else
+                if isStarQuestion
+                    div(class="animated bounceIn" style='bottom: 31px; left: 74%; position: absolute; color: #f44336;')
+                        i(class='fa fa-star fa-4x' aria-hidden='true')
+
+            br
+            a(href='/q/#{hash}')
+                button(type='button' class='viewQuestionMin' class='waves-effect waves-light btn light-blue darken-3' style='margin-bottom: 5px; text-transform:none;') View Question
+
+
+            //br
+            //div
+            //    div(class='layer1OptionCheck')
+            //        each optionItem in layer_1.options
+            //            input(class='with-gap' id='#{this.hash}-#{optionItem.option_index}' type='checkbox')
+            //            label(for='#{this.hash}-#{optionItem.option_index}' id='#{this.hash}-#{optionItem.option_index}-label' style='font-size: 13pt') #{optionItem.option_text}
+            //                span(id='#{this.hash}-#{optionItem.option_index}-label-stats' style='font-style: italic; color: #bdbdbd;')
+            //            br
+            //
+            //    input(class='with-gap userAddOptionCheckBox' id='#{this.hash}-userAddOption' type='checkbox')
+            //    label(for='#{this.hash}-userAddOption' style='font-size: 13pt' class="blue-text") Add my option
+            //    br
+            //    input(class='addOptionInput' type='text' placeholder='Add option here' style='display: none;')
+            //
+            //    br
+            //    button(type='button' class='saveOptionChoice' class='waves-effect waves-light btn light-blue darken-3' style='margin-bottom: 5px; text-transform:none;') Save my choice(s)
+            //    br
+
+
+            ////- Twitter and Facebook button here
+            //div(class='tags' data-step='5' data-intro='Every question has tags. Click on a tag to see other questions with the same tag.' data-position='right')
+            //    div(class='chips chips-initial')
+            //    unless tagmode
+            //        each tags
+            //            .chip
+            //                a(href='/t/#{name}') #{name}
+            //        if owns owner._id
+            //            span(class='oi edit-tag', data-glyph='pencil') &nbsp;&nbsp;Click to edit tags
+            //    else
+            //        button(class='waves-effect waves-light btn light-blue save-tag') Save
+            //        button(class='waves-effect waves-light btn red cancel-edit-tag') Cancel
+            //
+            //
+            //br
+            //| {{tweet}}
+            //div(data-step='19', data-intro='You can also share a question via your twitter page', data-position='right')
+            //    a(href="htts://twitter.com/intent/tweet?text={{tweetText}}", class="twitter-share-button", data-url="gutinstinct.ucsd.edu", data-show-count="false") Tweet
+            //    script(async src="//platform.twitter.com/widgets.js", charset="utf-8")
+            //
+            //.fb-share-button(data-href='https://gutinstinct.ucsd.edu', data-layout='button_count', data-size='small', data-mobile-iframe='true')
+            //    a.fb-xfbml-parse-ignore(target='_blank', href='https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fgutinstinct.ucsd.edu%2F&src=sdkpreparse') Share
+            //br
+
+            //div(data-step='150', data-intro='Just go ahead and answer this question! You can also bookmark a question!')
+            //commented to avoid qmodule tour error - vineet
+            div
+                //- Discuss, delete, edit question here
+                ._options(style='position: absolute; margin-top: 6px; left: 0px;')
+                    a(href='/q/#{hash}', style='margin-left: 10px;')
+                        i(class='fa fa-comments-o fa-2x light-blue-text text-darken-4' aria-hidden='true')
+                        //span(class="oi", data-glyph="chat") &nbsp;&nbsp;Discuss
+                        if isCondition2or4or0or6or9or11
+                            span(style='font-weight:300 light-blue-text text-darken-4') ({{pluralize 'mechanism' comments.length}})
+                        else
+                            span(style='font-weight:300 light-blue-text text-darken-4') ({{pluralize 'comment' comments.length}})
+
+                    //if owns owner._id
+                    //    | &nbsp;&nbsp;&nbsp;•&nbsp;&nbsp;&nbsp;
+                    //    a(href='#', class='delete')
+                    //        span(class="oi", data-glyph="trash") &nbsp;&nbsp;Delete
+
+                if isInBKDB
+                    a(class='questionBookMark questionRemoveBK animated bounce', id='#{_id}', style='left: 85%; position: absolute;')
+                        i(class='fa fa-bookmark fa-4x' aria-hidden='true')
+                        //span Unbookmark
+                else
+                    a(class='questionBookMark questionAddBK', id='#{_id}', style='left: 85%; position: absolute;')
+                        i(class='fa fa-bookmark-o fa-4x' aria-hidden='true')
+                        //h6(class='light-blue-text text-darken-4') <i class='fa fa-bookmark-o fa-4x' aria-hidden='true'> </i> Bookmark
+            br
+            br
+            br
+
+            //if layer2Viewable
+            //    div(class='divider')
+            //    div(class='card-content layer-2', style='display: block; margin-left: 60px;')
+            //        span(class='card-title') Dive deeper with these follow-up questions!
+            //
+            //        each layer2Question in layer_2
+            //            div(class='layer2QuestionCard')
+            //                span(class='card-title' style='font-size: 15pt;') #{layer2Question.question}
+            //
+            //                div(class='layer2OptionCheck')
+            //                    each layer2QuestionOption in layer2Question.options
+            //                        input(class='with-gap' id='#{this.hash}-layer2-#{layer2QuestionOption.layer_2_index}-#{layer2QuestionOption.option_index}' type='checkbox')
+            //                        label(for='#{this.hash}-layer2-#{layer2QuestionOption.layer_2_index}-#{layer2QuestionOption.option_index}' style='font-size: 12pt') #{layer2QuestionOption.option_text}
+            //                            span(id='#{this.hash}-layer2-#{layer2QuestionOption.layer_2_index}-#{layer2QuestionOption.option_index}-label-stats' style='font-style: italic; color: #bdbdbd;')
+            //                        br
+            //
+            //                input(class='with-gap addFollowOptionChoiceCheckbox' id='#{this.hash}-#{layer2Question.layer_2_index}-followupAddOption' type='checkbox')
+            //                label(for='#{this.hash}-#{layer2Question.layer_2_index}-followupAddOption' style='font-size: 12pt; text-transform:none;' class="blue-text") Add my option
+            //                br
+            //
+            //                input(class='followUpAddOptionInput' type='text' placeholder='Add option here' style='display: none;')
+            //
+            //                //button(type='button' class='addFollowOptionChoice' class='waves-effect waves-light btn light-blue' style='margin-bottom: 10px;') Add Your Option
+            //                br
+            //                button(type='button' class='saveFollowOptionChoice' class='waves-effect waves-light btn light-blue darken-3' style='margin-bottom: 10px; margin-left: 0px; margin-right: 5px; text-transform:none;') Save my choice(s)
+            //
+            //                button(type='button' class='skipFollowOptionChoice' class='waves-effect waves-light btn grey darken-1' style='margin-bottom: 10px;text-transform:none;') Skip
+            //
+            //                hr
+            //
+            //        span(class='card-title') #{layer_2.text}
+            //        p(style='color:blue', class='layer2-answered')
+            //        div
+            //            input(type='text', placeholder='Add my follow-up question here...', value='{{followup_answer hash}}', class='followup_answer')
+            //            button(type='button', id='addOptionstoL1Question', class='waves-effect waves-light btn light-blue') Add my follow-up ques!
+            //            //if layer2Submitted
+            //            //    input(type='submit', class='waves-effect waves-light btn light-blue submit', value='Edit Response')
+            //                //- input(type='button', class='waves-effect waves-light btn red skip', value='Skip')
+            //            //else
+            //            //    input(type='submit', class='waves-effect waves-light btn light-blue submit')
+            //                //input(type='button', class='waves-effect waves-light btn red skip', value='Skip')
+            //else
+            //    div(class='card-content layer-2')
+            //        span(class='card-title') #{layer_2.text}
+            //        p(style='color: light-blue', class='layer2-answered')
+            //        div
+            //            input(type='text', placeholder='Type your answer here', value='{{followup_answer hash}}', class='followup_answer')
+            //            if layer2Submitted
+            //                input(type='submit', class='waves-effect waves-light btn light-blue submit', value='Edit Response')
+            //                //- input(type='button', class='waves-effect waves-light btn red skip', value='Skip')
+            //            else
+            //                input(type='submit', class='waves-effect waves-light btn light-blue submit')
+            //                input(type='button', class='waves-effect waves-light btn red skip', value='Skip')
+            //unless inQuestionPage
+            //    div(class='card-action layer-3')
+            //        span(class='card-title')
+            //        a(href='/q/#{hash}', class='see-more card-title', style='font-weight: 300; color: #2196F3; text-transform: initial') Click here to join the discussion
+            //        br
+            //        span Latest Comment:
+            //        span(style='display: inline-block; font-weight: 300; margin-top: 10px') #{firstComment}
+            div(class='modal confirm-delete', style='width: 500px')
+                div(class='modal-content')
+                    p Are you sure about deleting this question?
+                div(class='modal-footer')
+                    a(href='#', class="modal-action modal-close waves-effect waves-light-blue btn-flat confirm-delete-yes") Yes
+                    a(href='#', class="modal-action modal-close waves-effect waves-red btn-flat") No
+

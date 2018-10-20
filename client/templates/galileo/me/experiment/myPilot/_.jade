@@ -1,0 +1,35 @@
+template(name="gaMeExperimentMyPilot")
+    +gaMeExperimentMaster(id=id section=section)
+        if isLoaded
+            h5.section-header My Pilot Data Tracking
+            p.light-blue-text.text-darken-4 {{startDate}} - {{endDate}}
+            p {{group}}:
+                span.light-blue-text.text-darken-4 {{condition}}
+            p You need to perform these steps every day:
+            ol
+                each step in steps
+                    li.light-blue-text.text-darken-4 {{step}}
+
+            if canGivePilotFeedeback
+                a.btn.light-blue(href="#{feedbackPilotLink}") Give Pilot Feedback
+                
+            h5.section-header Pilot Tracking Sheet
+            table.tracking-sheet(style="font-weight: 100")
+                thead
+                    tr
+                        td Date
+                        td Cause
+                            br
+                            span.light-blue-text.text-darken-4 (#{causeType})
+                        td Effect
+                            br
+                            span.light-blue-text.text-darken-4 (#{effectType})
+                tbody
+                    each slot in slots
+                        tr
+                            td {{slot.date}}
+                            td.light-blue-text.text-darken-4 {{{slot.cause}}}
+                            td.light-blue-text.text-darken-4 {{{slot.effect}}}
+        else
+            p Loading ...
+        

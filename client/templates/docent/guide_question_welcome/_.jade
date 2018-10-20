@@ -1,0 +1,81 @@
+template(name='guide_question_welcome')
+    //+header
+    if isIntroCompleted
+        +header
+    else
+        +header_gray getProgressData
+    | {{init hashcode}}
+    | {{init hashcode}}
+
+    //docent-exp : guide should not be visible to cond1
+    div(class='container content gutboard')
+        div(data-step='1' data-intro='Before you access the rest of Gut Instinct, you must complete the Docent Guide. The docent will help guide you on your way to becoming a great gut citizen scientist')
+            h3(class='light-blue-text text-darken-4') <i class="fa fa-list-ul" aria-hidden="true" style="font-size: 1em;"></i> Docent Guide
+            unless isCondition1or2or7or8or9
+                h5(class='light-blue-text text-darken-4') Learn how to ask expert-like questions
+            else
+                h5(class='light-blue-text text-darken-4') Sharpen your gut instincts 
+        br
+        //h5(class='light-blue-text text-darken-4' data-step='2' data-intro='First, let\'s understand what makes a question useful in Gut Instinct') Step 1 of 3: Your question should be..
+            br
+        div(class='questions')
+            div(class='card qmodule cardquestion')
+
+
+                div(class='card-content layer-1')
+                    nav(class='light-blue darken-4' style='position: absolute;')
+                        .nav-wrapper(class='light-blue darken-4' style='margin-left: 20px;')
+                            .col.s12
+                                a.breadcrumb(href='#!') Welcome, #{name}!
+                                //a.breadcrumb(href='#!') Second
+                                //a.breadcrumb(href='#!') Third
+                    div(id='card-1' data-step='3' data-intro='Cards like this one will help provide you with specific tips that will help you along the way!' style='margin-top: 60px;') 
+                        span(class='card-title' style='font-size: 30px; font-weight: 100;') Meet your Docent
+                        br
+                        img(src="/images/guide/docent.jpg" style="border: 2px solid #DEF0FD; border-radius: 3px;" height="415px" width="100%")
+                        br
+                        br
+                        span(style='font-size: 20px; font-weight: 100; ') <b>Who is a docent?</b> <br>A docent is a title given to educators who introduce and spread institutional knowledge. You might have come across docents in art galleries or museums; they know fascinating details about topics of your interest and take your questions. <br> <br>
+                    
+                        span(style='font-size: 20px; font-weight: 100; ') Your docent here will take you on a quick tour which includes
+                        ol(style='font-size: 20px; font-weight: 100; ')
+                            unless isIntroCompleted
+                                li
+                                    span(style='font-size: 20px; font-weight: 100; ' class="")  <b>Introducing</b> the human microbiome
+                                
+                            if isIntroCompleted
+                                unless isCondition1or2or7or8or9
+                                    li
+                                        span(style='font-size: 20px; font-weight: 100; ' class="") <b>Learning</b> about great questions
+                                    li
+                                        span(style='font-size: 20px; font-weight: 100; ') <b>Critiquing</b> real questions
+                            unless isCondition7
+                                li
+                                    span(style='font-size: 20px; font-weight: 100; ') <b>Adding</b> your question
+                            //if isCondition1or2or8or9
+                                li
+                                    span(style='font-size: 20px; font-weight: 100; ') <b>Adding</b> your question
+
+
+                        //educate you first on the human microbiome and then guide you step by step towards developing great gut questions that researchers can benefit from.
+                        
+                            span(style='font-size: 20px; font-weight: 100; ') The docent will educate you first on the human microbiome and then guide you step by step towards developing great gut questions that researchers can benefit from.
+                        br
+                        br
+
+                        
+
+                        //span(style='font-size: 20px; font-weight: 100; ') Suppose you're a runner who's curious to understand how running might affect your health. 
+                        //br
+                        //br
+                        //span(class="blue-text text-darken-2" style='font-size: 20px; font-weight: 100; font-color: black') Q0: How does running affect health?
+                        // these question colors should be changed to "ucsd-blue"
+
+
+            div(class='questions' id='sliderControlDiv' style='' data-step='4' data-intro='Step through the Docent Guide with these navigators.')
+
+                a(href='#', id='backSliderControl', class='guttest-button', style='margin-top: 25px; margin-right: 50px;')
+                      i(class='fa fa-chevron-circle-left fa-4x waves-effect waves-light', aria-hidden="true", style='vertical-align: middle; color: #455a64')
+
+                a(href='#', id='sliderControl', class='guttest-button', style='margin-top: 25px; margin-left: 50px;')
+                    i(class='fa fa-chevron-circle-right fa-4x waves-effect waves-light', aria-hidden="true", style='vertical-align: middle; color: #455a64')

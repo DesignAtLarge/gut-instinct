@@ -1,0 +1,12 @@
+template(name="gaMeIntuitions")
+    +gaNavbar
+    +gaMeSidebar
+    main#ga-me-main
+        h3 My Intuitions
+        if hasIntuition
+            ul#intuition-board(style="margin-top: 30px; ")
+                each intuition in intuitions
+                    +gaIntuitionBoardItem(id=intuition._id intuition=intuition.intuition username=intuition.username date=intuition.insert_date tags=intuition.tags mechanism=intuition.mechanism)
+        else
+            center
+                p No Intuition Yet

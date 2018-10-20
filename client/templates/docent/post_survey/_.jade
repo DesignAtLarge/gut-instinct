@@ -1,0 +1,101 @@
+template(name='post_survey')
+    .progress(style='position: fixed; top:-20px; width: 100%; height: 80px; background-color: #01579B; z-index: 100')
+        h4.percent(style="text-align: center; margin-top:30px; color: white;") Gut Survey 0% Complete
+    div(class='container content topics', style='max-width:750px; margin-bottom: 100px')
+        if isTaken type
+            h4(class='animated fadeIn light-blue-text text-darken-4' style='margin-top: 50%;') Thank you for answering our questions!
+            br
+            unless isCondition5
+                h5(class='animated fadeIn light-blue-text text-darken-4' style='') Go back to <a href="/entrance" class="light-blue-text text-darken-4" style="text-decoration: underline;">Gut Instinct</a>
+            else
+                h5(class='animated fadeIn light-blue-text text-darken-4' style='') Learn more about your gut <a href="/topics" class="light-blue-text text-darken-4" style="text-decoration: underline;">here!</a>
+        else
+            h4(class='animated fadeIn light-blue-text text-darken-4' style='') How can we improve Gut Instinct?
+            br
+            h6(class='timestamp' style="text-align: left; font-size: 12pt;") Your feedback will help researchers at American Gut Project and Gut Instinct improve the website over the next few weeks. This is your chance to help improve Gut Instinct! <br><br>This survey will close <strong style="color: red;"> at 23:59 on Saturday, Sep 9 </strong>
+
+            br
+            div(class="info card" style="padding: 20px; display: none;")
+                br
+                h5(class="page_title light-blue-text text-darken-4" style='text-align: left;').animated.fadeIn Part 1. Asking questions on Gut Instinct
+                br
+                each q in getSurveyQuestions
+                    if isSingleResponse q
+                        div.card.qmodule.cardquestion.animated.fadeIn
+                            .card-content.layer-1(id="#{q.index}")
+                                span(class='card-title' style="font-size: 19px; font-weight: bold;") #{q.question}
+                                if isLearn q
+                                    img(src='/images/survey/topic_videos.png', style='width: 350px; padding-top: 5px; box-shadow: 0 2px 4px 0 rgba(0,0,0,0.2);')
+                                each getOptions q
+                                    div(class='row' style='margin-bottom: 5px;')
+                                        .col(style="margin-top: 6px;")
+                                            input(class='with-gap #{q.index}-option#{option_index}', name="group-#{q.index}" type="radio" id="#{q.index}-option#{option_index}")
+                                            label(for='#{q.index}-option#{option_index}')
+                                        div(class='col s10' style='padding-top: 5px; padding-bottom: 5px;')
+                                            span(style="font-size: 12pt; color: #424242;") #{option_text} 
+                                if hasPlaceholder q
+                                    textarea(id="#{q.index}-open" class='with-gap materialize-textarea' style="color: black; display: none;" type='text' placeholder="#{q.placeholder}" required)
+    
+                    if isItemResponse q
+                        if isIndex1 q
+                            div.card.qmodule.cardquestion.animated.fadeIn
+                                .card-content.layer-1(id="#{q.index}")
+                                    span(class='card-title' style="font-size: 19px; font-weight: bold;") #{q.question}
+                                    div(style="margin-left: 50px;")
+                                        each it in getItems q
+                                            div(id="#{q.index}-#{it.item_index}")
+                                                span(class='card-title' style="font-size: 19px; font-weight: bold;") #{it.item}
+                                                if isLearn it
+                                                    img(src='/images/survey/topic_videos.png', style='width: 350px; padding-top: 5px; box-shadow: 0 2px 4px 0 rgba(0,0,0,0.2);')
+                                                if isTrain it
+                                                    img(src='/images/survey/training.png', style='width: 350px; padding-top: 5px; box-shadow: 0 2px 4px 0 rgba(0,0,0,0.2);')
+                                                each getOptions it
+                                                    div(class='row' style='margin-bottom: 5px;')
+                                                        .col(style="margin-top: 6px;")
+                                                            input(class='with-gap #{q.index}-#{it.item_index}-option#{option_index}', name="group-#{q.index}-#{it.item_index}" type="radio" id="#{q.index}-#{it.item_index}-option#{option_index}")
+                                                            label(for='#{q.index}-#{it.item_index}-option#{option_index}')
+                                                        div(class='col s10' style='padding-top: 5px; padding-bottom: 5px;')
+                                                            span(style="font-size: 12pt; color: #424242;") #{option_text}
+                                            br 
+                        if isIndex2 q
+                            div.card.qmodule.cardquestion.animated.fadeIn
+                                .card-content.layer-1(id="#{q.index}")
+                                    span(class='card-title' style="font-size: 19px; font-weight: bold; font-weight: bold;") #{q.question}
+                                    div(style="margin-left: 50px;")
+                                        each it in getItems q
+                                            div(id="#{q.index}-#{it.item_index}")
+                                                span(class='card-title' style="font-size: 19px; font-weight: bold;") #{it.item}
+                                                each getOptions it
+                                                    div(class='row' style='margin-bottom: 5px;')
+                                                        .col(style="margin-top: 6px;")
+                                                            input(class='with-gap #{q.index}-#{it.item_index}-option#{option_index}', name="group-#{q.index}-#{it.item_index}" type="radio" id="#{q.index}-#{it.item_index}-option#{option_index}")
+                                                            label(for='#{q.index}-#{it.item_index}-option#{option_index}')
+                                                        div(class='col s10' style='padding-top: 5px; padding-bottom: 5px;')
+                                                            span(style="font-size: 12pt; color: #424242;") #{option_text}
+                                            br 
+
+                    if isMultipleResponse q
+                        div.card.qmodule.cardquestion.animated.fadeIn
+                            .card-content.layer-1(id="#{q.index}")
+                                span(class='card-title' style="font-size: 19px; font-weight: bold;") #{q.question}
+                                each getOptions q
+                                    div(class='row' style='margin-bottom: 5px;')
+                                        .col(style="margin-top: 6px;")
+                                            input(class='with-gap #{q.index}-option#{option_index}', name="group-#{q.index}" type="checkbox" id="#{q.index}-option#{option_index}")
+                                            label(for='#{q.index}-option#{option_index}')
+                                        div(class='col s10' style='padding-top: 5px; padding-bottom: 5px;')
+                                            span(style="font-size: 12pt; color: #424242;") #{option_text}
+                                textarea(id="#{q.index}-open" class='with-gap materialize-textarea' style="color: black; display: none;" type='text' placeholder="Provide a response here" required)
+
+                    if isOpenResponse q
+                        div.card.qmodule.cardquestion.animated.fadeIn
+                            .card-content.layer-1(id="#{q.index}")
+                                span(class='card-title' style="font-size: 19px; font-weight: bold;") #{q.question} 
+                                textarea(id="#{q.index}-open" class='with-gap materialize-textarea' style="color: black;" type='text' placeholder="Provide a response here" required)
+                                br
+                                br
+
+                button(class='waves-effect waves-light btn light-blue' style="margin-top: 20px; margin-right: 15px;" id='save') Save
+                button(class='waves-effect waves-light btn light-blue add-topic-bookmark' style="margin-top: 20px;" id='page_1_next') Next
+                button(class='waves-effect waves-light btn light-blue add-topic-bookmark' style="margin-top: 20px; display: none;" id='page_2_next') Next
+                button(class='waves-effect waves-light btn light-blue add-topic-bookmark' style="margin-top: 20px; display: none;" id='submit') Finish Survey

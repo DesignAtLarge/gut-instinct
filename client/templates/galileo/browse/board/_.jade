@@ -1,0 +1,59 @@
+template(name="gaExperimentBoard")
+    +gaNavbar
+    //|{{init mendelcode}}
+    main#ga-main(style="height:100%;")
+        div.wrapper(style="height:100%;")
+            h4.board-header Experiment Board
+                a.btn.light-blue#designExpBtn(style="float: right;") Design an Experiment
+
+            //p For any experiment, you can perform one of three activities: Review the experiment, Pilot the experiment, or Participate in the experiment (Join).
+            //p When you sign up to review, you can see all the details about the experiment, which can bias your behavior when you pilot or join the experiment. Similarly, piloting an experiment will give you an insight into how the experiment works which can bias your behavior as a participant.
+            //p You can take different roles for different experiments!
+            //if isFeedbackStep
+            //    p Please pick an experiment to review it.
+            +gaExploreModal(exp=selectedExp showPilot=showPilot)
+            +gaCopyExpModal
+            div#sign-in-modal.modal
+                div.modal-content
+                    h4 Please sign in to continue
+                div.modal-footer
+                    a.blue-text#signin(class="modal-action modal-close btn-flat") Sign In
+                    a.gray-text(class="modal-action modal-close btn-flat") Cancel
+
+            +phoneModal(data-id=expId incompleteEmail=incompleteEmail incompleteUsername=incompleteUsername)
+            
+
+            //changing the expid passed to exp itself - failed - vineet -- need to dig more
+            //+gaExploreModal(exp=exp experimentObjective=selectedExpObjective)
+            if isLoaded
+                if hasExperiment
+                  .row(style="margin-bottom: 0px;")
+                      .input-field(style="float: right; width: 30%; min-width: 250px; margin-top: 0px;")
+                          i.material-icons.prefix search
+                          input#search_input.validate(type='text' style="margin-bottom: 0px;")
+                          label(for='icon_prefix') Search for an experiment
+                    if noneValidSearchResult
+                        span(style="font-size: 20px;") Sorry, your search did not match any experiments.
+                        ul(style="font-size: 18px;") Suggestions:
+                            li 1. Make sure all words are spelled correctly.
+                            li 2. Try different keywords.
+                            li 3. Try more general keywords.
+
+                    else
+                        if hasInitSearch
+                            if hasGreaterThanOneSearchResult
+                                span(style="font-size: 20px;") Found {{getSearchCount}} results.
+                            else
+                                span(style="font-size: 20px;") Found {{getSearchCount}} result.
+                            br
+                            p(style="margin-top: 0px;") Search results are sorted based on how much you keyword is matched with experiment design (cause & effect).
+                        ul#experiment-list(style="height: calc(100% - 120px); overflow-y: auto;")
+                            each exp in experiments
+                                +gaExperimentBoardItem(exp=exp index=@index showPilot=showPilot)
+                else
+                    h5 No experiments have been designed so far..
+                    br
+                    br
+                    h5.light-blue-text.text-darken-4 Why don't you design one? It's really easy..
+            else
+                p Loading ...

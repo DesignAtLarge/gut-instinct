@@ -1,0 +1,100 @@
+template(name='guide_question_module')
+    div(class='card qmodule cardquestion', training-question-hash='#{hashcode}', training-question-id='#{_id}')
+
+        div(class='card-content layer-1')
+            span(class='card-title' data-intro='Let\'s critique these questions! You will use what you just learned to check if a question meets the five great gut qualities.') #{question}
+            span(style="font-size: 13pt; color: #9e9e9e;" ) Is this question..
+            br
+            br
+
+            div(class='row' style='margin-bottom: 5px;')
+                div(class='col s9' style='padding-top: 5px; padding-bottom: 5px;')
+                    span(style="font-size: 13pt; color: #424242;") Answerable? (Can others answer it from their personal experience?)
+                    div(class='feedback' style='text-align: left;')
+                        span(id='guidecheck-#{index}-0-correct' style='color: #8bc34a; display: none;') Correct
+                        span(id='guidecheck-#{index}-0-incorrect' style='color: #f44336; display: none;') Incorrect
+                    div(class='feedback-reason-#{index}' style='text-align: left; font-weight: 800; display: none;')
+                        //span Expert's reason for this choice:
+                        //br
+                        span #{answerable_reason}
+
+                div(class='col s3' style='padding-top: 5px; padding-bottom: 5px;')
+                input(class='with-gap guide-option-#{index}', name="#{index}-0" type="radio" id="guidecheck-#{index}-0-radio-0" personal-id="#{index}")
+                label(for='guidecheck-#{index}-0-radio-0' style='font-size: 14pt; margin-right: 15px;') <i class="icon ion-checkmark-round"></i>
+                input(class='with-gap guide-option-#{index}', name="#{index}-0" type="radio" id="guidecheck-#{index}-0-radio-1" personal-id="#{index}")
+                label(for='guidecheck-#{index}-0-radio-1' style='font-size: 14pt') <i class="icon ion-close-round"></i>
+
+            div(class='row' style='background-color: #f5f5f5; margin-bottom: 5px;')
+                div(class='col s9' style='padding-top: 5px; padding-bottom: 5px;')
+                    span(style="font-size: 13pt; color: #424242;") Definite? (has a clear timeframe)
+                    div(class='feedback' style='text-align: left;')
+                        span(id='guidecheck-#{index}-1-correct' style='color: #8bc34a; display: none;') Correct
+                        span(id='guidecheck-#{index}-1-incorrect' style='color: #f44336; display: none;') Incorrect
+                    div(class='feedback-reason-#{index}' style='text-align: left; font-weight: 800; display: none;')
+                        //span Expert's reason for this choice:
+                        //br
+                        span #{definite_reason}
+
+                div(class='col s3' style='padding-top: 5px; padding-bottom: 5px;')
+                input(class='with-gap guide-option-#{index}', name="#{index}-1" type="radio" id="guidecheck-#{index}-1-radio-0" personal-id="#{index}")
+                label(for='guidecheck-#{index}-1-radio-0' style='font-size: 14pt; margin-right: 15px;') <i class="icon ion-checkmark-round"></i>
+                input(class='with-gap guide-option-#{index}', name="#{index}-1" type="radio" id="guidecheck-#{index}-1-radio-1" personal-id="#{index}")
+                label(for='guidecheck-#{index}-1-radio-1' style='font-size: 14pt') <i class="icon ion-close-round"></i>
+
+            div(class='row' style='margin-bottom: 5px;')
+                div(class='col s9' style='padding-top: 5px; padding-bottom: 5px;')
+                    span(style="font-size: 13pt; color: #424242;") A link between a cause and an effect? (links an activity with a specific result)
+                    div(class='feedback' style='text-align: left;')
+                        span(id='guidecheck-#{index}-2-correct' style='color: #8bc34a; display: none;') Correct
+                        span(id='guidecheck-#{index}-2-incorrect' style='color: #f44336; display: none;') Incorrect
+                    div(class='feedback-reason-#{index}' style='text-align: left; font-weight: 800; display: none;')
+                        //span Expert's reason for this choice:
+                        //br
+                        span #{link_reason}
+
+                div(class='col s3' style='padding-top: 5px; padding-bottom: 5px;')
+                input(class='with-gap guide-option-#{index}', name="#{index}-2" type="radio" id="guidecheck-#{index}-2-radio-0" personal-id="#{index}")
+                label(for='guidecheck-#{index}-2-radio-0' style='font-size: 14pt; margin-right: 15px;') <i class="icon ion-checkmark-round"></i>
+                input(class='with-gap guide-option-#{index}', name="#{index}-2" type="radio" id="guidecheck-#{index}-2-radio-1" personal-id="#{index}")
+                label(for='guidecheck-#{index}-2-radio-1' style='font-size: 14pt') <i class="icon ion-close-round"></i>
+
+            div(class='row' style='background-color: #f5f5f5; margin-bottom: 5px;')
+                div(class='col s9' style='padding-top: 5px; padding-bottom: 5px;')
+                    span(style="font-size: 13pt; color: #424242;") Operational? (Terms are specific and unambiguous)
+                    div(class='feedback' style='text-align: left;')
+                        span(id='guidecheck-#{index}-3-correct' style='color: #8bc34a; display: none;') Correct
+                        span(id='guidecheck-#{index}-3-incorrect' style='color: #f44336; display: none;') Incorrect
+                    div(class='feedback-reason-#{index}' style='text-align: left; font-weight: 800; display: none;')
+                        //span Expert's reason for this choice:
+                        //br
+                        span #{operational_reason}
+
+                div(class='col s3' style='padding-top: 5px; padding-bottom: 5px;')
+                input(class='with-gap guide-option-#{index}', name="#{index}-3" type="radio" id="guidecheck-#{index}-3-radio-0" personal-id="#{index}")
+                label(for='guidecheck-#{index}-3-radio-0' style='font-size: 14pt; margin-right: 15px;') <i class="icon ion-checkmark-round"></i>
+                input(class='with-gap guide-option-#{index}', name="#{index}-3" type="radio" id="guidecheck-#{index}-3-radio-1" personal-id="#{index}")
+                label(for='guidecheck-#{index}-3-radio-1' style='font-size: 14pt') <i class="icon ion-close-round"></i>
+
+            div(class='row' style='margin-bottom: 5px;')
+                div(class='col s9' style='padding-top: 5px; padding-bottom: 5px;')
+                    span(style="font-size: 13pt; color: #424242;") Simple? (Does not have multiple factors wrapped in)
+                    div(class='feedback' style='text-align: left;')
+                        span(id='guidecheck-#{index}-4-correct' style='color: #8bc34a; display: none;') Correct
+                        span(id='guidecheck-#{index}-4-incorrect' style='color: #f44336; display: none;') Incorrect
+                    div(class='feedback-reason-#{index}' style='text-align: left; font-weight: 800; display: none;')
+                        //span Expert's reason for this choice:
+                        //br
+                        span #{simple_reason}
+
+                div(class='col s3' style='padding-top: 5px; padding-bottom: 5px;')
+                input(class='with-gap guide-option-#{index}', name="#{index}-4" type="radio" id="guidecheck-#{index}-4-radio-0" personal-id="#{index}")
+                label(for='guidecheck-#{index}-4-radio-0' style='font-size: 14pt; margin-right: 15px;') <i class="icon ion-checkmark-round"></i>
+                input(class='with-gap guide-option-#{index}', name="#{index}-4" type="radio" id="guidecheck-#{index}-4-radio-1" personal-id="#{index}")
+                label(for='guidecheck-#{index}-4-radio-1' style='font-size: 14pt') <i class="icon ion-close-round"></i>
+
+
+            br
+            
+            textarea(class='with-gap guide-option-reason materialize-textarea' name="#{index}-reason" id="#{index}-reason" type='text' placeholder="*Please explain your reasons about the quality of this question! You don\'t need to personally answer the question but describe why it matches (or does not match) criteria of questions just discussed in the Guide!" required) 
+            button(class='waves-effect waves-light btn light-blue darken-3 submit-personal-question' id='submit-button-question-#{index}' style="") Save response
+            br

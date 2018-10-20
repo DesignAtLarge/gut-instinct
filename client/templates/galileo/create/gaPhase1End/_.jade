@@ -1,0 +1,38 @@
+template(name="gaPhase1End")
+    +cardLayout(cardId=cardId heading="Congratulations! Phase 1 completed" hideNav=true)
+        p(style='font-size: 20px; font-weight: 100;') Now is the time to review your work and get some feedback.
+
+        p(style='font-size: 20px; font-weight: 100;') Share your
+            a.experiment-link(href="#{sheetLink}" target="_blank") experiment sheet
+            | with other interested participants using the invite message below.
+
+        div.input-field
+            i.material-icons.prefix mode_edit
+            textarea.materialize-textarea.blue-grey.lighten-4(style="width:85%")
+                | Hi there! I'm running an experiment to figure out if #{hypothesis}.
+
+                | I would love to collaborate with you to see what we can find! You can find the experiment at -
+                | #{sheetLink}
+
+                | Thank you and I look forward to working together!
+
+        //div(style='font-size: 20px; font-weight: 100;')
+            p <i class="fa fa-facebook-square indigo-text darken-3" aria-hidden="true" style="font-size: 3em;"></i>
+                a(href="#") Share with Facebook friends
+            p <i class="fa fa-google-plus-square red-text darken-3" aria-hidden="true" style="font-size: 3em;"></i>
+                a(href="#") Invite contacts on Gmail
+            p <i class="fa fa-twitter-square blue-text" aria-hidden="true" style="font-size: 3em;"></i>
+                a(href="#") Tweet to your followers
+            p <i class="fa fa-commenting" aria-hidden="true" style="font-size: 3em;"></i>
+                a(href="#") SMS your contacts
+        <iframe src="https://www.facebook.com/plugins/share_button.php?href=http%3A%2F%2Fgutinstinct.ucsd.edu%2Fgalileo%2Fexperiment%2F{{id}}&layout=button&size=large&mobile_iframe=true&appId=1667529610219243&width=106&height=28" width="106" height="28" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true"></iframe>
+        br
+        p Hitting share will post a preliminary version of your experiment with the above message on the Galileo forum. You may continue with your experiment design after submitting.
+        br
+        br
+        div.row
+            div.col.s3
+                a.btn.back-action.light-blue.darken-4(style="width:100%;") Back
+            div.col.s5
+            div.col.s4
+                a.btn.next-action.light-blue.darken-4(style="width:100%;") Share & Continue

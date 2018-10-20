@@ -1,0 +1,38 @@
+template(name='welcome')
+    #welcome
+        div(class='container content topics')
+            h1(class='animated fadeIn' style='color: white;') Welcome to Gut Instinct!
+            p(style='color: white;') Choose among following catalog to explore your gut!
+            //- div(class='tiles',data-step='7', data-intro='Each box represents a topic/tag. Click one of them to investigate; once you successfully investigated them, there should be a checkbox inside of the box (next to the tag name). The photo will be uploaded by the content provider, so do not worry if there is no photo for a topic/tag.')
+            div(class='tiles' style='margin-top: 3%')
+                a(href="/gutboard")
+                    div(class='card animated fadeIn' style='width: 220px')
+                        .card-image
+                            img(src='/images/welcome/athletes.jpg', alt='athletes')
+                            span(class='card-title') Athletes
+
+                            
+
+                //a(href="/gutboard")
+                    div(class='card animated fadeIn' style='width: 220px')
+                        .card-image
+                            img(src='/images/welcome/ibd.jpg', alt='ibd')
+                            span(class='card-title') IBD Disease
+
+                //a(href="/gutboard")
+                    div(class='card animated fadeIn' style='width: 220px')
+                        .card-image
+                            img(src='/images/welcome/t1diabetes.jpg', alt='t1diabetes')
+                            span(class='card-title') Type-1 Diabetes
+
+                //a(href="/gutboard")
+                    div(class='card animated fadeIn' style='width: 220px')
+                        .card-image
+                            img(src='/images/welcome/nurse.jpg', alt='nurse')
+                            span(class='card-title') Nurse
+
+                a(href="/gutboard")
+                    div(class='card animated fadeIn' style='width: 220px')
+                        .card-image
+                            img(src='/images/welcome/general.jpg', alt='general')
+                            span(class='card-title') General

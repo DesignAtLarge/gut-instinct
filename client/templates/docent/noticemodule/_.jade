@@ -1,0 +1,12 @@
+template(name='noticemodule')
+    li.collection-item.avatar
+        i.material-icons.circle.blue question_answer
+        unless checkStar this
+            span.title New #{type} has been added to your question
+        else
+            span.title Your question has been starred by an expert!
+        p(style='font-weight:800;') #{typestring}
+
+        a(href='/q/#{typeid}' noticeid-data='#{_id}' target="_blank" class='readNotificationLink') Click here to view
+
+        a(href='#' noticeid-data='#{_id}' class='readNotificationLink' style='position: absolute; right: 100px; bottom: 32px;') <i class="fa fa-times" aria-hidden="true"></i> &nbsp;close

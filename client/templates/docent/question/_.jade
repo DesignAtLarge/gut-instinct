@@ -1,0 +1,67 @@
+template(name='question')
+    +header
+    | {{init hashcode}}
+    div(class='container content')
+        if fromTopics
+            .to-back
+                a(href="#" onclick="window.location.replace(document.referrer);")
+                    span(class='oi', data-glyph="chevron-left") &nbsp; Back to <i class="fa fa-book" aria-hidden="true"></i> {{{getTopic}}}
+        else
+            div(class='to-back', id='back-top')
+                a(href="#" onclick="window.location.replace('/gutboard/#{getMendelCode}');")
+                    span(class='oi', data-glyph="chevron-left") &nbsp; Back to <i class="fa fa-comments-o" aria-hidden="true"></i> GutBoard
+
+        each data
+            //div(data-step='1', data-intro='You can discuss about this question. Others may have discussed about it as well. In that case, you can upvote or downvote that disucssion.')
+            div
+                .question-content
+                    +qmodule
+                    br
+                    //h5 Discussions
+                    //div(class='card', data-step='2', data-intro='Add to the discussion, bring out your unique experiences and help people with their questions!')
+                        .card-content
+                            form(class='comment-form')
+                                textarea(type='text', name='comment', class='comment materialize-textarea', placeholder='Add to this discussion with your insights/questions; how does this topic relate to your life!', required)
+                                input(type='submit', value='Submit', class='btn light-blue')
+                        .divider         
+                        each comments
+                            div(class=divClass)
+                                .card-content
+                                    span(class='timestamp') {{livestamp created_at}}
+                                    //if isUserExpert
+                                    //if isExpertComment
+                                        span(class="light-blue") &nbsp;written by #{this.owner.username}
+                                    //else
+                                        span &nbsp;written by #{this.owner.username} 
+                                    span &nbsp;written by {{{owner.username}}}
+                                    br
+                                    | {{{text}}}
+                                    br
+                                    span(class='timestamp', style='font-size: 12pt') {{pluralize 'Upvote' (upvote_count hashcode)}} &nbsp; | &nbsp; {{pluralize 'Downvote' (downvote_count hashcode)}}
+                                    br
+
+                                    div
+                                        a(class='targetFile' href='{{{attached_file}}}' target='_blank' style='display: none;')
+                                            button(class='waves-effect waves-light btn light-blue' style='display: inline') View File
+                                        a(class='targetURL' href='{{{attached_url}}}' target='_blank' style='display: none;')
+                                            button(class='waves-effect waves-light btn light-blue' style='display: inline') Open URL
+
+                                    if upvoted hashcode
+                                        button(class='waves-effect waves-light btn light-blue vote upvote') Upvote
+                                    else
+                                        button(class='waves-effect waves-light btn grey light-blue vote upvote') Upvote
+                                    if downvoted hashcode
+                                        button(class='waves-effect waves-light btn red vote downvote') Downvote
+                                    else
+                                        button(class='waves-effect waves-light btn grey red vote downvote') Downvote
+                            .divider
+
+        if fromTopics
+            .to-back
+                a(href="#" onclick="window.location.replace(document.referrer);")
+                    span(class='oi', data-glyph="chevron-left") &nbsp; Back to <i class="fa fa-book" aria-hidden="true"></i> {{{getTopic}}}
+        else
+            div(class='to-back', id='back-bottom')
+                a(href="#" onclick="window.location.replace('/gutboard/#{getMendelCode}');")
+                    span(class='oi', data-glyph="chevron-left") &nbsp; Back to <i class="fa fa-comments-o" aria-hidden="true"></i> GutBoard
+

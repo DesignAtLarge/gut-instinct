@@ -1,0 +1,430 @@
+template(name='qmodule_example')
+    //div(class='card qmodule cardquestion', question-hash='#{hash}', question-id='#{_id}' data-step='2' data-intro='Every question is added by either a citizen scientist or an expert researcher')
+    //commented by vineet
+    div(class='card qmodule cardquestion', question-hash='#{hash}', question-id='#{_id}')
+        //div(class='card-content layer-1' style='background: #fffde7')
+        //div(class='card-content layer-1' data-step='7' data-intro='Every question is added by either a citizen scientist')
+        //commented by vineet
+        div(class='card-content layer-1')
+            //if isUserExpert
+                span(class='timestamp edit-question-hide') #{hash} &nbsp;&nbsp; [qcondition #{this.qcondition}]
+                br
+            //span(class='timestamp edit-question-hide') {{livestamp created_at}} &bull; Added by 
+            //span(class='mark edit-question-hide' style='text-transform:none; background-color: white')
+                if expert_question
+                    span(class='expert-mark mark expertQuestion' style='margin-left: 0px; background-color: #ffebee;') Researchers
+                else
+                    if modified_by_expert
+                        span(class='blue-text crowd-mark mark nonExpertQuestion' style='margin-left: 0px;') Citizen Scientist
+                            //, modified by researchers
+                    else
+                        span(class='blue-text crowd-mark mark nonExpertQuestion' style='margin-left: 0px;') Citizen Scientist
+                    //if isUserExpert
+                    span(class='timestamp') &nbsp;&nbsp;[#{this.owner.username}]
+            //if hasEditHistory
+                span(class='timestamp edit-question-hide' style='text-transform:none;background-color: white') &nbsp;&nbsp; [Last edited by
+                    if last_modified_by_expert
+                        | a Researcher]
+                    else
+                        | a Citizen Scientist]
+
+            //span()
+            //a(href='javascript:void(0);', class='glasspane', style='color:black') <i class="fa fa-question-circle-o" aria-hidden="true"></i> Confused?
+            br
+            //div(class='card-title' data-step='4' data-intro='This is the filter question. Provide your reply using the options below or add your own options(s)!')
+            //filter question by vineet
+            div(class='card-title')
+                div(class='row question-display')
+                    span(class="light-blue-text text-darken-4" style='font-weight: 500;') #{ex}
+                        span(class="" style='color: black; font-weight: 500;') #{layer_1.text}
+                    br
+                    //span(class='col s4 oi edit-question edit-question-btn', data-glyph='pencil') &nbsp;&nbsp;Edit this question
+                    //if hasEditHistory
+                        span(class='col s9 oi edit-question view-edit-history-btn', data-glyph="eye") &nbsp;&nbsp;View original question
+                        span(class='col s9 oi edit-question hide-edit-history-btn', data-glyph="eye", style='display: none;') &nbsp;&nbsp;Hide original question
+                        br
+                        span(class='col s12 oi edit-question view-edit-history-result old-question-display' style='font-size: 22px; font-weight: 300; display: none; color: #000') Original Question: "#{firstEditHistory}"
+
+                //div(class='row question-edit-display' style='display: none;')
+                    div(class='input-field' style="margin-top: 35px;")
+                        input(value='#{layer_1.text}', id='#{_id}-edit-input', type='text', class='validate question-edit-input', style='font-size: 24px;')
+                        label(class='active timestamp control-label' for='#{_id}-edit-input' style="font-size: 15px;") Edit the question to make it clearer, e.g. by fixing any grammar issues. You cannot transform the question to make it mean something else. 
+                        button(type='button' class='waves-effect waves-light btn light-blue darken-3 save-question-edit' style='margin-bottom: 0px; text-transform:none;' data-editid='#{_id}-edit-input') Submit Edit
+                        button(type='button' class='waves-effect waves-light btn grey darken-1 cancel-question-edit' style='margin-bottom: 0px; text-transform:none;') Cancel
+
+            //if isUserExpert
+                if isStarQuestion
+                    //div(class='removeStarQuestion' style='float: right; color: #fdd835; margin-right: 30px;')
+                    div(class='removeStarQuestion animated bounceIn edit-question-hide' style='top: 110px; left: 85%; position: absolute; color: #f44336;')
+                        i(class='fa fa-star fa-4x' aria-hidden='true')
+                else
+                    div(class='addStarQuestion edit-question-hide' style='top: 110px; left: 85%; position: absolute; color: #f44336;')
+                        i(class='fa fa-star-o fa-4x' aria-hidden='true')
+            //else
+                if isStarQuestion
+                    div(class='animated bounceIn edit-question-hide' style='top: 110px; left: 85%; position: absolute; color: #f44336;')
+                        i(class='fa fa-star fa-4x' aria-hidden='true')
+            //.col.s4
+                if isInBKDB
+                    a(class='questionBookMark questionRemoveBK animated bounce edit-question-hide', id='#{_id}', style='top: 40px; left: 85.8%; position: absolute;')
+                        i(class='fa fa-bookmark fa-4x' aria-hidden='true')
+                        //span Unbookmark
+                else
+                    a(class='questionBookMark questionAddBK edit-question-hide', id='#{_id}', style='top: 40px; left: 85.8%; position: absolute;')
+                        i(class='fa fa-bookmark-o fa-4x' aria-hidden='true')
+                        //h6(class='light-blue-text text-darken-4') <i class='fa fa-bookmark-o fa-4x' aria-hidden='true'> </i> Bookmark
+
+            div
+                div(class='layer1OptionCheck')
+                    each optionItem in layer_1.options
+                        div(style='margin-bottom: 5px;' data-option-index='#{optionItem.option_index}')
+                            input(disabled class='with-gap toplevelOption' id='#{this.hash}-#{optionItem.option_index}' type='checkbox')
+                            label(for='#{this.hash}-#{optionItem.option_index}' id='#{this.hash}-#{optionItem.option_index}-label' style='font-size: 17px') #{optionItem.option_text}
+                                span(id='#{this.hash}-#{optionItem.option_index}-label-stats' style='font-style: italic; color: #bdbdbd;')
+                            span &nbsp;&nbsp;
+                            //span(class='oi edit-question edit-option-btn', data-glyph='pencil') &nbsp;&nbsp;
+                            br
+
+                            // place the input field for editing the options
+                            div(class='input-field option-input-field' style='display: none;')
+                                input(disabled value='#{optionItem.option_text}' id='#{this.hash}-#{optionItem.option_index}-label-edit' type='text' class='validate option-edit-input' style='font-size: 17px;')
+                                label(class='active' for='#{this.hash}-#{optionItem.option_index}-label-edit') Edit this option
+                                button(type='button' class='waves-light btn light-blue darken-3 save-l1-option-edit' style='margin-bottom: 0px; text-transform:none;' data-editid='#{_id}-edit-input') Submit Edit
+                                button(type='button' class='waves-light btn grey darken-1 cancel-l1-option-edit' style='margin-bottom: 0px; text-transform:none;') Cancel
+
+
+
+                input(class='with-gap userAddOptionCheckBox' id='#{this.hash}-userAddOption' type='checkbox')
+                //label(for='#{this.hash}-userAddOption' style='font-size: 17px' class="blue-text") Add your option
+                br
+                label(id="optionTip" class="timestamp animated fadeIn" style="font-size: 15px; display: none;") Great options are specific to the question. <br> Poor options are too long and vague.
+                input(class='addOptionInput' type='text' placeholder='Add option here' style='display: none;')
+
+                br
+                //button(type='button' class='saveOptionChoice' class='waves-effect waves-light btn light-blue darken-3' style='margin-bottom: 5px; text-transform:none; margin-right: 10px; display: none;') Save your option
+                    
+                //rate
+                //button(type='button' class='rateQuestion' class='waves-light btn red darken-3' style='margin-bottom: 5px; text-transform:none;') Rate this question
+            br
+            .row
+                .col.s12
+                    div(class='tags')
+                        div(class='chips chips-initial')
+                        unless tagmode
+                            each tags
+                                .chip
+                                    if tagExists name
+                                        a(href='#') #{name}
+                                    else 
+                                        a(href='#') {{name}}
+                            //if owns owner._id
+                                span(class='oi edit-tag', data-glyph='pencil') &nbsp;&nbsp;Click to edit tags
+                        else
+                            button(class='waves-effect waves-light btn light-blue save-tag') Save
+                            button(class='waves-effect waves-light btn red cancel-edit-tag') Cancel
+
+            if hasMechanism
+                div(id="authorMechanism")
+                    if isCondition2or4or0or6or9or11
+                        span(class='card-title') Author's mechanism
+                            a(href='#' id="mechHelp" class="light-blue-text") (?)
+                        label(id="mechTip" class="timestamp animated fadeIn" style="font-size: 15px; display: none;") A mechanism provides an explanation of how a phenomenon happens. Guessing the mechanism for an event is an important skill for a scientist. Here's the author's guess about how the gut microbiome might (or might not) be related to their question.
+                            br
+                    else
+                        span(class='card-title') Author's comment
+                    span(class='timestamp') Updated {{livestamp this.layer_1.mechanism.created_at}} by
+                    if checkExpert this.owner.username 
+                        span(class='expert-mark mark expertQuestion' style='background-color: #ffebee;') Researchers
+                    else
+                        span(class='blue-text') &nbsp;#{this.owner.username}
+                        //span(class='timestamp' style='color:#757575') &nbsp;&nbsp;[#{this.owner.username}]
+             
+                    //if ownsMechanism
+                        span(class='oi edit-mech timestamp', data-glyph='pencil') &nbsp;&nbsp;Edit
+                        textarea(class='topMechanism with-gap materialize-textarea' style="color: black;" type='text' required disabled) #{layer_1.mechanism.text}
+                        button(id="mechanismBtn" type='button', class='waves-effect waves-light btn light-blue' style="display:none") Update mechanism
+                        br
+                        br
+                    //else
+                    textarea(class='with-gap materialize-textarea' style="color: black;" disabled type='text' required) #{layer_1.mechanism.text}
+                    //if hasFeedbackOrExpert
+                        span(class='card-title') Feedback from scientific material
+                             a(href='#' id="feedbackHelp" class="light-blue-text") (?)
+                        if isCondition2or4or0or6or9or11  
+                            label(id="feedbackTip" class="timestamp animated fadeIn" style="font-size: 15px; display: none;") Feedback on the question and mechanism based on research papers and articles
+                                br
+                        else
+                            label(id="feedbackTip" class="timestamp animated fadeIn" style="font-size: 15px; display: none;") Feedback on the question based on research papers and articles
+                                br
+                        if hasFeedback 
+                            span(class='timestamp') Updated {{livestamp this.layer_1.mechanism.feedback.created_at}}
+                            //span(class='expert-mark mark expertQuestion' style='background-color: #ffebee;') Researchers
+                        else 
+                            span(class='timestamp') no feedback currently
+                        //if isUserExpert
+                            span(class='oi edit-feedback timestamp', data-glyph='pencil') &nbsp;&nbsp;Edit
+                            textarea(class='researcherFeedback with-gap materialize-textarea' style="color: black;" type='text' required disabled) #{this.layer_1.mechanism.feedback.text}
+                            button(id="researcherFeedbackBtn" type='button', class='waves-effect waves-light btn light-blue' style="display:none") Update feedback
+                            br
+                            br
+                        //else 
+                        textarea(class='with-gap materialize-textarea' style="color: black;" type='text' required disabled) #{this.layer_1.mechanism.feedback.text}
+            else
+                div(class='divider')
+                br
+                br
+
+            //.row
+                .col.s12
+                    div(class='tags')
+                        div(class='chips chips-initial')
+                        unless tagmode
+                            each tags
+                                .chip
+                                    a(href='/t/#{name}') #{name}
+                            if owns owner._id
+                                span(class='oi edit-tag', data-glyph='pencil') &nbsp;&nbsp;Click to edit tags
+                        else
+                            button(class='waves-effect waves-light btn light-blue save-tag') Save
+                            button(class='waves-effect waves-light btn red cancel-edit-tag') Cancel
+
+            //div
+                ._options(style='position: absolute; margin-top: 6px; left: 0px;')
+                    a(href='/q/#{hash}', style='margin-left: 10px;')
+                        i(class='fa fa-comments-o fa-2x light-blue-text text-darken-4' aria-hidden='true')
+                        span(style='font-weight:300 light-blue-text text-darken-4') ({{pluralize 'comment' comments.length}})
+
+            br
+            if layer2Viewable
+                //div(class='divider')
+                div(class='card-content layer-2', style='display: block; margin-left: 60px; margin-top: -30px')
+                    span(class='card-title' style="font-weight: bold") Dive deeper with these follow-up questions!
+                    //div(class='')
+                        br
+                        input(type='text' placeholder='Add your follow-up question here...' value='{{followup_answer hash}}' class='followupAnswerInput')
+                        button(type='button' class='waves-effect waves-light btn light-blue addL2Question') Add your question
+                        br
+                    each layer2Question in layer_2
+                        div(class='layer2QuestionCard' layer-id='#{layer2Question.layer_2_index}')
+                            span(class='card-title l2-old-question-display' style='font-size: 20px; font-weight: 500;') #{layer2Question.question}
+
+                            //div(class='layer2-edit' style='display: none;')
+                                div(class='input-field')
+                                    input(value='#{layer2Question.question}' id='#{_id}-#{layer2Question.layer_2_index}-edit-input' type='text' class='validate l2-question-edit-input' style='font-size: 20px;')
+                                    label(class='active control-label' for='#{_id}-#{layer2Question.layer_2_index}-edit-input') Edit this question
+                                    button(type='button' class='waves-effect waves-light btn light-blue darken-3 save-l2-question-edit' style='margin-bottom: 0px; text-transform:none;' data-editid='#{_id}-edit-input') Submit Edit
+                                    button(type='button' class='waves-effect waves-light btn grey darken-1 cancel-l2-question-edit' style='margin-bottom: 0px; text-transform:none;') Cancel
+
+                            //div(style='margin-bottom: 10px; margin-top: 5px;')
+                                span(class='oi edit-question edit-l2-question-btn', data-glyph='pencil') &nbsp;&nbsp;Edit this question
+
+                                span(class='oi edit-question view-l2-edit-history-btn', data-glyph="eye") &nbsp;&nbsp;View original question
+                                span(class='oi edit-question hide-l2-edit-history-btn', data-glyph="eye", style='display: none;') &nbsp;&nbsp;Hide original question
+                                br
+                                span(class='oi edit-question view-l2-edit-history-result old-l2-question-display' style='font-size: 22px; font-weight: 300; display: none; color: #000')
+
+                            div(class='layer2OptionCheck')
+                                each layer2QuestionOption in layer2Question.options
+                                    input(disabled class='with-gap followupOption' id='#{this.hash}-layer2-#{layer2QuestionOption.layer_2_index}-#{layer2QuestionOption.option_index}' type='checkbox')
+                                    label(for='#{this.hash}-layer2-#{layer2QuestionOption.layer_2_index}-#{layer2QuestionOption.option_index}' style='font-size: 12pt') #{layer2QuestionOption.option_text}
+                                        span(id='#{this.hash}-layer2-#{layer2QuestionOption.layer_2_index}-#{layer2QuestionOption.option_index}-label-stats' style='font-style: italic; color: #bdbdbd;')
+                                    br
+
+                            input(class='with-gap addFollowOptionChoiceCheckbox' id='#{this.hash}-#{layer2Question.layer_2_index}-followupAddOption' type='checkbox')
+                            //label(for='#{this.hash}-#{layer2Question.layer_2_index}-followupAddOption' style='font-size: 12pt; text-transform:none;' class="blue-text") Add your option
+                            br
+
+                            input(class='followUpAddOptionInput' type='text' placeholder='Add option here' style='display: none;')
+
+                            //button(type='button' class='addFollowOptionChoice' class='waves-effect waves-light btn light-blue' style='margin-bottom: 10px;') Add Your Option
+                            br
+                            //button(type='button' class='saveFollowOptionChoice' class='waves-effect waves-light btn light-blue darken-3' style='margin-bottom: 10px; margin-left: 0px; margin-right: 5px; text-transform:none;') Save my choice(s)
+                            button(type='button' class='saveFollowOptionChoice' class='waves-effect btn light-blue darken-3' style='margin-bottom: 10px; margin-left: 0px; margin-right: 5px; text-transform:none; display: none;') Save your option
+
+                            //button(type='button' class='skipFollowOptionChoice' class='waves-effect waves-light btn grey darken-1' style='margin-bottom: 10px;text-transform:none;') Skip
+                            br
+                            br
+                            div(class='divider')
+                            br
+
+                    //div(class='')
+                        input(type='text' placeholder='Add your follow-up question here...' value='{{followup_answer hash}}' class='followupAnswerInput')
+                        button(type='button' class='btn light-blue addL2Question') Add your question
+                        br
+                        //if layer2Submitted
+                        //    input(type='submit', class='waves-effect waves-light btn light-blue submit', value='Edit Response')
+                            //- input(type='button', class='waves-effect waves-light btn red skip', value='Skip')
+                        //else
+                        //    input(type='submit', class='waves-effect waves-light btn light-blue submit')
+                            //input(type='button', class='waves-effect waves-light btn red skip', value='Skip')
+                //else
+                //    div(class='card-content layer-2')
+                //        span(class='card-title') #{layer_2.text}
+                //        p(style='color: light-blue', class='layer2-answered')
+                //        div
+                //            input(type='text', placeholder='Type your answer here', value='{{followup_answer hash}}', class='followupAnswerInput')
+                //            if layer2Submitted
+                //                input(type='submit', class='waves-effect waves-light btn light-blue submit', value='Edit Response')
+                //                //- input(type='button', class='waves-effect waves-light btn red skip', value='Skip')
+                //            else
+                //                input(type='submit', class='waves-effect waves-light btn light-blue submit')
+                //                input(type='button', class='waves-effect waves-light btn red skip', value='Skip')
+                unless inQuestionPage
+                    div(class='card-action layer-3')
+                        span(class='card-title')
+                        a(href='/q/#{hash}', class='see-more card-title', style='font-weight: 300; color: #2196F3; text-transform: initial') Click here to join the discussion
+                        br
+                        span Latest Comment:
+                        span(style='display: inline-block; font-weight: 300; margin-top: 10px') #{firstComment}
+                div(class='modal confirm-delete', style='width: 500px')
+                    div(class='modal-content')
+                        p Are you sure about deleting this question?
+                    div(class='modal-footer')
+                        a(href='#', class="modal-action modal-close waves-effect waves-light-blue btn-flat confirm-delete-yes") Yes
+                        a(href='#', class="modal-action modal-close waves-effect waves-red btn-flat") No
+                br
+
+
+
+
+
+                div(class='divider')
+                br
+                if isCondition2or4or0or6or9or11
+                    span(class='card-title' style="font-weight: bold") Guess the mechanism!
+                    span Great Example
+                        a(href='#' id="mechExHelp" class="light-blue-text") (?)
+                    label(id="mechEx" class="timestamp animated fadeIn" style="font-size: 15px; display: none;") <br> Nasal allergies lead to dehydration, which might change the population of bacteria in the mouth, and possibly also the gut.
+                        br
+                else
+                    span(class='card-title' style="font-weight: bold") Add to the discussion!
+                //form(id="comment-form" class='comment-form')
+                    if isCondition2or4or0or6or9or11
+                        textarea(type='text', name='comment', class='comment materialize-textarea', placeholder='How is this question relevant to the gut microbiome? Add your own mechanism or improve upon the original mechanism proposed by the author!', required)
+                    else
+                        textarea(type='text', name='comment', class='comment materialize-textarea', placeholder='How is this question relevant to the gut microbiome? Add to the discussion and share your insights!', required)
+                    input(type='submit', value='Submit', class='btn light-blue')
+                //.divider
+
+
+                span(class='card-title')        
+                    each comments
+                        div(class="divClass" style="word-wrap: break-word;")
+                            //.card-content
+                            
+                            //if isUserExpert
+                            //if isExpertComment
+                                span(class="light-blue") &nbsp;written by #{this.owner.username}
+                            //else
+                                span &nbsp;written by #{this.owner.username} 
+                            div(style='margin-bottom: -50px;')
+                                span(class='timestamp' style='font-size: 11pt;') by
+                                span(class="blue-text" style='font-size: 12pt; font-weight: 400;') {{owner.username}}
+                                span(class='timestamp') {{livestamp created_at}} &nbsp;&nbsp; 
+                            br
+                            span(class='timestamp') {{pluralize 'Upvote' (upvote_count hashcode)}} 
+                                if upvoted hashcode
+                                    <i class="vote fa fa-thumbs-up fa-5x" style="cursor: pointer; color: #03A9F4;" aria-hidden="true"></i> 
+                                else
+                                    <i class="vote fa fa-thumbs-o-up fa-5x" style="cursor: pointer; color: grey;" aria-hidden="true"></i> 
+                                | | &nbsp;&nbsp;{{pluralize 'Downvote' (downvote_count hashcode)}} 
+                                if downvoted hashcode
+                                    <i class="vote fa fa-thumbs-down fa-5x" style="cursor: pointer; color: red;" aria-hidden="true"></i>
+                                else
+                                    <i class="vote fa fa-thumbs-o-down fa-5x" style="cursor: pointer; color: grey;" aria-hidden="true"></i> 
+                            br
+                            span(style="font-size: 17px") {{{text}}}
+                            br
+                            br
+                            //span(class='timestamp', style='font-size: 12pt') {{pluralize 'Upvote' (upvote_count hashcode)}} &nbsp; | &nbsp; {{pluralize 'Downvote' (downvote_count hashcode)}}
+                            div 
+                                if hasFile hashcode
+                                    a(class='targetFile' href='{{{attached_file}}}' target='_blank')
+                                        button(class='waves-effect waves-light btn light-blue' style='display: inline') View File
+                                if hasURL hashcode
+                                    a(class='targetURL' href='{{{attached_url}}}' target='_blank')
+                                        button(class='waves-effect waves-light btn light-blue' style='display: inline') Open URL
+
+                        //hide
+                            if upvoted hashcode
+                                button(class='waves-effect waves-light btn light-blue vote upvote') {{pluralize 'Upvote' (upvote_count hashcode)}}
+                            else
+                                button(class='waves-effect waves-light btn grey light-blue vote upvote') {{pluralize 'Upvote' (upvote_count hashcode)}}
+                            if downvoted hashcode
+                                button(class='waves-effect waves-light btn red vote downvote') {{pluralize 'Downvote' (downvote_count hashcode)}}
+                            else
+                                button(class='waves-effect waves-light btn grey red vote downvote') {{pluralize 'Downvote' (downvote_count hashcode)}}
+
+
+            // Rate form
+            //div(class="modal bottom-sheet rate-form")
+                div(class="modal-content" style="height: 100%;")
+                    span(style="font-size: 13pt; color: #9e9e9e;") Is this question..
+                    br
+                    br
+                    div(class='row' style='margin-bottom: 5px;')
+                        div(class='col s9' style='padding-top: 5px; padding-bottom: 5px;')
+                            span(style="font-size: 13pt; color: #424242;") Answerable?
+                            div(class='feedback' style='text-align: right;')
+                                span(id='guidecheck-#{index}-0-correct' style='color: #8bc34a; display: none;') Your choice is correct.
+                                span(id='guidecheck-#{index}-0-incorrect' style='color: #f44336; display: none;') Your choice is incorrect.
+
+                        div(class='col s3' style='padding-top: 5px; padding-bottom: 5px;')
+                        input(class='with-gap guide-option', name="#{index}-0" type="radio" id="guidecheck-#{index}-0-radio-0" personal-id="#{index}")
+                        label(for='guidecheck-#{index}-0-radio-0' style='font-size: 14pt; margin-right: 15px;') <i class="icon ion-checkmark-round"></i>
+                        input(class='with-gap guide-option', name="#{index}-0" type="radio" id="guidecheck-#{index}-0-radio-1" personal-id="#{index}")
+                        label(for='guidecheck-#{index}-0-radio-1' style='font-size: 14pt') <i class="icon ion-close-round"></i>
+
+                    div(class='row' style='background-color: #f5f5f5; margin-bottom: 5px;')
+                        div(class='col s9' style='padding-top: 5px; padding-bottom: 5px;')
+                            span(style="font-size: 13pt; color: #424242;") Definite? (has a clear timeframe)
+                            div(class='feedback' style='text-align: right;')
+                                span(id='guidecheck-#{index}-1-correct' style='color: #8bc34a; display: none;') Your choice is correct.
+                                span(id='guidecheck-#{index}-1-incorrect' style='color: #f44336; display: none;') Your choice is incorrect.
+
+                        div(class='col s3' style='padding-top: 5px; padding-bottom: 5px;')
+                        input(class='with-gap guide-option', name="#{index}-1" type="radio" id="guidecheck-#{index}-1-radio-0" personal-id="#{index}")
+                        label(for='guidecheck-#{index}-1-radio-0' style='font-size: 14pt; margin-right: 15px;') <i class="icon ion-checkmark-round"></i>
+                        input(class='with-gap guide-option', name="#{index}-1" type="radio" id="guidecheck-#{index}-1-radio-1" personal-id="#{index}")
+                        label(for='guidecheck-#{index}-1-radio-1' style='font-size: 14pt') <i class="icon ion-close-round"></i>
+
+                    div(class='row' style='margin-bottom: 5px;')
+                        div(class='col s9' style='padding-top: 5px; padding-bottom: 5px;')
+                            span(style="font-size: 13pt; color: #424242;") A link between a cause and an effect? (links an activity with a specific result)
+                            div(class='feedback' style='text-align: right;')
+                                span(id='guidecheck-#{index}-2-correct' style='color: #8bc34a; display: none;') Your choice is correct.
+                                span(id='guidecheck-#{index}-2-incorrect' style='color: #f44336; display: none;') Your choice is incorrect.
+
+                        div(class='col s3' style='padding-top: 5px; padding-bottom: 5px;')
+                        input(class='with-gap guide-option', name="#{index}-2" type="radio" id="guidecheck-#{index}-2-radio-0" personal-id="#{index}")
+                        label(for='guidecheck-#{index}-2-radio-0' style='font-size: 14pt; margin-right: 15px;') <i class="icon ion-checkmark-round"></i>
+                        input(class='with-gap guide-option', name="#{index}-2" type="radio" id="guidecheck-#{index}-2-radio-1" personal-id="#{index}")
+                        label(for='guidecheck-#{index}-2-radio-1' style='font-size: 14pt') <i class="icon ion-close-round"></i>
+
+                    div(class='row' style='background-color: #f5f5f5; margin-bottom: 5px;')
+                        div(class='col s9' style='padding-top: 5px; padding-bottom: 5px;')
+                            span(style="font-size: 13pt; color: #424242;") Operational? (Terms are specific and unambiguous)
+                            div(class='feedback' style='text-align: right;')
+                                span(id='guidecheck-#{index}-3-correct' style='color: #8bc34a; display: none;') Your choice is correct.
+                                span(id='guidecheck-#{index}-3-incorrect' style='color: #f44336; display: none;') Your choice is incorrect.
+
+                        div(class='col s3' style='padding-top: 5px; padding-bottom: 5px;')
+                        input(class='with-gap guide-option', name="#{index}-3" type="radio" id="guidecheck-#{index}-3-radio-0" personal-id="#{index}")
+                        label(for='guidecheck-#{index}-3-radio-0' style='font-size: 14pt; margin-right: 15px;') <i class="icon ion-checkmark-round"></i>
+                        input(class='with-gap guide-option', name="#{index}-3" type="radio" id="guidecheck-#{index}-3-radio-1" personal-id="#{index}")
+                        label(for='guidecheck-#{index}-3-radio-1' style='font-size: 14pt') <i class="icon ion-close-round"></i>
+
+                    div(class='row' style='margin-bottom: 5px;')
+                        div(class='col s9' style='padding-top: 5px; padding-bottom: 5px;')
+                            span(style="font-size: 13pt; color: #424242;") Simple? (Does not have multiple factors wrapped in)
+                            div(class='feedback' style='text-align: right;')
+                                span(id='guidecheck-#{index}-4-correct' style='color: #8bc34a; display: none;') Your choice is correct.
+                                span(id='guidecheck-#{index}-4-incorrect' style='color: #f44336; display: none;') Your choice is incorrect.
+
+                        div(class='col s3' style='padding-top: 5px; padding-bottom: 5px;')
+                        input(class='with-gap guide-option', name="#{index}-4" type="radio" id="guidecheck-#{index}-4-radio-0" personal-id="#{index}")
+                        label(for='guidecheck-#{index}-4-radio-0' style='font-size: 14pt; margin-right: 15px;') <i class="icon ion-checkmark-round"></i>
+                        input(class='with-gap guide-option', name="#{index}-4" type="radio" id="guidecheck-#{index}-4-radio-1" personal-id="#{index}")
+                        label(for='guidecheck-#{index}-4-radio-1' style='font-size: 14pt') <i class="icon ion-close-round"></i>
+                    button(href="#" class="modal-action modal-close red btn rate-submit" style="top:5px;bottom:5px;transform:scale(.80);") Submit Rating
+                    

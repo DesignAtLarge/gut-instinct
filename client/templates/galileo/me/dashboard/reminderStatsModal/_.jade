@@ -1,0 +1,88 @@
+template(name="gaReminderStatsModal")
+    div.modal.modal-fixed-footer(id="reminder-stats-modal")
+
+        div(style="color:rgba(0,0,0,.54);background:rgba(0,0,0,.03); padding:15px;")
+            h4.left-align
+                | Statistics for
+                span.blue-text.text-darken-2 Day {{day}}/7
+                | of your experiment
+
+
+        div.modal-content.reminder-stats
+
+            div.row
+                div.col.s12
+                    ul.tabs(style="background-color:transparent; border-bottom:1px solid gainsboro; color:gray")
+                        li.tab: a.active(href="#cause-stats") Stats for Cause Reminder
+                        li.tab: a(href="#effect-stats") Stats for Effect Reminder
+
+                div#cause-stats.class.col.s12
+                    div
+                        p
+                            span.big.reminder-responded 21/30
+                            | participants have
+                            span.reminder-responded replied
+                            | to
+                            strong Cause [{{cause}}]
+                            | reminder and provided their data
+
+                        p
+                            span.big.reminder-not-received 6/30
+                            | participants
+                            span.reminder-not-received will soon receive
+                            | the
+                            strong Cause [{{cause}}]
+                            | reminder based on their time zones
+
+
+                        p
+                            span.big.reminder-not-responded 3/30
+                            | participants have
+                            span.reminder-not-responded not yet replied
+                            | to
+                            strong Cause [{{cause}}]
+                            | reminder
+
+
+                div#effect-stats.class.col.s12
+                    div
+                        p
+                            span.big.reminder-responded 20/30
+                            | participants have
+                            span.reminder-responded replied
+                            | to
+                            strong Effect [{{effect}}]
+                            | reminder and provided their data
+
+                        p
+                            span.big.reminder-not-received 5/30
+                            | participants
+                            span.reminder-not-received will soon receive
+                            | the
+                            strong Effect [{{effect}}]
+                            | reminder based on their time zones
+
+
+                        p
+                            span.big.reminder-not-responded 5/30
+                            | participants have
+                            span.reminder-not-responded not yet replied
+                            | to
+                            strong Effect [{{effect}}]
+                            | reminder
+
+            blockquote.warning
+                div
+                    | Great work!
+                    span.accent 70%
+                    | of your participants have collected their data! Remind the remaining participants to respond to the reminders they missed and provide their data.
+                    br
+                    br
+                    | Remember, to run a successful experiment, at least 90% of the participants should provide their data on time.
+                br
+                a.btn.send-reminder-btn REMIND PARTICIPANTS
+
+            div(style="height:80px;color:transparent;width: 100%;")
+
+        div.modal-footer
+                a.gray-text(class="modal-action modal-close btn-flat") Close

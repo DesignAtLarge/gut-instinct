@@ -1,0 +1,77 @@
+template(name='gutboard')
+    +header
+    |{{init}}
+    div(class='container content gutboard')
+        div(data-step='1', data-intro='Welcome to GutBoard! To move to next step of this tour, click "next" or press right arrow key. To move to previous step, click "Back" or press left arrow key. Don\'t forget to click on other links in the green bar above - we have a lot in store for you!' , data-position='right')
+            h2 Questionboard: Straight from the Gut 
+            span How do your Gut Instincts compare to others?
+            //- p Add your questions. Share your insights in discussions. Click on tags to learn more!
+            br
+            //p(style='font-size: 14pt; font-weight: 300; text-transform: uppercase; margin-bottom: 0') Questionboard
+            span (To see all questions in one list, click 
+                a(href='/gutboard?s=4', class='tab-link', id='all-questions') here
+                |)
+            br
+            span(style='font-size: 18pt; color: #8bc34a; font-weight: 300; margin-bottom: 0') The most popular questions every week receive feedback from experts!
+        br
+        br
+        //- .row
+        //-     div(class='col s12')
+        ul(class='tabs', data-step='20', data-intro='A question will be moved to different tab once you answered or discussed. Please explore through appropriate tabs to see other questions. If you don\'t see any tabs higlighted, then all questions are being displayed', data-position='right')
+            li(class='tab col s3')
+                a(href='#', id='contribute', class='tab-link light-green-text') Unanswered! ({{qlength 0}})
+            li(class='tab col s3')
+                a(href='#', id='discussed', class='tab-link light-green-text') Discussed ({{qlength 1}})
+            li(class='tab col s3')
+                a(href='#', id='answered',class='tab-link light-green-text') Answered ({{qlength 2}})
+            li(class='tab col s3')
+                a(href='#', id='mine', class='tab-link light-green-text') Written ({{qlength 3}})
+            div(class="indicator light-green" style="z-index:1")
+        div(class='questions')
+            each questions
+                if qaccept hash
+                    +qmodule
+        a(href='/test', class='waves-effect waves-light btn light-green guttest-button', style='margin-top: 25px') All right! Take me to Gut Test now
+
+
+        div(class='addbar card', data-step='7' data-intro='Here at Gutboard you can add your own question(s)!', data-position='right')
+            form
+                //h3 Add your question here! 
+                //br
+                span(style='font-size: 18pt; color: #8bc34a; font-weight: 300; margin-bottom: 0') Most popular questions every week receive feedback from experts!
+                br
+                span(style='font-size: 18pt; color: #8bc34a; font-weight: 300; margin-bottom: 0') Add your question here. 
+                br    
+                span
+                    b "Yes/No" Question
+                    //- br
+                    //- i People will respond with yes/no
+                input(type='text', id='primary_question', name='primary_question', placeholder='sample: Do you eat probiotic yogurt?', required, data-step='80' data-intro='Start by adding a "yes/no" question. For example, "Have frequently do you eat probiotic yogurt?"', data-position='right')
+                div(class='bubble bubble-left hint-layer1') Think of interesting questions that are personally relevant to you! What's your gut feeling? (hint: using timeframes in your questions improves quality of responses!)
+                span
+                    b Follow-up Question (if answer is "yes")
+                input(type='text', id='followup_question', name='followup_question', placeholder='sample: If so, does it help your digestion?', required, data-step='90' data-intro='Please add a follow-up question when other citizen scientists would answer "yes" to your question.', data-position='right')
+                div(class='bubble bubble-left hint-layer2') Remember, you're a scientist! Many crazy ideas have led to amazing discoveries, esp for gut microbiome. Think of personal experience or folk theories, and see if others have similar experiences!
+                span
+                    b Tags
+                input(type='text', id='tags_entry', name='tags_entry', placeholder='sample: #diet #probiotics', required, data-step='100' data-intro='Add appropriate, broad tags to reach most people! Tags are separated by a spacebar', data-position='right')             
+                span
+                    b Start Discussion
+                textarea(id='start_discussion', required, class='materialize-textarea', name='start_discussion', placeholder='Start your discussion here.', data-step='110' data-intro='Let other citizen scientists and researchers help you answer your question. Start a discussion that will get them interested. Share something personal and useful :-)', data-position='right')
+                div(class='bubble bubble-left hint-layer3') Think about how this question affects you or even people around you: your friends, family. Sharing details will also allow others to respond with useful, detailed replies! Don't shy away from providing links to articles/blogs/scienctific articles/papers - the world's your oyster!
+                br
+                input(type='submit', class='waves-effect waves-light btn light-green', data-step='120' data-intro='When you are done, click this Submit button', data-position='right')
+                button(type='button', class='waves-effect waves-light btn red addq-clear') Clear
+
+
+
+        div(class='modal', id='q-moved', style='width: 500px')
+            div(class='modal-content')
+                p Your question has been moved to ANSWERED tab
+            div(class='modal-footer')
+                a(href='#', class=" modal-action modal-close waves-effect waves-light-green btn-flat") Close
+        div(class='modal', id='confirm-add', style='width: 500px')
+            div(class='modal-content')
+                p Your question has been added to WRITTEN tab
+            div(class='modal-footer')
+                a(href='#', class=" modal-action modal-close waves-effect waves-light-green btn-flat") Got It!

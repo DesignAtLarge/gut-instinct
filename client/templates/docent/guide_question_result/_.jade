@@ -1,0 +1,31 @@
+template(name='guide_question_result')
+    if isIntroCompleted
+        +header
+    else
+        +header_gray getProgressData
+    //+header
+    | {{init hashcode}}
+
+    div(class='container content gutboard' style='max-width: 700px;')
+        div
+            h3(class='light-blue-text text-darken-4') <i class="fa fa-list-ul" aria-hidden="true" style="font-size: 1em;"></i> Docent Guide 
+            h5(class='light-blue-text text-darken-4') Learn how to ask expert-like questions
+            br
+            //h5(class='light-blue-text text-darken-4' data-step='1' data-intro='Just rate some questions based on what you\'ve learnt in the the previous step. When you\'re done, submit your response at the bottom to see expert response!') Step 2 of 3: Critique real questions
+            //br
+            nav(class='light-blue darken-4' style='position: static;')
+                .nav-wrapper(class='light-blue darken-4' style='margin-left: 20px;')
+                    .col.s12
+                        //a.breadcrumb(href='/guide') Welcome
+                        a.breadcrumb(href='/guide_question') Step 1: Learn about great questions
+                        a.breadcrumb(href='#!') Step 2: Critique real questions
+    
+        div(class='card-content layer-1')
+            div(class='questions')
+                each training_questions
+                    +guide_question_module
+                    //a(href='/gutboard')
+        br
+        br
+        
+        button(class='waves-effect waves-light btn light-blue submit-personal-question disabled' id='submit-addq-button' data-step='3' data-intro='Once you have completed every step, you will be able to finish the guide!') Step 3: Add your question

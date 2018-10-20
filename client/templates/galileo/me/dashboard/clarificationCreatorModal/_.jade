@@ -1,0 +1,53 @@
+template(name="gaClarificationCreatorModal")
+    div.modal(id="creator-clarification-modal")
+
+        div(style="color:rgba(0,0,0,.54);background:rgba(0,0,0,.03); padding:15px;")
+            h4.left-align
+                | Clarification for 
+                span.blue-text.text-darken-2 {{title}}
+
+        div.modal-content.reminder-stats
+            div.card(style='padding: 15px') 
+                span(style="font-size: 20px")
+                    u 
+                        |  Example of Clarifying Question
+                br
+                div(style='padding:15px')
+                    a Participant: 
+                    span How long is the period of the experiment, and, I suppose there's no way to do 9pm-11pm instead?
+                    p(style="margin: 0px;") July 3, 2018
+                div.divider(style="margin-bottom:10px; width: 90%; margin: auto")
+                div(style='padding:15px')
+                    a Participant: 
+                    span (instead of 6-8pm, which is when I go to the gym)
+                    p(style="margin: 0px;") July 3, 2018
+                div.divider(style="margin-bottom:10px; width: 90%; margin: auto")
+                div(style='padding:15px')
+                    a Creator: 
+                    span Please try to stick to the times as much as possible. Thank you.
+                    p(style="margin: 0px;") July 4, 2018
+
+            each c in getOngoingClarifications
+                div.card
+                    br
+                    span(style="font-size: 16px")&nbsp;&nbsp;&nbsp;&nbsp; #[b Question] {{c.index}}
+                    br
+                    div(style='padding:15px')
+                        a {{c.author_name}}: &nbsp;
+                        span {{c.question}}
+                        p(style="margin: 0px; font-size: 12px;") {{c.create_time}}
+                    div.divider(style="margin-bottom:10px; width: 90%; margin: auto")
+                    if c.resolved
+                        div(style='padding:15px')
+                            a {{c.creator}}: &nbsp;
+                            span {{c.answer}}
+                            p(style="margin: 0px; font-size: 12px;") {{c.resolve_time}}
+                        div.divider(style="margin-bottom:10px; width: 90%; margin: auto")
+                    else 
+                        div(class='card-content layer-1')
+                            form#submit-comment-form
+                                //input#comment-input(type="text" placeholder="Add overall review comments here...")
+                                textarea.textarea(id="creator-clarification-input-{{c.index}}" required placeholder="Note clarification here..." index="{{c.index}}")
+                                button.btn.light-blue.addBtn( style="margin-bottom: -100px," exp-id="{{expId}}" id="creator-answer-btn-{{c.index}}" index="{{c.index}}") Add Clarification
+        div.modal-footer
+            a.gray-text(class="modal-action modal-close btn-flat") Close

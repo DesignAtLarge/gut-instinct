@@ -1,0 +1,8 @@
+template(name="gaMeNotificationItem")
+    div.notification-item-outer
+        div.badge-holder
+            unless notification.read
+                div.badge
+        a.notification-item(href="#" data-id="{{notification._id}}" data-url="{{notification.url}}")
+            p {{notification.message}}
+            p(style="margin-top: -10px; color: rgba(150, 150, 150, 1)") {{livestamp notification.post_time}}

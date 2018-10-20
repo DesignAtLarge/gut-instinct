@@ -1,0 +1,16 @@
+template(name="gaExperimentFeedbackItem")
+    div.ga-exp-comment(id="comment-#{feedback._id}")
+        div.info
+            span Posted {{livestamp feedback.date_time}}
+            span by
+            a(href="#") #{feedback.username}
+            span :
+        div.comment-content #{feedback.content}
+        div.score
+            a.up-vote(href="#")
+                i(class="fa #{upvoteClass}")
+                span #{upvoteAmount}
+            span |
+            a.down-vote(href="#") 
+                i(class="fa #{downvoteClass}")
+                span #{downvoteAmount}

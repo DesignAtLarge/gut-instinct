@@ -1,0 +1,107 @@
+template(name='problems')
+    +header
+    | {{init}}
+    div(class='container content tag')
+        div(class='problem-score')
+            .card
+                .card-content
+                    span(class='card-title') Score
+                    br
+                    span(style='font-size: 16pt;') #{score.numeric}/#{possible_total_score}
+                    br
+                    span
+                        b Note:
+                        span(style='font-weight: 300') You can see more questions tomorrow
+        .tag-content
+            each questions
+                if isFirstElement
+                    div(class='card', data-step='6', data-intro='Each of these boxes represent a problem. You can submit your answer multiple times, but you get maximum 4 attempts per question (except true-and-false, you will get 2 attempts for that question). This is true for all questions on this page. You can attempt all.', data-position='right')
+                        .card-content
+                            span(class='card-title problem-title') #{question}
+                            |#{saveHashcode}
+                            if answered_tag_question hashcode
+                                each answered_tag_question hashcode
+                                    if is_correct
+                                        p(id='#{hashcode}-feedback', class='problem-feedback', style='color: #4CAF50') Correct. Attempted {{attempts hashcode}} times.
+                                    else
+                                        p(id='#{hashcode}-feedback', class='problem-feedback', style='color: #F44336') Incorrect. Attempted {{attempts hashcode}} times.
+                            else
+                                p(class='#{hashcode}-feedback')
+                            if usedAllAttempts hashcode
+
+                                each choices
+                                    if chose hashcode index
+                                        input(class='with-gap', name="#{hashcode}" type="radio" id="#{hashcode}-#{index}", checked, disabled)
+                                    else
+                                        input(class='with-gap', name="#{hashcode}" type="radio" id="#{hashcode}-#{index}", disabled)
+                                    label(for='#{hashcode}-#{index}') #{text} 
+                                    br
+                            else
+                                each choices
+                                    if chose hashcode index
+                                        input(class='with-gap', name="#{hashcode}" type="radio" id="#{hashcode}-#{index}", checked)
+                                    else
+                                        input(class='with-gap', name="#{hashcode}" type="radio" id="#{hashcode}-#{index}")
+                                    label(for='#{hashcode}-#{index}') #{text} 
+                                    br
+                            br
+                            if usedAllAttempts hashcode
+                                button(class='waves-effect waves-light btn light-green answer-learn-question disabled', disabled) Submit
+                            else
+                                button(class='waves-effect waves-light btn light-green answer-learn-question') Submit
+                        if usedAllAttempts hashcode
+                            .divider
+                            div(class='card-action', data-step='7', data-intro='Once you answered this question correctly or have used all attempts, you will see the link that will lead you to discussion page for this question.', data-position='right')
+                                a(href='/p/#{hashcode}', class='light-blue-text card-title', style='font-weight: 300; color: #2196F3; text-transform: initial') Click here to discuss about this question
+                else
+                    div(class='card')
+                        .card-content
+                            span(class='card-title problem-title') #{question}
+                            |#{saveHashcode}
+                            if answered_tag_question hashcode
+                                each answered_tag_question hashcode
+                                    if is_correct
+                                        p(id='#{hashcode}-feedback', class='problem-feedback', style='color: #4CAF50') Correct. Attempted {{attempts hashcode}} times.
+                                    else
+                                        p(id='#{hashcode}-feedback', class='problem-feedback', style='color: #F44336') Incorrect. Attempted {{attempts hashcode}} times.
+                            else
+                                p(class='#{hashcode}-feedback')
+                            //- p
+                            if usedAllAttempts hashcode
+                                each choices
+                                    if chose hashcode index
+                                        input(class='with-gap', name="#{hashcode}" type="radio" id="#{hashcode}-#{index}", checked, disabled)
+                                    else
+                                        input(class='with-gap', name="#{hashcode}" type="radio" id="#{hashcode}-#{index}", disabled)
+                                    label(for='#{hashcode}-#{index}') #{text} 
+                                    br
+                            else
+                                each choices
+                                    if chose hashcode index
+                                        input(class='with-gap', name="#{hashcode}" type="radio" id="#{hashcode}-#{index}", checked)
+                                    else
+                                        input(class='with-gap', name="#{hashcode}" type="radio" id="#{hashcode}-#{index}")
+                                    label(for='#{hashcode}-#{index}') #{text} 
+                                    br
+                            //- each choices
+                            //-     if chose hashcode index
+                            //-         if usedAllAttempts hashcode
+                            //-             input(class='with-gap', name="#{hashcode}" type="radio" id="#{hashcode}-#{index}", checked, disabled)
+                            //-         else
+                            //-             input(class='with-gap', name="#{hashcode}" type="radio" id="#{hashcode}-#{index}", checked)
+                            //-     else
+                            //-         if usedAllAttempts hashcode
+                            //-             input(class='with-gap', name="#{hashcode}" type="radio" id="#{hashcode}-#{index}", disabled)
+                            //-         else
+                            //-             input(class='with-gap', name="#{hashcode}" type="radio" id="#{hashcode}-#{index}")
+                                
+                            br
+                            if usedAllAttempts hashcode
+                                button(class='waves-effect waves-light btn light-green answer-learn-question disabled', disabled) Submit
+                            else
+                                button(class='waves-effect waves-light btn light-green answer-learn-question') Submit
+                        if usedAllAttempts hashcode
+                            .divider
+                            .card-action
+                                a(href='/p/#{hashcode}', class='light-blue-text card-title', style='font-weight: 300; color: #2196F3; text-transform: initial') Click here to discuss about this question
+            a(href='/topics', class='waves-effect waves-light btn light-green') I'm done! Let's go to topics page

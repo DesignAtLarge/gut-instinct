@@ -1,0 +1,12 @@
+template(name="gaOrderedList")
+    div.ordered-list-holder
+        ol.ordered-list(id=id)
+            each item in array
+                li.ordered-list-item
+                    div.ordered-list-item-container
+                        input.ordered-list-input(value=item.value data-id=item.index)
+                        button.ordered-list-delete
+                            i.fa.fa-times
+        button.btn.ordered-list-add.light-blue(class="{{#if addDisabled}}disabled{{/if}}")
+            i.fa.fa-plus
+            | Add Step

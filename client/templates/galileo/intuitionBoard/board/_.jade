@@ -1,0 +1,74 @@
+template(name="gaIntuitionBoard")
+    +gaNavbar
+    main#ga-main
+        div.wrapper
+            h4.board-header
+                if showStep
+                    span.light-blue-text.text-darken-2 Step 2: 
+                |Intuition Board
+            
+            if showStep
+                p(style="font-size: 18px") Great work! You have an intuition to test.. 
+                    | Next steps will guide you with 
+                    | identifying cause and effect variables, 
+                    | creating a sheet to track the variables, and
+                    | creating an experiment plan
+                    | (Remember, you can create experiments for as many intuitions as you like.)
+            
+            p(style="font-size: 18px") Select an intuition to design an experiment. You can always create as many intuitions and expeirment designs!
+            
+            div.add-intuition-frame
+                div.add-intuition-btn
+                    h6.blue-text Add a new intuition
+                        i.fa.fa-angle-down(style="font-size: 20px; margin-left: 20px;")
+                form.add-intuition-form#intuition-form-1(style="display: none")
+                    div.row
+                        div.col.s6
+                            label(style='font-size: 16px; font-weight: 400; color: black;') Intuition:
+                            input(id="intuition-input-1" type='text' placeholder="Please Enter Your Intuition Here" required)
+                        div.col.s6
+                            label(style='font-size: 16px; font-weight: 400; color: black;') Tags:
+                            input(id="intuition-tags-1" type='text' placeholder="#sleep #diet ..." required)
+                    div.row
+                        div.col.s12
+                            label(style='font-size: 16px; font-weight: 400; color: black;') Mechanism:
+                            textarea(id='intuition-mechanism-1', required, style='font-size: 15px', class='materialize-textarea', name='start_discussion', placeholder='Guess the mechanism(s) here.')
+                    center
+                        button.btn.blue#intuition-input-btn-1(type="submit") Add Your Intuition
+            
+            if hasIntuition
+                div#tag-filter(style="margin-top: 20px; line-height: 50px;")
+                    span(style="font-size: 16px; margin-right: 20px;") 
+                        i.fa.fa-filter(style="margin-right: 10px;")
+                        | Click on Tags to filter intuitions: 
+                    each tag in tags
+                        span.tag.filter-tag #{tag}
+            
+            if hasIntuition
+                ul#intuition-board
+                    each intuition in intuitions
+                        +gaIntuitionBoardItem(id=intuition._id intuition=intuition.intuition username=intuition.username date=intuition.insert_date tags=intuition.tags mechanism=intuition.mechanism)
+            else
+                center
+                    p Empty Intuition Board
+            
+                    
+            div.add-intuition-frame
+                div.add-intuition-btn
+                    h6.blue-text Add a new intuition
+                        i.fa.fa-angle-down(style="font-size: 20px; margin-left: 20px;")
+                form.add-intuition-form#intuition-form-2(style="display: none")
+                    div.row
+                        div.col.s6
+                            label(style='font-size: 16px; font-weight: 400; color: black;') Intuition:
+                            input(id="intuition-input-2" type='text' placeholder="Please Enter Your Intuition Here" required)
+                        div.col.s6
+                            label(style='font-size: 16px; font-weight: 400; color: black;') Tags:
+                            input(id="intuition-tags-2" type='text' placeholder="#sleep #diet ..." required)
+                    div.row
+                        div.col.s12
+                            label(style='font-size: 16px; font-weight: 400; color: black;') Mechanism:
+                            textarea(id='intuition-mechanism-2', required, style='font-size: 15px', class='materialize-textarea', name='start_discussion', placeholder='Guess the mechanism(s) here.')
+                    center
+                        button.btn.blue#intuition-input-btn-2(type="submit") Add Your Intuition
+                    

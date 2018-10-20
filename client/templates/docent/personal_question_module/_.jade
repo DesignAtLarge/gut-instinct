@@ -1,0 +1,19 @@
+template(name='personal_question_module')
+    div(class='card qmodule cardquestion', question-hash='#{hashcode}', question-id='#{_id}')
+
+        div(id="personal-q#{cluster}" class='card-content layer-1')
+            span(class='card-title') #{question}
+            br
+            each choices
+                div(class='question-each-option-personal')
+                    input(class='with-gap', name="#{cluster}" type="checkbox" id="tag-#{cluster}-answer-#{index}" personal-id="#{index}")
+                    label(for='tag-#{cluster}-answer-#{index}' style='font-size: 11pt') #{text}
+                br
+
+            //other field for user to input name="#{cluster}" --> radio
+            div
+                input(class='with-gap personal-extra-option', name="#{cluster}" type="checkbox" id="tag-#{cluster}-answer-extra" personal-id="#{cluster}-extra")
+                label(for='tag-#{cluster}-answer-extra' style='font-size: 11pt; font-style: italic;') Add your own option
+                div(id="tag-#{cluster}-answer-extra-text" style="display: none")
+                    input(id="tag-#{cluster}-answer-extra-text-text" placeholder="Add your option here" style='font-size: 11pt;' data-extra-for="tag-#{cluster}-answer-extra")
+                    button(id='tag-#{cluster}-personal-option' type='button' class='waves-effect waves-light btn blue darken-2 addPersonalOption' ) ADD

@@ -1,0 +1,20 @@
+template(name="gaEthicsDemo")
+
+    +gaNavbar
+
+    div.container.galileo(style="margin-top: 50px;")
+
+        div.loading(style="display: none")
+            .preloader-wrapper.big.active
+                .spinner-layer.spinner-blue-only
+                    .circle-clipper.left
+                        .circle
+                    .gap-patch
+                        .circle
+                    .circle-clipper.right
+                        .circle
+
+        div(class='card qmodule')
+            div(class='card-content layer-1')
+                //+cardLayout(heading="Provide criteria for your experiment participants" nextDisabled=nextDisabled hideNav=true)
+                +gaEthics(nextOnly=true nextButtonText="Submit")

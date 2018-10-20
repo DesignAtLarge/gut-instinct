@@ -1,0 +1,55 @@
+template(name='gaCreateMain')
+    
+    +gaNavbar
+    
+    div.container.galileo(style="margin-top: 50px;")
+    
+        h4.board-header(style="margin-bottom: 20px") 
+            if showStep
+                span.light-blue-text.text-darken-2 Step 3:
+            |Experiment Design
+    
+        div.loading(style="display: none")
+            .preloader-wrapper.big.active
+                .spinner-layer.spinner-blue-only
+                    .circle-clipper.left
+                        .circle
+                    .gap-patch
+                        .circle
+                    .circle-clipper.right
+                        .circle
+
+        nav.light-blue.darken-4(style='position:relative; z-index:0; text-align:left')
+            div.nav-wrapper#breadcrumb-nav
+                div.container(style="width: 95%")
+                    each phase in phases
+                        a.breadcrumb.light-blue.darken-4(class="{{#if isLaterPhase phase}}hide{{/if}}" id="breadcrumb-{{phase.id}}" style="margin-left: 2px;")
+                            if isCurrentPhase phase
+                                | Phase {{phase.text}} - {{phase.description}}
+                            else
+                                | {{phase.text}}
+                    img(style="float: right; height: 36px; margin-top: 14px;" src="/images/galileo-flask-white.png")
+
+        div.progress.blue.lighten-5
+            div.determinate.blue.darken-2(style="width: #{progress}%")
+
+        div(class='card qmodule')
+            div(class='card-content layer-1')
+                
+                // Phase 0 start
+                +gaWelcomeCard(cardId="1")
+                +gaEthics(cardId="2")
+                
+                // Phase 1 start
+                +gaHypothesis(cardId="3" stepnumber="1.1" expId=expId designId=designId intuition=intuition cause=cause relation=relation effect=effect)
+                +gaIdentifyVariables(cardId="4" stepnumber="1.2" designId=designId variablesIdentified=variablesIdentified)
+                +gaMeasureCause(cardId="5" stepnumber="1.3" designId=designId cause=cause causeMeasureType=causeMeasureType causeMeasureFrequency=causeMeasureFrequency causeMeasureTime=causeMeasureTime)
+                +gaMeasureEffect(cardId="6" stepnumber="1.4" designId=designId effect=effect effectMeasureType=effectMeasureType effectMeasureFrequency=effectMeasureFrequency effectMeasureTime=effectMeasureTime)
+                +gaSummary(cardId="7" stepnumber="1.5" cause=cause relation=relation effect=effect causeMeasureType=causeMeasureType causeMeasureFrequency=causeMeasureFrequency causeMeasureTime=causeMeasureTime effectMeasureType=effectMeasureType effectMeasureFrequency=effectMeasureFrequency effectMeasureTime=effectMeasureTime)
+                
+                // Phase 2 start
+                +gaCreateControlIntro(cardId="8" stepnumber=" 2.1" heading="Create a controlled experiment" )
+                +gaCriteria(cardId="9" stepnumber="2.2" designId=designId inclusionCriteria=inclusionCriteria exclusionCriteria=exclusionCriteria)
+                +gaCondition(cardId="10" stepnumber="2.3" heading="Control and Experimental Conditions" designId=designId hypothesis=hypothesis controlCondition=controlCondition experimentalCondition=experimentalCondition controlSteps=controlSteps experimentalSteps=experimentalSteps)
+                +gaSummary2(cardId="11" stepnumber="2.4" heading="Experiment Design Summary" designId=designId)
+                +gaCreateFinish(cardId="12" heading="Congratulations!" heading="Experiment Created" expId=expId intuition=intuition)

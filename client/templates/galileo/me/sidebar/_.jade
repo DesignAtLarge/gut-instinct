@@ -1,0 +1,151 @@
+template(name="gaMeSidebar")
+    button.waves-effect.waves-light.btn.light-blue.hide#show(style="top: 85px; left: 30px") Show Sidebar
+    div#ga-sidebar
+        ul
+            button.waves-effect.waves-light.btn.light-blue#hide(style="left: 30px") Hide Sidebar
+            li
+                p
+                    i.fa.fa-flask
+                    | My Galileo
+                ul
+                    li
+                        a(href="/galileo/me/dashboard")
+                            i.fa.fa-tachometer
+                            | Dashboard
+            li
+                p 
+                    i.fa.fa-cubes
+                    | My Experiments
+                ul#experiment-lists
+                    //- li
+                    //-     a.more-info.explist-a#all-exp-btn(href="#" data-href="/galileo/browse" data-target="fa-question-circle-1")
+                    //-         i.fa.fa-list
+                    //-         | #[b My Experiments]
+                    //-         i.help.fa.fa-question-circle.tooltipped#fa-question-circle-1(data-target="all-exp-help" href="" style="display:none" data-position="right" data-tooltip="View all experiments designed by Galileo members")
+                    //-     //div.help-target.hide#all-exp-help
+                    //-         | View all experiments designed by Galileo members
+                    //-     hr
+                    li
+                        a.more-info.explist-a#ongoing-exp-btn(href="#" data-target="fa-question-circle-10")
+                            i.fa.fa-hourglass-2
+                            | Ongoing Experiment
+                            if isLoaded
+                                if showOngoingExps
+                                    span.new.badge.blue.navbarBadges(style="margin-left: 48px;" data-badge-caption="") {{ongoingExps}} 
+                            i.help.fa.fa-question-circle.tooltipped#fa-question-circle-10(data-target="ongoing-exp-btn" href="" style="display:none" data-position="right" data-tooltip="View your current ongoing experiment")                    
+                    li
+                        a.more-info.explist-a#readyToRun-exp-btn(href="#" data-target="fa-question-circle-5")
+                            i.fa.fa-calendar-minus-o
+                            | Ready-to-run Experiments
+                            if isLoaded
+                                if showReadyToRunExps
+                                    span.new.badge.blue.navbarBadges(style="margin-left: 8px;" data-badge-caption="") {{readyToRunExps}} 
+                            i.help.fa.fa-question-circle.tooltipped#fa-question-circle-5(data-target="readyToRun-exp-btn" href="" style="display:none" data-position="right" data-tooltip="View experiments that are waiting for starting")
+                    li
+                        a.more-info.explist-a#underReview-exp-btn(href="#" data-target="fa-question-circle-6")
+                            i.fa.fa-commenting
+                            | Under-review Experiments
+                            if isLoaded
+                                if showUnderReviewExps
+                                    span.new.badge.blue.navbarBadges(style="margin-left: 5px;" data-badge-caption="") {{underReviewExps}} 
+                            i.help.fa.fa-question-circle.tooltipped#fa-question-circle-6(data-target="underReview-exp-btn" href="" style="display:none" data-position="right" data-tooltip="View experiments that are under reviewing")
+                    li
+                        a.more-info.explist-a#unfinished-exp-btn(href="#" data-href="/galileo/me/unfinished_experiments" data-target="fa-question-circle-2")
+                            i.fa.fa-clone
+                            | Incomplete Experiments
+                            if isLoaded
+                                if showUnfinishedExps
+                                    span.new.badge.blue.navbarBadges(style="margin-left: 22px;" data-badge-caption="") {{unfinishedExps}}
+                            i.help.fa.fa-question-circle.tooltipped#fa-question-circle-2(data-target="unfinished-exp-help" href="" style="display:none" data-position="right" data-tooltip="View experiments that you've designed partially")
+                        //div.help-target.hide#unfinished-exp-help
+                            | View experiments that you've designed partially
+                    li
+                        a.more-info.explist-a#completed-exp-btn(href="#" data-target="fa-question-circle-11")
+                            i.fa.fa-check-square-o
+                            | Completed Experiments
+                            if isLoaded
+                                if showCompletedExps
+                                    span.new.badge.blue.navbarBadges(style="margin-left: 22px;" data-badge-caption="") {{completedExps}}                                
+                            i.help.fa.fa-question-circle.tooltipped#fa-question-circle-11(data-target="completed-exp-help" href="" style="display:none" data-position="right" data-tooltip="View experiments that you've run completely")
+                        //div.help-target.hide#created-exp-help
+                            | View experiments that you've run completely
+                    li
+                        a.more-info.explist-a#created-exp-btn(href="#" data-href="/galileo/me/created_experiments" data-target="fa-question-circle-3")
+                            i.fa.fa-folder-open-o
+                            | All Experiments
+                            if isLoaded
+                                if showCreatedExps
+                                    span.new.badge.blue.navbarBadges(style="margin-left: 80px;" data-badge-caption="") {{createdExps}}
+                            i.help.fa.fa-question-circle.tooltipped#fa-question-circle-3(data-target="created-exp-help" href="" style="display:none" data-position="right" data-tooltip="View experiments that you've designed completely")
+                        //div.help-target.hide#created-exp-help
+                            | View experiments that you've designed completely
+            li
+                p 
+                    i.fa.fa-check-circle
+                    | My Contributions
+                ul#experiment-lists
+                    //- li
+                    //-     a.more-info.explist-a#contributions-btn(href="#" data-href="/galileo/browse" data-target="fa-question-circle-7" style="font-size:17px;")
+                    //-         i.fa.fa-check-circle
+                    //-         | #[b My Contributions]
+                    //-         i.help.fa.fa-question-circle.tooltipped#fa-question-circle-7(data-target="contributions-btn" href="" style="display:none" data-position="right" data-tooltip="View all your contributions to other's experiments")
+                    //-     //div.help-target.hide#all-exp-help
+                    //-         | View all your contributions to other's experiments
+                    li
+                        a.more-info.explist-a#reviewing-exp-btn(href="#" data-href="/galileo/me/reviewing_experiments" data-target="fa-question-circle-4")
+                            i.fa.fa-comments-o
+                            | Reviewing Experiments
+                            if isLoaded
+                                if showReviewingExps
+                                    span.new.badge.blue.navbarBadges(style="margin-left: 30px;" data-badge-caption="") {{reviewingExps}}
+                            i.help.fa.fa-question-circle.tooltipped#fa-question-circle-4(data-target="reviewing-exp-help" href="" style="display:none" data-position="right" data-tooltip="View experiments that you are reviewing")
+                        //div.help-target.hide#reviewing-exp-help
+                            | View experiments that you are reviewing
+                    if showPilot
+                        li
+                            a.more-info.explist-a#piloting-exp-btn(href="#" data-href="/galileo/me/pilot_experiments" data-target="fa-question-circle-5")
+                                i.fa.fa-paper-plane-o
+                                | Piloting Experiments
+                                i.help.fa.fa-question-circle.tooltipped#fa-question-circle-5(data-target="piloting-exp-help" href="" style="display:none" data-position="right" data-tooltip="View experiments that you are piloting")
+                            //div.help-target.hide#piloting-exp-help
+                                | View experiments that you are piloting
+                    li
+                        a.more-info.explist-a#participating-exp-btn(href="#" data-href="/galileo/me/participating_experiments" data-target="fa-question-circle-7")
+                            i.fa.fa-plane
+                            | Participating Experiments
+                            if isLoaded
+                                if showParticipatingExps
+                                    span.new.badge.blue.navbarBadges(style="margin-left: 30;" data-badge-caption="") {{participatingExps}}
+                            i.help.fa.fa-question-circle.tooltipped#fa-question-circle-7(data-target="participating-exp-help" href="" style="display:none" data-position="right" data-tooltip="View experiments that you are participating in")
+                        //div.help-target.hide#participating-exp-help
+                            | View experiments that you are participating in
+            li
+                p 
+                    i.fa.fa-user
+                    | Account
+                ul
+                    li
+                        a(href="/galileo/me/notification")
+                            i.fa.fa-envelope
+                            | Notifications
+                    li
+                        a(href="/galileo/me/profile")
+                            i.fa.fa-id-card
+                            | Edit My Profile
+                    //- li
+                    //-     a(href="/galileo/me/password")
+                    //-         i.fa.fa-unlock-alt
+                    //-         | Change Password
+                    li
+                        a#logout(href="#" style="color: rgba(228, 0, 0, 1) !important")
+                            i.fa.fa-sign-out
+                            | Log out
+            //li
+                p
+                    i.fa.fa-lightbulb-o
+                    | Intuitions
+                ul
+                    li
+                        a(href="/galileo/me/intuitions")
+                            i.fa.fa-file-o
+                            | My Intuitions

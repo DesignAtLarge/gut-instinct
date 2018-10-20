@@ -1,0 +1,129 @@
+template(name="gabWhyExpKombucha")
+    +gaNavbar
+
+    main#ga-main
+        div.galileo(style="text-align:left;")
+            h2 How can the Kombucha community scientifically test their ideas?
+
+            div(style="margin-top:40px;") The Kombucha community has intuitions about how drinking this tasty fermented drink affects their health. Does drinking kombucha really lead to a healtheir gut and better digestion? Does it help people sleep better at night? 
+
+            br
+            h4 People's tracking can yield incorrect/incomplete results
+
+            div(style="margin-top:20px;") To test such intuitions, people often make some changes in their lifestyle, and then observe the effects of those changes. For example, consider Janet, who thinks that her habit of drinking a glass of Kombucha every morning improves her energy levels throughout the day. To test this, she switches to not drinking kombucha for a week and tracks how she feels every day. But her measurements show that she's actually getting more done after avoiding Kombucha! Janet realises that there could be many factors that could be affecting her energy levels - she could’ve been staying up late binge watching that latest show, or she might have been eating different food, or it could be that she increased her soda intake which has high amounts of caffeine.
+
+            div(style="margin-top:20px;") Such unsystematic tracking activities often yield incorrect results that can be frustrating. #[i So what could Janet do to know for sure that drinking Kombucha could really help improve her daily energy levels?]
+
+            br
+            h4 Galileo enables running an experiment
+
+            div.workflow-section  
+                //h4.center-align Galileo is extremely easy to use..
+                    br
+                    br
+                div.row.center-align
+                    div.col.m3.s12
+                        img.responsive-img(src="/images/galileo/design/intuition.png" style="padding:30px;")
+                        h5(style="height:50px; margin-bottom:20px") Start with an intuition
+                        //p Lorem 
+
+                    div.col.m3.s12
+                        img.responsive-img(src="/images/galileo/design/designexp1.png" style="padding:30px;")
+                        h5(style="height:50px; margin-bottom:20px") Design an experiment
+                        //p Lorem 
+
+                    div.col.m3.s12
+                        img.responsive-img(src="/images/galileo/design/feedback.png" style="padding:30px")
+                        h5(style="height:50px; margin-bottom:20px") Peers review your experiment
+                        //p Lorem 
+
+                    div.col.m3.s12
+                        img.responsive-img(src="/images/galileo/design/runexp.png" style="padding:30px;")
+                        h5(style="height:50px; margin-bottom:20px") Participate and see the results!
+                        //p Lorem 
+
+
+            div(style="margin-top:20px;") Scientists and researchers have intuitions and ideas too, and they run systematic, controlled experiments to test their ideas. But does that mean that only researchers with a PhD can run experiments and test their ideas? Not at all! 
+
+            br
+            h4 An example of community led experimentation
+
+            div(style="margin-top:20px;") In 2008 a community of 160 ALS patients came together and ran their own experiment to support research about their ailment! Learn about their inspiring story here -
+
+            div.container(style="margin-top:30px;margin-bottom:30px")
+                iframe(src="https://player.vimeo.com/video/149413987" width='100%' height='350' frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen)
+
+            div(style="margin-top:20px;") Now imagine if passionate communities like Kombucha drinkers had the tools and support to test their ideas through experimentation. There are many people that already collect vast amounts of data about their lives. Nudging these tremendous efforts towards running scientific experiments can enable anyone to run their own research!
+
+            br
+            h4 Help us understand your needs
+
+            div.card(style="padding:30px;margin-top:40px;margin-bottom:40px;")
+
+                div: i If this idea excites you, you’ll love what’s coming next! In the coming weeks, Dr. Adriana Grativol, in collaboration with #[a(href="https://galileo-ucsd.org/galileo/home") Galileo], will organize online activities that will help you learn more about the effect of Kombucha through experimentation.
+
+                div(style="margin-top:20px;"): i If you’re interested, you can join us and help us plan these activities better by answering the following questions:
+                    br
+                    br
+                    iframe(src="https://docs.google.com/forms/d/e/{{form}}/viewform?embedded=true" width="100%" height="800" frameborder="0" marginheight="0" marginwidth="0") Loading...
+                //ul.variable-checklist(style="list-style: none; padding-left:30px")
+                //    li(style="margin-bottom:10px;")
+                //        input.check(style="float: right" type="checkbox" class="filled-in" id="option1")
+                //        label(for="option1" class="blue-text text-darken-2")
+                //            span I’m interested in running my own experiments with the community
+                //    li(style="margin-bottom:10px;")
+                //        input.check(style="float: right" type="checkbox" class="filled-in" id="option2")
+                //        label(for="option2" class="blue-text text-darken-2")
+                //            span I’m interested in participating in others’ experiments
+                //    li(style="margin-bottom:10px;")
+                //        input.check(style="float: right" type="checkbox" class="filled-in" id="option3")
+                //        label(for="option3" class="blue-text text-darken-2")
+                //            span I’m interested in helping others design experiments
+
+                //div Don't miss out on updates about these activities:
+                //p
+                    .row(style="margin-left:15px")
+                        .col.s9
+                            input.text.validate#interestedEmail(type="email" placeholder="Enter your email here ..." style="padding-left:10px; height:36px; margin-bottom:-15px")
+                            //label(for="interestedEmail" data-error="wrong" data-success="right")
+                        .col.s3(style="padding-left: 0px")
+                            a.waves-effect.waves-light.btn.light-blue#submitBtn(style="padding-right:15px; padding-left:15px") Submit
+                                i.material-icons.prefix.left email
+
+            div.action-section.container
+                br
+                div.row
+                    div.col.m2
+                    div.col.m8.s12
+                        a.waves-effect.waves-light.white-text.z-depth-3.light-blue.darken-4.hoverable.modal-trigger#designExp(style="padding:25px; border-radius:6px; text-align:center; width:100%; ") Answer questions about your health!
+                    div.col.m2
+
+
+        div#sign-in-modal.modal
+            div.modal-content
+                h4 Please sign in to continue
+            div.modal-footer
+                a.blue-text(href="/galileo/signup" class="modal-action modal-close btn-flat") Sign In
+                a.gray-text(class="modal-action modal-close btn-flat") Cancel
+
+        //div.divider(style="margin:30px 0px;")
+        //footer.page-footer(style="background-color:#C69214")
+        footer.page-footer(style="background-color:#ffffff")
+            div.container
+                //h5.white-text Powered by
+                h5 Powered by
+                br
+                div.row
+                    div.col.s12.m3
+                        a(href="http://americangut.org/" target="_blank")
+                            img(src="/images/logos/footer-agut.png" height="70")
+                    div.col.s12.m3
+                        a(href="https://knightlab.ucsd.edu/" target="_blank")
+                            img(src="/images/logos/footer-knight.png" height="70")
+                    div.col.s12.m3
+                        a(href="http://designlab.ucsd.edu/" target="_blank")
+                            img(src="/images/logos/footer-dlab.png" height="70")
+                    div.col.s12.m3
+                        a(href="https://www.openhumans.org/" target="_blank")
+                            img(src="/images/logos/openhuman.png" height="70")
+                br

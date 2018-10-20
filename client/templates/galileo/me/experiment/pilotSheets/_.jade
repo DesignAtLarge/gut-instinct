@@ -1,0 +1,38 @@
+template(name="gaMeExperimentPilotSheets")
+    +gaMeExperimentMaster(id=id section=section)
+        h5.section-header Pilot Tracking Sheets
+        ul#pilot-sheets-version-list
+            each version in versions
+                +gaMeExperimentPilotSheetVersion(index=version.index designId=version.designId)
+        
+template(name="gaMeExperimentPilotSheetVersion")
+    li.version.card
+        h6.version-header.light-blue-text.text-darken-4 Version {{index}}:
+        div.sheets
+            div.sheet-outer
+                +gaMeExperimentPilotSheet(designId=designId group=0)
+            div.sheet-outer
+                +gaMeExperimentPilotSheet(designId=designId group=1)
+        
+template(name="gaMeExperimentPilotSheet")
+    div.sheet
+        h6.sheet-header.light-blue-text.text-darken-4
+            if isControlGroup
+                | Control
+            else
+                | Experimental
+            | Group {{dateTime}}
+        if hasPilot
+            p Tracking Sheet Table:
+            table.sheet-table
+                tr
+                    td Date
+                    td Cause
+                    td Effect
+                each day in days
+                    tr
+                        td {{day.date}}
+                        td {{day.cause}}
+                        td {{day.effect}}
+        else
+            p No Ongoing Pilot right now

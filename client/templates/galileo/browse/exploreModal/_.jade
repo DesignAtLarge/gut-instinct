@@ -1,0 +1,154 @@
+template(name="gaExploreModal")
+    div#explore-item-modal.modal.galileo-long-modal
+        div.modal-content
+            h4.center-align #{experimentObjective}
+            br
+            h5.center-align Choose 
+                span(style="color:red;") one 
+                if showPilot
+                    |of three roles below for this experiment
+                else 
+                    |of two roles below for this experiment
+            br
+            div.row.center-align
+                if showPilot
+                    div.col.m4
+                        a.btn#reviewerBtn Reviewer
+                    div.col.m4
+                        a.btn#pilotBtn Pilot User
+                    div.col.m4
+                        a.btn#participantBtn Participant
+                else
+                    div.col.m6
+                        a.btn#reviewerBtn Reviewer
+                    div.col.m6
+                        a.btn#participantBtn Participant
+            br
+
+            div#reviewerContent.hide
+                //p
+                    | Almost every experiment design has issues in its early versions.
+                    | As a reviewer, you will improve the experiment design by answering questions about it, providing candid and useful feedback, and clear, actionable suggestions .
+                h6.center-align Provide feedback to improve the experiment design so it can be run successfully
+                div.card(style="padding: 5px 20px 5px 20px;")
+                    br
+                    h6 As a reviewer:
+                    ul
+                        li
+                            i.fa.fa-check.green-text &nbsp; &nbsp;
+                            span I will provide useful feedback on all aspects of this experiment so the creator can run a successful experiment.  Useful feedback includes pointing out issues and providing clear, actionable suggestions.
+                            //including …
+                            //ul(style="margin-left:40px")
+                                li ... the experiment hypothesis
+                                li ... cause & effect variables
+                                li ... inclusion & exclusion criteria
+                                li ... instructions for participants
+                        li
+                            i.fa.fa-check.green-text &nbsp; &nbsp;
+                            span I will discuss the experiment with other reviewers and the creator in the comments section
+                        //li
+                            i.fa.fa-check.green-text &nbsp; &nbsp;
+                            span You will answer review questions about the experiment
+                        br
+                        li
+                            i.fa.fa-times.red-text &nbsp; &nbsp;
+                            span I cannot reveal any details about the experiment to the experiment participants
+                        li
+                            i.fa.fa-times.red-text &nbsp; &nbsp;
+                            span I cannot pilot this experiment since I already know the experiment's objective and details 
+                        li
+                            i.fa.fa-times.red-text &nbsp; &nbsp;
+                            span I cannot participate in this experiment since I already know the experiment's objective and details 
+                    p Gut Instinct’s “Review” interface has been designed to provide you detailed guidance.
+                           
+
+            if showPilot
+                div#pilotParticipantContent.hide
+                    if showNotOpenForPilot
+                        h6.center-align.red-text Sorry, the creator of this experiment hasn't opened it for pilot right now"
+                        br
+                    else
+                        h6.center-align Test this experiment by acting as a real participant
+                    div.card(style="padding: 5px 20px 5px 20px;")
+                        br
+                        h6 As a Pilot user :
+                        ul
+                            li
+                                i.fa.fa-check.green-text &nbsp; &nbsp;
+                                span I will participate in the experiment just like a real participant for 1 or 2 days by following the exact instructions and providing experimental data
+                            //li
+                                i.fa.fa-check.green-text &nbsp; &nbsp;
+                                span I will provide clear, actionable feedback 
+                                ul(style="margin-left:40px")
+                                    li ... providing data for cause and effect variables
+                                    li ... noting specific parts that were unclear
+                            li
+                                i.fa.fa-check.green-text &nbsp; &nbsp;
+                                span I will answer questions and provide detailed comments to ensure that the creator can improve the experiment to remove any run-time issues
+                            br
+                            li
+                                i.fa.fa-times.red-text &nbsp; &nbsp;
+                                span I cannot reveal any details about the experiment to other pilot or experiment participants because it might bias them
+                            li
+                                i.fa.fa-times.red-text &nbsp; &nbsp;
+                                span I cannot participate in this experiment because I already know how the experiment works
+                                //span: u why?
+
+            div#participantContent.hide
+                if isEnded
+                    h6.center-align.red-text Sorry, this experiment has concluded.
+                    br
+                else if isRunning
+                    h6.center-align.red-text Sorry, this experiment has already begun.
+                    br
+                else
+                    h6.center-align Participate in this experiment to contribute your data along with other Galileo users
+                div.card(style="padding: 5px 20px 5px 20px;")
+                    br
+                    h5 Find out if you meet the criteria to join this experiment
+                    br
+                    div
+                        b
+                            | Please select all the items that apply to you. 
+                        span These criteria give a sense of what may occur in the experiment.
+
+                    if isCriteriaLoading
+                        p Loading ...
+                    else
+                        p(style="margin-bottom: 0px;") You:
+                        ul(style="list-style-type: none;")
+                            each item in inclusion
+                                li
+                                    input.filled-in.criteria-item(class='checkbox-blue' type="checkbox" id="inc-criteria-{{item.index}}")
+                                    label(for="inc-criteria-{{item.index}}") {{item.content}}
+
+                            br
+                            each item in exclusion
+                                li
+                                    input.filled-in.criteria-item(class='checkbox-blue' type="checkbox" id="exc-criteria-{{item.index}}")
+                                    label(for="exc-criteria-{{item.index}}") {{item.content}}
+
+                    p If you pass the eligibility criteria to participate in this experiment, then you will be automatically assigned to one of the conditions. Click Proceed As A Participant to know!
+
+            if showNotOpenForWaitlist
+                h6.center-align.red-text You may add yourself to a waitlist and we'll notify you when this experiment is ready to run again!
+
+            else if showNotOpenForPilot
+                h6.center-align.red-text Sorry, the creator of this experiment hasn't opened it for pilot right now"
+
+            br
+            div#proceedDiv.row.hide
+                div.col.m4.center-align
+                    a.btn(class="modal-action modal-close btn-flat") Cancel
+                div.col.m4.center-align
+                    if showNotOpenForPilot
+                        a.btn.light-blue.disabled#proceedBtn Proceed as a #{selectedRole}
+                    else if showNotOpenForWaitlist
+                        h6.center-align.red-text 
+                        a.btn.light-blue#proceedBtn Proceed to Waitlist
+                    else
+                        a.btn.light-blue#proceedBtn(style="line-height:23pt; height: auto;") Proceed as a #{selectedRole}
+
+        //div.modal-footer
+        //    a.blue-text(href="/galileo/signup" class="modal-action modal-close btn-flat") Proceed With Review
+        //    a.gray-text(class="modal-action modal-close btn-flat") Cancel

@@ -1,0 +1,430 @@
+template(name="gaExperimentInstructions")
+    +cardLayout(heading="Provide explicit steps for participants to follow" cardId=cardId nextDisabled=nextDisabled timeStamp=timeStamp type=type designId=getDesignId)
+        span(class='card-title' style='font-size: 28px; font-weight: 100;')
+                | Step 1: Identify Experimental and Control groups in your experiment
+
+        div.step1-intro(style="padding:20px;")
+            br
+            p(style="font-size: 18px")
+                | For your experiment, you will create two groups:
+            ol(style="font-size: 18px;")
+                li 
+                    strong Experimental group
+                    |: Participants alter their behavior to try your intervention
+                li 
+                    strong Control group
+                    |: Participants continue with usual/standard behavior (think of it as the baseline)
+            +exampleLayout
+                ol(style="font-size: 18px;")
+                    li
+                        ul
+                            li 
+                                strong Hypothesis
+                                | : Drinking coffee decreases quality of sleep
+                            li 
+                                strong Experimental group
+                                | : Participants drink caffeinated coffee
+                            li 
+                                strong Control group
+                                | : Participants drink decaffeinated coffee
+                    li(style="margin-top: 20px")
+                        ul
+                            li 
+                                strong Hypothesis
+                                | : Running in the morning increases energy levels 
+                            li 
+                                strong Experimental group
+                                | : Participants run for 30 mins in the morning
+                            li 
+                                strong Control group
+                                | : Participants do a light walk for 30 mins in the morning
+            
+            span(class='card-title' style='font-size: 18px; font-weight: 100;') To learn more, watch this 2min video from Clinical and Translational Research Institute at UC San Diego to better understand control and experimental groups (also called conditions) (Recommended)!
+            +gaVideoLearnLayoutInstructions(videoTitle="Experimental vs Control Group" videoUrl="https://www.youtube.com/embed/RMlHnky-N6Y" videoSrc="https://youtube.com/embed/watch?v=RMlHnky-N6Y")
+
+
+            p(style="font-size: 18px;") Your #[strong Hypothesis]:
+                span.light-blue-text.darken-4#condition-hypothesis #{cause} #{relation} #{effect}
+
+            //#{hypothesis}
+            br
+            //ul#condition-form
+            ul
+                //li.condition
+                li
+                    p(style="font-size: 18px; ") Your 
+                        strong Experimental Group:
+                    input.condition-input#experimental-input(type="text" placeholder="Please type your experimental condition here (E.g. Participants drink coffee)" value="{{experimentalCondition}}")
+                    //p(style="font-size: 18px; ") Please specify what are the steps that the users need to do in experimental condition:
+                    br
+                    //+gaOrderedList(id="experimental-condition-step" array=experimentalSteps)                                
+                li
+                    p(style="font-size: 18px; ") Your 
+                        strong Control Group:
+                    input.condition-input#control-input(type="text" placeholder="Please type your control condition here (E.g. Participants do not drink coffee)" value="{{controlCondition}}")
+                    //p(style="font-size: 18px") Please specify what are the steps that the users need to do in control condition:
+                    //br
+                    //+gaOrderedList(id="control-condition-step" array=controlSteps)
+                //li.condition
+            //div.why
+                span(class='card-title' style='font-size: 18px; font-weight: 100; font-weight: bold')
+                        | Why create two groups?               
+                p(style='font-size: 18px; font-weight: 100;') Having a control group provides a baseline to compare your interventions' effects. Without a control group there won't be a way to know whether your intervention makes things better/worse or keeps them the same.
+                //ol(style="font-size: 18px;")
+                    li
+                        ul
+                            li 
+                                strong Hypothesis
+                                | : Drinking coffee decreases quality of sleep
+                            li 
+                                strong Control group
+                                | : Participants drink decaffeinated coffee
+                            li 
+                                strong Experimental group
+                                | : Participants drink caffeinated coffee
+                    li(style="margin-top: 20px")
+                        ul
+                            li 
+                                strong Hypothesis
+                                | : Running in the morning increases energy levels         
+                p(style='font-size: 18px; font-weight: 100;') Moreover, participants will be placed
+                    | #[b randomly]
+                    | in these two groups.
+                br
+                span(class='card-title' style='font-size: 18px; font-weight: 100; font-weight: bold')
+                    | Why are participants randomly placed in groups? Why can't I or a participant decide their group?
+                p(style='font-size: 18px; font-weight: 100;') Randomly placing people in control/experimental groups helps prevent systemic bias where participants/researcher (you!) might choose a condition based on your feelings, introduced consciously or unconsciously, about the experiment. Randomization evenly spreads any remaining (and possibly unknown) potential causes of the outcome between the experimental and control groups. 
+                br
+                p(style='font-size: 18px; font-weight: 100;') People who join your experiment might want your hypothesis to be true or false based on their personal needs and beliefs. Putting people in these two groups randomly enables you to argue that any effect seen is due to your intervention and not because of people's beliefs or faith in it,
+                br
+            //span(class='card-title' style='font-size: 18px; font-weight: 100; font-weight: bold') Randomized Controlled Trials, aka RCTs (described above), are considered the gold standard of scientific knowledge creation. 
+                span.blue-text.text-darken-2(style='font-weight: bold') Following the idea of RCTs increases the chances that your experimental results will be considered more credible!
+            a.btn.light-blue.darken-4#proceedToStep2-btn(href="#" class="{{#if hideProceedToStep2}}hide{{/if}}{{#if noGroups}}disabled{{/if}}") Proceed
+
+        hr(style="border-width:0.5px;border-style:dashed;border-color:gray;")
+        br
+        br
+
+        div.step2-addsteps(class="{{#if hideStep2}}hide{{/if}}")
+            span(class='card-title' style='font-size: 28px; font-weight: 100;')
+                | Step 2. Provide steps to follow for your participants
+
+            span(class='card-title' style='font-size: 24px; font-weight: 100;')
+                | Your experiment will run for 7 days.
+
+            div(style="padding:20px;")
+                div.examples
+                    //div
+                    //span(class='card-title' style='font-size: 30px; font-weight: 100;')
+                        | Step 2. Create your experimental steps (using examples and guidance)
+                    //div.why2
+                        span(class='card-title' style='font-size: 18px; font-weight: 100; font-weight: bold;')
+                            | Why should I create concrete steps? Won't participants figure it out?
+                        ol(style="font-size: 18px;")
+                            li
+                                strong Responsibility
+                                |: As a scientist, you are responsibile for providing clear instructions to participants that they can follow without any confusion.
+                            li
+                                strong Correctness
+                                |: Participants in a group (control or expeirmental) should follow identical steps. Providing no steps or vague steps will lead to people doing different things which destroys your experiment's credibility.
+                            li
+                                strong Replicability
+                                |: If your experiment turns out to be a hit, then other citizens or researchers might want to assess and replicate your expeiriment! Providing explicit instructions and experimental steps help you go one step beyond by enabling them to do so.
+                            li
+                                strong Avoid wasting resources
+                                |: Not providing explicit instructions might lead to a wrong or failed experiment. Poorly designed experiments almost certainly fail leading to waste of time, effort, and other resources.
+                            li
+                                strong Avoid wasting resources
+                                |: Not providing explicit instructions might lead to a wrong or failed experiment. Poorly designed experiments almost certainly fail leading to waste of time, effort, and other resources.
+                    //p(style='font-size: 18px; font-weight: 100;') ""The key requirements, whatever the design, are that the study is described in enough detail so that it can be assessed and, in principle, replicated by others. Studies that are poorly designed or built on a foundation of false or misleading data are at best useless and a waste of resources. At worst, they can cause setbacks and even direct harm if actions are taken on the basis of inaccurate information.”" ---  "If you’re lucky, someone else may want to re-run your experiment in the future. It is up to you to make sure this is possible by using a good methodology and describing it adequately" -- Repetition of your experiment.. -- "How the drug will be given to patients and at what dosage" -- how will the thing be offered to people..
+                    //br
+                    //span(class='card-title' style='font-size: 20px; font-weight: 100;') Remember, the control condition has steps that follow the existing norm. In the case of drinking coffee, this might be just normal behavior associated with drinking coffee.
+                    //span Teach about placebo == ?????
+                    +exampleLayout(title="Learn from examples")
+                        span(class='card-title' style='font-size: 18px; font-weight: 100;')  If an experiment is studying how drinking coffee might increase the feeling of bloatedness, varying the cause (which is drinking coffee) is an option. So, people in experimental group will drink coffee, and people in control group can either drink less coffee or skip drinking coffee entirely and drink water instead.
+                        br
+                        .row
+                            .col.s6(style="border-right: 1px solid #DDD;")
+                                p
+                                    strong Experimental Group Preparatory Steps
+                                ol
+                                    li
+                                        | {{getExamples "8-4-0"}}
+                            .col.s6(style="border-right: 1px solid #DDD;")
+                                p
+                                    strong Control Group Preparatory Steps
+                                ol
+                                    li
+                                        | {{getExamples "8-5-0"}}
+                        .row
+                            .col.s6(style="border-right: 1px solid #DDD;")
+                                p
+                                    strong Experimental Group Steps
+                                ol
+                                    li
+                                        | {{getExamples "8-1-1"}}
+                                    li
+                                        | {{getExamples "8-1-2"}}
+                                    li
+                                        | {{getExamples "8-1-3"}}
+                                    li
+                                        | {{getExamples "8-1-4"}}
+                                    li
+                                        | {{getExamples "8-1-5"}}
+
+                            .col.s6(style="border-right: 1px solid #DDD;")
+                                p
+                                    strong Control Group Steps
+                                ol
+                                    li
+                                        | {{getExamples "8-0-0"}}
+                                    li
+                                        | {{getExamples "8-0-1"}}
+                                    li
+                                        | {{getExamples "8-0-2"}}
+                                    li
+                                        | {{getExamples "8-0-3"}}
+                                    li
+                                        | {{getExamples "8-0-4"}}
+
+                    br
+
+                //div.minimal(class="{{#if hideMinimal}}hide{{/if}}")
+
+                    br
+
+                    span(class='card-title' style='font-size: 32px; font-weight: 100;')
+                    | Lessons about creating expeirmental steps
+
+                    span(class='card-title' style='font-size: 24px; font-weight: 100;')
+                        | Select conditions appropriately to maximize differences
+                    br
+                    p Control and experimental conditions should be reasonable but also enable you an improved chance to see a difference
+                    p For example, an experiment that compares people's bowel movements after eating bread might  -- need to bring our the point of white bread vs brown bread AND bread vs no bread -- which effect might be easier to see and which one of those might be easier for people to participate in
+                    br
+                    p one kind of greens over others..
+                    br
+                    p teaching about effect size -- " If the expected effect is small, the sample must be larger. This might seem counterintuitive, but think of it this way: The smaller the expected effect, the greater the number of observations that are required to detect it from the surrounding noise with the desired statistical confidence." -- just assume so.
+                    br
+                    br
+                    span(class='card-title' style='font-size: 24px; font-weight: 100;')
+                        | Both conditions differ in only one step
+                    p Why differ in just one step? care is taken to have a minimal-pairs experimental design, where the two conditions vary in only one dimension. Conditions that vary in multiple ways prevent ascertaining cause. -- Things are all the same and differ ONLY in 1 variable
+                    br
+
+                    span(class='card-title' style='font-size: 20px; font-weight: 100;') To run the experiment successfully, all your participants need to know exactly what to do. Your control participants will follow same identical set of instructions, while your experimental participants will follow another identical set of identical instructions.
+                    br
+
+                    span(class='card-title' style='font-size: 20px; font-weight: 100;') However, Conditions that vary in multiple ways prevent ascertaining cause. Hence, Gut Instinct enforces a #[b minimal-pairs experimental design], where the two conditions (control and experimental) vary in only one dimension. This implies that control and experimental group participants will perform identical steps except one step that alters the cause for them. For example look at the control and experimental details for an experiment that studies the effect of coffee on quality of sleep and has the hypothesis, "#[b Drinking more than 3 cups of coffee decreases quality of sleep]"
+                    br
+
+                    //+gaVideoLearnLayout(videoTitle="Learn more -Your Experiments#3 - Creating experimental steps (aka procedure)" videoUrl="https://www.youtube.com/embed/-UNpQ8kQfBM" videoSrc="coursera.org/learn/designexperiments")
+                    span(class='card-title' style='font-size: 20px; font-weight: 100;') Similarly, to run your experiment successfully, participants need to know exactly what to do. Define specific instructions for the participants to follow below and highlight which step differs for the two cases
+                    br
+                    a.btn.light-blue.darken-4#steps-btn(href="#" class="{{#if hideProceedSteps}}hide{{/if}}{{#if noIntuition}}disabled{{/if}}") Proceed
+                    br
+
+
+                div
+                    span(id="exp_experimental_steps" class='card-title' style='font-size: 24px; font-weight: 100;')
+                        | Add steps for the Experimental group :
+                        span.light-blue-text.darken-4 #{experimentalCondition}
+
+                    //- span(class='card-title' style='font-size: 18px; font-weight: 100; opacity:0.7;') Remember, the experimental group gets the changed treatment (cause). It should differ from Control group in just one step.
+                    br
+                    +checklist(id='Expinstructions' checklistItems=expGroupInstructions)
+
+                    
+                    a.btn.light-blue.darken-4#exp-prepsteps-btn(href="#" class="{{#if hideProceedPrepsteps}}hide{{/if}}{{#if noIntuition}}disabled{{/if}}") Proceed
+                
+                br
+                div(class="{{#if hidePrepsteps}} hide {{/if}}")
+                    span(id="exp_prep_steps" class='card-title' style='font-size: 24px; font-weight: 100;')
+                        | Define how participants in the 
+                        | #[b Experiment Group] could prepare in advance to easily follow your instructions while the experiment is running.
+                    br
+                    +checklist(id="Prepinstructions" checklistItems=expGroupPrepInstructions)
+                    br
+                    a.btn.light-blue.darken-4#control-steps-btn(href="#" class="{{#if hideProceedControlsteps}}hide{{/if}}{{#if noIntuition}}disabled{{/if}}") Add steps for the experimental group
+                    br
+                    
+                div(class="{{#if hideControlSteps}}hide{{/if}}")
+                    span#exp_control_steps(class='card-title' style='font-size: 24px; font-weight: 100;')
+                        | Add steps for the Control group :
+                        span.light-blue-text.darken-4 #{controlCondition}
+                        br
+                        br
+
+                    +checklist(id='Controlinstructions' checklistItems=controlGroupInstructions)
+
+                    a.btn.light-blue.darken-4#control-prepsteps-btn(href="#" class="{{#if hideProceedControlPrepsteps}}hide{{/if}}{{#if noIntuition}}disabled{{/if}}") Proceed
+
+                br
+                div(class="{{#if hideControlPrepsteps}} hide {{/if}}")
+                    span(id="control_prep_steps" class='card-title' style='font-size: 24px; font-weight: 100;')
+                        | Define how participants in the 
+                        | #[b Control Group] could prepare in advance to easily follow your instructions while the experiment is running.
+                    br
+                    +checklist(id="ControlPrepinstructions" checklistItems=controlGroupPrepInstructions)
+
+                    a.btn.light-blue.darken-4#checklist-btn(href="#" class="{{#if hideProceedChecklist}}hide{{/if}}{{#if noIntuition}}disabled{{/if}}") Check your steps
+                br
+                    
+
+
+            hr(style="border-width:0.5px;border-style:dashed;border-color:gray;")
+        br
+
+        div.checklist(class="{{#if hideChecklist}}hide{{/if}}")
+            //div    
+            br
+            span(class='card-title' style='font-size: 28px; font-weight: 100;')
+                | Step 3. Increase your odds of success using our #[i Expert Checklist]
+
+            div(style="padding:20px;")
+                p(style="font-size: 18px; font-weight: 100;") Before proceeding, you #[b must] ensure your experiment meets the following criteria to increase the chances of running a safe and successful experiment
+                br
+
+                p(style='font-weight: bold; font-size: 20px;') Your experiment must provide the simplest way to test your hypothesis
+                    ul.variable-checklist.browser-default(style="list-style: none")
+
+                        // vineet -todo - pull #{hypo} from everywhere..
+                        //#{cause}  #{relation}
+                            span.text-darken-2 #{relation}
+                            span.text-darken-2 #{effect}
+                        li
+                            input.check(style="float: right" type="checkbox" class="filled-in" id="cause-minimal-check")
+                            label(for="cause-minimal-check" class="blue-text text-darken-2" style='font-size: 20px; font-weight: 100; font-color: black')
+                                span #[b Minimal pairs]: The experimental steps in the two conditions should differ in only one step. Your experiment should strictly manipulate only one behavior for a
+                                    a.helpbtn(href="#" id="help-#{cardId}-minimal" style="border-width:0px 0px 1px 0px; border-style:solid") true minimal pairs experiment
+                                        i.fa.fa-question-circle(aria-hidden="true")
+                                br
+                                +helpLayout(cardId=cardId helpId="minimal" title="Your experiment should strictly manipulate only one behavior, not two or more." learnLink="")
+                                    p #[b Example hypothesis]: Lack of exercise increases weight
+                                    p #[b Cause]: Lack of exercise
+                                    p #[b Effect]: Weight gain
+                                    p If you ask participants in the control group to stop exercising AND also to sleep later - they might sneak out for a midnight snack, thereby increasing their weight. You cannot find out which of these two factors (exercise or eating a snack) caused any weight gain.
+
+                        li
+                            input.check(style="float: right" type="checkbox" class="filled-in" id="cause-confound-check")
+                            label(for="cause-confound-check" class="blue-text text-darken-2" style='font-size: 20px; font-weight: 100; font-color: black')
+                                span #[b Minimize confounders]: Participants should not perform other activities
+                                    a.helpbtn(href="#" id="help-#{cardId}-confound" style="border-width:0px 0px 1px 0px; border-style:solid") (called confounders)
+                                        i.fa.fa-question-circle(aria-hidden="true")
+                                    | that might contribute to the cause and/or effect
+                                br
+                                +helpLayout(cardId=cardId helpId="confound" title="Your experiment should strictly manipulate only one behavior and do it correctly. Will participant’s daily activity lead to bringing in the cause without them noticing? Which daily activities might need to be stopped?" learnLink="")
+                                    p #[b Example hypothesis]: Lack of exercise increases weight
+                                    p #[b Cause]: Lack of exercise
+                                    p #[b Effect]: Weight gain
+                                    p #[b Control Group]: Does not perform any exercise
+                                    p #[b Experimental Group]: Performs 30 mins of exercises
+                                    br
+                                    p If participants in the Control group perform any exercise-like activity during the day (for instance, 20 mins of brisk walking or running to catch a bus or 30 mins of biking to work), then the cause variable (lack of exercise) is not kept fixed for them. You should clearly add steps that participants should not perform
+                                    br
+                                    p Also, consider an experiment that considers the effect of coffee (more specifcially, caffeine) on sleep -- participants in control group should ensure not drinking alcohol to avoid any caffeine intake.
+
+                p(style='font-weight: bold; font-size: 20px;') Your experiment should not be burdensome for participants
+                    ul.variable-checklist.browser-default(style="list-style: none")
+                        li
+                            input.check(style="float: right" type="checkbox" class="filled-in" id="step-understandable-check")
+                            label(for="step-understandable-check" class="blue-text text-darken-2" style='font-size: 20px; font-weight: 100; font-color: black')
+                                span Participants should be able to understand every step. Decades of research shows that using simple and exact instructions leads to greater conformance.
+                        li
+                            input.check(style="float: right" type="checkbox" class="filled-in" id="minor-lifestyle-tweak")
+                            label(for="minor-lifestyle-tweak" class="blue-text text-darken-2" style='font-size: 20px; font-weight: 100; font-color: black')
+                                span Participants should feel comfortable while following your instructions for the duration (7 days) of the experiment. (For example participants might not feel comfortable if you ask them to consume alcohol every day)
+                        //- li
+                            input.check(style="float: right" type="checkbox" class="filled-in" id="minor-lifestyle-tweak")
+                            label(for="minor-lifestyle-tweak" class="blue-text text-darken-2" style='font-size: 20px; font-weight: 100; font-color: black')
+                                span
+                                    | Participants should make only #[b minor tweaks] to their lifestyle when following the steps. Participants should not spend more than 5 mins every day to participate in your experiment.
+                                //span
+                                    | People only need to make
+                                    a.helpbtn(href="#" id="help-#{cardId}-1" style="border-width:0px 0px 1px 0px; border-style:solid") minor tweaks
+                                        i.fa.fa-question-circle(aria-hidden="true")
+                                    | to their lifestyle
+                                //br
+                                //+helpLayout(cardId=cardId helpId="1" title="The experimental steps should not require participants to make drastic or significant changes to their lifestyle." learnLink="")
+
+                        //li
+                            input.check(style="float: right" type="checkbox" class="filled-in" id="reasonable-time-check")
+                            label(for="reasonable-time-check" class="blue-text text-darken-2" style='font-size: 20px; font-weight: 100; font-color: black')
+                                span
+                                    | Your experiment can be completed
+                                    a.helpbtn(href="#" id="help-#{cardId}-2" style="border-width:0px 0px 1px 0px; border-style:solid") reasonable time
+                                        i.fa.fa-question-circle(aria-hidden="true")
+                                    | to show results
+                                br
+                                +helpLayout(cardId=cardId helpId="2" title="If your effect is ambiguous or too broad, edit it to make it specific" learnLink="")
+                                    p #[b Example ]: Running for 30 minutes daily improves #[b health]
+                                    p #[b Improved hypothesis : ] Running for 30 minutes daily improves #[i quality of sleep]
+                        //li
+                            input.check(style="float: right" type="checkbox" class="filled-in" id="minor-lifestyle-tweak")
+                            label(for="minor-lifestyle-tweak" class="blue-text text-darken-2" style='font-size: 20px; font-weight: 100; font-color: black')
+                                span
+                                    | People don't spend
+                                    a.helpbtn(href="#" id="help-#{cardId}-x" style="border-width:0px 0px 1px 0px; border-style:solid") unreasonable time
+                                        i.fa.fa-question-circle(aria-hidden="true")
+                                    | participating in your experiment
+                                br
+                                +helpLayout(cardId=cardId helpId="x" title="A good rule of thumb is that participants shouldn't need to spend more than 5 minutes performing " learnLink="")
+                                    p Look at your experimental steps and simplify the most time-expensive steps
+                        li To help you understand the usability of your experiment, Gut Instinct will later train you to pilot your experiment with at least one participant (for each condition) before launching the experiment.
+
+
+                        //p(style='font-weight: bold') Is Reproducible -- One of the hardest parts about sharing experiment is disseminating info about it
+                        //li
+                            input.check(style="float: right" type="checkbox" class="filled-in" id="cause-doable-check")
+                            label(for="cause-necessity-check" class="blue-text text-darken-2" style='font-size: 20px; font-weight: 100; font-color: black')
+                                //span do you really need to design this exp -- are you getting the maximum bang for the buck? -- how to quantify this.. -- should conduct experiments if they are the only practical way to answer specific questions about proposed -------  or are you making people do something for nothing..
+                                span Can other scientists (citizens or those in the lab) reproduce this experiment by following these steps
+                                    a.helpbtn(href="#" id="help-#{cardId}-5" style="border-width:0px 0px 1px 0px; border-style:solid") what's missing? - simplify
+                                        i.fa.fa-question-circle(aria-hidden="true")
+                                br
+                                +helpLayout(cardId=cardId helpId="5" title="ask people about specific ingredients, or to be as specific as needed 1. e.g. if you ask people to eat a grilled cheese sandwich, should they have salt and pepper" learnLink="")
+                                    p #[b Example hypothesis]: Lack of exercise increases weight
+                                    p #[b Cause]: Lack of exercise
+                                    p #[b Effect]: Weight gain
+                                    br
+                                    p If participants don't exercise AND also consume lots of fast food during the experiment, we can never know for sure which of the 2 caused the weight gain.
+
+
+                        //li
+                            input.check(style="float: right" type="checkbox" class="filled-in" id="less-effort-check")
+                            label(for="less-effort-check" class="blue-text text-darken-2" style='font-size: 20px; font-weight: 100; font-color: black')
+                                span
+                                    | ... participants don't have to spend too much time on these steps and they can easily track them (dont need gadgets etc)
+                                    //a.helpbtn(href="#" id="help-#{cardId}-7" style="border-width:0px 0px 1px 0px; border-style:solid") specific#[sup ?]
+                                br
+                                +helpLayout(cardId=cardId helpId="7" title="If your effect is ambiguous or too broad, edit it to make it specific" learnLink="")
+                                    p #[b Example ]: Running for 30 minutes daily improves #[b health]
+                                    p #[b Improved hypothesis : ] Running for 30 minutes daily improves #[i quality of sleep]
+
+                p(style='font-weight: bold; font-size: 20px;') Your experiment should be absolutely safe for participants
+                    ul.variable-checklist.browser-default(style="list-style: none")
+                        li
+                            input.check(style="float: right" type="checkbox" class="filled-in" id="safe-check")
+                            label(for="safe-check" class="blue-text text-darken-2" style='font-size: 20px; font-weight: 100; font-color: black')
+                                span
+                                    | The experimental steps should be safe for any participant. If you think your experiment is dangerous, then it's probably unethical.
+                                    a.helpbtn(href="#" id="help-#{cardId}-safe" style="border-width:0px 0px 1px 0px; border-style:solid")
+                                        span Don't do it.
+                                        i.fa.fa-question-circle(aria-hidden="true")
+                                br
+                                +helpLayout(cardId=cardId helpId="safe" title="Your experiment should be safe" learnLink="")
+                                    p If your experiment might harm some small set of participants with a certain condition, then please add them to the Exclusion Criteria in the next step. Please do not conduct experiments that involve your spouse, children, etc without their informed consent
+                                    //p #[b Example ]: Running for 30 minutes daily improves #[b health]
+                                    //p #[b Improved hypothesis : ] Running for 30 minutes daily improves #[i quality of sleep]
+                //div.misc
+                    //span(class='card-title' style='font-size: 20px; font-weight: 100;') #[b Convert this into separate phases like the first page]
+                    span(class='card-title' style='font-size: 20px; font-weight: 100;') Care about your participants..
+                    br
+                    span(class='card-title' style='font-size: 20px; font-weight: 100;') Remember, people will only participate in your experiments if they think it enables them in finding answers to useful questions in reasonable time, they don't have to work too hard or change their lifestyle and if your directions are specific.
+                    br
+
+                    span(class='card-title' style='font-size: 30px; font-weight: 100;')
+                        | How to make it blind and placebo-controlled?
+                    br
+                    p details about someone administering it to make it blind -- how to make it blind --- If at all possible, people should not know which condition they are in.. - can designers identify how to do so.. -- (1) can people get an experience that is comparable and people don't know what's in there.. (2) things that stem from beliefs can have an effect (3) separate physical effects from psychological ones..
+                    br

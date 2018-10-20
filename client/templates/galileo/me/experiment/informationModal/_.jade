@@ -1,0 +1,13 @@
+template(name="gaInformationModal")
+    div.modal(id="information-modal" style="height: 10%;")
+
+        div.title(style="color:rgba(0,0,0,.54);background:rgba(0,0,0,.03); padding:15px; ")
+            h4.left-align#information-modal-title
+                | Title
+
+
+        div.modal-content(style="height: 50%; padding-bottom: 0px;")
+            p#information-modal-text(style="font-size: large") Please remember that the responsibility for correctness of all experiment details rests with the creator.
+
+        div.modal-footer
+            a.gray-text(class="modal-action modal-close btn-flat") Close

@@ -1,0 +1,15 @@
+template(name="gaMeCreatedExperiments")
+    +gaNavbar
+    +gaMeSidebar
+    main#ga-me-main
+        h3 Created Experiments
+            a.btn.light-blue(href="/galileo/createdemo" style="float: right;") Design an Experiment
+        div#experiment-list(style="margin-top: 30px")
+            if isLoaded
+                if exps
+                    each exp in exps
+                        +gaExperimentItem(exp=exp)
+                else
+                    p No Experiments
+            else
+                p Loading ...

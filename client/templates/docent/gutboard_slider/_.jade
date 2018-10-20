@@ -1,0 +1,167 @@
+template(name='gutboard_slider')
+    .animateme
+      ul.bg-bubbles
+        li
+        li
+        li
+        li
+        li
+        li
+        li
+        li
+        li
+        li
+        li
+
+    +header
+    |{{init mendelcode}}
+    div(class='container content gutboard')
+        div(data-step='1', data-intro='Welcome to GutBoard! To navigate tours like this one, you can use the left or right arrow keys or the buttons below. Don\'t forget to check out all the links in the blue bar above - we have a lot in store for you!')
+            h3(class='light-blue-text text-darken-4') 
+                i.fa.fa-comments-o(aria-hidden="true") 
+                | GutBoard 
+                if isCondition0or10or11
+                    a.modal-trigger(id="exampleQs" href='#examples' title="Look at helpful examples" style='font-size: 20px; color: #f4511e; margin-bottom: -50px;')
+                        | (
+                        i(class='fa fa-question', aria-hidden="true", style='vertical-align: middle; color: #f4511e; font-size: 25px;')
+                        | )
+            if isCondition2or4or9or11
+                h5(class='light-blue-text text-darken-4' style="text-align: left") Share your gut instincts by asking questions, answering others' questions and guessing the mechanism
+            else 
+                h5(class='light-blue-text text-darken-4' style="text-align: left") Share your gut instincts by asking questions, and answering others' questions
+            //- h3(class='light-blue-text text-darken-4') <i class="fa fa-comments-o" aria-hidden="true" style="font-size: 2em;"></i> GutBoard <br>
+            //- h4(class='light-blue-text text-darken-4') Straight from the Gut
+            //- h6(class='light-blue-text text-darken-4') How do your Gut Instincts compare to others?
+
+            br
+
+        ul(id='questionStatusTabs' class='tabs', data-step='2', data-intro='Gut Instinct questions added by researchers and citizen scientists (like you!) show up here!' style='overflow-x: hidden; width: 100%; margin-left: 0px; display: none; box-shadow: 0 2px 4px 0 rgba(0,0,0,0.2); transition: 0.3s;')
+            li(class='tab col s3')
+                a(href='#', id='contribute', title="View every question", class='tab-link light-blue-text' style='font-weight: 275;') All questions
+                    //span(class='label label-primary' style='vertical-align: super;' data-step='3', data-intro='All Gut Instinct questions show up here!') {{getNewQuestionCountsbyCondition}}
+                    span.new.badge.light-blue.darken-4(data-badge-caption='' style='margin-top: 5px;') {{getPosition}}/{{getNewQuestionCountsbyCondition}}
+            li(class='tab col s3')
+                a(href='#', id='answered',title="View your bookmarked questions", class='tab-link light-blue-text' style='font-weight: 275') <i class='fa fa-bookmark' aria-hidden='true'></i> Bookmarked
+                    //span(class='label label-primary' style='vertical-align: super;' data-step='4', data-intro='Questions bookmarked by you are in this tab. You can engage with a question by clicking on it!') {{getBookmarkQuestionCounts}}
+                    span.new.badge.light-blue.darken-4(data-badge-caption='' style='margin-top: 5px;') {{getBookmarkQuestionCounts}}
+
+            li(class='tab col s3')
+                a(href='#', id='mine', title="View your own questions", class='tab-link light-blue-text' style='font-weight: 275') <i class='fa fa-pencil' aria-hidden='true'></i> Written
+                    //span(class='label label-primary' style='vertical-align: super;' data-step='5', data-intro='Questions added by you are in this tab. You can engage with a question by clicking on it!') {{getWrittenQuestionCounts}}
+                    span.new.badge.light-blue.darken-4(data-badge-caption='' style='margin-top: 5px;') {{getWrittenQuestionCounts}}
+            li(class='tab col s3')
+                a(href='#', id='star', title="View starred questions", class='tab-link light-blue-text' style='font-weight: 275') <i class='fa fa-star' aria-hidden='true'></i> Starred
+                    //span(class='label label-primary' style='vertical-align: super;' data-step='6', data-intro='Questions starred by experts are in this tab. You can engage with a question by clicking on it!') {{getStarQuestionCountsbyCondition}}
+                    span.new.badge.light-blue.darken-4(data-badge-caption='' style='margin-top: 5px;') {{getStarQuestionCountsbyCondition}}
+
+            //if isUserExpert
+                li(class='tab col s3')
+                    a(href='#', id='flag', title="View Flagged questions", class='tab-link light-blue-text' style='font-weight: 275') <i class='fa fa-flag' aria-hidden='true'></i> Flagged
+                        span.new.badge.light-blue.darken-4(data-badge-caption='' style='margin-top: 5px;') {{getFlaggedQuestionCounts}}
+
+
+            div(class="indicator light-blue" style="z-index:1")
+
+        div(class='questions' id='activeQuestionLoader')
+            br
+            br
+            br
+            .preloader-wrapper.big.active
+                .spinner-layer.spinner-blue-only
+                    .circle-clipper.left
+                        .circle
+                    .gap-patch
+                        .circle
+                    .circle-clipper.right
+                        .circle
+            br
+            br
+            h6(class='light-blue-text text-darken-4') Crunching the latest data, just for you. Hang tight…
+            br
+            br
+            br
+        
+        div(class='questions animated fadeIn' id='activeQuestionDiv' style='display: none' data-step='7' data-intro='Every question begins with a top-level question. Once you answer it, you can explore follow-up questions within it, and even add your own follow-up questions to someone else\'s question!')
+            each questions
+                //if qaccept hash
+                +qmodule
+
+            if isGutBoardEmpty getNewQuestionCountsbyCondition
+                .card
+                    .card-content
+                        h2(class="timestamp" style="padding-right: 30px; padding-left: 30px; padding-bottom: 150px; padding-top: 150px; font-size: 30px;") There are currently no questions on the gutboard. Why don't you add one now? 😃
+
+        div(class='bookmarkedquestion animated fadeIn' id='bookmarkQuestionDiv' style='display: none')
+            each bookmardedquestions
+                +qmodule_min
+
+        div(class='minequestion animated fadeIn' id='mineQuestionDiv' style='display: none')
+            each getMineQuestions
+                +qmodule_min
+
+        div(class='starquestion animated fadeIn' id='starQuestionDiv' style='display: none')
+            //each getStarQuestions
+            each getStarQuestionsbyCondition
+                +qmodule_min
+
+        if isUserExpert
+            div(class='flaggedquestion animated fadeIn' id='flaggedQuestionDiv' style='display: none')
+                //each getFlaggedQuestions
+                each getFlaggedQuestions
+                    +qmodule_min
+        
+        div(class='questions' id='sliderControlDiv' style='display: none; margin-bottom: 50px;' data-step='11', data-intro=' Add your own question! Or see previous or next question')
+            //a(href='#', id='sliderCotrol', class='waves-effect waves-light btn blue-grey darken-2 guttest-button', style='margin-top: 25px; font-size:20px') Skip This Question
+
+            //a(href='#', id='backSliderControl2', title="Go to previous question", class='guttest-button slider-left animated fadeIn', style='margin-top: 25px; margin-right: 50px;')
+                i(class='fa fa-chevron-circle-left fa-4x', aria-hidden="true", style='vertical-align: middle; color: #455a64')
+            if isCondition0or10or11
+                a.modal-trigger(id="exampleQs" href='#examples' title="Look at helpful examples" style='position: absolute; margin-top: 5px; margin-left: -210px; color: #f4511e')
+                    i(class='fa fa-question fa-3x', aria-hidden="true", style='vertical-align: middle; color: #f4511e') 
+                    h1(style="font-size: 10pt;") Show me examples
+           
+            a(href='#', id='backSliderControl', title="Go to previous question", class='guttest-button', style='margin-top: 25px; margin-right: 50px;')
+                i(class='fa fa-chevron-circle-left fa-4x', aria-hidden="true", style='vertical-align: middle; color: #455a64') 
+
+            a(href='/gutboard_slider_addq', id='addQuestionControl', title="Add your question", class='guttest-button', style='margin-top: 25px;')
+                i(class='fa fa-plus-circle fa-5x waves-light', aria-hidden="true", style='vertical-align: middle; color: #f4511e')
+
+            a(href='#', id='randomShow', title="Show a random question", class='guttest-button', style='margin-top: 25px; margin-left: 25px;')
+                i(class='fa fa-random fa-5x', aria-hidden="true", style='vertical-align: middle; color: #455a64')
+
+            a(href='#', id='sliderControl', title="Go to next question", class='guttest-button', style='margin-top: 25px; margin-left: 50px;')
+                i(class='fa fa-chevron-circle-right fa-4x waves-light', aria-hidden="true", style='vertical-align: middle; color: #455a64')
+
+        div(style="position: relative; z-index: 10;")
+                        form(class='signature') 
+                            //div(style='bottom: 60px; width: 100%; height: 50px; background-color: rgba(255,255,255,.75); -webkit-filter: blur(4px); -moz-filter: blur(4px); -ms-filter: blur(4px); -o-filter: blur(4px); filter: blur(4px); position: relative;  z-index: -1;')
+                            //p(class='consent-warning' style="margin-top: -40px;") 
+                                b Warning
+                                |: Please do not share personally identifiable information, including but not limited to name, email, phone number, address, Social Security number, credit card details, deeply personal details. 
+                            p    
+                                    | All the data on Gut Instinct will be made public using the same license as
+                                    b Wikipedia
+                                    | (Creative Commons Attribution-ShareAlike 3.0 Unported License (CC BY-SA)).
+                                    | Further details here: https://creativecommons.org/licenses/by-sa/3.0/legalcode 
+
+        #examples.modal.modal-fixed-footer
+          .modal-content
+            h4(class='light-blue-text text-darken-4') Example Questions
+            each exampleQuestions
+                +qmodule_example
+          .modal-footer
+            a.modal-action.modal-close.btn-flat(href='#!' class="light-blue-text") Close
+
+
+        div(class='modal', id='q-moved', style='width: 500px')
+            div(class='modal-content')
+                p Your question has been added to the
+                    a(href='#', class='tab-link light-blue-text') Answered tab
+            div(class='modal-footer')
+                a(href='#', class=" modal-action modal-close waves-effect waves-light-blue btn-flat") Close
+        div(class='modal', id='confirm-add', style='width: 500px')
+            div(class='modal-content')
+                p Your question has been added to the
+                    a(href='#', class='tab-link light-blue-text') Written tab
+            div(class='modal-footer')
+                a(href='#', class=" modal-action modal-close waves-effect waves-light-blue btn-flat") Got It!

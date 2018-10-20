@@ -1,0 +1,20 @@
+template(name='gutboard_search')
+    .animateme
+      ul.bg-bubbles
+        li
+        li
+        li
+    +header
+    |{{init mendelcode}}
+
+    div(class='container content gutboard' style='max-width: 700px;')
+        div(data-step='1', data-intro='Welcome to GutBoard! To navigate tours like this one, you can use the left or right arrow keys or the buttons below. Don\'t forget to checkout all the links in the blue bar above - we have a lot in store for you!')    
+            h4(class='light-blue-text text-darken-4') Search results for #{searchQuery}...
+
+        each getQuestion
+            if matchQuery this
+                +qmodule_min
+
+            
+        
+    

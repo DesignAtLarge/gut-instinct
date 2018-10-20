@@ -1,0 +1,55 @@
+template(name="gaExperimentDesignHypothesis")
+    div.design-section#hypothesis-section(class="{{#if focusing}}active{{/if}}")
+        p(style="font-size: 20px; font-weight: 400; display: flex") Hypothesis:
+            | &nbsp;
+            span.blue-text.text-darken-2 #{hypothesis}
+            if allowEdits
+                i.material-icons.edit-design-btn#edit-hypothesis mode_edit
+                i.material-icons.edit-design-btn.accept.hide#accept-edit-hypothesis check
+                i.material-icons.edit-design-btn.cancel.hide#cancel-edit-hypothesis clear
+            if isReviewer
+                i.material-icons.edit-design-btn#edit-suggest-hypothesis lightbulb_outline
+                i.material-icons.edit-design-btn.accept.hide#accept-edit-suggest-hypothesis check
+                i.material-icons.edit-design-btn.cancel.hide#cancel-edit-suggest-hypothesis clear
+        br
+        if suggestingHypothesis
+            blockquote.info
+                | You are now entering suggestion mode. The modification you make will not take
+                | effect to the experiment design. But the creator as well as the other reviewers
+                | will be able to see the suggestion you have made.
+        div#summary-table
+            div.row.head
+                div.col.m4
+                    p
+                        strong Cause
+                div.col.m4
+                    p
+                        strong Relation
+                div.col.m4
+                    p
+                        strong Effect
+            div.row#hypothesis-div
+                div.col.m4 #{cause}
+                div.col.m4 #{relation}
+                div.col.m4 #{effect}
+            div.row#hypothesis-editable.hide
+                div.col.s4
+                    textarea.textarea-summary#cause-text(type='text' rows="4") {{cause}}
+                
+                div.col.s4
+                    textarea.textarea-summary#relation-text(type='text' rows="4") {{relation}}
+                
+                div.col.s4
+                    textarea.textarea-summary#effect-text(type='text' rows="4") {{effect}}
+        
+        p(style="font-size: 20px; font-weight: 400;") Mechanism:
+        p#mechanism-div(style="font-size: 18px; font-weight: 100;") #{mechanism}
+        div.row#mechanism-editable.hide
+            div.col.s12
+                input#mechanism-text(type='text' value="{{mechanism}}")
+        br
+        p(style="font-size: 20px; font-weight: 400;") Related Work:
+        p#related-works-div(style="font-size: 18px; font-weight: 100;") #{related_works}
+        div.row#related-works-editable.hide
+            div.col.s12
+                input#related-works-text(type='text' value="{{related_works}}")

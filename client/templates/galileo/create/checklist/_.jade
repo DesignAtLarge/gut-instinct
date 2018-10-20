@@ -1,0 +1,43 @@
+//template(name="checklistFrozen")
+    div.checklistFrozen-container
+        each item in checklistItems
+            +checklistItem(data=item)
+
+        //a.option-add(href="#" style="margin-left:15px")
+            i.fa.fa-plus.blue-text.darken-4(style="font-size:24px;")
+
+
+template(name="checklist")
+    div.checklist-container
+        each item in checklistItems
+            +checklistItem(data=item id=id style=style include=include exclude=exclude criteria=criteria)
+
+
+template(name="checklistItem")
+     div.option-container
+         if data.fixed
+             if data.hasHelp
+                p
+                    if include
+                        i.fa.fa-check.green-text(style="font-size:26px; margin-left:16px")
+                    else if exclude
+                        i.fa.fa-times.red-text(style="font-size:26px; margin-left:15px")
+                    textarea(class="option-input{{criteria}} option-input" style="{{style}}" rows="1" disabled="disabled" id="option-input-#{id}-#{data.id}" type='text' placeholder="#{data.placeholder}") #{data.text}
+                    a.helpbtn(href="" id="help-checklist-1" style="border-width:0px 0px 1px 0px; border-style:solid; margin-left:15px") Why Exclude
+                        i.fa.fa-question-circle(aria-hidden="true")
+             else
+                if include
+                    i.fa.fa-check.green-text(style="font-size:26px; margin-left:16px")
+                else if exclude
+                    i.fa.fa-times.red-text(style="font-size:26px; margin-left:15px")
+                textarea(class="option-input{{criteria}} option-input" style="{{style}}" rows="1" disabled="disabled" id="option-input-#{id}-#{data.id}" type='text' placeholder="#{data.placeholder}") #{data.text}
+         else
+            if include
+                i.fa.fa-check.green-text(style="font-size:26px; margin-left:16px")
+            else if exclude
+                i.fa.fa-times.red-text(style="font-size:26px; margin-left:15px")
+            a.option-delete(tabindex="-1" href="#" id="delete-option-#{id}-#{data.id}")
+                i.fa.fa-times.grey-text(style="font-size:14px; margin-left:15px")
+            textarea(class="option-input{{criteria}} option-input" style="{{style}}" tabindex="0" id="option-input-#{id}-#{data.id}" type='text' placeholder="#{data.placeholder}") #{data.text}
+            a.option-add(tabindex="-1" href="#" id="add-option-#{id}-#{data.id}")
+                i.fa.fa-plus-square-o.blue-text.darken-4(style="font-size:26px; margin-left:15px")

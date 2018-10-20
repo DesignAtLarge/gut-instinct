@@ -1,0 +1,67 @@
+template(name="gaWelcomeCard")
+    +cardLayout(cardId=cardId heading="Getting Started" style="" nextOnly=true nextDisabled=nextDisabled)
+        p(style='font-size: 20px; font-weight: 100;') Transform your intuition into an experiment, and find out if it's right by following these steps...
+        //br
+        //p(style='font-size: 20px; font-weight: 100;') Using our simple but powerful system, you can find out whether your Gut Instincts are right, or whether you need a Gut Check!
+
+        //br
+        //a(href="#" id="help-#{cardId}-0" class="helpbtn") FAQs
+        
+        
+        +helpLayout(cardId=cardId helpId="0" title="" learnLink="")
+            ul
+                b Why run experiments?
+                    ul(style="padding-left:20px")
+                        li(style="list-style-type: circle")  Running experiments is the only way to track causality
+                            | Example: Suppose you drink coffee and realize
+                        li(style="list-style-type: circle")  Experiments explicitly account for confounders
+                            | Example: Suppose you’re curious to know the effect of yogurt on your gut, but travel to another country during the process. This change acts as a confounder - so we don’t know if any changes are due to yogurt, or due to change int he brand of the yogurt,
+                br
+                b Why run long experiments?
+                    ul(style="padding-left:20px")
+                        li(style="list-style-type: circle")  Greater number of points provide assuming experiment is designed and run properly
+                br
+                b  Why run experiments with large number of people?
+                    ul(style="padding-left:20px")
+                        li(style="list-style-type: circle") Experiments run with you might be biased and might not create generalizable knowledge. Running experiments with more people allows us to create gold standard scientific knowledge
+
+        br
+        br
+
+
+        div(style='font-size: 20px; font-weight: 100; ')
+            p #[b &nbsp; &nbsp; 1. &nbsp;] Provide your hypothesis
+                a(href="#" id="help-#{cardId}-1" class="helpbtn") (?)
+                +helpLayout(cardId=cardId helpId="1" title="What is a hypothesis?" learnLink="https://www.youtube.com/watch?v=bp2fbzWZDmA&ab_channel=AshfordScience"
+                description="Scientists come up with questions based on their observations or their intuition. A hypothesis is a tentative answer to that question. For example, here's a question: 'How does daily meditation affect my sleep?'. One corresponding hypothesis can be 'Daily meditation increases the number of hours I sleep'." )
+            br
+
+            p #[b &nbsp; &nbsp; 2. &nbsp;] Design an experiment that tests your hypothesis
+                a(href="#" id="help-#{cardId}-2" class="helpbtn") (?)
+                +helpLayout(cardId=cardId helpId="2" title="Experiment design" learnLink="https://www.youtube.com/watch?v=DaBq0naj0YY&ab_channel=KhanAcademy"
+                description="An experiment provides a way to test the truth of a hypothesis. Designing an experiment means creating a set of specific steps starting from a hypothesis; following these steps yields a conclusion about whether the hypothesis is true or not.")
+            br
+
+            if isDemo
+                p  #[b &nbsp; &nbsp; 3. &nbsp;] Provide specific steps to run the experiment
+                    a(href="#" id="help-#{cardId}-3" class="helpbtn") (?)
+                    +helpLayout(cardId=cardId helpId="3" title="Experiment Instructions" learnLink="https://www.youtube.com/watch?v=DaBq0naj0YY&ab_channel=KhanAcademy"
+                    description="To run an experiment the participants need to know exactly what steps to take. e.g. if an experiment involves consuming probiotic yogurt, you should explain when and how much yogurt should be consumed")
+                br
+            else
+                p #[b &nbsp; &nbsp; 3. &nbsp;] Pilot your experiment (aka do a trial run) and debug your experiment
+                    a(href="#" id="help-#{cardId}-3" class="helpbtn") (?)
+                    +helpLayout(cardId=cardId helpId="3" title="Help Card" learnLink="https://www.youtube.com/watch?v=DaBq0naj0YY&ab_channel=KhanAcademy"
+                    description="To run an experiment the participants need to know exactly what steps to take. e.g. if an experiment involves consuming probiotic yogurt, you should explain when and how much yogurt should be consumed")
+                br
+
+                p #[b &nbsp; &nbsp; 4. &nbsp;] Run your experiment!
+                    a(href="#" id="help-#{cardId}-4" class="helpbtn") (?)
+
+                    +helpLayout(cardId=cardId helpId="4" title="Help Card" learnLink="https://google.com"
+                    description="beep boop")
+                br
+                p At the end of each step, you'll share your work with fellow Galileo participants and receive feedback.
+                br
+
+            p Ready to make some science?

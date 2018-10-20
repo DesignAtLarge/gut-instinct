@@ -1,0 +1,52 @@
+template(name='gaEducationDemo')
+
+    +gaNavbar
+
+    div.container.galileo(style="margin-top: 50px;")
+
+        //h4.board-header(style="margin-bottom: 20px")
+        //    if showStep
+        //        span.light-blue-text.text-darken-2 Step 3:
+        //    |Experiment Design
+
+        div.loading(style="display: none")
+            .preloader-wrapper.big.active
+                .spinner-layer.spinner-blue-only
+                    .circle-clipper.left
+                        .circle
+                    .gap-patch
+                        .circle
+                    .circle-clipper.right
+                        .circle
+
+        //nav.light-blue.darken-4(style='position:relative; z-index:0; text-align:left')
+            div.nav-wrapper#breadcrumb-nav
+                div.container(style="width: 95%")
+                    each phase in phases
+                        a.breadcrumb.light-blue.darken-4(class="{{#if isLaterPhase phase}}hide{{/if}}" id="breadcrumb-{{phase.id}}" style="margin-left: 2px;")
+                            if isCurrentPhase phase
+                                | Phase {{phase.text}} - {{phase.description}}
+                            else
+                                | {{phase.text}}
+                    img(style="float: right; height: 36px; margin-top: 14px;" src="/images/galileo-flask-white.png")
+
+        div.progress.blue.lighten-5
+            div.determinate.blue.darken-2(style="width: #{progress}%")
+
+        div(class='card qmodule')
+            div(class='card-content layer-1')
+
+                // Phase 0 start
+                //+gaWelcomeCard(cardId="1")
+                //+gaEthics(cardId="2")
+
+                // Phase 1 start
+                +gaDemoHypothesis(cardId="1" stepnumber="" expId=expId designId=designId intuition=intuition cause=cause relation=relation effect=effect mechanism=mechanism examples=examples)
+                +gaMeasureCause(cardId="2" stepnumber="" designId=designId cause=cause relation=relation effect=effect causeMeasure=causeMeasure examples=examples)
+                +gaMeasureEffect(cardId="3" stepnumber="" designId=designId cause=cause relation=relation effect=effect effectMeasure=effectMeasure examples=examples)
+                +gaSetReminder(cardId="4" stepnumber="" designId=designId cause=cause relation=relation effect=effect causeMeasure=causeMeasure effectMeasure=effectMeasure examples=examples)
+                +gaExperimentInstructions(cardId="5" stepnumber="" designId=designId cause=cause relation=relation effect=effect instructions=instructions examples=examples)
+                +gaCriteria(cardId="6" designId=designId cause=cause relation=relation effect=effect instructions=instructions inclusionCriteria=inclusionCriteria exclusionCriteria=exclusionCriteria)
+                +gaSummary2(cardId="7" stepnumber="" designId=designId examples=examples)
+                +gaCreateFinish(cardId="8" expId=expId designId=designId cause=cause effect=effect)
+

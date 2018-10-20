@@ -1,0 +1,37 @@
+template(name='welcome_step2')
+    #welcome
+        div(class='container content topics', style='max-width:750px')
+            h1(class='animated fadeIn' style='color: white;') Welcome to Gut Instinct!
+
+            div(class='card', style='margin-top: 5%;')
+                br
+                div(style='margin-left: 10%; margin-right: 10%')
+                    h4(class='animated fadeIn' style='color: #696969; margin-top: 20px;') Want to receive regular e-mail updates?
+                    span E-mail updates include feedback from experts, details about your questions and information about any discoveries made via Gut Instinct!
+
+                .card-content
+                    form(class='comment-form', onsubmit='return validateEmail()')
+                        input(type='text', name='email', id='userEmail', class='comment', placeholder='Please enter your email here', required)
+                        //input(type='submit', class='btn light-blue', onclick="return validateEmail()")
+                        br
+                        a(href='#')
+                            button(class='btn blue-grey' style='margin-top: 10px; white-space: normal; height: auto;' onclick='$("#userEmail").val("no-email@example.com")')
+                                | Skip
+
+                br
+                div(style='margin-left: 10%; margin-right: 10%')
+                    h4(class='animated fadeIn' style='color: #696969; margin-top: 20px') Do you have an American Gut ID? 
+                    span Researchers can better understand your data and create a customized version of Gut Instinct for you!
+                    span You can find your 9-digit American Gut barcode (0000xxxxx) at your American Gut homepage. Please add the stool site barcode.
+                    a(href='https://www.microbio.me/AmericanGut/authed/portal/' target="_blank")
+                        span https://www.microbio.me/AmericanGut/authed/portal/
+
+                .card-content
+                    form(class='comment-form', onsubmit='return validateEmail()')
+                        input(type='text', name='agid', id='agid', class='comment', placeholder='Please enter your 9-digit American Gut barcode here (this is NOT your Gut Instinct login ID)', required)
+                        a(href='#')
+                            button(class='btn blue-grey' style='margin-top: 10px; white-space: normal; height: auto;' onclick='$("#agid").val("no-id")')
+                                | Skip / I don't have an American Gut ID
+                        br
+                        br
+                        input(type='submit', value="Submit", class='btn light-blue', onclick="return validateEmail()")

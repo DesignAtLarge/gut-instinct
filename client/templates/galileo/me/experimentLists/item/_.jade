@@ -1,0 +1,11 @@
+template(name="gaExperimentItem")
+    a.experiment(id="#{id}" href="")
+        div.left
+            div.title #{experimentObjective}
+                if isCompleted
+                   span.completed Completed
+            div.info
+                span Created by
+                    a.username(href="") #{username}
+                    span.date {{livestamp date}}
+        div.right

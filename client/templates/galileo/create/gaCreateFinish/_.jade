@@ -1,0 +1,38 @@
+template(name="gaCreateFinish")
+    +cardLayout(cardId=cardId heading="Experiment Created" hideNav=true progress=progress)
+        p(style='font-size: 20px; font-weight: 100;') Share your experiment design with 
+            b anyone online 
+            | to receive feedback and improve your work!
+
+        b Please 
+            span.red-text personalize 
+            | the content for the shared message    
+
+        div.input-field
+            i.material-icons.prefix mode_edit
+            //textarea.materialize-textarea.blue-grey.lighten-4(style="width:85%")
+            //    | Hi there! I'm running an experiment to know if #{intuition}.
+            //    | I would love to collaborate with you to see what we can find! You can find the experiment at https://gutinstinct-ucsd.edu/galileo/experiment/{{expId}}.
+            //    | Thank you! And I look forward to working together!
+            textarea.materialize-textarea.blue-grey.lighten-4(autofocus id="exp_created_text" style="width:85%; padding-left: 20px; padding-right: 20px")
+                | Hi! I have designed an experiment to study the effect of #{cause} on #{effect}.
+                | If you're curious to learn more, check it out! You can help me by reviewing my experiment, or joining it as a pilot or future participant
+                | {{inviteReviewerLink}}
+
+        //if isDemo
+            //p(style='font-size: 20px;') Email the experiment to yourself
+            //input(placeholder='Enter your email here' type='email' class='validate' id='emailExp')
+            p(style='font-size: 20px; font-weight: 100;') Your experiment design will be posted on the Galileo forum with the above message. You may continue with getting your experiment reviewed after submitting.
+        //else
+            //- p Hitting share will post your experiment design with the above message on the Galileo forum. You may continue with running your pilot after submitting.
+
+        iframe(src='https://www.facebook.com/plugins/share_button.php?href={{getIframeUrl}}&layout=button&size=large&mobile_iframe=true&width=73&height=28&appId', width='73', height='28', style='border:none;overflow:hidden', scrolling='no', frameborder='0', allowtransparency='true')
+
+        br
+        br
+        div.row
+            div.col.s3
+                a.btn.back-action.light-blue.darken-4(style="width:100%;") Back
+            div.col.s5
+            div.col.s4
+                a(class="btn next-action light-blue darken-4 {{#if nextDisabled}}disabled{{/if}}" style="width:100%;") Finish

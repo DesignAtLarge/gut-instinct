@@ -1,0 +1,211 @@
+.sl-slider-wrapper {
+	width: 800px;
+	height: 400px;
+	margin: 0 auto;
+	position: relative;
+	overflow: hidden;
+}
+
+.sl-slider {
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+
+/* Slide wrapper and slides */
+
+.sl-slide,
+.sl-slides-wrapper,
+.sl-slide-inner {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left: 0;
+} 
+
+.sl-slide {
+	z-index: 1;
+}
+
+/* The duplicate parts/slices */
+
+.sl-content-slice {
+	overflow: hidden;
+	position: absolute;
+	-webkit-box-sizing: content-box;
+	-moz-box-sizing: content-box;
+	box-sizing: content-box;
+	background: #fff;
+	-webkit-backface-visibility: hidden;
+	-moz-backface-visibility: hidden;
+	-o-backface-visibility: hidden;
+	-ms-backface-visibility: hidden;
+	backface-visibility: hidden;
+	opacity : 1;
+}
+
+/* Horizontal slice */
+
+.sl-slide-horizontal .sl-content-slice {
+	width: 100%;
+	height: 50%;
+	left: -200px;
+	-webkit-transform: translateY(0%) scale(1);
+	-moz-transform: translateY(0%) scale(1);
+	-o-transform: translateY(0%) scale(1);
+	-ms-transform: translateY(0%) scale(1);
+	transform: translateY(0%) scale(1);
+}
+
+.sl-slide-horizontal .sl-content-slice:first-child {
+	top: -200px;
+	padding: 200px 200px 0px 200px;
+}
+
+.sl-slide-horizontal .sl-content-slice:nth-child(2) {
+	top: 50%;
+	padding: 0px 200px 200px 200px;
+}
+
+/* Vertical slice */
+
+.sl-slide-vertical .sl-content-slice {
+	width: 50%;
+	height: 100%;
+	top: -200px;
+	-webkit-transform: translateX(0%) scale(1);
+	-moz-transform: translateX(0%) scale(1);
+	-o-transform: translateX(0%) scale(1);
+	-ms-transform: translateX(0%) scale(1);
+	transform: translateX(0%) scale(1);
+}
+
+.sl-slide-vertical .sl-content-slice:first-child {
+	left: -200px;
+	padding: 200px 0px 200px 200px;
+}
+
+.sl-slide-vertical .sl-content-slice:nth-child(2) {
+	left: 50%;
+	padding: 200px 200px 200px 0px;
+}
+
+/* Content wrapper */
+/* Width and height is set dynamically */
+.sl-content-wrapper {
+	position: absolute;
+}
+
+.sl-content {
+	width: 100%;
+	height: 100%;
+	background: #fff;
+}
+
+/* Default styles for background colors */
+.sl-slide-horizontal .sl-slide-inner {
+	background: #ddd;
+}
+
+.sl-slide-vertical .sl-slide-inner {
+	background: #ccc;
+}
+
+
+/*== DEMO STYLING START ==*/
+.wrapperdemo{
+  text-align: center;
+  color: #999999;
+  font-size: 14px;
+  margin: 0;
+  width: 330px;
+  background: #ffffff;
+  margin: auto;
+}
+
+.social-counter-2{
+  display: block;
+}
+.social-counter-2 .count{
+  display: block;
+  overflow: hidden;
+  text-align: left;
+  margin-left: calc(50% - 170px);
+  width: 340px;
+  border-radius: 10px;
+  transition: all 0.5s ease;
+}
+
+.social-counter-2 .count:hover{
+  transform: scale(1);
+}
+
+.social-counter-2 .count .icon{
+  background: rgba(0,0,0,0.1);
+  display: inline-block;
+  float: left;
+  color: white;
+  font-size: 18px;
+  text-align: center;
+  width: 45px;
+  height: 46px;
+  text-shadow: 0 0 3px rgba(0,0,0,0.1);
+  display: table;
+}
+.social-counter-2 .count .icon i{
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.social-counter-2 .count span{
+  display: inline-block;
+  color: #ffffff;
+  margin: 11px;
+  font-size: 18px;
+  font-weight: 600;
+  padding-right: 2px;
+}
+
+.social-counter-2 .count .action-btn{
+  float: right;
+  background: rgba(255,255,255,0.25);
+  color: white;
+  padding: 0px 6px;
+  border-radius: 3px;
+  font-size: 14px;
+  margin: 11px;
+}
+
+/*== COLORS ==*/
+.social-counter-2 .facebook{background:#3b5999;}
+
+.social-counter-2 .twitter {background:#55acee;}
+
+.social-counter-2 .youtube {background:#cd201f;}
+
+.social-counter-2 .slack{background:#4c384a;}
+
+
+.frame::-webkit-scrollbar {
+    -webkit-appearance: none;
+}
+
+.frame::-webkit-scrollbar:vertical {
+    width: 11px;
+}
+
+.frame::-webkit-scrollbar:horizontal {
+    height: 11px;
+}
+
+.frame::-webkit-scrollbar-thumb {
+    border-radius: 8px;
+    border: 2px solid white; /* should match background, can't be transparent */
+    background-color: rgba(0, 0, 0, .5);
+}
+
+.frame::-webkit-scrollbar-track { 
+    background-color: #fff; 
+    border-radius: 8px; 
+} 

@@ -1,0 +1,33 @@
+template(name="exampleLayout")
+    div.example-container
+        div.example-header
+            if iconType
+                i.material-icons #{iconType}
+            else
+                i.material-icons device_hub
+
+            if title
+                span.example-title #{title}
+            else
+                span.example-title Learn from examples
+
+            i.fa.fa-angle-down
+        div.example-body(style="display: none")
+            +UI.contentBlock
+
+template(name="exampleLayoutNotHidden")
+    div.example-container
+        div.example-header
+            if iconType
+                i.material-icons #{iconType}
+            else
+                i.material-icons device_hub
+
+            if title
+                span.example-title #{title}
+            else
+                span.example-title Learn from examples
+
+            i.fa.fa-angle-down
+        div.example-body(style="")
+            +UI.contentBlock

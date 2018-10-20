@@ -1,0 +1,17 @@
+template(name='test')
+    +header
+    | {{verify}}
+    div(class='modal', id='warning')
+        if isWorkCondition
+            div(class='modal-content')
+                p Whoops! You still need to add #{remaining} more questions. Let's take you to GutBoard page
+                //- p Whoops! You've not investigated 3 topics yet. Let's take you to Topics page
+            div(class='modal-footer')
+                a(href='/gutboard', class=" modal-action modal-close waves-effect waves-light-green btn-flat") Take me to GutBoard page
+        else
+            div(class='modal-content')
+                p Whoops! You still need to answer quiz questions from #{remaining} topics. Let's take you to Topics page
+                //- p Whoops! You've not investigated 3 topics yet. Let's take you to Topics page
+            div(class='modal-footer')
+                a(href='/topics', class=" modal-action modal-close waves-effect waves-light-green btn-flat") Take me to Topics page
+                

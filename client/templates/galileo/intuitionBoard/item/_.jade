@@ -1,0 +1,17 @@
+template(name="gaIntuitionBoardItem")
+    li.intuition-item(id=id)
+        div.card
+            div.upper
+                p.username.light-blue-text #{username}
+                    span.date - {{livestamp date}}
+                p.intuition #{intuition}
+                if hasMechanism
+                    p.mechanism 
+                        span.label Mechanism: 
+                        span.content #{mechanism}
+                if hasTag
+                    p.tags
+                        span.label Tags:
+                        each tag in tags
+                            span.tag #{tag}
+            a.design(href="#") Design an Experiment

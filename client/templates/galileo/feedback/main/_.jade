@@ -1,0 +1,67 @@
+template(name="gaExperimentFeedback")
+    +gaNavbar
+    main#ga-main
+        div#ga-exp-feedback
+            div.main
+                div.header
+                    //button.btn.light-blue.back 
+                        i.fa.fa-angle-left
+                        | Back
+                    div.middle.light-blue.darken-4 Experiment Details
+                            
+                div.card.qmodule.cardquestion
+                    div.card-content
+                        +gaExperimentDesign(allowFeedback=true designId=designId isGuestMode=isGuestMode allowEdits=allowEdits userCount=userCount examples=examples pilotId=pilotId step=step focus=focus)
+            div.feedback.stick-to-top(style="position: fixed; top: 65px; left: 70%;")
+                div.header
+                    div.middle.light-blue.darken-4 Review
+                div(style="margin-top: 15px")
+                    if isCreator
+                        div.card(style="padding: 1px 25px !important; height: 200px; overflow-y: scroll; border-bottom: 1px solid rgba(220, 220, 220, 1)")
+                            p 
+                                | Your experiment has 
+                                a(style="color: #0950c1;")#[b {{numberOfReviewer}}]
+                                | reviewers: 
+                                each n in nameOfReviewers
+                                    a(style="color: #0950c1;") &nbsp;#[b {{n}}] &nbsp;
+                            p(style="margin-top: 0px; max-width: 1000px") Feedback requested by you:
+                            p(style="margin-top: -20px; max-width: 1000px") #[b {{getFeedbackRequest}}]&nbsp;
+                                a#editFeedbackReq Edit
+                            div(id="editDiv" style="width: 50%; padding-left: 30px; display: none; max-width: 1000px")
+                                textarea.materialize-textarea(id="feedbackReqText" class="textarea-comment" name="feedback" placeholder="{{getFeedbackRequest}}" required)
+                                button.btn.light-blue(id="cancelFeedbackReq" type="submit" style="margin-top:-30px;") Cancel
+                                button.btn.light-blue(id="saveFeedbackReq" type="submit" style="display: none; margin-top:-30px;" design-id="{{getDesignId}}") Save Change
+                    else  
+                        div.card(style="padding: 1px 25px !important; height: 200px; overflow-y: scroll; border-bottom: 1px solid rgba(220, 220, 220, 1)")
+                            p(style="margin-top: 0px; max-width: 1000px") Feedback request from the creator of the experiment:
+                            p(style="margin-top: -20px; max-width: 1000px") #[b {{getFeedbackRequest}}]
+                if focusing "hypothesis"
+                    +gaExperimentFeedbackDetail(expId=getExpId expCreatorID=getExpCreatorID field="hypothesis" name="the hypothesis")
+                    button.btn.light-blue#next(class="{{#if showNext}}show{{/if}}") Next Section
+                if focusing "measure_cause"
+                    +gaExperimentFeedbackDetail(expId=getExpId expCreatorID=getExpCreatorID field="measure_cause" name="the cause measure")
+                    button.btn.light-blue#next(class="{{#if showNext}}show{{/if}}") Next Section
+                if focusing "measure_effect"
+                    +gaExperimentFeedbackDetail(expId=getExpId expCreatorID=getExpCreatorID field="measure_effect" name="the effect measure")
+                    button.btn.light-blue#next(class="{{#if showNext}}show{{/if}}") Next Section
+                if focusing "condition_experimental"
+                    +gaExperimentFeedbackDetail(expId=getExpId expCreatorID=getExpCreatorID field="condition_experimental" name="the experimental condition")
+                    button.btn.light-blue#next(class="{{#if showNext}}show{{/if}}") Next Section
+                if focusing "condition_control"
+                    +gaExperimentFeedbackDetail(expId=getExpId expCreatorID=getExpCreatorID field="condition_control" name="the control condition")
+                    button.btn.light-blue#next(class="{{#if showNext}}show{{/if}}") Next Section
+                if focusing "criteria_exclusion"
+                    +gaExperimentFeedbackDetail(expId=getExpId expCreatorID=getExpCreatorID field="criteria_exclusion" name="the exclusion criteria")
+                    button.btn.light-blue#next(class="{{#if showNext}}show{{/if}}") Next Section
+                if focusing "criteria_inclusion"
+                    +gaExperimentFeedbackDetail(expId=getExpId expCreatorID=getExpCreatorID field="criteria_inclusion" name="the inclusion criteria")
+                    button.btn.light-blue#next(class="{{#if showNext}}show{{/if}}") Next Section
+                if focusing "overall"
+                    +gaExperimentFeedbackDetail(expId=getExpId expCreatorID=getExpCreatorID field="overall" name="the overall experiment")
+                    if isCreator
+                        button.btn.light-blue#finishReadingReview(class="{{#if showNext}}show{{/if}}" style="width: 100%") Finish Reading Reviews
+                    else if isAdmin
+                        button.btn.light-blue#finishReadingAdmin(class="{{#if showNext}}show{{/if}}" style="width: 100%") Finish Reading Reviews
+                    else
+                        button.btn.light-blue#finishReview(class="{{#if showNext}}show{{/if}}" style="width: 100%") Finish Review
+                

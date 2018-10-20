@@ -1,0 +1,52 @@
+template(name='phoneModal')
+	div#add-phone-modal.modal
+		div.modal-content
+			.card-content(style="margin-right: 30px;")
+				h5 Please add your phone number before continuing		
+				br
+				div.row
+					.input-field
+						div.col.m2
+							i.material-icons.prefix perm_phone_msg
+							input#add-phone-modal-country(type="text" placeholder="+1")
+						div.col.m9
+							input#add-phone-modal-input(type="text" placeholder="Add number without country code!")
+						div.col.m1
+				h6(class='animated fadeIn' style='margin-left: 3%; margin-top: 0px; text-align: left;') Your phone number is needed for you to receive reminders from Gut Instinct, and to send your data to Gut Instinct.
+				p(style="text-align:left; margin-bottom: 0px; margin-top: 10px; margin-left: 3%;")
+					a.grey-text.skip(style="font-weight:400; font-size: 18px;") Only accepting US numbers right now
+				p(style="text-align:left; margin-top: 0px; margin-bottom: 10px; margin-left: 3%;")
+					a.grey-text.skip(style="font-weight:400; font-size: 18px;") If you're outside the U.S.
+						a.grey-text.skip#emailReminder(href="" style="text-align:center; font-weight:100;"): u sign up for email reminders
+				div.row
+						a.btn.light-blue.text-darken-4#addphone(style="text-align:left; display: none; margin-left: 3%; margin-top: 10px;") Add Phone Number
+			
+				if incompleteUsername
+					h5 Please add your username before continuing
+					div.row
+						.input-field
+							div.col.m1
+								i.material-icons.prefix(style="margin-top: 10px;") account_circle
+							div.col.m10(style="margin-left:-60px;")
+								input(id='usernameText', class='', placeholder='Enter your username', required, style="margin-left: 50px;")
+							div.col.m1
+					h6(class='animated fadeIn' style='margin-left: 3%; margin-top: 0px; text-align: left;') Galileo identifies you in your Galileo activity using your username. Usernames can only be chosen once, so make it unique.
+					div.row
+							a.btn.light-blue.text-darken-4#addusername(style="text-align:left; display: none; margin-left: 3%; margin-top: 10px;") Add Username
+							
+							
+				if incompleteEmail
+					h5 Please add your email before continuing
+					div.row
+						.input-field
+							div.col.m1
+								i.material-icons.prefix(style="margin-top: 10px;") email
+							div.col.m10(style="margin-left:-60px;")
+								input(id='userEmailText', class='', placeholder='Enter your email', required, style="margin-left: 50px;")
+							div.col.m1
+					h6(class='animated fadeIn' style='margin-left: 3%; margin-top: 0px; text-align: left;') E-mail updates include feedback from peers and experts! Gut Instinct will only send you e-mails that help you learn more about designing experiments.
+					div.row
+							a.btn.light-blue.text-darken-4#addemail(style="text-align:left; display: none; margin-left: 3%; margin-top: 20px;") Add Email
+						
+		div.modal-footer
+			a.gray-text(class="btn-flat" id="cancel") Cancel

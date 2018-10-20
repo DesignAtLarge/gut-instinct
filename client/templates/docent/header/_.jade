@@ -1,0 +1,140 @@
+template(name='header')
+    |{{init}}
+    ul#dropdown1.dropdown-content(style="margin-top: 65px;")
+        li
+            unless hasEmail
+                a(href='/profile' style='color: #f4511e;') Profile <i class="fa fa-user" aria-hidden="true" style="margin-right: 0px"></i>
+            else
+                a(href='/profile' style='color: #01579b;') Profile <i class="fa fa-user" aria-hidden="true" style="margin-right: 0px"></i>
+        li.divider
+        li
+            a(class="logout" style='color: #01579b;') Logout <i class="fa fa-sign-out" aria-hidden="true" style="margin-right: 0px"></i> 
+                //#{user.username}
+
+    nav
+        div(class='nav-wrapper light-blue darken-4' data-step="100" data-intro="Navigate Gut Instinct's menu bar in order to explore further options and features!")
+
+            a(href="#", id='mobileMenuSwitch', data-activates="mobile-demo", class="button-collapse")
+                .row
+                    i.material-icons.col menu 
+                    //img.col(style="margin-left: 0px; margin-top: 15px;" src="/images/logos/gi_basic_dark_bg.png" height="35px")
+
+            a(href="/entrance" class="brand-logo" title="Choose another platform" id='mendelCodeHeader')
+            //img.col(id="header-logo" style="margin-left: 120px; margin-top: 15px; display: none;" src="/images/logos/gi_basic_dark_bg.png" height="35px")
+
+            ul(class="right hide-on-med-and-down")
+                //li
+                    form#gutsearch
+                        input(id="searchQuery" type='search', placeholder='Search')
+                li
+                    a(href='javascript:void(0);', title="Get a little introductory help", class='glasspane', style='color:white') <i class="fa fa-question-circle-o" aria-hidden="true"></i> Confused?
+                li
+                    .headerdivider
+                unless isCondition7
+                    li(id="addq" data-step="101" data-intro="Need to add a question that just came to mind. Go here!")
+                        a(onclick="window.location.replace('/gutboard_slider_addq')" href='#', id='addQuestionControlHeader', title="Add a question.", class='guttest-button', style='margin-top: 0px; color:white;') <i class='fa fa-plus-circle' style='color: #f4511e'></i> Add more questions!
+                            //i(class='fa fa-plus-circle fa-4x waves-effect waves-light', aria-hidden="true", style='vertical-align: middle; color: #f4511e') Add your question!
+                unless isCondition1or3or5or8or10
+                    if visitedTopics
+                        li(id="topics" data-step="102" data-intro="Check out further learning material by exploring the topics page!") 
+                            a(href='/topics', title="View topics page", style='color:white') <i class="fa fa-book" aria-hidden="true"></i> Topics
+                    else
+                        li(data-step="102" data-intro="Check out further learning material by exploring the topics page!" style='background-color: #f54032') 
+                            a(href='/topics', title="View topics page", style='color:white') <i class="fa fa-book" aria-hidden="true"></i> Topics
+                            
+                unless isCondition1or2or7or8or9
+                    li(id="guide" data-step="103" data-intro="Need pointers to asking great questions. We've got you covered here.") 
+                        //docent-exp - should not be visible for cond1
+                    
+                        a(href='/guide', title="View guide", style='color:white') <i class="fa fa-list-ul" aria-hidden="true"></i> Guide
+                unless isCondition7
+                    li(id="gutboard" data-step="104" data-intro="Review all questions that have been posted to this community board") 
+                        a(id='gutboardMendelLink' title="View gut board", href='/gutboard/#{getMendelCode}', style='color:white') <i class="fa fa-comments-o" aria-hidden="true"></i> GutBoard
+                            
+                unless isCondition7
+                    li(id="notifications" data-step="105" data-intro="Check out notifications to see what's been added to your questions!") 
+                        if isUnreadNotification
+                            a(id='notification-button', title="Check notifications") <i class="fa fa-bell-o" aria-hidden="true"></i> Notifications
+                                span(class="new badge") #{getNotificationCount}
+                        else
+                            a(id='notification-button', title="Check notifications") <i class="fa fa-bell-o" aria-hidden="true"></i> Notifications
+
+                li(data-step="106" data-intro="Make sure to also update your profile to enable some of these awesome features like notifications.")
+                    a.dropdown-button(id="userDrop" href='#!', data-activates='dropdown1')
+                        | #{user}
+                        unless hasEmail
+                            i.fa.fa-exclamation-circle(aria-hidden="true" style="color: #f4511e;")
+                        i.material-icons.right arrow_drop_down
+
+            ul(class='side-nav light-blue darken-4' id='mobile-demo' style='width:225px; height:500px')
+                li
+                    .userView        
+                        span(class="name", style='margin-bottom: 20px; font-size: 14pt') Welcome, #{user}!
+
+                li
+                    a(href='#', class='closeMobileMenuSwitch', onclick='$("#mobile-demo").css("transform", "translateX(-105%)")')
+                        span(class="white-text")
+                            strong
+                                <i class="fa fa-close" aria-hidden="true"></i> Close Menu
+                li
+                    .divider
+                li
+                    a(href='javascript:void(0);', class='glasspane')
+                        span(class="white-text")
+                            strong
+                                <i class="fa fa-question-circle-o" aria-hidden="true"></i> Confused
+                unless isCondition7
+                    li
+                        a(onclick="window.location.replace('/gutboard_slider_addq')" href='#', id='addQuestionControlHeaderMobile', class='guttest-button', style='margin-top: 0px;')
+                            span(class="white-text")
+                                strong
+                                | <i class='fa fa-plus-circle' style='vertical-align: middle; color: #f4511e'></i> Add more questions!
+                unless isCondition1or3or5or8or10
+                    li
+                        a(href='/topics')
+                            span(class="white-text")
+                                strong
+                                | <i class="fa fa-book" aria-hidden="true"></i> Topics
+                unless isCondition1or2or7or8or9
+                    li
+                        a(href='/guide')
+                            span(class="white-text")
+                                strong
+                                | <i class="fa fa-list-ul" aria-hidden="true"></i> Guide
+                unless isCondition7
+                    li
+                        a(href='/gutboard/#{getMendelCode}')
+                            span(class="white-text")
+                                strong
+                                | <i class="fa fa-comments-o" aria-hidden="true"></i> GutBoard
+                li
+                    .divider
+                li
+                    a(href='#', class='closeMobileMenuSwitch', onclick='$("#mobile-demo").css("transform", "translateX(-105%)")')
+                        span(class="white-text")
+                            strong
+                            | <i class="fa fa-close" aria-hidden="true"></i> Close Menu
+                li(class='logout')
+                    a(href='#') 
+                        span(class="white-text")
+                            strong 
+                                <i class="fa fa-sign-out" aria-hidden="true"></i> Sign Out
+
+    #notification-modal.modal.bottom-sheet
+        .modal-content
+            h4 Notification Center
+            if isUnreadNotification
+                ul.collection
+                    each renderNotification
+                        +noticemodule
+
+            else
+                br
+                h5() You don't have any unread notifications. Great!
+    div(id="logout-modal" class="modal" style="width: 25% !important; margin-top: 20% !important;")
+        div(class="modal-content")
+            h6 Are you sure you want to log out? You can just close the tab and open it later without having to log back in.
+        div(class="modal-footer")
+            a(id="logout" class="modal-action modal-close waves-effect waves-red btn-flat" style="color: red;") Yes
+            a(class="modal-action modal-close waves-effect waves-blue btn-flat" style="color: #03A9F4;") No
+

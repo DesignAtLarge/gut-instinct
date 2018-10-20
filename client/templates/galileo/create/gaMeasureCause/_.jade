@@ -1,0 +1,165 @@
+template(name="gaMeasureCause")
+
+    if isOpenHumans
+        +gaOpenHumansDataSourceModal(idSuffix="cause" measureVariable=causeVariable ohDataSourceVariable=causeOhDataSourceIdsVar)
+
+    +cardLayout(heading="Measure the cause in your hypothesis" cardId=cardId stepnumber=stepnumber nextDisabled=nextDisabled timeStamp=timeStamp type=type designId=getDesignId)
+
+        span.resizing-input.blue-text.text-darken-2
+            i.material-icons(contenteditable="false" style="opacity:0.5") mode_edit
+            input.edit-hypothesis-input#measureCause-editableText(type="text" placeholder="cause" value="{{cause}}")
+            span(style="display:none")
+        span(style="font-size:26px;") #{relation}&nbsp;
+        span(style="font-size:26px;") #{effect}
+
+        br
+        br
+
+        p(style='font-size: 20px; font-weight: 100;') To conduct an experiment, you need to
+            ol
+                li change the cause (called manipulation) and then
+                li record the effect.
+        br
+        p(style='font-size: 20px; font-weight: 100;') How will you manipulate 
+            span.blue-text.text-darken-2(style='font-weight: bold') #{cause}
+            | in your experiment?
+
+            p (To keep your experiment simple, choose #[b one] option)
+        br
+
+
+        input.measureCause-checkbox(type="radio" class="with-gap" id="cause-absence-checkbox" name="measureCause-radio-group")
+        label(for="cause-absence-checkbox")
+            p(class="blue-text text-darken-2" style='font-size: 20px; font-weight: 100;') Absence or Presence
+                //a(href="#" id="help-#{cardId}-1" class="helpbtn"): i.fa.fa-question-circle(aria-hidden="true")
+                span(class="black-text text-darken-4" style='font-size: 20px; font-weight: 100;')
+            p E.g. {{getExamples '3-0-0'}}
+            p E.g. {{getExamples '3-0-1'}}
+            p: a(href="#" id="help-#{cardId}-1" class="helpbtn") More examples...
+
+            +helpLayout(cardId=cardId helpId="1" title="" description="")
+                p Absence or presence of the cause can show maximum difference in the effect and enable you to find if your hypothesis is true or not. Tracking absence/ presence is like answering a simple Yes or No question. E.g Assume measuring the effect of drinking milk on your digestion. Now if you drank milk that day, you would say 'Yes, milk in diet present', otherwise you would say 'No, milk in diet absent'
+                br
+                p More examples -
+                ul.browser-default
+                    li anything particular in your diet like gluten, carbs, dairy products like milk, cheese, yogurt etc.
+                    li a particular medicine like supplementary vitamin
+                    li exercise in your day (like going for a run or not, biking or not biking etc.)
+                    li sexual activity
+
+                p Please be aware that anything you measure as absence or presence, could also be measured more specifically on a Rating Scale or as a Quantity. Remember that more information is better for scientists, so try to avoid choosing Absence/Presence.
+                p e.g. carbs in your diet could be measured specifically in grams
+        br
+        br
+
+        input.measureCause-checkbox(type="radio" class="with-gap" id="cause-amount-checkbox" name="measureCause-radio-group")
+        label(for="cause-amount-checkbox")
+            p(class="blue-text text-darken-2" style='font-size: 20px; font-weight: 100;') Amount
+                //a(href="#" id="help-#{cardId}-2" class="helpbtn"): i.fa.fa-question-circle(aria-hidden="true")
+            p E.g. {{getExamples '3-1-0'}}
+            p {{getExamples '3-1-1'}}
+            p: a(href="#" id="help-#{cardId}-2" class="helpbtn") More examples...
+
+            +helpLayout(cardId=cardId helpId="2" title="")
+                p Measuring amount is useful when you want to track 'how much' of the cause. By choosing amount, your experiment will ask participants to track a number, like 'number of hours slept', 'number of miles ran', 'number of cups of coffee' etc.
+                br
+                p More Examples -
+                ul.browser-default
+                    li distance ran in miles, weights lifted in pounds or kgs, count of laps swam, number of steps taken
+                    li time spent on an activity e.g. hours slept, minutes spent on eating lunch, seconds spent on 30 cycles of breathing exercise
+                    li count of cups of coffee had, number of helpings of food, ounces/grams of protein powder
+                    li amount of medicine in gms or ml
+        br
+        br
+
+        div#cause-amount-dropdown.hide(style="margin-left:34px;margin-top:-20px;")
+            br
+            div.row
+                div.col.m6
+                    p.black-text(style="font-size:16px") Set a unit of measurement for "#{cause}"
+                div.col.m6
+                    input#cause-amount-unit(placeholder="pounds, hours, number of cups..." style="height:2rem;")
+            //+gaFrequencyDropdown(id='cause-amount')
+            //+gaTimeDropdown(id='cause-amount-time' measureType="amount" measureItem=cause)
+
+
+
+        //input.measureCause-checkbox(type="radio" class="with-gap" id="cause-rating-checkbox" name="measureCause-radio-group")
+        //label(for="cause-rating-checkbox")
+        //    p(class="blue-text text-darken-2" style='font-size: 20px; font-weight: 100;') Rating scale
+        //        a(href="#" id="help-#{cardId}-3" class="helpbtn"): i.fa.fa-question-circle(aria-hidden="true")
+        //    p E.g. the severity of a headache can be measured on a scale of 1-5, 1 being mild and 5 being a severe headache
+        //
+        //    +helpLayout(cardId=cardId helpId="3" title=""
+        //    description="A rating scale of 1-5 is useful when you want to track a feeling. e.g. If you want to measure 'headaches' an easy way to do it is by rating your headache 1 if its mild, and 5 if its a migraine. Another example would be 'attentiveness', you can measure how attentive you were by rating yourself on a scale of 1-5")
+        //    br
+
+        //div#cause-severity-dropdown.hide(style="margin-left:34px;margin-top:-20px;")
+        //    br
+        //    //+gaFrequencyDropdown(id='cause-severity')
+        //    +gaTimeDropdown(id='cause-severity-time' measureType="severity" measureItem=cause)
+
+        input.measureCause-checkbox(type="radio" class="with-gap" id="cause-frequency-checkbox" name="measureCause-radio-group")
+        label(for="cause-frequency-checkbox")
+            p(class="blue-text text-darken-2" style='font-size: 20px; font-weight: 100;') Frequency
+                //a(href="#" id="help-#{cardId}-4" class="helpbtn"): i.fa.fa-question-circle(aria-hidden="true")
+            p E.g. {{getExamples '3-2-0'}}
+            p: a(href="#" id="help-#{cardId}-4" class="helpbtn") More examples...
+
+            +helpLayout(cardId=cardId helpId="4" title="")
+                p Measuring frequency is useful when you want to track how often do you repeat an activity in a unit time.
+                br
+                p More Examples -
+                ul.browser-default
+                    li You may drink a total of 3 cups of coffee in a day, but the frequency could either be all 3 within 1 hour, 3 cups within 6 hours
+                    li You may exercise for a total of 1 hour every day, but the frequency could either be 1 hour in the morning, or 30mins in the morning and 30mins in the evening
+        br
+        br
+
+        input.measureCause-checkbox(type="radio" class="with-gap" id="cause-rate-checkbox" name="measureCause-radio-group")
+        label(for="cause-rate-checkbox")
+            p(class="blue-text text-darken-2" style='font-size: 20px; font-weight: 100;') Speed
+                //a(href="#" id="help-#{cardId}-5" class="helpbtn"): i.fa.fa-question-circle(aria-hidden="true")
+            p E.g. {{getExamples '3-3-0'}}
+            p: a(href="#" id="help-#{cardId}-5" class="helpbtn") More examples...
+
+            +helpLayout(cardId=cardId helpId="5" title="")
+                p Measuring speed is useful when you want to track how quickly or slowly something changes
+                br
+                p More Examples -
+                ul.browser-default
+                    li drinking 1 cup of coffee, but drinking it fast (within a minute) or sipping it slowly (in 30mins)
+                    li taking a fixed amount of glucose, but varying the speed of the drip
+        br
+        br
+
+        div#cause-rate-dropdown.hide(style="margin-left:34px;margin-top:-20px;")
+            br
+            p.black-text(style="font-size:16px") Select one of the following:
+            br
+            input(type="radio" class="with-gap cause-rate-radio" id="cause-rate-number-checkbox" name="measureRate-radio-group")
+            label(for="cause-rate-number-checkbox")
+                p.black-text Measure the rate as a quantity
+
+            div.row(style="margin-left:25px")
+                div.col.m6
+                    p Set a unit of measurement for the rate of "#{cause}"
+                div.col.m3
+                    input#cause-rate-unit(placeholder="miles/hour, ml/second" style="height:2rem;")
+
+            input(type="radio" class="with-gap cause-rate-radio" id="cause-rate-scale-checkbox" name="measureRate-radio-group")
+            label(for="cause-rate-scale-checkbox")
+                p.black-text Measure rate of "#{cause}" on a scale of 1 to 5 (1 being slow, 5 being fast)
+
+
+
+        if showOhDataSources
+            div.divider#causeDataSources(style="margin:30px 0px;")
+            p(style="font-size:24px;") You selected the following data sources to measure
+                span.blue-text.text-darken-2(style='font-weight: bold') #{cause}
+                |:
+
+            +gaOhSelectedDataSources(ohDataSourceIdsVar=causeOhDataSourceIdsVar viewOnly=false)
+
+        br
+        +gaVideoLearnLayout(videoTitle="Cause (Independent variable) and Effect (Dependent variable) in your experiment" videoUrl="https://www.youtube.com/embed/1Qh-CS_GFBk" videoSrc="coursera.org/learn/designexperiments")

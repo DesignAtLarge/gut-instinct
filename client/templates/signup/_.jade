@@ -1,0 +1,117 @@
+template(name='signup')
+    #login
+        .signup_wrapper
+            section(class='description' style = "height: 145%;")
+                article
+                    a(href="{{homeUrl}}")
+                        h1(style="background-color: #1D3866;")
+                            img(src="{{imageUrl}}" height="60px")
+                    br
+                    span(class='login_error') #{error_message}
+                    div(class='login-buttons')
+                        button(id='login-coursera', class='btn btn-block') login with coursera
+                        div.coursera-options
+                            h7(style="display: block; text-align: center; font-size: 23px; font-weight: bold;") How have you joined Coursera?
+                            p.coursera-fb
+                                input(class="with-gap" name="group3" type="radio" id="via-fb")
+                                label(for="via-fb" style="color: black; font-weight: bold;") Via my Facebook account
+                            div.coursera-info(style="margin-left: 9%; font-size: 15px; font-weight: bold;")
+                                p Follow these steps:
+                                p 1. Log in to Coursera
+                                    a(href="https://www.coursera.org/?authMode=login", target="_blank") #[b here.]
+                                p 2. Once you're logged in to Coursera, authorize Gut Instinct
+                                    a.coursera-auth(href="#", target="_blank") #[b here.]
+                            p.coursera-email
+                                input(class="with-gap" name="group3" type="radio" id="via-email")
+                                label(for="via-email" style="color: black; font-weight: bold;") Via my email address
+
+
+
+                            button(id='login-coursera', class='btn btn-block coursera-auth login-coursera2' style="display: none;") continue with login
+                            div(id='back-coursera') back
+                        button(id='login-google', class='btn btn-block') login with google
+                        button(id='login-facebook', class='btn btn-block') login with facebook
+                        //button(id='login-reddit', class='btn btn-block') login with reddit
+                        button(id='login-openhumans', class='btn btn-block') login with openhumans
+                        br
+                        br
+
+                    div(class="account_signin" style="display: none;")
+                        div(class="sigin_div")
+                            span(id="signin_check" class='timestamp animated fadeIn' style="color: red; font-size: 15px; display: none;")
+                            br
+                            form
+                                label(class='active timestamp control-label' for='enter_email' style="font-size: 15px;") Email
+                                input(id='enter_email', type='email', class='validate', style='font-size: 24px;')
+                                
+                                label(id="enter_password_label" class='active timestamp control-label' for='enter_password' style="font-size: 15px;") Password
+                                input(id='enter_password', type='password', class='validate', style='font-size: 24px;')
+                            br
+                            button(id="signin" class='btn btn-block light-blue' style="text-align: center") Sign in
+                            button(id="send-reset" class='btn btn-block light-blue' style="text-align: center; display: none;") Send me a reset link
+                            br
+                            a(id="forgot-pass" style="text-decoration: none; cursor: pointer;") forgot password?
+                            br
+                            span(id="reset-link" class='timestamp animated fadeIn' style="color: green; font-size: 15px; display: none;") email sent
+                            br
+                        //div(class="forgot_div" style="display: none;")
+                            span(id="email_check" class='timestamp animated fadeIn' style="color: red; font-size: 15px; display: none;")
+                            br
+                            form
+                                label(class='active timestamp control-label' for='enter_email' style="font-size: 15px;") Email
+                                input(id='enter_email', type='email', class='validate', style='font-size: 24px;')
+                            button(id="reset-link" class='btn btn-block light-blue' style="text-align: center") get reset link
+
+                    div(class="account_create" style="display: none;")
+                        span(id="create_err" class='timestamp animated fadeIn' style="color: red; font-size: 15px; display: none;")
+                        br
+                        form
+                            label(class='active timestamp control-label' for='new_email' style="font-size: 15px;") Email
+                            
+                            input(id='new_email', type='email', class='validate', style='font-size: 24px;')
+                            
+                            label(class='active timestamp control-label' for='new_password' style="font-size: 15px;") Password
+                            input(id='new_password', type='password', class='validate', style='font-size: 24px;')
+                            
+                            label(class='active timestamp control-label' for='confirm_password' style="font-size: 15px;") Reenter password
+                            input(id='confirm_password', type='password', class='validate', style='font-size: 24px;')
+                        br
+                        button(id="signup" class='btn btn-block light-blue' style="text-align: center") Sign up
+                        br
+                        br
+
+                    div(class="signup-links" style="text-align: center;")
+                        a(id="email_signin" style="text-decoration: none; cursor: pointer;") Sign in with email &nbsp;<i class="fa fa-caret-right" aria-hidden="true"></i>
+                        br
+                        a(id="email_create" style="text-decoration: none; cursor: pointer;") or Create an account &nbsp;<i class="fa fa-caret-right" aria-hidden="true"></i>
+                    .login-buttons
+                        #login-cousera
+                            div(class="second-back" id='back-coursera' style="top: 20%; margin-left: -40px; display: none;") back
+
+
+                    div(id="powered-info")
+                        div(style='display: block; margin:0 auto; text-align: center')
+                            span(style='color:#000000; opacity:0' ) ----
+                            br
+                            span(style='color:#000000; font-weight: bold; font-size:14px' ) Powered by
+
+                        div(id='powered-logos' class="row" style='display: block; margin:0 auto; text-align: center; margin-top: 10px; width: 64%;')
+                            div(style='background-color: rgba(29,57,102,1); height: 40px; width: 93px; float: right;')
+                                a(href='http://designlab.ucsd.edu/' target="_blank")
+                                    img(src='/images/logos/footer-dlab.png' height='40')
+                            div(style='background-color: rgba(29,57,102,1); height: 40px; width: 85px; float: right; margin-left: 1px; margin-right: 1px;')
+                                a(href='https://knightlab.ucsd.edu/' target="_blank")
+                                    img(src='/images/logos/footer-knight.png' height='40')
+                            div(style='background-color: rgba(29,57,102,1); height: 40px; width: 88px; float: right;')
+                                a(href='http://americangut.org/' target="_blank")
+                                    img(src='/images/logos/footer-agut.png' height='40')
+
+                        div(style='display: block; margin:0 auto; text-align: center')
+                            span(style='color:#000000; opacity:0; font-size:14px' ) ----
+                            br
+                            a(href='http://gutinstinct.ucsd.edu/info/' target='_blank')
+                                span(style='color:#000000; font-weight: bold' ) Visit Project Info Page
+                                br
+                                span(style='color:#000000; font-weight: bold' ) gutinstinct.ucsd.edu/info/
+    div#loading.hide
+       +loading_wheel

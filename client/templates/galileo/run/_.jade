@@ -1,0 +1,85 @@
+template(name="gaRun")
+    +gaNavbar
+    main#ga-main
+        div.wrapper
+            h4.board-header
+                a.btn.btn-sm.light-blue.darken-4(href="/galileo/me/experiment/{{expId}}") 
+                    i.fa.fa-angle-left
+                    | BACK
+                | Run Your Experiment!
+            ul#ga-pilot-steps
+                li.pilot-step(class="{{#if isCurrentStep 1}}active{{/if}} {{#if visited 1}}visited{{/if}}")
+                    div.pilot-step-header
+                        span.pilot-step-number 1
+                        span.pilot-step-header Your responsibilities while running the experiment 
+                    div.pilot-step-body
+                        div.card
+                            p Now that you think your experiment is ready to run
+                            ul#intro-run
+                                li 
+                                    strong Step 1. Please ensure that your 
+                                        a(href="/galileo/me/experiment/{{expId}}/design" target="_blank") Experiment design
+                                        | is appropriate for the 
+                                        | participants. Please ensure that you have made use of all the feedback from the reviewers and pilot participants.
+                                li 
+                                    strong Step 2. Wait for enough users to join your experiment
+                                li 
+                                    strong Step 3. Choose a start date for the experiment (the experiment will last 7 days by default)
+                                li 
+                                    strong Step 4. Wait for the experiment to start.
+                                li 
+                                    strong Step 5. Once the experiment begins, regularly check your 
+                                        a(href="/galileo/me/experiment/{{expId}}/pilot_sheets" target="_blank") Experiment's data
+                                        | to ensure participants are providing the responses. 
+                                        //| Please send them reminders if they aren't.
+                                //li 
+                                    strong Step 6. Check on the result of your experiment
+                            div.btns
+                                button.btn.light-blue.next-step Next
+                li.pilot-step(class="{{#if isCurrentStep 2}}active{{/if}} {{#if visited 2}}visited{{/if}}")
+                    div.pilot-step-header
+                        span.pilot-step-number 2
+                        span.pilot-step-header Select the duration of the experiment
+                    div.pilot-step-body
+                        div.card
+                            p Please choose a duration
+                            div.input-field.col.s12
+                                select#duration-select
+                                    option(value="" disabled selected) Choose your option
+                                    option(value="7") 7 days
+                            center.btns
+                                button.btn.light-blue.prev-step Prev
+                                button.btn.light-blue.next-step#duration-choice-submit(class="{{#if durationDisabled}}disabled{{/if}}" href="") Confirm Choice
+                li.pilot-step(class="{{#if isCurrentStep 3}}active{{/if}} {{#if visited 3}}visited{{/if}}")
+                    div.pilot-step-header
+                        span.pilot-step-number 3
+                        span.pilot-step-header Select the start date of the experiment
+                    div.pilot-step-body
+                        div.card
+                            p Please tell us when would you like to start the experiment
+                            input.datepicker#start-date-input(type="text")
+                            
+                            unless dateDisabled
+                                p Experiment period                                
+                                    |: From 
+                                    strong {{startDate}} 
+                                    | to 
+                                    strong {{endDate}}
+
+
+                            div.btns
+                                button.btn.light-blue.prev-step Prev
+                                if notifyingParticipants
+                                    p Notifying participants, please wait ...
+                                else
+                                    button.btn.light-blue#date-choice-submit(class="{{#if dateDisabled}}disabled{{/if}}") Confirm Choice
+
+                li.pilot-step(class="{{#if isCurrentStep 4}}active{{/if}} {{#if visited 4}}visited{{/if}}")
+                    div.pilot-step-header
+                        span.pilot-step-number 4
+                        span.pilot-step-header Complete
+                    div.pilot-step-body
+                        div.card
+                            p Great! Now you have successfully started the experiment! Please
+                                a(href="/galileo/me/experiment/{{id}}") click here
+                                | to go to the experiment detail!

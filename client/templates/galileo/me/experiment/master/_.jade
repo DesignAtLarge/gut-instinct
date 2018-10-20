@@ -1,0 +1,64 @@
+template(name="gaMeExperimentMaster")
+    +gaNavbar
+    +gaMeSidebar
+    main#ga-me-main
+        div#ga-me-exp-header
+            a.btn.light-blue.darken-4(href="#" onclick="window.history.back()" style="display: inline-block;  margin-top: -20px;" id="goBackBtn" type="button") 
+                i.fa.fa-angle-left
+                | Back
+            h3.text-left#hypothesis(style="display: inline-block; margin-left: 10px;") {{experimentObjectiveQuestion}}
+
+        div.card.exp-stats#ga-my-experiment-header(style="margin-top: 20px; width: calc(100%)")
+            .row
+                .col.s12
+                    ul.tabs(style="background-color:transparent; border-bottom:1px solid gainsboro; color:gray")
+                        li.tab.col
+                            if isOnStatusPage
+                                if canSeeDesign
+                                    a.active(href='#' id="current-status-btn")
+                                        i.fa.fa-info
+                                        span #[b Current Status]
+                                else
+                                    a
+                                        i.fa.fa-info
+                                        span #[b Current Status]
+                            else
+                                if canSeeDesign
+                                    a(href='#' id="current-status-btn")
+                                        i.fa.fa-info
+                                        span #[b Current Status]
+                                else
+                                    a
+                                        i.fa.fa-info
+                                        span #[b Current Status]
+                        if canSeeDesign
+                            li.tab.col
+                                a(href='#' id="deign-reviews-btn")
+                                    i.fa.fa-flask
+                                    span #[b Design & Reviews]&nbsp;&nbsp;
+                                    i.fa.fa-external-link
+                        //- if canSeePilotSheets
+                        //-     li.tab.col
+                        //-         if isOnPilotDataPage
+                        //-             a.active(href='#' id="pilot-data-btn")
+                        //-                 i.fa.fa-table
+                        //-                 span Pilot Data
+                        //-         else
+                        //-             a(href='#' id="pilot-data-btn")
+                        //-                 i.fa.fa-table
+                        //-                 span Pilot Data
+                        //- if isPilot
+                        //-     li.tab.col
+                        //-         a(href='#' id="my-pilot-btn")
+                        //-             i.fa.fa-paper-plane-o
+                        //-             span My Pilot
+                        //- if isParticipant
+                        //-     li.tab.col
+                        //-         a(href='#' id="my-participation-btn")
+                        //-             i.fa.fa-code-fork
+                        //-             span My Participation
+
+        div.card#ga-my-experiment(style="margin-top: -17px")
+            .row(style="width: calc(100%)")
+                div#ga-myexp-section
+                    +UI.contentBlock

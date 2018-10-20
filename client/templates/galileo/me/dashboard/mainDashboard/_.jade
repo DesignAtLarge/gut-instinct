@@ -1,0 +1,898 @@
+template(name="gaMeDashboard")
+    +gaNavbar
+    +gaMeSidebar
+
+    +gaReminderStatsModal(day="3" cause=ongoingExpCause effect=ongoingExpEffect)
+    +gaSendReminderModal(day=getOngoingExperimentCurrentDay cause=ongoingExpCause effect=ongoingExpEffect)
+    +gaClarificationModal(title=getExpTitleForParticipant expId=getExpId)
+    +gaClarificationCreatorModal(title=getExpTitle expId=ongoingExpId)
+    +gaSendThankNoteModal
+    +gaRequestAnalysisModal
+    +gaDiscussionModal
+    +imageModal(url='/images/galileo/exp_design/bristol_stool_chart.png')
+    
+    each e in getReadyToRunExp
+        +gaShareEmailInviteJoinModal(link=e.joinLink)
+    
+    main#ga-me-main
+        div#edit-data-modal.modal(style="background: #FAFAFA")
+            div.modal-content
+                h5#edit-data-modal-title Your Data for the Experiment
+                div.section-body
+                    table.sheet-table
+                        tr
+                            td(style="width: 10%;") Date
+                            td(style="padding:2px")
+                            td(style="padding:10px; width: 40%;") {{getCause}} (Cause)
+                                br
+                                span.light-blue-text.text-darken-4 {{causeType}} 
+                                span at ({{getCauseTime}})
+                            td(style="padding:2px")
+                            td(style="padding:10px; width: 40%;") {{getEffect}} (Effect)
+                                br
+                                span.light-blue-text.text-darken-4 {{effectType}}
+                                span at ({{getEffectTime}})
+                        each slot in slots
+                            tr
+                                td(style="padding: 2px" class="{{slot.today}}")
+                                    p(style="margin-top:1px; margin-bottom:1px") {{slot.date}}
+                                td.light-blue-text.text-darken-4(style="padding: 2px")
+                                if slot.editable
+                                    if noData slot.cause         
+                                        td.light-blue-text.text-darken-4(style="padding: 2px" class="{{slot.today}}")
+                                            textarea.materialize-textarea(style="margin:8px; min-height: 0rem !important; height: 2rem; padding: 0px;width: calc(100% - 16px);" id="editCauseData-{{slot.cause_rid}}" rid="{{slot.cause_rid}}" exp-id="{{getExpId}}" class="textarea-cause" placeholder="{{slot.cause}}" required) 
+                                            button.btn.light-blue.saveCauseChange(id="submitCauseBtn-{{slot.cause_rid}}" rid="{{slot.cause_rid}}" index="{{slot.index}}" exp-id="{{getExpId}}" type="submit" style="display: none; margin: 8px") save
+                                    else
+                                        td.light-blue-text.text-darken-4(style="padding: 2px" class="{{slot.today}}")
+                                            textarea.materialize-textarea(style="margin:8px; min-height: 0rem !important; height: 2rem; padding: 0px;width: calc(100% - 16px);" id="editCauseData-{{slot.cause_rid}}" rid="{{slot.cause_rid}}" exp-id="{{getExpId}}" class="textarea-cause" required) {{slot.cause}}
+                                            button.btn.light-blue.saveCauseChange(id="submitCauseBtn-{{slot.cause_rid}}" rid="{{slot.cause_rid}}" index="{{slot.index}}" exp-id="{{getExpId}}" type="submit" style="display: none; margin: 8px") save
+                                    td.light-blue-text.text-darken-4(style="padding: 2px")
+                                    if noData slot.effect
+                                        td.light-blue-text.text-darken-4(style="padding: 2px" class="{{slot.today}}")
+                                            textarea.materialize-textarea(style="margin:8px; min-height: 0rem !important; height: 2rem; padding: 0px;width: calc(100% - 16px);" id="editEffectData-{{slot.effect_rid}}" rid="{{slot.effect_rid}}" exp-id="{{getExpId}}" class="textarea-effect" placeholder="{{slot.effect}}" required)
+                                            button.btn.light-blue.saveEffectChange(id="submitEffectBtn-{{slot.effect_rid}}" rid="{{slot.effect_rid}}" index="{{slot.index}}" exp-id="{{getExpId}}" type="submit" style="display: none; margin: 8px") save
+                                    else
+                                        td.light-blue-text.text-darken-4(style="padding: 2px" class="{{slot.today}}")
+                                            textarea.materialize-textarea(style="margin:8px; min-height: 0rem !important; height: 2rem; padding: 0px;width: calc(100% - 16px);" id="editEffectData-{{slot.effect_rid}}" rid="{{slot.effect_rid}}" exp-id="{{getExpId}}" class="textarea-effect" required) {{slot.effect}}
+                                            button.btn.light-blue.saveEffectChange(id="submitEffectBtn-{{slot.effect_rid}}" rid="{{slot.effect_rid}}" index="{{slot.index}}" exp-id="{{getExpId}}" type="submit" style="display: none; margin: 8px") save    
+                                else 
+                                    td.light-blue-text.text-darken-4(style="padding: 10px; padding-top: 15px;padding-bottom: 15px;")
+                                        //- textarea.materialize-textarea(id="editCauseData-{{slot.cause_rid}}" rid="{{slot.cause_rid}}" exp-id="{{getExpId}}" class="textarea-cause" required) {{slot.cause}}
+                                        span {{slot.cause}}
+                                    td.light-blue-text.text-darken-4(style="padding: 2px")
+                                    td.light-blue-text.text-darken-4(style="padding: 10px; padding-top: 15px;padding-bottom: 15px;")
+                                        //- textarea.materialize-textarea(id="editEffectData-{{slot.effect_rid}}" rid="{{slot.effect_rid}}" exp-id="{{getExpId}}" class="textarea-effect" required) {{slot.effect}}
+                                        span {{slot.effect}}
+            div.modal-footer
+                a.gray-text(class="modal-action modal-close btn-flat") Close
+        +gaFollowupModal(exp_id=getExpId user_id=userId)
+
+        // Notify that the user has finished the tour (only once)
+        if notifyFinish
+            div.card(style="padding: 20px;")
+                p Congratulations! You have completed your tour of Galileo. Feel free to design your experiment or review others!
+        
+        if hasParticipatingExp
+            h4 My Contributions
+            div#ga-dashboard-part-exp
+                if hasStarted
+                    div.card.participant
+                        div.card-header
+                            h5
+                                span.tag 
+                                    i.fa.fa-plane
+                                    | Participant
+                                | {{getExpTitleForParticipant}}
+                            if isRunning
+                                h5.light-blue-text.text-darken-4 Day {{getCurrentDayForParticipant}}/7
+                                button#stopParticipating(style="height:50px; width: 105px;" class="light-blue") Stop Participating
+                                +gaStopParticipatingModal
+                            else if isCompleted
+                                h5.light-blue-text.text-darken-4 Completed
+                        div.card-content
+                            div.things-to-do
+                                h5 Instructions:
+                                if oneStep
+                                    br
+                                    p &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{getSteps}}
+                                    br
+                                else 
+                                    ol
+                                        each s in getSteps
+                                            li {{s}}
+                                    if isBristol
+                                        p(style="margin-left:25px") {{relatedStep}}
+                                        button#bristol(class='waves-effect waves-light btn light-blue' href="#" style="padding: 0px; height: 250px; width: 209px; margin-left:25px")
+                                            img#bristol-stool(src='/images/galileo/exp_design/bristol_stool_chart.png' style="height:250px;")
+                                        br
+                                        br
+                                        
+                                h5 Data to measure:
+                                ol
+                                    each m in getMeasurement
+                                        if m.unit
+                                            li {{m.cOrE}}: Measure #[strong {{m.type}}] of {{m.measure}} in #[strong {{m.unit}}] at #[strong {{m.time}}:00]
+                                        else 
+                                            li {{m.cOrE}}: Measure #[strong {{m.type}}] of {{m.measure}} at #[strong {{m.time}}:00]
+                        
+                            div.my-form
+                                ol
+                                    if isRunning
+                                        .row
+                                            .col.col-num
+                                                li.li-dash
+                                            .col.col-right
+                                                h5 Report today's data here:
+                                                table.sheet-table
+                                                    thead
+                                                        tr
+                                                            td.col.s4 Day
+                                                            td.col.s4 {{getCauseUnit}}
+                                                            td.col.s4 {{getEffectUnit}}
+                                                    tbody
+                                                        tr
+                                                            td.col.s4 
+                                                                br
+                                                                p(style="color: #000000; font-weight:400;") Day {{getCurrentDayForParticipant}}
+                                                                p(style="color: #000000; font-weight:400;") {{getDate}}
+                                                            td.col.s4
+                                                                if disableCause getCurrentDayForParticipant
+                                                                    textarea.materialize-textarea#cause-data(exp-id="{{getExpId}}" class="textarea-comment" disabled) Enter Data at {{getCauseTime}}
+                                                                else
+                                                                    textarea.materialize-textarea#cause-data(exp-id="{{getExpId}}" class="textarea-comment" required) {{hasCauseOfToday getCurrentDayForParticipant}}
+                                                                    button.btn.light-blue.feedbackFollowupSubmit#causeBtn(exp-id="{{getExpId}}" type="submit" style="display: none;" index="{{getCurrentDayForParticipant}}") Submit
+                                                            td.col.s4
+                                                                if disableEffect getCurrentDayForParticipant
+                                                                    textarea.materialize-textarea#effect-data(exp-id="{{getExpId}}" class="textarea-comment" disabled) Enter Data at {{getEffectTime}}
+                                                                else
+                                                                    textarea.materialize-textarea#effect-data(exp-id="{{getExpId}}" class="textarea-comment" required) {{hasEffectOfToday getCurrentDayForParticipant}}
+                                                                    button.btn.light-blue.feedbackFollowupSubmit#effectBtn(exp-id="{{getExpId}}" type="submit" style="display: none;" index="{{getCurrentDayForParticipant}}") Submit
+                                                if getNumOfUnrecordedData getCurrentDayForParticipant
+                                                    blockquote.warning(style="margin-top:20px; margin-bottom: 40px;") You have unrecorded data for today. Please fill out in the above table.
+                                        br
+                                        if isMissingPastData getCurrentDayForParticipant
+                                            .row
+                                                .col.col-num
+                                                    li.li-dash
+                                                .col.col-right
+                                                    blockquote.warning(style="margin:0px")
+                                                        div
+                                                            | You have missing data for a previous day. &nbsp;
+                                                            a.btn.viewPastData#viewPastData-myPart(href="#" exp-id="{{getExpId}}" style="font-size: 14px; margin-top: -6px;") Add Data
+                                        else   
+                                            br
+                                            .row
+                                                .col.col-num
+                                                    li.li-dash
+                                                .col.col-right            
+                                                    button.viewPastData#viewPastData-myPart(class='waves-effect waves-light btn light-blue' href="#" exp-id="{{getExpId}}") View and Edit Past Data
+                                                    br
+                                                    
+                                        br
+                                        div.row
+                                            .col.col-num
+                                                li.li-dash
+                                            .col.col-right
+                                                h5 Is anything Unclear? 
+                                                h5 Ask the Creator.
+                                                button.clarificationModal(class='waves-effect waves-light btn light-blue') Ask Now 
+                                    else if isCompleted
+                                        div.row
+                                            .col.col-num
+                                                li.li-dash
+                                            .col.col-right
+                                                h5 You can review and edit your past data:
+                                                button.viewPastData#viewPastData-myPart(class='waves-effect waves-light btn light-blue' href="#" exp-id="{{getExpId}}") View and Edit Past Data
+                                                br
+                                        div.row(style="padding: 10px")
+                                        div.row
+                                            .col.col-num
+                                                li.li-dash
+                                            .col.col-right
+                                                h5 You can discuss the experiment with other participants and the creator:
+                                                button#discuss-myPart(class='waves-effect waves-light btn light-blue' href="#" expid="{{getExpId}}" title="{{getExpTitleForParticipant}}") Discuss Now
+                                                br
+                else if notStart
+                    div.card.participant
+                        div.card-header
+                            h5
+                                span.tag 
+                                    i.fa.fa-plane
+                                    | Participant
+                                | {{getExpTitleForParticipant}}
+                            
+                                h5.light-blue-text.text-darken-4 Not Started
+                        div.card-content
+                            div.things-to-do
+                                if oneStep
+                                    h5 Instructions:
+                                    {{getSteps}}
+                                else 
+                                    h5 Instructions:
+                                    ol
+                                        each s in getSteps
+                                            li {{s}}
+                                    if isBristol
+                                        p(style="margin-left:25px") {{relatedStep}}
+                                        button#bristol(class='waves-effect waves-light btn light-blue' href="#" style="padding: 0px; height: 250px; width: 209px; margin-left:25px")
+                                            img#bristol-stool(src='/images/galileo/exp_design/bristol_stool_chart.png' style="height:250px;")
+                                        br
+                                        br
+                                h5 Data to measure:
+                                ul
+                                    each m in getMeasurement
+                                        if m.unit
+                                            li {{m.cOrE}}: Measure #[strong {{m.type}}] of {{m.measure}} in #[strong {{m.unit}}] at #[strong {{m.time}}:00]
+                                        else 
+                                            li {{m.cOrE}}: Measure #[strong {{m.type}}] of {{m.measure}} at #[strong {{m.time}}:00]
+                        
+                            div.my-form
+                                
+                                h5 Your experiment will start at {{getStart}}
+                                h5 Please follow up the instruction and report data here:
+                                table.sheet-table
+                                    thead
+                                        tr
+                                            td Day
+                                            td {{getCauseUnit}}
+                                            td {{getEffectUnit}}
+                                    tbody
+                                        tr
+                                            td Day 1
+                                            td 
+                                                span Not Available
+                                            td
+                                                span Not Available
+                                
+                        
+                if hasExpUnderReview                  
+                    div.card.pilot      
+                        div.card-header
+                            h5
+                                span.tag 
+                                    i.fa.fa-calendar-check-o
+                                    | Upcoming Experiment
+                                | Does {{hasExpUnderReview.design.cause}} affect {{hasExpUnderReview.design.effect}} ?  
+                            if isUnderReview      
+                                h5.light-blue-text.text-darken-4 Under Review
+                            else
+                                h5.light-blue-text.text-darken-4 Ready To Run
+                        div(style="margin-top: 30px;")
+                            div(style="margin-bottom: -10px;").row
+                                if isUnderReview 
+                                    p(style="font-size: 24px; color: #000000") Your participating experiment is still under review. Please stay tuned to check the status.
+                                else
+                                    p(style="font-size: 24px; color: #000000") Your participating experiment is ready to run. Please stay tuned to check the status.
+                            if prepSteps
+                                div.row
+                                    h5(style="color: #001f51;") You can prepare in advance for the experiment by following these steps:
+                                    ol
+                                        each prepStep in prepSteps
+                                            li.light-blue-text.text-darken-4 {{prepStep}}
+                            div.row
+                                h5(style="color: #001f51;") Once the experiment begins, you must follow these steps every day:
+                                ol
+                                    each step in steps
+                                        li.light-blue-text.text-darken-4 {{step}}
+                                if isBristol
+                                    p(style="margin-left:25px") {{relatedStep}}
+                                    button#bristol(class='waves-effect waves-light btn light-blue' href="#" style="padding: 0px; height: 250px; width: 209px; margin-left:25px")
+                                        img#bristol-stool(src='/images/galileo/exp_design/bristol_stool_chart.png' style="height:250px;")
+                //
+        if hasCompleteParticipationExps
+            h4 My Completed Participations
+            div#ga-dashboard-part-exp
+                each exp in myCompleteParticipatingExps
+                    if isCompletedPart exp
+                        div.card.participant
+                            div.card-header
+                                h5
+                                    span.tag 
+                                        i.fa.fa-check-square-o
+                                        | Participant
+                                    | {{getExpTitleForParticipantCompleted exp}}
+                                    h5.light-blue-text.text-darken-4 Completed
+                            div.card-content
+                                div.things-to-do
+                                    h5 Instructions:
+                                    if oneStepPart exp
+                                        br
+                                        p &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{getStepsPart exp}}
+                                        br
+                                    else 
+                                        ol
+                                            each s in getStepsPart exp
+                                                li {{s}}
+                                        
+                                    h5 Data to measure:
+                                    ol
+                                        each m in getMeasurementPart exp
+                                            if m.unit
+                                                li {{m.cOrE}}: Measure #[strong {{m.type}}] of {{m.measure}} in #[strong {{m.unit}}] at #[strong {{m.time}}:00]
+                                            else 
+                                                li {{m.cOrE}}: Measure #[strong {{m.type}}] of {{m.measure}} at #[strong {{m.time}}:00]
+                                div.my-form
+                                    ol
+                                        div.row
+                                            .col.col-num
+                                                li.li-dash
+                                            .col.col-right
+                                                h5 You can review and edit your past data:
+                                                button.viewPastDataPart#viewPastData-myPart(class='waves-effect waves-light btn light-blue' href="#" exp-id="{{exp._id}}") View and Edit Past Data
+                                                +gaMeDataModal(exp_id=exp._id user_id=userId)
+                                                +gaFollowupModal(exp_id=exp._id user_id=userId)
+                                                br
+                                        div.row(style="padding: 10px")
+                                        div.row
+                                            .col.col-num
+                                                li.li-dash
+                                            .col.col-right
+                                                h5 You can discuss the experiment with other participants and the creator:
+                                                button#discuss-myPart(class='waves-effect waves-light btn light-blue' href="#" expid="{{exp._id}}" title="{{getExpTitleForParticipantCompleted exp}}") Discuss Now
+                    if requestedAnalysis exp  
+                        div.card.participant     
+                            div.card-header
+                                h5
+                                    span.tag 
+                                        i.fa.fa-check-square-o
+                                        | Completed Experiment
+                                    | {{getExpTitleForParticipantCompleted exp}}  
+                                     
+                                h5.light-blue-text.text-darken-4 Under Analysis
+
+                            div.analysis(style="margin-top: 30px;")
+                                    ol
+                                        div.row
+                                            .col.col-num
+                                                li.li-dash
+                                            .col.col-right
+                                                    span(style="font-size: 22px; color: #000000") #[b The creator of your participating experiment has sent the request of data analysis to Galileo.]
+                                                    p(style="font-size: 22px; color: #000000") #[b Please stay tuned to check the result.]
+
+                                        div.row
+                                            .col.col-num
+                                                li.li-dash
+                                            .col.col-right
+                                                h5 You can discuss the experiment with other participants and the creator:
+                                                button#discuss-myPart(class='waves-effect waves-light btn light-blue' href="#" expid="{{exp._id}}" title="{{getExpTitleForParticipantCompleted exp}}") Discuss Now
+                    if getAnalysis exp
+                        div.card.participant     
+                            div.card-header
+                                h5
+                                    span.tag 
+                                        i.fa.fa-check-square-o
+                                        | Completed Experiment
+                                    | {{getExpTitleForParticipantCompleted exp}}  
+                                     
+                                h5.light-blue-text.text-darken-4  Analyzed
+                            div.analysis(style="margin-top: 30px")
+                                ol
+                                    div.row
+                                        .col.col-num
+                                            li.li-dash
+                                        .col.col-right
+                                                div(style="margin-bottom: -10px;").row            
+                                                    span(style="color: #010082; font-size: 22px") The result is here:
+                                                    p(style="color: #000000; font-size: 20px") {{getExpAnalysis.results.title}}
+                                                    if isControl
+                                                        img(src="{{getExpAnalysis.results.control.graph}}" style="height: auto; width: 100%; max-width: 400px;")
+                                                    else 
+                                                        img(src="{{getExpAnalysis.results.experimental.graph}}" style="height: auto; width: 100%; max-width: 400px;")
+                                    div.row
+                                            .col.col-num
+                                                li.li-dash
+                                            .col.col-right
+                                                h5 You can discuss the experiment with other participants and the creator:
+                                                button#discuss-myPart(class='waves-effect waves-light btn light-blue' href="#" expid="{{exp._id}}" title="{{getExpTitleForParticipantCompleted exp}}") Discuss Now
+                //- div.card.pilot
+                //-     div.card-header
+                //-         h5
+                //-             span.tag 
+                //-                 i.fa.fa-paper-plane-o
+                //-                 | Pilot
+                //-             | Does consuming yogurt affect bloatedness?
+                //-         h5.light-blue-text.text-darken-4 Day 1/3
+                //-     div.card-content
+                //-         div.things-to-do
+                //-             h5 Instruction to follow today:
+                //-             ol
+                //-                 li Go to a shopping mall
+                //-                 li Buy a cup of coffee
+                //-                 li Drink the cup of coffee
+                //-                 li Go to sleep immediately
+                //-             h5 Data to measure today:
+                //-             ul
+                //-                 li How many bottle of Soylent have you drank?
+                //-                 li What's your energy level?
+                //-         div.my-form
+                //-             h5 Report today's data here
+                //-             table.sheet-table
+                //-                 thead
+                //-                     tr
+                //-                         td Day
+                //-                         td Soylent in ml?
+                //-                         td Energy Level on Scale 1-5?
+                //-                 tbody
+                //-                     tr
+                //-                         td Day 1 (Apr.5, 2018)
+                //-                         td 
+                //-                             select
+                //-                                 option Yes
+                //-                                 option No
+                //-                         td
+                //-                             select
+                //-                                 option Yes
+                //-                                 option No
+                //-             br
+                //-             a(href="") View the rest
+                //-             br
+                //-             button.clarificationModal(class='waves-effect waves-light btn light-blue') Is Anything Unclear? Ask the Creator
+                //- // div.card.reviewer
+                //-     h5
+                //-         span.tag 
+                //-             i.fa.fa-comment
+                //-             | Reviewer
+                //-         | Does drinking beer with 5% alcohol affect time it takes to fall asleep?
+                //-     div.card-content
+        
+                        
+                    
+        h4 My Experiments
+        div.ga-dashboard-my-exp    
+            div.col(style="width:66.66%;")
+                div.row
+                    span.tag(style="height: auto")
+                        i.fa.fa-hourglass-2
+                        | My Ongoing Experiments
+                    div.card
+                        div.card.ongoing
+                            if isLoaded
+                                if hasOngoingExp
+                                    span You have
+                                        strong {{totalOngoingExp}}
+                                        | ongoing experiment
+                                    if isPreparingToStartExp
+                                        div.ongoing-exp-holder.reminder-stats
+                                            div.header
+                                                each exp in ongoingExpInfo
+                                                    span.title(style="margin-right:10px;") Does {{exp.design.cause}} affect {{exp.design.effect}}?
+                                            p
+                                                a(style="color:#000000; font-size: 20px;") #[b {{totalParticipants}} participants] have already joined in your experiment.
+                                            p
+                                                a(style="color:#000000; font-size: 20px;") Your experiment will soon start on #[b {{getStartDate}}]
+                                    else
+                                        div.ongoing-exp-holder.reminder-stats
+                                            div.header
+                                                each exp in ongoingExpInfo
+                                                    span.title(style="margin-right:10px;") Does {{exp.design.cause}} affect {{exp.design.effect}}?
+                                                span.day Day {{getOngoingExperimentCurrentDay}}/{{getOngoingExperimentTotalDay}}
+                                            ol
+                                                if hasNewClarification
+                                                    div.row
+                                                        .col.col-num
+                                                            li.li-dash   
+                                                        .col.col-right
+                                                            div.row
+                                                                span You have unanswered clarification questions
+                                                            div.row
+                                                                button.clarificationCreatorModal(class='waves-effect waves-light btn light-blue') Respond Now
+                                                div.row
+                                                    .col.col-num
+                                                        li.li-dash
+                                                    .col.col-right
+                                                        if allParticipantsReceivedCauseReminder getOngoingExperimentCurrentDay
+                                                            if allParticipantsRepliedCause getOngoingExperimentCurrentDay
+                                                                div.row
+                                                                    p(style="margin:0px")
+                                                                        span(style="font-size: 20px; color: rgba(55, 204, 66, 1);")
+                                                                            strong All
+                                                                        | &nbsp;participants have replied to the
+                                                                        span(style="font-size: 20px; color: black")
+                                                                            strong Cause
+                                                                        | reminder for
+                                                                        span(style="font-size: 20px; color: black")
+                                                                            strong {{ongoingExpCause}}
+                                                            else
+                                                                div.row
+                                                                    p(style="margin:0px")
+                                                                        span(style="font-size: 20px; color: #f66969")
+                                                                            strong {{participantsNotRepliedCause getOngoingExperimentCurrentDay}}
+                                                                        span(style="font-size: 20px; color:black")
+                                                                            strong /{{totalParticipants}}
+                                                                        | &nbsp;participants have not replied to the
+                                                                        span(style="font-size: 20px; color: black")
+                                                                            strong Cause
+                                                                        | reminder for
+                                                                        span(style="font-size: 20px; color: black")
+                                                                            strong {{ongoingExpCause}}
+                                                            
+                                                        else
+                                                            div.row
+                                                                p(style="margin:0px")
+                                                                    | Messages to
+                                                                    span(style="font-size: 20px; color: #f66969")
+                                                                        strong {{participantsNotReceivedCauseReminder getOngoingExperimentCurrentDay}}
+                                                                    span(style="font-size: 20px; color:black")
+                                                                        strong /{{totalParticipants}}
+                                                                    | &nbsp;participants have not been sent yet and
+                                                                    if receivedAndRepliedCause getOngoingExperimentCurrentDay
+                                                                        span(style="font-size: 20px; color: rgba(55, 204, 66, 1);")
+                                                                            strong {{receivedCauseReminder getOngoingExperimentCurrentDay}}
+                                                                        if isOneRepliedCause getOngoingExperimentCurrentDay
+                                                                            | &nbsp;participant have replied
+                                                                        else
+                                                                            | &nbsp;participants have replied
+                                                                    else
+                                                                        span(style="font-size: 20px; color: #f66969")
+                                                                            strong {{receivedButNotRepliedCause getOngoingExperimentCurrentDay}}
+                                                                        span(style="font-size: 20px; color:black")
+                                                                            strong /{{receivedCauseReminder getOngoingExperimentCurrentDay}}
+                                                                        | &nbsp;participants have not replied
+                                                                    | to the
+                                                                    span(style="font-size: 20px; color: black")
+                                                                        strong Cause
+                                                                    | reminder for
+                                                                    span(style="font-size: 20px; color: black")
+                                                                        strong {{ongoingExpCause}}
+                                                                    
+                                                                        
+                                                                        
+                                                        if allParticipantsReceivedEffectReminder getOngoingExperimentCurrentDay
+                                                            if allParticipantsRepliedEffect getOngoingExperimentCurrentDay
+                                                                div.row  
+                                                                    p(style="margin:0px")
+                                                                        span(style="font-size: 20px; color: rgba(55, 204, 66, 1);") 
+                                                                            strong All
+                                                                        | participants have replied to the
+                                                                        span(style="font-size: 20px; color: black")
+                                                                            strong Effect
+                                                                        | reminder for
+                                                                        span(style="font-size: 20px; color: black")
+                                                                            strong {{ongoingExpEffect}}
+                                                            else
+                                                                div.row
+                                                                    p(style="margin:0px")
+                                                                        span(style="font-size: 20px; color: #f66969")
+                                                                            strong {{participantsNotRepliedEffect getOngoingExperimentCurrentDay}}
+                                                                        span(style="font-size: 20px; color:black")
+                                                                            strong /{{totalParticipants}}
+                                                                        | &nbsp;participants have not replied to the
+                                                                        span(style="font-size: 20px; color: black")
+                                                                            strong Effect
+                                                                        | reminder for
+                                                                        span(style="font-size: 20px; color: black")
+                                                                            strong {{ongoingExpEffect}}
+
+                                                        else 
+                                                            div.row
+                                                                p(style="margin:0px")
+                                                                    | Messages to
+                                                                    span(style="font-size: 20px; color: #f66969")
+                                                                        strong {{participantsNotReceivedEffectReminder getOngoingExperimentCurrentDay}}
+                                                                    span(style="font-size: 20px; color:black")
+                                                                        strong /{{totalParticipants}}
+                                                                    | &nbsp;participants have not been sent yet and
+                                                                    if receivedAndRepliedEffect getOngoingExperimentCurrentDay
+                                                                        span(style="font-size: 20px; color: rgba(55, 204, 66, 1);")
+                                                                            strong {{receivedEffectReminder getOngoingExperimentCurrentDay}}
+                                                                        if isOneRepliedEffect getOngoingExperimentCurrentDay
+                                                                            | &nbsp;participant have replied
+                                                                        else
+                                                                            | &nbsp;participants have replied
+                                                                    else
+                                                                        span(style="font-size: 20px; color: #f66969")
+                                                                            strong {{receivedButNotRepliedEffect getOngoingExperimentCurrentDay}}
+                                                                        span(style="font-size: 20px; color:black")
+                                                                            strong /{{receivedEffectReminder getOngoingExperimentCurrentDay}}
+                                                                        | &nbsp;participants have not replied
+                                                                    | to the
+                                                                    span(style="font-size: 20px; color: black")
+                                                                        strong Effect
+                                                                    | reminder for
+                                                                    span(style="font-size: 20px; color: black")
+                                                                        strong {{ongoingExpEffect}}
+                                                        //- a.view-details-btn View Details
+                                                        //-     i.fa.fa-angle-right
+                                                        
+                                                        if notAllReplied getOngoingExperimentCurrentDay
+                                                            blockquote.warning(style="display:block; margin-top:10px;")
+                                                                div
+                                                                    | Great work!
+                                                                    span.accent {{getAllPercentage getOngoingExperimentCurrentDay}}%
+                                                                    | of your participants have collected their data! 
+                                                                    br
+                                                                    br
+                                                                    | Remember, to run a successful experiment, at least 90% of the participants should provide their data on time.
+                                                                br
+                                                                a.btn.send-cause-reminder-btn REMIND PARTICIPANTS
+                                                        else
+                                                            blockquote.success(style="display:block; margin-top:10px;")
+                                                                div
+                                                                    | Great work!
+                                                                    span.accent 100%
+                                                                    | of your participants who received the reminder have collected their data! 
+                                                                    br
+                                                                    br
+                                                                    | Remember, to run a successful experiment, at least 90% of the participants should provide their data on time.
+                                                                br
+                                                                a.btn.send-cause-reminder-btn REMIND PARTICIPANTS
+                                                        
+                                                div.row
+                                                    .col.col-num
+                                                        li.li-dash   
+                                                    .col.col-right
+                                                        a.btn(class='waves-effect waves-light btn light-blue' href="/galileo/me/experiment/{{ongoingExpId}}/info") View Data Details
+                                                
+                                else
+                                    span You do not have any ongoing experiment
+                                    br
+                                    a(href="/galileo/createdemo") Click here to create one
+                            else
+                                span Loading Ongoing Experiment...
+                                
+                                
+                if hasCompeletedExp   
+                    div.row
+                        span.tag(style="height: auto")
+                            i.fa.fa-check-square-o
+                            | My Completed Experiments
+                                                           
+                        div.card
+                            div.card.ongoing
+                                if isLoaded
+                                    span You have
+                                        strong {{numCompletedExp}}
+                                        | completed experiment
+                                    each e in myCompletedExp
+                                        div.card(class="debug_python_section" style="display: none;")
+                                            div.card.ongoing
+                                                span Debug section for testing python server 
+                                                br
+                                                button(class="waves-effect waves-light btn light-blue" class="debug_python_button" exp-id="{{e._id}}") Click me
+                                                
+                                                div(id="debug_python_result_{{e._id}}" style="display: none;")
+                                                    span(id="debug_python_placeholder_{{e._id}}") Placeholder
+                                                    img(id="debug_python_placeholder_img_{{e._id}}" style="width:100%; height:auto" src="https://via.placeholder.com/350x150")
+                                                    
+                                        div.ongoing-exp-holder.reminder-stats
+                                            div.header
+                                                //- each exp in ongoingExpInfo
+                                                span.title(style="margin-right:10px;" id="request-data-exp-title") Does {{e.design.cause}} affect {{e.design.effect}}?
+                                            if analysisFinished e._id  
+                                                p(style="color: #010082; font-size: 20px") The result is here:
+                                                p {{e.results.title}}
+                                                p 
+                                                    img(src="{{e.results.graph}}" style="height: auto; width: 100%;")
+                                                
+                                            else
+                                                p(style="color: #010082; font-size: 20px") Great work! Your experiment has completed.
+                                                ol 
+                                                    div.row
+                                                        .col.col-num
+                                                            li.li-dash
+                                                        .col.col-right
+                                                            p(style="color: #000000; font-size: 20px; margin-top: 0px; font-weight: bold;") Review the data provided by participants
+                                                                div.row(style="margin-bottom: 0px !important")
+                                                                    div.col.s12(style="padding-top: 0px !important; padding-bottom: 0px !important")
+                                                                        button.review-datasheet(class='waves-effect waves-light btn light-blue' data-id='{{e._id}}') Review the DataSheet
+                                                    if e.sent_thank_you
+                                                        div.row
+                                                            .col.col-num
+                                                                li.li-dash
+                                                            .col.col-right
+                                                                p(style="color: #000000; font-size: 20px; margin-top: 0px; font-weight: bold;") Good job! You have already sent a thank you note to all participants
+                                                    else
+                                                        div.row
+                                                            .col.col-num
+                                                                li.li-dash
+                                                            .col.col-right
+                                                                p(style="color: #000000; font-size: 20px; margin-top: 0px; font-weight: bold;") Send a Thank You Note to Your Participants
+                                                                    div.row(style="margin-bottom: 0px !important")
+                                                                        div.col.s12(style="padding-top: 0px !important; padding-bottom: 0px !important")
+                                                                            button.send-thank-you(class='waves-effect waves-light btn light-blue' data-id='{{e._id}}' cause="{{e.design.cause}}" effect="{{e.design.effect}}") Send Thank You Note
+                                                    if hasRequestDataAnalysis e._id
+                                                        div.row
+                                                            .col.col-num
+                                                                li.li-dash
+                                                            .col.col-right
+                                                                p(style="color: #000000; font-size: 20px; margin-top: 0px; font-weight: bold;") You have already requested data analysis. Please be patient to wait the result
+                                                    else if waitToAnalysis e._id
+                                                        div.row
+                                                            .col.col-num
+                                                                li.li-dash
+                                                            .col.col-right                    
+                                                                p(style="color: #000000; font-size: 20px; margin-top: 0px; font-weight: bold;") Request data analysis for your experiment
+                                                                    div.row(style="margin-bottom: 0px !important")
+                                                                        div.col.s12(style="padding-top: 0px !important; padding-bottom: 0px !important")
+                                                                            button.request-analysis(href="#" class='waves-effect waves-light btn light-blue' data-id='{{e._id}}') Request Data Analysis
+
+                                                    div.row
+                                                        .col.col-num
+                                                            li.li-dash
+                                                        .col.col-right
+                                                            p(style="color: #000000; font-size: 20px; margin-top: 0px; font-weight: bold;") You can discuss the experiment with your participants
+                                                                    div.row(style="margin-bottom: 0px !important")
+                                                                        div.col.s12(style="padding-top: 0px !important; padding-bottom: 0px !important")
+                                                                            button.discuss-myCreate(class='waves-effect waves-light btn light-blue' href="#" expid="{{e._id}}" title="Does {{e.design.cause}} affect {{e.design.effect}}?") Discuss Now
+                                            
+                                else
+                                    span Loading Ongoing Experiment...
+                                
+                div.row
+                    span.tag(style="height: auto")
+                        i.fa.fa-calendar-minus-o
+                        | My Ready-to-run Experiments
+                    div.card
+                        div.card.ongoing
+                            if isLoaded
+                                if hasReadyToRunExp
+                                    span You have
+                                        strong 1
+                                        | ready-to-run experiment
+                                    each e in getReadyToRunExp
+                                        //- +gaShareEmailInviteJoinModal(link=e.joinLink})
+                                        div.ongoing-exp-holder.reminder-stats
+                                            div.header
+                                                //- each exp in ongoingExpInfo
+                                                span.title(style="margin-right:10px;") Does {{e.design.cause}} affect {{e.design.effect}}?
+                                            p(style="color: #000000; font-size: 20px")
+                                                a(style="font-size: 25px; color: #07990c;") &nbsp;#[b {{getCurrentNumPart e._id}}] &nbsp;
+                                                if isOneJoin e._id
+                                                    | participant has joined your experiment
+                                                else 
+                                                    | participants have joined your experiment
+                                        
+                                            p(style="color: #000000; font-size: 20px")
+                                                if isEnoughParticipants e._id
+                                                    span 
+                                                else 
+                                                    a(style="font-size: 25px; color: #ef6909;") &nbsp;#[b {{getNeededPart e._id}}] &nbsp;
+                                                    if isOneNeed e._id
+                                                        | more participant you need to start the experiment
+                                                    else 
+                                                        | more participants you need to start the experiment
+                                            br
+                                            
+                                            if isEnoughParticipants e._id
+                                                p(style="color: #003089; font-size: 20px")
+                                                    | #[b Great! You have enough participants to run your experiment!]
+                                                a.btn(href="/galileo/run/{{e._id}}") Start Experiment
+                                            else
+                                                p(style="color: #000000; font-size: 20px")
+                                                    | Once you have 
+                                                    a(style="color:#003089;") #[b {{e.min_participant_count}}]
+                                                    | participants, you can start your experiment!
+                                                button#powerAnalysis(class='waves-effect waves-light btn light-blue') How Many Participants Do I Need?
+                                                +gaCountParticipantModal(expId=e._id)
+                                                br
+                                                br
+                                                button#learnInvite(class='waves-effect waves-light btn light-blue') Learn How To Invite Participants
+                                                +gaLearnInviteModal(expId=e._id)
+                                                p(style="color: #000000; font-size: 20px")
+                                                    span #[b Share this link to invite more participants:]
+                                                p
+                                                    a(href="#" id="joinUrl") {{getInviteJoinUrl e._id}}&nbsp;
+                                                    a.waves-effect.waves-light.btn.light-blue(style="padding-right:15px; padding-left:15px; font-size:9pt; height:27px; top: -10px" id="copyJoinLinkBtn") Copy Link
+                                                        i.material-icons.prefix.left content_copy
+                                                    a.waves-effect.waves-light.btn.light-blue(style="padding-right:15px; padding-left:15px; font-size:9pt; height:27px; top: -10px" id="openEmailTemplateBtn") Email              
+                                                input.text(readonly value="{{getInviteJoinUrl e._id}}" id="inviteJoinLink" style="padding-left:10px; height:36px; margin-bottom:-15px; display: none;")                  
+                                else
+                                    span You do not have any ready-to-run experiment
+                                    br
+                                    a(href="/galileo/createdemo") Click here to create one
+                            else
+                                span Loading Ongoing Experiment...
+                        
+                
+                div.row  
+                    span.tag(style="height: auto")
+                        i.fa.fa-calendar-minus-o
+                        | My Incomplete Experiments
+                    div.card
+                        div.card.unfinished
+                            if isLoaded
+                                if hasIncompeleteExp
+                                    if onlyOneIncompletedExp
+                                        span You have
+                                            strong {{totalIncompletedExp}}
+                                            | incomplete experiment
+                                    else
+                                        span You have
+                                            strong {{totalIncompletedExp}}
+                                            | incomplete experiments
+                                    ul
+                                        each exp in incompleteExpInfo
+                                            li
+                                                a.title.ellipses-wrap Does {{exp.design.cause}} affect {{exp.design.effect}} ?
+                                                a#continueBtn(href="#" exp-id="{{exp.design.exp_id}}")
+                                                    | Continue
+                                                    i.fa.fa-angle-right
+                                        //- li
+                                        //-     a.title.ellipses-wrap Is Having Onion Helping Your Sleep?
+                                        //-     a
+                                        //-         | Continue
+                                        //-         i.fa.fa-angle-right
+                                        //- li
+                                        //-     a.title.ellipses-wrap Is Working Out Before Sleep..
+                                        //-     a
+                                        //-         | Continue
+                                        //-         i.fa.fa-angle-right
+                                    //- a(href="/galileo/me/unfinished_experiments") View All
+                                    //-     i.fa.fa-angle-right
+                                else
+                                    span You do not have any incomplete experiment
+                                    br
+                                    a(href="/galileo/createdemo") Click here to create one
+                            else
+                                span Loading Incomplete Experiment...
+            
+            div.col
+                div.row
+                    span.tag(style="height: auto")
+                        i.fa.fa-commenting
+                        | My Experiments being reviewed
+                    div.card            
+                        div.card.reviewing
+                            if isLoaded
+                                if hasUnderReviewExp
+                                    if onlyOneUnderReviewExp
+                                        span You have
+                                            strong {{totalUnderReviewExp}}
+                                            | experiment under review
+                                    else
+                                        span You have
+                                            strong {{totalUnderReviewExp}}
+                                            | experiments under review
+                                    each exp in getUnderReviewExp
+                                        ul
+                                            
+                                            li
+                                                div
+                                                    a(style="white-space: normal !important; color:#000000; font-size: 18px;") Does {{exp.design.cause}} affect {{exp.design.effect}}?
+                                                        
+                                                each c in listOfReviewComments exp._id
+                                                    p.ellipses-wrap
+                                                        i.fa.fa-comments
+                                                        strong {{c.username}}
+                                                        | : {{c.content}}
+                                                a(href="/galileo/me/experiment/{{exp._id}}/info") What should I do?
+                                                    i.fa.fa-angle-right
+                                    if isThreeUnderReviewExps
+                                        br
+                                        a(href="/galileo/createdemo") Click here to create one
+                                        
+                                else
+                                    span You do not have any experiment under review
+                                    br
+                                    a(href="/galileo/createdemo") Click here to create one
+                            else
+                                span Loading Ongoing Experiment...
+            
+                
+                //- div.row
+                //-     if hasCompeletedExp
+                //-         h5 Send a Thank You Note to Your Participants
+                //-         div.card
+                //-             div.card.reviewing
+                //-                 if isLoaded                        
+                //-                         span You Have
+                //-                             strong {{numCompletedExp}}
+                //-                             | experiments to send Thank You Notes to
+                //-                         ul
+                //-                             each exp in myCompletedExpShort
+                //-                                 li
+                //-                                     div.row(style="margin-bottom: 0px !important")
+                //-                                         div.col.s11(style="padding-top: 0px !important; padding-bottom: 0px !important")
+                //-                                             a(style="white-space: normal !important") {{exp.design.cause}} affect {{exp.design.effect}}
+                //-                                             br
+                //-                                         div.col.s1(style="padding-top: 0px !important; padding-bottom: 0px !important")
+                //-                                             i.material-icons(style="z-index: 2000; padding-top:5px" href="#" data-id='{{exp.design.exp_id}}').dismiss clear
+                //-                                     div.row(style="margin-bottom: 0px !important")
+                //-                                         div.col.s12(style="padding-top: 0px !important; padding-bottom: 0px !important")
+                //-                                             button.send-thank-you(class='waves-effect waves-light btn light-blue' data-id='{{exp.design.exp_id}}') Send Note
+                //-                 else
+                //-                     span Loading Review Activity...
+            
+
+        
+        

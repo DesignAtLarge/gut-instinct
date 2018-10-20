@@ -1,0 +1,22 @@
+template(name='personal_tag_question')
+    +header
+    | {{init hashcode}}
+
+    div(class='container content gutboard')
+
+        div(data-step='1' data-intro='Answering these questions will allow you to learn more about #{name} topic! This will also provide useful information to researchers!')
+            h3(class='light-blue-text text-darken-4') <i class="fa fa-book" aria-hidden="true" style="font-size: 1em;"></i> Understand your Gut
+            h5(class='light-blue-text text-darken-4' style="text-align: left") To help you relate the learning material to your lifestyle, please answer the following questions! 
+                    //#{name} topic!
+        br
+        div(class='questions')
+            each personal_questions
+                +personal_question_module
+
+
+        br
+        button(class='waves-effect waves-light btn light-blue submit-personal-question' id='submit-button') Submit
+        br
+        //br
+        //a(href='/topics')
+            //button(class='waves-effect waves-light btn ugrey lighten-1 submit-personal-question') Don't want to answer now, return to topics

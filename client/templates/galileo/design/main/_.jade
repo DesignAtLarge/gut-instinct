@@ -1,0 +1,238 @@
+template(name="gaExperimentDesign")
+    
+    if allowEdits
+        +gaOpenHumansDataSourceModal(idSuffix="causeSummary" measureVariable=causeVariable ohDataSourceVariable=causeOhDataSourceIdsVar)
+        +gaOpenHumansDataSourceModal(idSuffix="effectSummary" measureVariable=effectVariable ohDataSourceVariable=effectOhDataSourceIdsVar)
+
+        // CAUSE MEASURE MODAL
+        div.modal.galileo-long-modal(id="edit-cause-modal")
+            div.modal-content
+                p(class='card-title' style='font-size: 28px; font-weight: 100; line-height:45px; font-weight: bold;')
+                    span.blue-text Edit the
+                    span.blue-text.text-darken-4 measurement type
+                    span.blue-text of {{cause}}
+
+
+
+                p(style='font-size: 20px; font-weight: 100;') How will you manipulate
+                    span.blue-text.text-darken-2(style='font-weight: bold') #{cause}
+                    | in your experiment?
+                br
+
+                input.measureCause-checkbox-edit(type="radio" class="with-gap" id="cause-absence-checkbox-edit" name="measureCause-radio-group")
+                label(for="cause-absence-checkbox-edit")
+                    p(class="blue-text text-darken-2" style='font-size: 24px; font-weight: 100;') Absence or Presence
+                        //a(href="#" id="help-#{cardId}-1" class="helpbtn"): i.fa.fa-question-circle(aria-hidden="true")
+                        span(class="black-text text-darken-4" style='font-size: 20px; font-weight: 100;')
+                    p E.g. {{getExamples '3-0-0'}}
+                    p E.g. {{getExamples '3-0-1'}}
+
+                br
+                br
+
+                input.measureCause-checkbox-edit(type="radio" class="with-gap" id="cause-amount-checkbox-edit" name="measureCause-radio-group")
+                label(for="cause-amount-checkbox-edit")
+                    p(class="blue-text text-darken-2" style='font-size: 20px; font-weight: 100;') Amount
+                        //a(href="#" id="help-#{cardId}-2" class="helpbtn"): i.fa.fa-question-circle(aria-hidden="true")
+                    p E.g. {{getExamples '3-1-0'}}
+                    p {{getExamples '3-1-1'}}
+
+                br
+                br
+
+                div#cause-amount-dropdown-edit.hide(style="margin-left:34px;margin-top:-20px;")
+                    br
+                    div.row
+                        div.col.m6
+                            p.black-text(style="font-size:16px") Set a unit of measurement for "#{cause}"
+                        div.col.m6
+                            input#cause-amount-unit-edit(placeholder="pounds, hours, number of cups..." style="height:2rem;")
+
+                input.measureCause-checkbox-edit(type="radio" class="with-gap" id="cause-frequency-checkbox-edit" name="measureCause-radio-group")
+                label(for="cause-frequency-checkbox-edit")
+                    p(class="blue-text text-darken-2" style='font-size: 20px; font-weight: 100;') Frequency
+                        //a(href="#" id="help-#{cardId}-4" class="helpbtn"): i.fa.fa-question-circle(aria-hidden="true")
+                    p E.g. {{getExamples '3-2-0'}}
+
+                br
+                br
+
+                input.measureCause-checkbox-edit(type="radio" class="with-gap" id="cause-rate-checkbox-edit" name="measureCause-radio-group")
+                label(for="cause-rate-checkbox-edit")
+                    p(class="blue-text text-darken-2" style='font-size: 20px; font-weight: 100;') Speed
+                        //a(href="#" id="help-#{cardId}-5" class="helpbtn"): i.fa.fa-question-circle(aria-hidden="true")
+                    p E.g. {{getExamples '3-3-0'}}
+
+                br
+                br
+
+                div#cause-rate-dropdown-edit.hide(style="margin-left:34px;margin-top:-20px;")
+                    br
+                    p.black-text(style="font-size:16px") Select one of the following:
+                    br
+                    input(type="radio" class="with-gap cause-rate-radio" id="cause-rate-number-checkbox-edit" name="measureRate-radio-group")
+                    label(for="cause-rate-number-checkbox-edit")
+                        p.black-text Measure the rate as a quantity
+
+                    div.row(style="margin-left:25px")
+                        div.col.m6
+                            p Set a unit of measurement for the rate of "#{cause}"
+                        div.col.m3
+                            input#cause-rate-unit-edit(placeholder="miles/hour, ml/second" style="height:2rem;")
+
+                    input(type="radio" class="with-gap cause-rate-radio" id="cause-rate-scale-checkbox-edit" name="measureRate-radio-group")
+                    label(for="cause-rate-scale-checkbox-edit")
+                        p.black-text Measure rate of "#{cause}" on a scale of 1 to 5 (1 being slow, 5 being fast)
+
+                br
+                a.btn.blue.darken-1#change-cause-measurement-type-modal Change Measurement Type
+                a.btn.grey.lighten-1#cancel-cause-measurement-type-modal Cancel
+
+
+        // EFFECT MEASURE MODAL
+        div.modal.galileo-long-modal(id="edit-effect-modal")
+            div.modal-content
+                p.card-title(style='font-size: 28px; font-weight: 100; line-height:45px; font-weight: bold')
+                    span.blue-text Edit the
+                    span.blue-text.text-darken-4 measurement type
+                    span.blue-text of {{effect}}
+
+
+                p(style='font-size: 20px; font-weight: 100;') How will you measure
+                    span.blue-text.text-darken-2(style='font-weight: bold') #{effect}
+                    | in your experiment?
+                br
+
+
+                if showBristol
+                    input.measureEffect-checkbox-edit.with-gap(type="radio" id="effect-bristol-checkbox-edit" name="measureEffect-radio-group")
+                    label(for="effect-bristol-checkbox-edit")
+                        p.blue-text.text-darken-2(style='font-size: 20px; font-weight: 100;') Bristol Stool Scale
+                        p This scientific chart helps participants measure the quality of their stool
+                        p: a(href="https://en.wikipedia.org/wiki/Bristol_stool_scale" target="blank" class="helpbtn")
+                            | Learn more
+                            i.material-icons.oh-data-learn-more-icon open_in_new
+
+                        br
+
+
+                input.measureEffect-checkbox-edit.with-gap(type="radio" id="effect-absence-checkbox-edit" name="measureEffect-radio-group")
+                label(for="effect-absence-checkbox-edit")
+                    p.blue-text.text-darken-2(style='font-size: 20px; font-weight: 100;') Absence or Presence
+                        //a(href="#" id="help-#{cardId}-1" class="helpbtn"): i.fa.fa-question-circle(aria-hidden="true")
+                    p E.g. {{getExamples '4-0-0'}}
+
+                    br
+
+
+
+                input.measureEffect-checkbox-edit.with-gap(type="radio" id="effect-amount-checkbox-edit" name="measureEffect-radio-group")
+                label(for="effect-amount-checkbox-edit")
+                    p.blue-text.text-darken-2(style='font-size: 20px; font-weight: 100;') Amount
+                        //a(href="#" id="help-#{cardId}-2" class="helpbtn"): i.fa.fa-question-circle(aria-hidden="true")
+                    p E.g. {{getExamples '4-1-0'}}
+
+                    div#effect-amount-dropdown-edit.hide(style="margin-left:34px;margin-top:-20px;")
+                        br
+                        div.row
+                            div.col.m6
+                                p.black-text(style="font-size:16px") Set a unit of measurement for "#{effect}"
+                            div.col.m4
+                                input#effect-amount-unit-edit(placeholder="pounds, miles, hours, number..." style="height:2rem;")
+
+                    br
+
+
+                input.measureEffect-checkbox-edit.with-gap(type="radio" id="effect-rating-checkbox-edit" name="measureEffect-radio-group")
+                label(for="effect-rating-checkbox-edit")
+                    p(class="blue-text text-darken-2" style='font-size: 20px; font-weight: 100;') Rating scale
+                        //a(href="#" id="help-#{cardId}-3" class="helpbtn"): i.fa.fa-question-circle(aria-hidden="true")
+                    p E.g. {{getExamples '4-2-0'}}
+
+                    br
+
+                div#effect-rating-dropdown-edit.hide(style="margin-left:34px;margin-top:-20px;")
+                    br
+                    div.row
+                        div.col.m4
+                            p.black-text(style="font-size:16px") Define what a rating of 1 means
+                        div.col.m4
+                            input#effect-rating-min-edit(placeholder="low #{effect}" style="height:2rem;")
+                    div.row
+                        div.col.m4
+                            p.black-text(style="font-size:16px") Define what a rating of 5 means
+                        div.col.m4
+                            input#effect-rating-max-edit(placeholder="high #{effect}" style="height:2rem;")
+
+
+
+                input.measureEffect-checkbox-edit(type="radio" class="with-gap" id="effect-frequency-checkbox-edit" name="measureEffect-radio-group")
+                label(for="effect-frequency-checkbox-edit")
+                    p.blue-text.text-darken-2(style='font-size: 20px; font-weight: 100;') Frequency
+                        //a(href="#" id="help-#{cardId}-4" class="helpbtn"): i.fa.fa-question-circle(aria-hidden="true")
+                    p E.g. {{getExamples '4-3-0'}}
+
+                    br
+
+                input.measureEffect-checkbox-edit.with-gap(type="radio" id="effect-rate-checkbox-edit" name="measureEffect-radio-group")
+                label(for="effect-rate-checkbox-edit")
+                    p(class="blue-text text-darken-2" style='font-size: 20px; font-weight: 100;') Speed
+                        //a(href="#" id="help-#{cardId}-5" class="helpbtn"): i.fa.fa-question-circle(aria-hidden="true")
+                    p E.g. {{getExamples '4-4-0'}}
+
+                    br
+
+                div#effect-rate-dropdown-edit.hide(style="margin-left:34px;margin-top:-20px;")
+                    br
+                    p.black-text(style="font-size:16px") Select one of the following:
+                    br
+                    input(type="radio" class="with-gap effect-rate-radio" id="effect-rate-number-checkbox-edit" name="measureRate-radio-group")
+                    label(for="effect-rate-number-checkbox-edit")
+                        p.black-text Measure the rate as a quantity
+
+                    div.row(style="margin-left:25px")
+                        div.col.m6
+                            p Set a unit of measurement for the rate of "#{effect}"
+                        div.col.m3
+                            input#effect-rate-unit-edit(placeholder="miles/hour, ml/second" style="height:2rem;")
+
+                    input(type="radio" class="with-gap effect-rate-radio" id="effect-rate-scale-checkbox-edit" name="measureRate-radio-group")
+                    label(for="effect-rate-scale-checkbox-edit")
+                        p.black-text Measure rate of "#{effect}" on a scale of 1 to 5 (1 being really slow, 5 being really fast)
+
+                br
+                a.btn.blue.darken-1#change-effect-measurement-type-modal Change Measurement Type
+                a.btn.grey.lighten-1#cancel-effect-measurement-type-modal Cancel
+
+
+
+    // ------ MAIN DIV STARTS HERE -----
+
+    div#experiment-design(style="cursor:default;")
+        
+        +gaExperimentDesignHypothesis(expId=expId design=design allowEdits=allowEdits allowFeedback=allowFeedback isReviewer=isReviewer isFeedbackMode=isFeedbackMode focus=focus design_cause=design_cause design_relation=design_relation design_effect=design_effect design_mechanism=design_mechanism design_cause_measure=design_cause_measure design_effect_measure=design_effect_measure design_condition_experimental=design_condition_experimental design_condition_control=design_condition_control design_criteria_exclusion=design_criteria_exclusion design_criteria_inclusion=design_criteria_inclusion design_related_works=design_related_works)
+        
+        if isGuestMode
+            h6(style='text-align: center; margin-bottom: 10px; margin-top: 10px;') You will be able to review this (or any) experiment after signing in!
+                a.btn.light-blue#sign-in Sign In Now!
+            br
+            div.ga-share-blur
+                
+                +gaExperimentDesignMeasures(expId=expId design=design allowEdits=allowEdits allowFeedback=allowFeedback isReviewer=isReviewer isFeedbackMode=isFeedbackMode ohViewOnly=ohViewOnly design_cause=design_cause design_relation=design_relation design_effect=design_effect design_mechanism=design_mechanism design_cause_measure=design_cause_measure design_effect_measure=design_effect_measure design_condition_experimental=design_condition_experimental design_condition_control=design_condition_control design_criteria_exclusion=design_criteria_exclusion design_criteria_inclusion=design_criteria_inclusion design_related_works=design_related_works)
+                +gaExperimentDesignInstructions(expId=expId design=design allowEdits=allowEdits allowFeedback=allowFeedback isReviewer=isReviewer isFeedbackMode=isFeedbackMode editableControlSteps=editableControlSteps editableExperimentalSteps=editableExperimentalSteps editableControlPrepSteps=editableControlPrepSteps design_cause=design_cause design_relation=design_relation design_effect=design_effect design_mechanism=design_mechanism design_cause_measure=design_cause_measure design_effect_measure=design_effect_measure design_condition_experimental=design_condition_experimental design_condition_control=design_condition_control design_criteria_exclusion=design_criteria_exclusion design_criteria_inclusion=design_criteria_inclusion design_related_works=design_related_works)
+                +gaExperimentDesignCriteria(expId=expId design=design allowEdits=allowEdits allowFeedback=allowFeedback isReviewer=isReviewer isFeedbackMode=isFeedbackMode editableInclusionCriteria=editableInclusionCriteria editableExclusionCriteria=editableExclusionCriteria design_cause=design_cause design_relation=design_relation design_effect=design_effect design_mechanism=design_mechanism design_cause_measure=design_cause_measure design_effect_measure=design_effect_measure design_condition_experimental=design_condition_experimental design_condition_control=design_condition_control design_criteria_exclusion=design_criteria_exclusion design_criteria_inclusion=design_criteria_inclusion design_related_works=design_related_works)
+                
+                div.overall-section(style="position:relative;")
+                    if allowFeedback
+                        +gaExperimentFeedbackDetail(userCount=userCount expId=expId field="overall" name="Overall")
+                if showResults
+                    +gaExperimentDesignResult
+        else
+            if showMeasures
+                +gaExperimentDesignMeasures(expId=expId design=design allowEdits=allowEdits allowFeedback=allowFeedback isReviewer=isReviewer isFeedbackMode=isFeedbackMode ohViewOnly=ohViewOnly causeOhDataSourceIdsVar=causeOhDataSourceIdsVar showCauseOhDataSources=showCauseOhDataSources effectOhDataSourceIdsVar=effectOhDataSourceIdsVar showEffectOhDataSources=showEffectOhDataSources focus=focus design_cause=design_cause design_relation=design_relation design_effect=design_effect design_mechanism=design_mechanism design_cause_measure=design_cause_measure design_effect_measure=design_effect_measure design_condition_experimental=design_condition_experimental design_condition_control=design_condition_control design_criteria_exclusion=design_criteria_exclusion design_criteria_inclusion=design_criteria_inclusion design_related_works=design_related_works)
+            if showConditions
+                +gaExperimentDesignInstructions(expId=expId design=design allowEdits=allowEdits allowFeedback=allowFeedback isReviewer=isReviewer isFeedbackMode=isFeedbackMode editableControlSteps=editableControlSteps editableControlPrepSteps=editableControlPrepSteps editableExperimentalSteps=editableExperimentalSteps editableExperimentalPrepSteps=editableExperimentalPrepSteps focus=focus design_cause=design_cause design_relation=design_relation design_effect=design_effect design_mechanism=design_mechanism design_cause_measure=design_cause_measure design_effect_measure=design_effect_measure design_condition_experimental=design_condition_experimental design_condition_control=design_condition_control design_criteria_exclusion=design_criteria_exclusion design_criteria_inclusion=design_criteria_inclusion design_related_works=design_related_works)
+            if showCriteria
+                +gaExperimentDesignCriteria(expId=expId design=design allowEdits=allowEdits allowFeedback=allowFeedback isReviewer=isReviewer isFeedbackMode=isFeedbackMode editableInclusionCriteria=editableInclusionCriteria editableExclusionCriteria=editableExclusionCriteria focus=focus design_cause=design_cause design_relation=design_relation design_effect=design_effect design_mechanism=design_mechanism design_cause_measure=design_cause_measure design_effect_measure=design_effect_measure design_condition_experimental=design_condition_experimental design_condition_control=design_condition_control design_criteria_exclusion=design_criteria_exclusion design_criteria_inclusion=design_criteria_inclusion design_related_works=design_related_works)
+            if showResults
+                +gaExperimentDesignResult

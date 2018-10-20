@@ -1,0 +1,26 @@
+template(name='tutorial')
+    +header
+    div(class='content tutorial')
+        h2(style='width: 60%; margin-left: auto; margin-right: auto', data-step='6', data-intro='Want to learn about gut? You are at the right page. This page contains a video to answer your question: "How well do you know your gut?". You can click "next" or press right arrow key to move on.', data-position='right') HOW WELL DO YOU KNOW YOUR GUT?
+        br
+        div(data-step='7', data-intro='If you feel that you know enough about gut, you can pause the video and move on to other parts. Use the navigation bar above.', data-position='right', style='width: 50%; margin-left:auto; margin-right:auto; min-width:330px')
+            video(controls, style='width: 100%;')
+                source(src="http://gutinstinct.ucsd.edu/meteor_media/tutorial.mp4", type="video/mp4")
+            div(class='coursera-logo' style='text-align: right')
+                a(href='https://www.coursera.org/learn/microbiome', target='_blank')
+                    img(src='/images/provided-by-coursera.png' height='60')
+        br
+        //- br
+        p(style='font-size: 14pt') If you're in the mood for a more general, fun introduction in spare time, try this commentary from NPR!
+        div(class='youtube-video', data-step='8', data-intro='If you feel that you need more introduction to gut microbiome, this video can help you learn more. You can also pause and move on to other parts. Use the navigation bar above.', data-position='right', style='min-width:330px;')
+            object(data="https://www.youtube.com/embed/5DTrENdWvvM")
+        br
+        a(href='intro-bin/index.html')
+            img(src='images/whyUseMe.jpg', style='width: 80%; max-width: 400px')
+        br
+        br
+        br
+        if isLearnCondition
+            a(href='/gutboard?s=0' class='btn waves-effect waves-light light-green', data-step='9', data-intro='When you are done, click here to solve Gut Problems', data-position='right') Go to Gut Problems
+        else
+            a(href='/gutboard?s=0' class='btn waves-effect waves-light light-green', data-step='9', data-intro='When you are done, click here to explore Gut Board', data-position='right') Back to GutBoard

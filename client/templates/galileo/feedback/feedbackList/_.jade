@@ -1,0 +1,17 @@
+template(name="gaExperimentFeedbackList")
+    div.overall-section.animatedTransition(style="position:relative;")
+        +gaExperimentFeedbackDetail(field="overall" name="Overall Review")
+
+    if hasComment
+        div(class='card-content layer-1' style="margin: 0 20px; border-bottom: 1px solid rgba(220, 220, 220, 1)")
+            span(class='card-title' style='font-size: 20px; font-weight: 100; padding-bottom: 10px; border-bottom: 1px solid rgba(220, 220, 220, 1)')
+                | Overall review comments (#{commentAmount})
+            div#comment-list
+                each comment in comments
+                    +gaExperimentFeedbackItem(feedback=comment pilotId=pilotId)
+    div(class='card-content layer-1')
+        form#submit-comment-form
+            //input#comment-input(type="text" placeholder="Add overall review comments here...")
+            textarea(id="comment-input" required placeholder="Add overall comments here...")
+            button.btn.light-blue(type="submit") Add Comment
+

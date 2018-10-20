@@ -1,0 +1,27 @@
+template(name="gaLanding")
+    +gaNavbar
+    main#ga-main
+        center(style="margin-top: 100px;")
+            div(style="max-width: 600px;")
+                img(src="/images/galileo/galileo-wi.png" alt="Galileo logo" width="640px")
+                br
+                br
+                //p Galileo is a platform for you to participate or create your own experiment. Here you
+                    | can collaborate with others to collect scientific experiment data and share your
+                    | research result
+                p(align="left")
+                    span#ga-span-body Do you have intuitions about your health and well-being? Are you curious to find out whether your intuitions are correct? You can test your intuitions by designing and running experiments.
+                    br
+                    br
+                    span#ga-span-body The next steps will guide you through designing an experiment.
+                br
+                //- <iframe src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2FgutinstinctUCSD&amp;tabs&amp;width=340&amp;height=130&amp;small_header=false&amp;adapt_container_width=false&amp;hide_cover=false&amp;show_facepile=false&amp;appId=1667529610219243" width="340" height="130" style="padding:0px; border-radius: 10px; border-width: 0px;" scrolling="no" allowtransparency="true"></iframe>
+                //- p
+                //-     a(href="/galileo/create")
+                //-         button.btn.light-blue Create My Own Experiment
+                //-     span 
+                //-     a(href="/galileo/browse")
+                //-         button.btn.light-blue Join Existing Experiments
+                p
+                    a(href='#{redirectUrl}')
+                        button.btn.blue Get Started!

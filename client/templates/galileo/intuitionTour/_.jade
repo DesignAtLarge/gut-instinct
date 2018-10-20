@@ -1,0 +1,61 @@
+template(name="gaIntuition")
+    +gaNavbar
+    main#ga-main
+        center(style="margin-top: 100px;")
+            div#galileo-intuition-outer
+                h4.board-header(align="left")
+                    span.light-blue-text.text-darken-2 Step 1: 
+                    | Share your intuitions
+                p(align="left")
+                    span#ga-span-body 
+                        | Your intuitions about your health can be anything that you’ve noticed about your health.
+                        | These could be general wisdom as well as specific things you might have noticed about yourself.
+                        | Here are some examples to help you form your own intuition regarding each topic.
+                    br
+                
+                div.card#galileo-topics-outer
+                    p.card-header Examples
+                    ul#galileo-topics-list
+                        each topic in sampleTopics
+                            li.galileo-topic.card
+                                div.img(style="background-image: url({{topic.img}})")
+                                p.title {{topic.topic}}
+                                ul.intuition-list
+                                    each intuition in topic.intuitions
+                                        li {{intuition}}
+                
+                div#galileo-intuition-container
+                    form.card#intuition-input-form
+                        p.card-header Add Your Intuition
+                        label(style='font-size: 16px; font-weight: 400; color: black;') Intuition:
+                        input(id="intuition-input" type='text' placeholder="Please Enter Your Intuition Here")
+                        label(style='font-size: 16px; font-weight: 400; color: black;') Tags:
+                        p Please enter the categories for this intuition (Words started by # and Seperated by spaces):
+                        input(id="intuition-tags" type='text' placeholder="#sleep #diet ...")
+                        label(style='font-size: 16px; font-weight: 400; color: black;') Mechanism:
+                            a(data-target="mechanism-info-div" class="info-mark" href="#") (?)
+                        div(id="mechanism-info-div" style="display: none; padding-left: 20px;")
+                            p Explaining how a phenomenon happens is called identifying the mechanism. Guessing possible mechanisms is a great way to apply what you know. As a Gut Scientist, you’ll need to guess mechanisms when adding your questions, or responding to others’ questions. 
+                            p For example, visiting a new place for a few days might temporarily alter the functioning of your gut. One possible mechanism for this: Having a different diet and being in a different environment exposes you to to different microbes. These microbes can modify how your body digests your food or they can communicate with the brain to change how you feel. 
+                            p Scientists have discovered the following facts. How might they be related to the gut microbiome? Guess the mechanism!
+                        p Don’t be afraid of being wrong. Your guesses might just prove to be valuable to researchers.
+                        +exampleLayout
+                            p Example of Mechanisms!!!!!!
+                        textarea(id='intuition-mechanism', required, style='font-size: 15px', class='materialize-textarea', name='start_discussion', placeholder='Guess the mechanism(s) here.')
+                        button.btn.blue#intuition-input-btn(type="submit" style="margin-bottom: 20px;") Add Your Intuition
+                    div.card#galileo-my-intuitions
+                        p.card-header My intuitions: (#{amountRemaining} remaining)
+                        ol#my-intuition-list
+                            each int in intuitions
+                                li
+                                    p.intuition {{int.intuition}}
+                                    p.mechanism 
+                                        label Mechanism: 
+                                        span {{int.mechanism}}
+                                    p.tags
+                                        label Tags:
+                                        each tag in int.tags
+                                            span.tag ##{tag}
+                        div.next-outer
+                            a.btn.light-blue(class="{{#if nextDisabled}}disabled{{/if}}" style="display: block" href="/galileo/intuition_board") Next Step
+                

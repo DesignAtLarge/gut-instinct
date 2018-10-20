@@ -1,0 +1,9 @@
+template(name="gaMeExperimentDesign")
+    +gaMeExperimentMaster(id=id section=section)
+        h5.section-header Experiment Design
+        +gaExperimentDesign(allowFeedback=true designId=designId allowEdits=true)
+
+        br
+        h5.section-header Overall Review of Experiment
+        //+gaExperimentFeedbackDetail(expId=id field="hypothesis" name="Hypothesis")
+        +gaExperimentFeedbackList(expId=id)

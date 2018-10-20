@@ -1,0 +1,240 @@
+template(name="gaDemoHypothesis")
+    +cardLayout(heading="Let's begin with an intuition" cardId=cardId stepnumber=stepnumber nextDisabled=nextDisabled backOnly=backOnly timeStamp=timeStamp type=type designId=getDesignId)
+        span(style='font-size: 20px; font-weight: 100;') Have you wondered how different activities affect your health? Maybe consuming a specific diet or a beverage, or activities like jogging, swimming, meditation or just sitting for long hours at your desk.
+        br
+        br
+        span(style='font-size: 20px; font-weight: 100;') Think about such an experience from your personal life and how it affected your health. Use it to formulate an intuition you'd like to test:
+        br
+        br          
+        input(autofocus id="hypothesis-intuition-input" type='text' value="{{intuition}}" placeholder="E.g. Eating cabbage increases bloatedness ")
+        a.btn.light-blue.darken-4#hypothesis-intuition-btn(href="#" class="{{#if hideProceed}}hide{{/if}}{{#if noIntuition}}disabled{{/if}}") Proceed
+        br
+        //a(href="#" id="help-#{cardId}-1" class="id="help-#{cardId}-1"id="help-#{cardId}-1"") (?)
+        //+helpLayout(cardId=cardId helpId="1" title="Hypothesis" learnLink="https://google.com" description="A hypothesis should be falsifiable. i.e. You should be able to say 'My hypothesis is true' or 'My hypothesis is false")
+        //div.row
+        //    div.col.s9
+        //        input(id="hypothesis-intuition-input" type='text' placeholder="E.g. Eating cabbage increases bloatedness")
+        //    div.col.s3
+        //        a.btn.light-blue.darken-4#hypothesis-intuition-btn(href="#") Proceed
+        
+        br
+        br
+
+        div.hypothesis-format(class="{{#if hideHypothesisForm}}hide{{/if}}")
+            p(style='font-size: 20px; font-weight: 100;') Now rewrite your intuition in terms of a cause, an effect and their relationship using the format below.
+            br
+            //p(style='font-size: 20px; font-weight: 100;') A #[b hypothesis] is a statement that links one cause with one effect. To automatically identify the cause, effect and relationship in your intuition, use the format given below to rewrite your intuition as a hypothesis.
+            //span(style='font-size: 20px; font-weight: 100;') Great, now we have something to work on! Now clearly identify the cause, effect and their relation in your original hypothesis and fill in the blanks below. use the format below to re-formulate your original hypothesis by clearly identifying the cause, effect and how they are related.
+            //span(style='font-size: 20px; font-weight: 100;') Use the format given below to formulate your hypothesis by providing a cause, an effect and how they are related.
+
+            p These examples might help :
+            div.row
+                div.col.s4
+                    span: i {{getExamples '0-0-0'}}
+                    br
+                    span: i {{getExamples '0-1-0'}}
+                    br
+                    span: i {{getExamples '0-2-0'}}
+
+                div.col.s4
+                    span: i {{getExamples '0-0-1'}}
+                    br
+                    span: i {{getExamples '0-1-1'}}
+                    br
+                    span: i {{getExamples '0-2-1'}}
+
+                div.col.s4
+                    span: i {{getExamples '0-0-2'}}
+                    br
+                    span: i {{getExamples '0-1-2'}}
+                    br
+                    span: i {{getExamples '0-2-2'}}
+
+            br
+
+            div.row
+                div.col.s4
+                    p: b.blue-text.text-darken-2(style='font-size: 20px;') Cause
+
+                div.col.s4
+                    p: b.blue-text.text-darken-2(style='font-size: 20px;') Relation
+
+                div.col.s4
+                    p: b.blue-text.text-darken-2(style='font-size: 20px;') Effect
+
+            div.row
+                div.col.s4
+                    input(id ="hypothesis-input-cause" type='text' value="{{cause}}")
+
+                div.col.s4
+                    input(id ="hypothesis-input-reln" type='text' value="{{relation}}")
+
+                div.col.s4
+                    input(id ="hypothesis-input-effect" type='text' value="{{effect}}")
+
+
+            a.btn.light-blue.darken-4#hypothesis-improve-btn(href="#" class="{{#if hideProceed2}}hide{{/if}}{{#if noHypothesis}}disabled{{/if}}") Proceed
+
+        br
+        br
+
+        div.improve-hypothesis(class="{{#if hideImproveHypo}}hide{{/if}}")
+            span(style="font-size: 20px; font-weight: 100;")
+                | Great! Now you have a
+                a.helpbtn(href="#" id="help-#{cardId}-1" style="border-width:0px 0px 1px 0px; border-style:solid") hypothesis
+                    i.fa.fa-question-circle(aria-hidden="true")
+
+                | for your experiment:
+
+            //a.helpbtn(href="#" id="help-#{cardId}-1"): i.material-icons.help-icon help_outline
+            +helpLayout(cardId=cardId helpId="1" title="What is a hypothesis?" learnLink="https://www.youtube.com/watch?v=bp2fbzWZDmA&ab_channel=AshfordScience")
+                p A hypothesis is a statement that links one cause with one effect. Scientists come up with intuitions based on their observations and a hypothesis is a tentative answer to that question.
+                br
+                p For example, for an intuition like this: #[b '{{getExamples '1-0-0'}}']
+                p the corresponding hypothesis could be #[b '{{getExamples '1-1-0'}}'].
+
+            br
+            br
+
+            a#edit-hypothesis-1(href="#")
+                span.blue-text.text-darken-2.edit-hypothesis(style="font-size: 20px; font-weight: 100;")
+                    i.material-icons.measureCause-editableIcon(style="opacity:0.5") mode_edit
+                    | #{cause} #{relation} #{effect}
+
+            br
+            br
+            br
+
+            div#mechanism-container.card(style="padding:15px;")
+                p(style='font-size: 20px; font-weight: 100;') When scientists create a hypothesis, they also think about why their hypothesis might be true. What might be the underlying mechanism?
+                br
+
+                p(style='font-size: 20px; font-weight: 100;')
+                    b Write a
+                    a.helpbtn(href="#" id="help-#{cardId}-2" style="border-width:0px 0px 1px 0px; border-style:solid;  font-weight: 600;") mechanism
+                        i.fa.fa-question-circle(aria-hidden="true")
+                    | for why 
+                    span.blue-text.text-darken-2(style="font-size: 20px; font-weight: 100;") #{cause} #{relation} #{effect} 
+                    | by taking a guess. Don't be afraid of being wrong.
+                    | Your guesses might just prove to be valuable to researchers in understanding your experiment and its results!
+
+                +helpLayout(cardId=cardId helpId="2" title="What is a mechanism?")
+                    p A mechanism describes the specific process by which something happens. In your hypothesis, how does #{cause} affect #{effect}? 
+                    br
+                    p For example:
+                    p For a hypothesis: #[b '{{getExamples '2-0-0'}}'], 
+                    p the corresponding mechanism could be: #[b '{{getExamples '2-1-0'}}'].
+                    
+                br
+                .row
+                    .input-field.col.s12
+                        p(for='hypothesis-input-mechanism' style="font-size:16px; color: #9e9e9e") I think '#{cause} #{relation} #{effect}' because ...
+                        //input#hypothesis-input-mechanism.validate(type='text' value="{{mechanism}}" )
+                        textarea#hypothesis-input-mechanism.materialize-textarea(type='text' value="{{mechanism}}" style="height:30px;" )
+
+            a.btn.light-blue.darken-4#mechanism-improve-btn(href="#" class="{{#if hideProceed3}}hide{{/if}}{{#if noMechanism}}disabled{{/if}}") Proceed
+
+        div.improve-mechanism(class="{{#if hideImproveMechanism}}hide{{/if}}")
+            div#related-works-container.card(style="padding:15px;")
+                p(style='font-size: 20px; font-weight: 100;') 
+                    | Scientists also link their experiments with whats already known. Click
+                    a(href="{{googleScholar}}" target="_blank") here
+                    a(class="btn white" href="{{googleScholar}}"  target="_blank" style="padding: 0px !important")
+                        img(src="/images/galileo/exp_design/scholar_logo_64dp.png" style="height: calc(100% - 6px); margin: 5px;") 
+                    | to search for current research on 
+                    span.blue-text.text-darken-2(style="font-size: 20px; font-weight: 100;") #{cause} #{relation} #{effect}.
+                
+                br 
+                br 
+                p(style='font-size: 20px; font-weight: 100;') 
+                    b Add two sentences 
+                    | about how your experiment is related to existing science.
+
+                br
+                .row
+                    .input-field.col.s12
+                        p(for='hypothesis-input-related-works' style="font-size:16px; color: #9e9e9e") Some related works to '#{cause} #{relation} #{effect}' are ...
+                        //input#hypothesis-input-related-works.validate(type='text' value="{{mechanism}}" )
+                        textarea#hypothesis-input-related-works.materialize-textarea(type='text' value="{{mechanism}}" style="height:30px;" )
+                        
+            //div
+                p(style="font-size: 20px; font-weight: 100;") Before proceeding, please make sure that ...
+                ul.variable-checklist(style="list-style: none")
+                    li
+                        input.check(style="float: right" type="checkbox" class="filled-in" id="cause-specific-check")
+                        label(for="cause-specific-check" class="blue-text text-darken-2" style='font-size: 20px; font-weight: 100; font-color: black')
+
+                            span
+                                | ... the cause is
+                                a.helpbtn(href="#" id="help-#{cardId}-2" style="border-width:0px 0px 1px 0px; border-style:solid") specific#[sup ?]
+                            br
+                            +helpLayout(cardId=cardId helpId="2" title="If your cause is ambiguous or too broad, edit it to make it specific" learnLink="")
+                                p #[b Example hypothesis : ] #[u Exercise] improves health
+                                p #[b Improved hypothesis : ] #[u Running for 30 minutes] daily improves health
+
+                    li
+                        input.check(style="float: right" type="checkbox" class="filled-in" id="effect-specific-check")
+                        label(for="effect-specific-check" class="blue-text text-darken-2" style='font-size: 20px; font-weight: 100; font-color: black')
+                            span
+                                | ... the effect is
+                                a.helpbtn(href="#" id="help-#{cardId}-3" style="border-width:0px 0px 1px 0px; border-style:solid") specific#[sup ?]
+                            br
+                            +helpLayout(cardId=cardId helpId="3" title="If your effect is ambiguous or too broad, edit it to make it specific" learnLink="")
+                                p #[b Example 1: ] Running for 30 minutes daily improves #[u health]
+                                p #[b Improved hypothesis : ] Running for 30 minutes daily improves #[u quality of sleep]
+                                br
+                                p #[b Example 2: ] Eating gluten free bread reduces #[u symptoms of gluten intolerance]
+                                p #[b Improved hypothesis : ] Eating gluten free bread reduces #[u abdominal pain]
+
+                    li
+                        input.check(style="float: right" type="checkbox" class="filled-in" id="relation-defined-check")
+                        label(for="relation-defined-check" class="blue-text text-darken-2" style='font-size: 20px; font-weight: 100; font-color: black')
+
+                            span
+                                |... the relation between cause and effect is
+                                a.helpbtn(href="#" id="help-#{cardId}-4" style="border-width:0px 0px 1px 0px; border-style:solid") clear#[sup ?]
+                            //span: a(href="#"): i.material-icons.help-icon help_outline
+
+                            +helpLayout(cardId=cardId helpId="4" title="Improving the 'relation'" learnLink="")
+                                p #[b Example : ] Running for 30 minutes daily #[u affects] quality of sleep
+                                p #[b Improved hypothesis : ] Running for 30 minutes daily #[u improves] quality of sleep
+                    li
+                        input.check(style="float: right" type="checkbox" class="filled-in" id="mechanism-defined-check")
+                        label(for="mechanism-defined-check" class="blue-text text-darken-2" style='font-size: 20px; font-weight: 100; font-color: black')
+
+                            span
+                                |... the mechanism makes sense (think about: The hypothesis is unambiguous - it either holds or it does not)
+                                a.helpbtn(href="#" id="help-#{cardId}-5" style="border-width:0px 0px 1px 0px; border-style:solid") clear#[sup ?]
+                            //span: a(href="#"): i.material-icons.help-icon help_outline
+                            +helpLayout(cardId=cardId helpId="5" title="Improving the 'mechanism'" learnLink="")
+                                p #[b Example : ] Running for 30 minutes daily #[u affects] quality of sleep
+                                p #[b Improved hypothesis : ] Running for 30 minutes daily #[u improves] quality of sleep
+
+                            br
+                            //div(style="color: black; font-size:16px")
+                            //    br
+                            //    p #[b Example : ] "An antibiotic like ciproflocaxin could cure an intolerance to gluten"
+                            //    p #[b Whats wrong : ] While its easy to identify the cause (antibiotic) and effect (intolerance to gluten), their relation isn't well defined.
+                            //    p #[b Improved hypothesis : ] "Ciproflocaxin reduces gluten intolerance"
+            //+exampleLayout
+            //    p(style='font-size: 20px; font-weight: 100;') #[b Here are a few questions/intuitions/statements that are NOT specific enough to be a hypothesis]
+            //    ul.browser-default(style='font-size: 20px; font-weight: 100;')
+            //        li "Running improves health"
+            //        br
+            //        p #[b Whats wrong : ] Both the cause ("Running") and the effect ("Health") need to be specific.
+            //        p #[b Improved hypothesis : ] "Running for 30 mins daily improves quality of sleep"
+            //        br
+            //
+            //        li "Could an antibiotic like ciproflocaxin cure an intolerance to gluten and dairy?"
+            //        br
+            //        p #[b Whats wrong : ] While its easy to identify the cause and effect in this statement, their relation isn't well defined.
+            //        p #[b Improved hypothesis : ] "Ciproflocaxin reduces gluten (or dairy) intolerance"
+            //        br
+            //
+            //        li "How many times a week can I eat fast food?"
+            //        br
+            //        p #[b Whats wrong : ] This is an open-ended question with no effect
+            //        p #[b Improved hypothesis : ] "Eating fast food daily increases weight", but "fast food" is vague and needs to be defined
+            //        br
+
+            +gaVideoLearnLayout(videoTitle="Learn more - Your Experiments#1 - Dr. Jacob Wobbrock explains why we design experiments" videoUrl="https://www.youtube.com/embed/Uded7kC3l48" videoSrc="coursera.org/learn/designexperiments")

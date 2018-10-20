@@ -1,0 +1,268 @@
+template(name='tag')
+    if isIntroCompleted
+        +header
+    else
+        +header_gray getProgressData
+    | {{init name}}
+    div(class='container content tag-page')
+        if isIntroCompleted
+            unless isCondition2or4or7or0or6or9or11
+                .to-back
+                    a(href='/gutboard/#{getMendelCode}')
+                        span(class='oi', data-glyph="chevron-left") &nbsp; Back to <i class="fa fa-comments-o" aria-hidden="true"></i> GutBoard
+            else
+                .to-back
+                    a(href='/topics')
+                        span(class='oi', data-glyph="chevron-left") &nbsp; Back to <i class="fa fa-book" aria-hidden="true"></i> Topics
+        .tag-content
+            if isIntroCompleted
+                if data._id
+                    h4(style='display: inline', class='light-blue-text text-darken-4', data-step='1', data-intro='This is a tag specific page where you can investigate about this topic: ##{name}. The page provides a quick learning nugget delivered via video, collaboratively maintained learning notes, a chance to add question to the gutboard, and GutBoard questions associated with this tag. You can click "next" or press right arrow key to move on.') ##{name}&nbsp;&nbsp;&nbsp;
+                    
+                    unless isCondition1or3or5or8or10
+                        a(href='https://www.coursera.org/learn/microbiome' style='margin-left: 30px;' target='_blank')
+                            img(src='/images/provided-by-coursera.png' style='width: 20%;')
+
+                else
+                    h4(data-step='1', data-intro='This is a tag specific page where you can investigate about this topic: ##{name}. However, there are no information about this page yet.') ##{name}
+            unless isWorkCondition
+                if isIntroCompleted
+                    div(style='margin-top: 10px', class='card', data-step='2', data-intro='We recommended that you explore other topics.')
+                        .card-content
+                            if isCondition1or3or5or8or10
+                                p ##{name} is one of many topics. Explore more topics by clicking on a question's tag.
+                                    |.
+                            if isCondition2or4or0or6or9or11
+                                p How does this lecture's content relate to your lifestyle? Think about how your lifestyle might affect your microbiome and ask questions in the GutBoard
+                                br
+                            if isCondition7
+                                p How does this lecture's content relate to your lifestyle? Think about how your lifestyle might affect your microbiome.
+                                br
+                            unless isCondition1or3or5or8or10
+                                .tag-video
+                                    if data.video_url
+                                        //div(class='tag-video', id="tag-video-coursera", data-step='3', data-intro='A quick online lecture will provide you a useful overview of microbiome research. (Psstt.. and it will help you create great questions for researchers!) Watching it is optional but consider watching the entire video!')
+                                        //    video(id='tag-video-element' controls)
+                                        //        source(src="#{data.video_url}", type="video/mp4")
+                                        //    if isIntroCompleted
+                                        //        unless isCondition1
+                                        //            div( style='text-align: right; margin-bottom: 15px;')
+                                        //                div(style='text-align: center')
+                                        //                    button(class='waves-effect waves-light btn light-blue add-topic-bookmark' id='add-note-btn' data-step='4', data-intro='Add your questions about the learning material or your own ideas using Learning notes section!') Add a Learning Note
+                                        iframe(width='100%', height='350', src='#{data.video_url}?rel=0&showinfo=0&modestbranding=1', frameborder='0', allowfullscreen)
+                else
+                    div(data-step='' data-intro='The Gut Guide will help guide you into creating great gut questions!' style="text-align: center;")
+                        h3(class='light-blue-text text-darken-4') <i class="fa fa-list-ul" aria-hidden="true" style="font-size: 1em;"></i> Docent Guide 
+                        unless isCondition1or2or7or8or9
+                            h5(class='light-blue-text text-darken-4') Learn how to ask expert-like questions
+                        else
+                            h5(class='light-blue-text text-darken-4') Sharpen your gut instincts
+                    br
+                    div(style='margin-top: 10px', class='card', )
+                        nav(class='light-blue darken-4' style='position: absolute;')
+                            .nav-wrapper(class='light-blue darken-4' style='margin-left: 20px;')
+                                .col.s12
+                                    a.breadcrumb(href='/guide') Welcome, #{user}!
+                                    a.breadcrumb(href='/t/introduction') Introduction video
+                                    //a.breadcrumb(href='#!') Third
+                        .card-content(data-step='2' data-intro='Watch this video to gain some introductory knowledge on the gut microbiome!')
+                            
+                            span(class='card-title' style='font-size: 30px; font-weight: 100; margin-top: 60px;') How does the gut microbiome affect you?
+                            p  The human gut microbiome is the community of microbes (and their gene products) interacting in the human gut. Learn about the gut microbiome from noted human microbiome expert <b>Professor Rob Knight</b> at <a href="http://jacobsschool.ucsd.edu/microbiome/" target="_blank">Center of Microbiome Innovation</a>, UC San Diego 
+                            br
+                            .tag-video
+                                if data.video_url
+                                    //div(class='tag-video', id="tag-video-coursera", data-step='3', data-intro='A quick online lecture will provide you a useful overview of microbiome research. (Psstt.. and it will help you create great questions for researchers!) Watching it is optional but consider watching the entire video!')
+                                    //    video(id='tag-video-element' controls)
+                                    //        source(src="#{data.video_url}", type="video/mp4")
+                                    //    if isIntroCompleted
+                                    //        unless isCondition1
+                                    //            div( style='text-align: right; margin-bottom: 15px;')
+                                    //                div(style='text-align: center')
+                                    //                    button(class='waves-effect waves-light btn light-blue add-topic-bookmark' id='add-note-btn' data-step='4', data-intro='Add your questions about the learning material or your own ideas using Learning notes section!') Add a Learning Note
+                                    iframe(width='100%', height='350', src='https://www.youtube.com/embed/yQ4yvVRaKmI?rel=0&showinfo=0&modestbranding=1', frameborder='0', allowfullscreen)
+                                    ul(class='collapsible' data-collapsible='expandable')
+                                        li(onclick="$('#arrow-down').toggle(); $('#arrow-right').toggle();")
+                                           div(id='transcriptHeader' class='collapsible-header' style='font-size: 14pt; height: 35px;')
+                                                i#arrow-down.fa.fa-caret-down(aria-hidden='true' style="display: none")
+                                                i#arrow-right.fa.fa-chevron-right(aria-hidden='true')
+                                                b Read the transcript from Coursera
+                                           div(class='collapsible-body' style='max-height: 350px; overflow-y: scroll;')
+                                                span(id="transcribed" style='font-size: 13pt;') {{{getTranscript}}} 
+                                else
+                                    div(class='card', data-step='8', data-intro='You may watch the video when the content provider uploads a video for this tag.')
+                                        .card-content
+                                            p Sorry. The tutorial video is not currently available for this tag: ##{name} :-(
+
+                            
+                            div(style='text-align: left; margin-bottom: 15px;')
+                                div(style='')                                       
+                                    br
+                                    span(style="font-weight: 100;") You can help microbiome experts like Professor Knight make important discoveries by sharing your insights.
+                                        unless isCondition7
+                                            | Let's get started by adding a question at the next step!
+                                            a(href="/gutboard_slider_addq" onclick='let docentProgress = localStorage.getItem("docentProgress"); if (docentProgress < 85){ localStorage.setItem("docentProgress", 85);}')
+                                                button(class='waves-effect waves-light btn light-blue add-topic-bookmark' style='margin-left: 460px;' id='go-to-guide-btn') Next
+                                        if isCondition7
+                                            | Do so by learning from our topics page
+                                            a(href="/topics" onclick='Meteor.call("user.updateGuideCompleted"); Meteor.call("user.updateIntroCompleted"); let docentProgress = localStorage.getItem("docentProgress"); if (docentProgress < 100){ localStorage.setItem("docentProgress", 100);}')
+                                                button(class='waves-effect waves-light btn light-blue add-topic-bookmark' style='margin-left: 460px;' id='go-to-guide-btn') Next
+                                        //else 
+                                            | But first, you'll need to understand how to ask questions that are useful in getting feedback from other Gut Instinct users and researchers!
+                                            a(href="/guide_question" onclick='let docentProgress = localStorage.getItem("docentProgress"); if (docentProgress  50){ localStorage.setItem("docentProgress", 50);}')
+                                                p(style="text-align: left; color: black;")  
+                                                    button(class='waves-effect waves-light btn light-blue add-topic-bookmark' style='margin-left: 460px;' id='go-to-guide-btn') Next
+            //unless isIntroCompleted
+                div(class='questions' id='sliderControlDiv' style='' data-step='4' data-intro='Step through the Docent Guide with these navigators.')
+                    a(href='#', id='backSliderControl', class='guttest-button', style='margin-top: 25px; margin-right: 50px;')
+                        i(class='fa fa-chevron-circle-left fa-4x waves-effect waves-light', aria-hidden="true", style='vertical-align: middle; color: #455a64')
+                    a(href='#', id='sliderControl', class='guttest-button', style='margin-top: 25px; margin-left: 50px;')
+                        i(class='fa fa-chevron-circle-right fa-4x waves-effect waves-light', aria-hidden="true", style='vertical-align: middle; color: #455a64')
+                                                    
+
+
+                            
+            unless isLearnCondition
+                if isIntroCompleted
+
+                    ul(class='collapsible' data-collapsible='expandable')
+                        unless isCondition1or3or5or8or10
+                            li
+                               div(id='transcriptHeader' class='collapsible-header' style='font-size: 14pt; height: 35px;' data-step='5')
+                                   i.fa.fa-plus(aria-hidden='true')
+                                   |  1.
+                                   b Read the transcript from Coursera
+                               div(class='collapsible-body' style='max-height: 350px; overflow-y: scroll;')
+                                   span(id="transcribed"  style='font-size: 13pt;') {{{getTranscript}}}
+
+
+                        //li
+                        //    div(id='learningNoteHeader' class='collapsible-header' style='font-size: 14pt; height: 35px;' data-step='5')
+                        //        i.fa.fa-plus(aria-hidden='true')
+                        //        |  1.
+                        //        b Add and read learning notes on this topic
+                        //
+                        //
+                        //    div(class='collapsible-body')
+                        //        div(class='card', id='learning-note-content-div', style='max-height: 30%; display: none;', data-step='8', data-intro='You may watch the video when the content provider uploads a video for this tag.')
+                        //            .card-content
+                        //                div(id='add-learning-note-div')
+                        //                    //p(style='font-weight: 600; display: inline-block;')
+                        //                    textarea(class='materialize-textarea' id="add-learning-note-input" placeholder="Add your learning notes here..." style='font-size: 11pt; margin-bottom: 10px;')
+                        //                    input(id="add-learning-note-url-input" placeholder="Add URL to notes here (Optional)  " style='font-size: 11pt; margin-bottom: 10px;')
+                        //                    div(style='text-align: center; margin-bottom: 3px;')
+                        //                    div(class='fileUpload waves-effect waves-light btn light-blue darken-1')
+                        //                        span(id='upload-selection-status-span') Attach File (Optional)
+                        //                        input(id='note-file-upload-btn' type="file" style='position: absolute; top: 0; right: 0; margin: 0; padding: 0; cursor: pointer;opacity: 0; filter: alpha(opacity=0);')
+                        //
+                        //                        //button(class='waves-effect waves-light btn light-blue' id='uplo    ad-file-btn') Attach file
+                        //                        //button(class='waves-effect waves-light btn light-blue' id='add-url-btn') Add URL
+                        //                br
+                        //                br
+                        //                button(class='waves-effect waves-light btn light-blue' id='save-note-btn') Save note
+                        //
+                        //
+                        //                div(id='learning-note-render-bin' style="display: none;")
+                        //                    p(style='font-weight: 600;') Learning Notes added by your peers:
+                        //                    p(style='display: inline; coluisor: #9e9e9e; font-size: 10pt;') (Click on time(mm:ss) to go to corresponding time in the video)
+                        //                    //hr(style='margin-top: 3px; margin-bottom: 10px;')
+                        //
+                        //                    div(id='learning-note-render-div' style='max-height: 200px; overflow-y: auto; overflow-x: hidden')
+                        //                        each data.video_notes
+                        //                            hr(style='margin-top: 4px; margin-bottom: 4px;')
+                        //
+                        //                            div(class='video-jump-div')
+                        //                                div(class='row' style='margin-bottom: 0px;')
+                        //                                    div(class='col s9')
+                        //                                        a(href='#' class='video-jump-link')
+                        //                                            span(class="video-target-timing-display" style="color: light-blue; text-weight: 700; display: inline;" video-data-sec='#{time}')
+                        //                                            span(style="color: light-blue; text-weight: 700; display: inline;" video-data-sec='#{time}') noted by #{author}
+                        //                                        p(style="") #{content}
+                        //                                    div(class='col s3')
+                        //                                        a(href='#{upload_file}' class='openExternalLinkBtn' style='display: none;' target="_blank")
+                        //                                            button(class='waves-effect waves-light btn light-blue add-topic-bookmark' style='font-size: 10px; padding-top: 2px; padding-bottom: 2px; margin-top:3px; margin-bottom: 3px; height: inherit; width: 100%;') View File
+                        //                                        a(href='#{link_url}' class='openExternalLinkBtn' style='display: none;' target="_blank")
+                        //                                            button(class='waves-effect waves-light btn light-blue add-topic-bookmark' style='font-size: 10px; padding-top: 2px; padding-bottom: 2px; margin-top:3px; margin-bottom: 3px; height: inherit; width: 100%;') Open URL
+                        //
+                        li
+                            unless isCondition1or3or5or8or10
+                                unless isCondition7
+                                    div(id='addQuestionHeader' class='collapsible-header' style='font-size: 14pt; height: 35px;' data-step='6', data-intro='Came up with an idea? How about you add it to the Gutboard ASAP!') <i class="fa fa-plus" aria-hidden="true"></i> 2. <b>Add a question to GutBoard!</b>
+                            else
+                                div(id='addQuestionHeader' class='collapsible-header' style='font-size: 14pt; height: 35px;' data-step='6', data-intro='Came up with an idea? How about you add it to the Gutboard ASAP!') <i class="fa fa-plus" aria-hidden="true"></i> 1. <b>Add a question to GutBoard!</b>
+
+                            div(class='collapsible-body')
+                                div(style='text-align: center')
+                                    p(style='text-align: left') Did this learning material trigger questions about your health and lifestyle? Add them to the GutBoard here.
+                                    a(href='/gutboard_slider_addq', id='addQuestiontoGutBoard', class='guttest-button', style='margin-top: 25px;')
+                                        i(class='fa fa-plus-circle fa-5x waves-effect waves-light', aria-hidden="true", style='vertical-align: middle; color: #f4511e')
+
+                        unless isCondition1or3or7or5or8or10
+                            li
+                                unless isLearnCondition
+                                    div(class='collapsible-header' style='font-size: 14pt; height: 35px;' data-step='7', data-intro='These are your responses to the questions prior to exploring ##{name}. Look back at your responses to gain personal insight!') <i class="fa fa-plus" aria-hidden="true"></i> 3. <b>Understand your own gut </b>
+
+                                    div(class='collapsible-body')
+                                        div(class='card')
+                                            .card-content
+                                                if personal_question_exist
+                                                    each personal_questions
+                                                        +personal_question_module
+
+                                                    div(style="text-align: center") 
+                                                        //removed answer-tag-question class for now
+                                                        button(class='waves-effect waves-light btn light-blue ' id="updatePersonalQuestion") Save Changes
+                                                    br
+                                                else
+                                                    span(style='font-size: 14pt; align: center; height: 35px;') There were no personal questions for tag ##{name}.
+
+                        unless isCondition1or3or5or8or10
+                            li
+                                unless isCondition7
+                                    div(class='collapsible-header' style='font-size: 14pt; height: 35px;' data-step='8', data-intro='Find more scientific information by reading scientific papers through Google Scholar or online articles via Google!') <i class="fa fa-plus" aria-hidden="true"></i> 4. <b>Learn more using online resources </b>
+                                else
+                                    div(class='collapsible-header' style='font-size: 14pt; height: 35px;' data-step='8', data-intro='Find more scientific information by reading scientific papers through Google Scholar or online articles via Google!') <i class="fa fa-plus" aria-hidden="true"></i> 2. <b>Learn more using online resources </b>
+
+                                div(class='collapsible-body')
+                                    div(class='card tag-science')
+                                        .card-content
+                                            p
+                                                span 
+                                                a(href='https://scholar.google.com/scholar?q=gut+microbiome+#{name}', target='_blank') <i class="fa fa-graduation-cap" aria-hidden="true"></i> Google Scholar
+                                                span shows popular research papers on this topic.
+                                                br
+                                                | 
+                                                span 
+                                                a(href='https://www.google.com/?q=gut+microbiome+#{name}', target='_blank') <i class="fa fa-google" aria-hidden="true"></i> Google
+                                                span will introduce you to popular articles. Remember, only scientific publications (those shown by Google Scholar) have been confirmed by experts.
+
+                        li
+                            unless isCondition1or3or5or8or10
+                                unless isCondition7
+                                    div(class='collapsible-header' style='font-size: 14pt; height: 35px;' data-step='9', data-intro='These are the questions in GutBoard about this topic!') <i class="fa fa-plus" aria-hidden="true"></i>5. <b>GutBoard questions on ##{name}</b>
+                            else
+                                div(class='collapsible-header' style='font-size: 14pt; height: 35px;' data-step='9', data-intro='These are the questions in GutBoard about this topic!') <i class="fa fa-plus" aria-hidden="true"></i>2. <b>GutBoard questions on ##{name}</b>
+
+                            div(class='collapsible-body')
+                                if data.questions
+                                    div
+                                        each questions
+                                            +qmodule_min
+                                else
+                                    span(style='font-size: 14pt; align: center; height: 35px;') There are no questions for tag ##{name}. 
+
+                                div(style='text-align: center')
+                                    a(href='/gutboard_slider_addq', id='addQuestiontoGutBoard', class='guttest-button', style='margin-top: 25px;')
+                                        //div(id='addQuestiontoGutBoard')
+                                        i(class='fa fa-plus-circle fa-5x waves-effect waves-light', aria-hidden="true", style='vertical-align: middle; color: #f4511e')
+                                    br
+                                    span(style='font-size: 14pt; height: 35px;') Add your question!
+                    br
+                    unless isCondition2or4or7or0or6or9or11
+                        .to-back
+                            a(href='/gutboard/#{getMendelCode}')
+                                span(class='oi', data-glyph="chevron-left") &nbsp; Back to <i class="fa fa-comments-o" aria-hidden="true"></i> GutBoard
+                    else
+                        .to-back
+                            a(href='/topics')
+                                span(class='oi', data-glyph="chevron-left") &nbsp; Back to <i class="fa fa-book" aria-hidden="true"></i> Topics

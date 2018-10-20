@@ -1,0 +1,32 @@
+template(name="gaEthics")
+    +cardLayout(heading="Complete Ethics Training" cardId=cardId nextDisabled=nextDisabled nextOnly=nextOnly nextButtonText=nextButtonText)
+        p(style="font-size: 20px") #{prompt}
+        br
+        div#ga-ethics-steps
+            div.card#step-1
+                h5 Option 1. Complete Ethical Training provided by National Institute of Health (3 hours)
+                p Please visit
+                    a(href="https://phrp.nihtraining.com/users/login.php" target="_blank") National Institute of Health portal
+                    | and complete  
+                    strong Ethics Training
+                    |. Please upload your certificate below when done:
+                center(style="margin-top: 15px;")
+                    +fileUploadBtn(id="certificate-file" text="Upload Certificate")
+                center(style="margin-top: 15px;")
+                //p Preview & Continue
+                div#preview
+                    p Preview of certificate:
+                    center
+                        img(src="{{downloadUrl}}")
+                    //button.btn.light-blue.darken-4#step-1-next Next
+            br
+            br
+            div.card#step-2
+                h5 Option 2. Watch Gut Instinct Ethical Responsibilities Lecture (7 mins)
+                //p xxx
+                +gaVideoLearnLayout(videoTitle="Learn more - UC San Diego PhD student Vineet summarizes ethical considerations in designing, running and participating in experiments" videoUrl="https://www.youtube.com/embed/lrHHCJwEs-U" videoSrc="coursera.org/learn/designexperiments")
+                center(style="margin-top: 15px;")
+                    //+fileUploadBtn(id="done-btn" text="Done")
+                    //input(class='waves-effect waves-light btn light-blue', type='submit', value='Done', id="done-btn" )
+                    button.btn.light-blue.darken-4(id="done-btn" text="Done") Done
+            

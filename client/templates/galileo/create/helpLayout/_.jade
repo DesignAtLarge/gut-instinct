@@ -1,0 +1,21 @@
+template(name='helpLayout')
+    if home
+        div.card.helpcard(id='helpcard-#{this.cardId}-#{this.helpId}', style="font-size:16px; display: none; background-color: #FAFAFA;")
+            div.card-content.black-text
+                span.card-title #{this.title}
+                p #{this.description}
+
+                +UI.contentBlock
+
+    else
+        div.card.helpcard(id='helpcard-#{this.cardId}-#{this.helpId}', style="font-size:16px; display: none; background-color:rgb(227, 242, 253);")
+            div.card-content.black-text
+                span.card-title #{this.title}
+                p #{this.description}
+
+                +UI.contentBlock
+
+            div.card-action
+                a.btn.white.grey-text.text-darken-4.helpclose(href="#") Close
+                if this.learnLink
+                    a.btn.white.grey-text.text-darken-4(href="#{this.learnLink}" target="_blank" style="margin-left: 10px;") Learn more

@@ -1,0 +1,42 @@
+template(name="gaFeedbackConsent")
+    +gaNavbar
+    main#ga-main
+        div.wrapper
+            if isLoading
+                h4 Loading, please wait ...
+            else
+                h4.board-header
+                    | You've been invited to review an experiment that attempts to answer the question:
+                    br
+                    br
+                    span.blue-text {{experimentTitle}}
+            div.body(style="font-size: 20px !important; padding: 10px 30px;")
+                p By signing up to review, I know that
+                div.card(style="padding: 5px 20px 5px 20px;")
+                    br
+                    h6 As a Reviewer :
+                    ul
+                        li
+                            i.fa.fa-check.green-text &nbsp; &nbsp;
+                            span I will provide useful feedback on all aspects of this experiment so the creator can run a successful experiment. Useful feedback includes pointing out issues and providing clear, actionable suggestions.
+
+                        li
+                            i.fa.fa-check.green-text &nbsp; &nbsp;
+                            span I will discuss the experiment with other reviewers and the creator in the comments section
+
+                        br
+                        li
+                            i.fa.fa-times.red-text &nbsp; &nbsp;
+                            span I cannot reveal any details about the experiment to the experiment participants
+                        li
+                            i.fa.fa-times.red-text &nbsp; &nbsp;
+                            span I cannot pilot this experiment since I already know the experiment's objective and details
+                        li
+                            i.fa.fa-times.red-text &nbsp; &nbsp;
+                            span I cannot participate in this experiment since I already know the experiment's objective and details
+                    p Gut Instinct’s “Review” interface has been designed to provide you detailed guidance.
+
+                p Reminder: If you plan to participate in this experiment, then click CANCEL. Reviewing an experiment bars you from participating in the same experiment.
+            center
+                a.btn.grey.accent-2(href="/galileo/browse") CANCEL
+                a.btn.light-blue(id="join-feedback") PROCEED TO REVIEW

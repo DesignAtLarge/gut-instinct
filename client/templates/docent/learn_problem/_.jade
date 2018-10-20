@@ -1,0 +1,53 @@
+template(name='learn_problem')
+    +header
+    | {{init hashcode}}
+    div(class='container content learn_problem')
+        div(class='to-back', id='back-top', style='margin-left:0')
+            a(href='/problems')
+                span(class='oi', data-glyph="chevron-left") &nbsp; Back to Gut Problems
+        div(class='card', data-step='6', data-intro='Here, you can see the question for this problem along with your answer and the correctness of your answer')
+            .card-content
+                span(class='card-title problem-title') #{question.question}
+                each answered
+                    if is_correct
+                        p(id='#{hashcode}-feedback', class='problem-feedback', style='color: #4CAF50') Your answer is correct! Discuss about this question below to learn why.
+                    else
+                        p(id='#{hashcode}-feedback', class='problem-feedback', style='color: #F44336') Your answer is incorrect! Discuss about this question below to learn why.
+                each question.choices
+                    if chose index
+                        input(class='with-gap', name="#{hashcode}" type="radio" id="#{hashcode}-#{index}", disabled, checked)
+                    else
+                        input(class='with-gap', name="#{hashcode}" type="radio" id="#{hashcode}-#{index}", disabled)
+                    label(for='#{hashcode}-#{index}') #{text} 
+                    br
+        br
+        h5 Discussions
+        div(class='card', data-step='7', data-intro='If you are curious about the explanation of correct answer or want to learn more about this question, discuss with others here')
+            .card-content
+                form(class='comment-form')
+                    input(type='text', name='comment', class='comment', placeholder='Add to your discussion here.', required)
+                    input(type='submit', class='btn light-green')
+            .divider
+            each discussions
+                .card-content
+                    span(class='timestamp') {{livestamp created_at}}
+                    //if isUserExpert
+                    span &nbsp;written by #{this.owner.username}
+                    br
+                    | {{{text}}}
+                    br
+                    //- span(class='timestamp', style='font-size: 12pt') {{pluralize 'Upvote' (upvote_count hashcode)}} &nbsp; | &nbsp; {{pluralize 'Downvote' (downvote_count hashcode)}}
+                    //- br
+                    //- if upvoted hashcode
+                    //-     button(class='waves-effect waves-light btn light-green vote upvote') Upvote
+                    //- else
+                    //-     button(class='waves-effect waves-light btn grey light-green vote upvote') Upvote
+                    //- if downvoted hashcode
+                    //-     button(class='waves-effect waves-light btn red vote downvote') Downvote
+                    //- else
+                    //-     button(class='waves-effect waves-light btn grey red vote downvote') Downvote
+                .divider
+        div(class='to-back', id='back-bottom', style='display:none; margin-left:0')
+            a(href='/problems')
+                span(class='oi', data-glyph="chevron-left") &nbsp; Back to Gut Problems
+     

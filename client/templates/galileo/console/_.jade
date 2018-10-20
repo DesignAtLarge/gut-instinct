@@ -1,0 +1,40 @@
+template(name="gaConsole")
+    +gaNavbar
+    main#ga-main
+        div.wrapper
+            h4.board-header Galileo Developer Console
+            section
+                h4.board-header Control Panel
+                ul
+                    li
+                        div.card(style="padding: 30px")
+                            h5 Pilot Stages
+                            br
+                            div
+                                button.btn#check-single-pilot-end Check Single Pilot ended
+                                button.btn#check-all-pilots-end Check all Pilots ended
+                                button.btn#send-cause-effect-pilot Send measure cause effect message
+                                button.btn#send-morning-msg-pilot Send morning message
+                            
+                    li
+                        div.card(style="padding: 30px")
+                            h5 Run Stages
+                            br
+                            div
+                                button.btn#check-experiment-start Check Experiment Start
+                                button.btn#send-cause-effect-msg Send measure cause effect message
+                                button.btn#check-experiment-end Check Experiment End
+                                button.btn#check-experiment-run-day1 Check Experiment run before day 1
+                                button.btn#send-morning-msg-exp Send morning message
+                                button.btn#send-test-email Send test email
+                                button.btn#send-test-sms Send test Sms
+                                button.btn#send-remind-email Send remind email
+                                button.btn#send-weekly-email Send weekly email
+                                button.btn#send-weekly-email-server Send weekly email on server            
+                                button.btn#send-weekly-email-server-dingmei Send weekly email on server to dingmei          
+
+            section
+                h4.board-header Result Panel
+                blockquote.card(style="padding: 30px")
+                    div#result {{result}}
+            

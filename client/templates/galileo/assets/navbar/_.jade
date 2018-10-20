@@ -1,0 +1,97 @@
+template(name='gaNavbar')
+    nav#ga-navbar.nav-wrapper.light-blue.darken-4
+        a#ga-navbar-title(href="/galileo/entrance")
+            .row
+                .col.s12
+                    if hasMendel
+                        .col.s2.center-align
+                            img#ga-navbar-logo(src="/images/galileo/galileo-flask.png")
+                    else
+                        img#ga-navbar-logo(style="height: 44px;margin:6px 0 0 6px" src="/images/galileo/galileo-flask.png")
+                if hasMendel
+                    .col.s2.center-align
+                        label COMMUNITIES
+        //a(href="/galileo/intuition_board") Intuitions (#{intuitionAmount})
+        //a(href="/galileo/browse") View All Experiments (#{experimentAmount})
+        if hasMendel
+            a(href="") 
+                span#viewAllTab {{getMendel}} Experiments
+        else
+            a(href="") 
+                span#viewAllTab All Experiments
+        a(href='')
+            span#designTab Design An Experiment
+        a(href="")
+            span#dashboardTab Dashboard
+        
+        div#ga-navbar-account
+            if loggedIn
+                //a(href="/galileo/console") 
+                    i.fa.fa-terminal                
+                a(href="https://docs.google.com/forms/d/e/1FAIpQLScmpfvfK7L2zIAAMu-EB7rThl4yF85u6g4NW0XasoTWeuLLdg/viewform?usp=sf_link", target="_blank")
+                    span Help us improve!
+                a#navbar-notification-btn(href="#")
+                    i.fa.fa-bell-o(style="margin-top:2px")
+                        if hasNotification
+                            div.badge
+                //- a#navbar-account-btn(href="/galileo/me/dashboard") 
+                //-     span#profileTab #{username}
+                //-         i.fa.fa-user(style="font-size: 20px; padding-left: 10px")
+                a#navbar-account-btn(href="")
+                    span #{username}
+                        i.fa.fa-user(style="font-size: 20px; padding-left: 10px")
+                         
+                    
+
+            else
+                a#sign-in(href="/galileo/signup") 
+                    span Sign In
+                        i.fa.fa-user(style="font-size: 20px; padding-left: 10px")
+    div#ga-navbar-notification-mask(style="display: none")
+    div#ga-navbar-notification-panel
+        div#navbar-notification-panel-head
+            if hasNotification    
+                div.row(style="margin-bottom: 0px !important")
+                    .col.s6
+                        a(href="/galileo/me/notification" style="color: black").left-align Notifications (#{notifications.length})
+                    .col.s6
+                        a.btn.light-blue.darken-4#markAllAsRead.right-align(style="font-size: 11px") Mark All As Read
+            else 
+                div.row(style="margin-bottom: 0px !important")
+                    .col.s12
+                        a(href="/galileo/me/notification" style="color: black").left-align Notifications (#{notifications.length})
+
+            hr
+        div#navbar-notification-panel-body
+            if hasNotification
+                each notification in notifications
+                    +gaNavbarNotificationItem(notification=notification)
+            else
+                p#no-notification No Notifications
+                
+
+    div#ga-navbar-account-mask(style="display: none")
+    div#ga-navbar-account-panel
+        div#navbar-account-panel-body
+            div.account-item
+                ul
+                    li
+                        a(href="/galileo/me/dashboard")
+                            i.fa.fa-tachometer
+                            | Dashboard
+                    li
+                        a(href="/galileo/me/profile")
+                            i.fa.fa-id-card
+                            | Edit My Profile
+                    li
+                        a#logout(href="#" style="color: rgba(228, 0, 0, 1) !important")
+                            i.fa.fa-sign-out
+                            | Log out
+                
+            
+    //Commented out for athletes study - vineet            
+    //div#ga-navbar-tour-banner(class="{{#if needTourBanner}}active{{/if}}" href="/galileo/tour")
+        p You haven't completed the Galileo tour yet! 
+            a(href="/galileo/tour") click here
+            | to get back to your touring.
+        i.fa.fa-times#close-navbar-tour(style="float: right; margin-top: -50px; margin-right: 30px; cursor: pointer")

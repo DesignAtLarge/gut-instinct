@@ -1,0 +1,794 @@
+template(name="gaExperimentDesignOld")
+
+    if allowEdits
+        +gaOpenHumansDataSourceModal(idSuffix="causeSummary" measureVariable=causeVariable ohDataSourceVariable=causeOhDataSourceIdsVar)
+        +gaOpenHumansDataSourceModal(idSuffix="effectSummary" measureVariable=effectVariable ohDataSourceVariable=effectOhDataSourceIdsVar)
+
+    div#experiment-design(style="cursor:default;")
+        //p(style="font-size: 20px; font-weight: 400;") Objective:
+
+            if allowFeedback
+                +gaExperimentFeedbackDetail(userCount=userCount expId=expId field="intuition" name="Intuition")
+            span(class="blue-text text-darken-2" style="font-weight: 100;") #{intuition}
+        
+        //hr.summary-hr
+
+        //NEED position:relative FOR FLOATING REVIEW CONTAINER NEXT TO THIS SECTION
+        div#hypothesis-section.animatedTransition(style="position:relative;")
+            p(style="font-size: 20px; font-weight: 400; display: flex") Hypothesis:
+                span.blue-text.text-darken-2 #{hypothesis}
+                if allowEdits
+                    i.material-icons.edit-design-btn#edit-hypothesis mode_edit
+                    i.material-icons.edit-design-btn.accept.hide#accept-edit-hypothesis check
+                    i.material-icons.edit-design-btn.cancel.hide#cancel-edit-hypothesis clear
+                //if isReviewer
+                    i.material-icons.edit-design-btn#edit-suggest-hypothesis lightbulb_outline
+                    i.material-icons.edit-design-btn.accept.hide#accept-edit-suggest-hypothesis check
+                    i.material-icons.edit-design-btn.cancel.hide#cancel-edit-suggest-hypothesis clear
+            br
+            //if suggestingHypothesis
+                blockquote.info
+                    | You are now entering suggestion mode. The modification you make will not take
+                    | effect to the experiment design. But the creator as well as the other reviewers
+                    | will be able to see the suggestion you have made.
+            div#summary-table
+                div.row.head
+                    div.col.m4 Cause
+                    div.col.m4 Relation
+                    div.col.m4 Effect
+                div.row#hypothesis-div
+                    div.col.m4 #{cause}
+                    div.col.m4 #{relation}
+                    div.col.m4 #{effect}
+                div.row#hypothesis-editable.hide
+                    div.col.s4
+                        input#cause-text(type='text' value="{{cause}}")
+
+                    div.col.s4
+                        input#relation-text(type='text' value="{{relation}}")
+
+                    div.col.s4
+                        input#effect-text(type='text' value="{{effect}}")
+
+            p(style="font-size: 20px; font-weight: 400;") Mechanism:
+            p#mechanism-div(style="font-size: 18px; font-weight: 100;") #{mechanism}
+            div.row#mechanism-editable.hide
+                    div.col.s12
+                        input#mechanism-text(type='text' value="{{mechanism}}")
+
+            if allowFeedback
+                +gaExperimentFeedbackDetail(userCount=userCount expId=expId field="hypothesis" name="the hypothesis" thething=hypothesis pilotId=pilotId)
+
+
+        hr.summary-hr
+
+        if isGuestMode
+            h6(style='text-align: center; margin-bottom: 10px; margin-top: 10px;') You will be able to review this (or any) experiment after signing in!
+                a.btn.light-blue#sign-in Sign In Now!
+            br
+            div.ga-share-blur
+
+                div.measures-section
+                    //p(style="font-size: 20px; font-weight: 400;") Methods:
+                    div.measure-column#cause-measure-block
+                        p(style="font-size: 20px; font-weight: 400;")
+                            | How is
+                            span(class="blue-text text-darken-2") #{cause}
+                            | measured?
+
+                        ul.browser-default
+                            li
+                                p(style="font-size: 18px; font-weight: 100;")
+                                    | Participants measure
+                                    span.blue-text.text-darken-2 #{causeMeasureType}
+                                    | of
+                                    span.blue-text.text-darken-2 #{cause}
+                                    | #{hasCauseUnit} #{isCauseRateScaleType}
+                                    span.blue-text.text-darken-2 #{causeMeasureDetails}
+                            li
+                                p(style="font-size: 18px; font-weight: 100; ")
+                                    | Reminder sent every day at
+                                    span.blue-text.text-darken-2 #{causeMeasureTime}
+                                    | with the following message:
+                                br
+                                p "#{causeMeasureReminder}"
+
+                        if allowFeedback
+                            +gaExperimentFeedbackDetail(userCount=userCount expId=expId field="causeMeasures" name="measuring the cause" thething=cause)
+
+                    div.measure-column#effect-measure-block
+                        p(style="font-size: 20px; font-weight: 400;")
+                            | How is
+                            span(class="blue-text text-darken-2") #{effect}
+                            | measured?
+
+                        ul.browser-default
+                            li
+                                p(style="font-size: 18px; font-weight: 100;")
+                                    | Participants measure
+                                    span.blue-text.text-darken-2 #{effectMeasureType}
+                                    | of
+                                    span.blue-text.text-darken-2 #{effect}
+                                    | #{hasEffectUnit} #{hasEffectRating}
+                                    span.blue-text.text-darken-2 #{effectMeasureDetails}
+                            li
+                                p(style="font-size: 18px; font-weight: 100; ")
+                                    | Reminder sent every day at
+                                    span.blue-text.text-darken-2 #{effectMeasureTime}
+                                    | with the following message:
+                                br
+                                p "#{effectMeasureReminder}"
+
+                        if allowFeedback
+                            +gaExperimentFeedbackDetail(userCount=userCount expId=expId field="effectMeasures" name="Effect measures")
+
+                hr.summary-hr
+
+
+                div.measures-section
+                    div.measure-column
+                        p(style="font-size: 20px; font-weight: 400;") Experimental Condition
+                        br
+                        span.light-blue-text.darken-4 #{experimentalCondition}
+                        ol.criteria-list(style="font-size: 18px;")
+                            each step in experimentalSteps
+                                li #{step}
+
+                        //if allowFeedback
+                        //    +gaExperimentFeedbackDetail(userCount=userCount expId=expId field="conditions" name="Conditions")
+
+
+                        div.measure-column
+                            p(style="font-size: 20px; font-weight: 400;") Control Condition
+                            br
+                            span.light-blue-text.darken-4 #{controlCondition}
+                            ol.criteria-list(style="font-size: 18px;")
+                                each step in controlSteps
+                                    li #{step}
+
+                            if allowFeedback
+                                +gaExperimentFeedbackDetail(userCount=userCount expId=expId field="conditions" name="Conditions"  thething=controlSteps)
+
+                //if isDemo
+                //    p
+                //else
+                    div.condition-section
+                        p(style="font-size: 20px; font-weight: 400;") Instructions for participants
+
+                        center
+                            p(style="font-size: 18px; font-weight: 100; font-weight: bold;") Control Condition
+                            p(class="blue-text text-darken-2" style="font-size: 16px; font-weight: 100;") #{controlCondition}
+                            p(style="font-size: 18px; font-weight: 400; margin: 10px 0;") vs
+                            p(style="font-size: 18px; font-weight: 100; font-weight: bold;") Experimental Condition
+                            p(class="blue-text text-darken-2" style="font-size: 16px; font-weight: 100;") #{experimentalCondition}
+
+                        if allowFeedback
+                                +gaExperimentFeedbackDetail(userCount=userCount expId=expId field="conditions" name="Conditions and Experimental steps")
+
+                hr.summary-hr
+
+                div.criteria-section
+                    div.criteria-column
+                        p(style="font-size: 20px; font-weight: 400;") Exclusion Criteria
+
+                        p(style="font-size: 12px; font-weight: 100; color: rgba(208, 14, 14, 1)") (No participant should meet ANY of the following criteria)
+                        if hasExclusionCriteria
+                            ol.criteria-list
+                                each criteria in exclusionCriteria
+                                    li #{criteria}
+                        else
+                            p(class="blue-text text-darken-2" style="font-size: 16px; font-weight: 100; margin-top: 15px;") None
+                        if allowFeedback
+                            +gaExperimentFeedbackDetail(userCount=userCount expId=expId field="exclusionCriteria" name="Exclusion Criteria")
+
+                    div.criteria-column
+                        p(style="font-size: 20px; font-weight: 400;") Inclusion Criteria
+
+                        p(style="font-size: 12px; font-weight: 100; color: rgba(0, 203, 20, 1)") (Every participant must meet EACH of the following criteria)
+                        if hasInclusionCriteria
+                            ol.criteria-list
+                                each criteria in inclusionCriteria
+                                    li #{criteria}
+                        else
+                            p(class="blue-text text-darken-2" style="font-size: 16px; font-weight: 100; margin-top: 15px;") None
+                        if allowFeedback
+                            +gaExperimentFeedbackDetail(userCount=userCount expId=expId field="inclusionCriteria" name="Inclusion Criteria")
+
+                    hr.summary-hr
+
+                //NEED position:relative FOR FLOATING REVIEW CONTAINER NEXT TO THIS SECTION
+                div.overall-section(style="position:relative;")
+                    if allowFeedback
+                        +gaExperimentFeedbackDetail(userCount=userCount expId=expId field="overall" name="Overall")
+
+                if showResults
+                    hr.summary-hr
+
+                    p(style="font-size: 20px; font-weight: 400;") Results:
+
+                    span(class="blue-text text-darken-2" style="font-size: 20px; font-weight: 100; font-color: black") Grr...Vineet is working on this
+                    br
+                    br
+                    span(class="blue-text text-darken-2" style="font-size: 20px; font-weight: 100; font-color: black") Result 1: Participants in control (decaf)  group have better quality of sleep than experimental group (caffeinated)
+                    br
+                    img(src='/images/galileo/exp_design/1_Does coffee affect quality of sleep?.png' width='450')
+                    br
+                    br
+                    span(class="blue-text text-darken-2" style="font-size: 20px; font-weight: 100; font-color: black") Result 2: Statistical result of t-test. Participants in control (decaf)  group have better quality of sleep experimental group (caffeinated)
+                    br
+                    span(class="blue-text text-darken-2" style="font-size: 20px; font-weight: 100; font-color: black") How do I understand this?
+                    br
+                    img(src='/images/galileo/exp_design/2_p_value.png' width='450')
+                    br
+                    br
+                    br
+                    span(class="blue-text text-darken-2" style="font-size: 20px; font-weight: 100; font-color: black") Result 3: Your personal results
+                    br
+                    span(class="blue-text text-darken-2" style="font-size: 20px; font-weight: 100; font-color: black") How do I understand this?
+                    br
+                    img(src='/images/galileo/exp_design/3_line_graph.png' width='450')
+                    //img(src='/images/logos/gi_extra_light_bg.png' width='450')
+                    br
+                    br
+                    br
+                    span checklist here
+
+                    hr.summary-hr
+
+                    p(style="font-size: 20px; font-weight: 400;") Conclusion:
+                    span(class="blue-text text-darken-2" style="font-size: 20px; font-weight: 100; font-color: black") TEST_conclusion ----
+                    br
+                    p 1. How will people use these results? //add input box here
+                    br
+                    p 2. There needs to be some discussion about the conclusions...
+                    br
+
+                //hr.summary-hr
+
+
+        else
+            div.measures-section
+                //p(style="font-size: 20px; font-weight: 400;") Methods:
+                div.measure-column.animatedTransition#cause-measure-block
+                    p(style="font-size: 20px; font-weight: 400;")
+                        | How is
+                        span(class="blue-text text-darken-2") #{cause}
+                        | manipulated?
+                        if allowEdits
+                            i.material-icons.edit-design-btn#edit-cause mode_edit
+                            i.material-icons.edit-design-btn.accept.hide#accept-edit-cause check
+                            i.material-icons.edit-design-btn.cancel.hide#cancel-edit-cause clear
+
+                    ul.browser-default
+                        li
+                            p(style="font-size: 18px; font-weight: 100;")
+                                | Participants measure
+                                span.blue-text.text-darken-2#cause-measure-type #{causeMeasureType}
+                                span.blue-text.text-darken-2#edit-cause-measure-type.column(style="cursor: pointer; border: 2px solid rgba(25, 118, 210, 0.5); border-radius: 6px; padding: 4px;").hide
+                                    span#measureCause-editableText(contenteditable="false" ) #{causeMeasureType}
+                                |  of
+                                span.blue-text.text-darken-2 #{cause}
+                                | #{hasCauseUnit} #{isCauseRateScaleType}
+                                span.blue-text.text-darken-2 #{causeMeasureDetails}
+                            br
+                        li#cause-reminder-time-bullet
+                            p(style="font-size: 18px; font-weight: 100; ")
+                                | Reminder sent every day at
+                                span.blue-text.text-darken-2(id="cause-reminder-time") #{causeMeasureTime}
+                                | with the following message:
+                            br
+                            p#cause-message "#{causeMeasureReminder}"
+
+                    if allowEdits
+                        div.cause-edit.hide
+                            +gaTimeDropdown(id='cause-amount-time' measureType=causeMeasureType measureItem=cause)
+                            textarea(id="cause-message-textarea" name="feedback" rows="4" cols="50" required)
+
+                    if showCauseOhDataSources
+                        ul.browser-default
+                            li
+                                p(style="font-size:18px;") Data sources:
+                                +gaOhSelectedDataSources(idSuffix="causeSummary" ohDataSourceIdsVar=causeOhDataSourceIdsVar viewOnly=ohViewOnly)
+
+                    if allowFeedback
+                        +gaExperimentFeedbackDetail(userCount=userCount expId=expId field="causeMeasures" name="measuring the cause" thething=cause pilotId=pilotId)
+
+                div.measure-column.animatedTransition#effect-measure-block
+                    p(style="font-size: 20px; font-weight: 400;")
+                        | How is
+                        span(class="blue-text text-darken-2") #{effect}
+                        | measured?
+
+                        if allowEdits
+                            i.material-icons.edit-design-btn#edit-effect mode_edit
+                            i.material-icons.edit-design-btn.accept.hide#accept-edit-effect check
+                            i.material-icons.edit-design-btn.cancel.hide#cancel-edit-effect clear
+
+                    ul.browser-default
+                        li
+                            p(style="font-size: 18px; font-weight: 100;")
+                                | Participants measure
+                                span.blue-text.text-darken-2#effect-measure-type #{effectMeasureType}
+                                span.blue-text.text-darken-2#edit-effect-measure-type.column(style="cursor: pointer; border: 2px solid rgba(25, 118, 210, 0.5); border-radius: 6px; padding: 4px;").hide
+                                    span#measureEffect-editableText(contenteditable="false" ) #{effectMeasureType}
+                                | of
+                                span.blue-text.text-darken-2 #{effect}
+                                | #{hasEffectUnit} #{hasEffectRating}
+                                span.blue-text.text-darken-2 #{effectMeasureDetails}
+                            br
+                        li#effect-reminder-time-bullet
+                            p(style="font-size: 18px; font-weight: 100; ")
+                                | Reminder sent every day at
+                                span.blue-text.text-darken-2(id="effect-reminder-time") #{effectMeasureTime}
+                                | with the following message:
+                            br
+                            p(id="effect-message") "#{effectMeasureReminder}"
+                    if allowEdits
+                        div.effect-edit.hide
+                            +gaTimeDropdown(id='effect-amount-time' measureType=effectMeasureType measureItem=effect)
+                            textarea(id="effect-message-textarea" name="feedback" rows="4" cols="50" required)
+
+                    if showEffectOhDataSources
+                        ul.browser-default
+                            li
+                                p(style="font-size:18px;") Data sources:
+                                +gaOhSelectedDataSources(idSuffix="effectSummary" ohDataSourceIdsVar=effectOhDataSourceIdsVar viewOnly=ohViewOnly)
+
+                    if allowFeedback
+                            +gaExperimentFeedbackDetail(userCount=userCount expId=expId field="effectMeasures" name="measuring the effect" thething=effect pilotId=pilotId)
+
+            hr.summary-hr
+
+
+            //NEED THIS OUTER DIV AND RELATIVE POSITION FOR FLOATING REVIEW CONTAINER NEXT TO THIS SECTION
+            div#instructions-section.animatedTransition(style="position:relative;")
+                div.measures-section
+                    div.measure-column
+                        span(style="font-size: 20px; font-weight: 400;") Experimental Condition
+                        if allowEdits
+                            i.material-icons.edit-design-btn#edit-experimental mode_edit
+                            i.material-icons.edit-design-btn.accept.hide#accept-edit-experimental check
+                            i.material-icons.edit-design-btn.cancel.hide#cancel-edit-experimental clear
+                        br
+
+                        div#experimental-div
+                            span.light-blue-text.darken-4 #{experimentalCondition}
+
+                            p(style="font-size: 18px; margin-top: 15px") 
+                                #[b Preperation steps]
+                                ol.criteria-list(style="font-size: 18px; margin-top: 0px")
+                                    each step in experimentalPrepSteps
+                                        li #{step}
+
+                            hr.summary-hr(style="margin: 15px 15px")
+                            p(style="font-size: 18px;") 
+                                #[b Experiment steps]
+                                ol.criteria-list(style="font-size: 18px;margin-top: 0px")
+                                    each step in experimentalSteps
+                                        li #{step}
+
+                        div#experimental-editable.hide
+                            input#experimental-text(type='text' value="{{experimentalCondition}}")
+                            p(style="font-size: 18px;") 
+                                #[b Preperation steps]
+                                +checklist(id='experimentalPrepSteps' checklistItems=editableExperimentalPrepSteps) 
+                            hr.summary-hr(style="margin: 15px 15px")
+                            p(style="font-size: 18px;") 
+                                #[b Experiment steps]
+                            +checklist(id='experimentalSteps' checklistItems=editableExperimentalSteps)
+                            
+                    div.measure-column
+                        span(style="font-size: 20px; font-weight: 400;") Control Condition
+                        if allowEdits
+                            i.material-icons.edit-design-btn#edit-control mode_edit
+                            i.material-icons.edit-design-btn.accept.hide#accept-edit-control check
+                            i.material-icons.edit-design-btn.cancel.hide#cancel-edit-control clear
+
+                        br
+                        div#control-div
+                            span.light-blue-text.darken-4 #{controlCondition}
+                            ol.criteria-list(style="font-size: 18px;")
+                                each step in controlSteps
+                                    li #{step}
+
+                        div#control-editable.hide
+                            input#control-text(type='text' value="{{controlCondition}}")
+                            +checklist(id='controlSteps' checklistItems=editableControlSteps)
+
+                    
+
+                        //if allowFeedback
+                            +gaExperimentFeedbackDetail(userCount=userCount expId=expId field="conditions" name="Conditions")
+                if allowFeedback
+                    +gaExperimentFeedbackDetail(userCount=userCount expId=expId field="conditions" name="Conditions" thething=controlExperimentalCondition pilotId=pilotId)
+
+
+            //if isDemo
+            //    p
+            //else
+                div.condition-section
+                    p(style="font-size: 20px; font-weight: 400;") Instructions for participants
+
+                    center
+                        p(style="font-size: 18px; font-weight: 100; font-weight: bold;") Control Condition
+                        p(class="blue-text text-darken-2" style="font-size: 16px; font-weight: 100;") #{controlCondition}
+                        p(style="font-size: 18px; font-weight: 400; margin: 10px 0;") vs
+                        p(style="font-size: 18px; font-weight: 100; font-weight: bold;") Experimental Condition
+                        p(class="blue-text text-darken-2" style="font-size: 16px; font-weight: 100;") #{experimentalCondition}
+
+                    if allowFeedback
+                            +gaExperimentFeedbackDetail(userCount=userCount expId=expId field="conditions" name="Conditions and Experimental steps")
+
+            hr.summary-hr
+
+            div.criteria-section
+                div.criteria-column.animatedTransition
+                    span(style="font-size: 20px; font-weight: 400;") Exclusion Criteria
+                    if allowEdits
+                        i.material-icons.edit-design-btn#edit-exclusion mode_edit
+                        i.material-icons.edit-design-btn.accept.hide#accept-edit-exclusion check
+                        i.material-icons.edit-design-btn.cancel.hide#cancel-edit-exclusion clear
+
+                    p(style="font-size: 12px; font-weight: 100; color: rgba(208, 14, 14, 1)") (No participant should meet ANY of the following criteria)
+
+                    div#exclusion-div
+                        if hasExclusionCriteria
+                            ol.criteria-list
+                                each criteria in exclusionCriteria
+                                    li #{criteria}
+                        else
+                            p.blue-text.text-darken-2(style="font-size: 16px; font-weight: 100; margin-top: 15px;") None
+
+                    if allowEdits
+                        div#exclusion-editable.hide
+                            +checklist(id='exclusion' checklistItems=editableExclusionCriteria)
+
+                    if allowFeedback
+                        +gaExperimentFeedbackDetail(userCount=userCount expId=expId field="exclusionCriteria" name="Exclusion Criteria" thething=exclusionCriteria pilotId=pilotId)
+
+                div.criteria-column
+                    span(style="font-size: 20px; font-weight: 400;") Inclusion Criteria
+                    if allowEdits
+                        i.material-icons.edit-design-btn#edit-inclusion mode_edit
+                        i.material-icons.edit-design-btn.accept.hide#accept-edit-inclusion check
+                        i.material-icons.edit-design-btn.cancel.hide#cancel-edit-inclusion clear
+
+                    p(style="font-size: 12px; font-weight: 100; color: rgba(0, 203, 20, 1)") (Every participant must meet EACH of the following criteria)
+
+                    div#inclusion-div
+                        if hasInclusionCriteria
+                            ol.criteria-list
+                                each criteria in inclusionCriteria
+                                    li #{criteria}
+                        else
+                            p.blue-text.text-darken-2(style="font-size: 16px; font-weight: 100; margin-top: 15px;") None
+
+                    if allowEdits
+                        div#inclusion-editable.hide
+                            +checklist(id='inclusion' checklistItems=editableInclusionCriteria)
+
+                    if allowFeedback
+                            +gaExperimentFeedbackDetail(userCount=userCount expId=expId field="inclusionCriteria" name="Inclusion Criteria" thething=exclusionCriteria pilotId=pilotId)
+
+                hr.summary-hr
+
+            hr.summary-hr
+            //NEED position:relative FOR FLOATING REVIEW CONTAINER NEXT TO THIS SECTION
+            //div.overall-section.animatedTransition(style="position:relative;")
+                if allowFeedback
+                    +gaExperimentFeedbackDetail(userCount=userCount expId=expId field="overall" name="Overall" pilotId=pilotId)
+
+
+            if showResults
+                hr.summary-hr
+
+                p(style="font-size: 20px; font-weight: 400;") Results:
+
+                span(class="blue-text text-darken-2" style="font-size: 20px; font-weight: 100; font-color: black") Grr...Vineet is working on this
+                br
+                br
+                span(class="blue-text text-darken-2" style="font-size: 20px; font-weight: 100; font-color: black") Result 1: Participants in control (decaf)  group have better quality of sleep than experimental group (caffeinated)
+                br
+                img(src='/images/galileo/exp_design/1_Does coffee affect quality of sleep?.png' width='450')
+                br
+                br
+                span(class="blue-text text-darken-2" style="font-size: 20px; font-weight: 100; font-color: black") Result 2: Statistical result of t-test. Participants in control (decaf)  group have better quality of sleep experimental group (caffeinated)
+                br
+                span(class="blue-text text-darken-2" style="font-size: 20px; font-weight: 100; font-color: black") How do I understand this?
+                br
+                img(src='/images/galileo/exp_design/2_p_value.png' width='450')
+                br
+                br
+                br
+                span(class="blue-text text-darken-2" style="font-size: 20px; font-weight: 100; font-color: black") Result 3: Your personal results
+                br
+                span(class="blue-text text-darken-2" style="font-size: 20px; font-weight: 100; font-color: black") How do I understand this?
+                br
+                img(src='/images/galileo/exp_design/3_line_graph.png' width='450')
+                //img(src='/images/logos/gi_extra_light_bg.png' width='450')
+                br
+                br
+                br
+                span checklist here
+
+                hr.summary-hr
+
+                p(style="font-size: 20px; font-weight: 400;") Conclusion:
+                span(class="blue-text text-darken-2" style="font-size: 20px; font-weight: 100; font-color: black") TEST_conclusion ----
+                br
+                p 1. How will people use these results? //add input box here
+                br
+                p 2. There needs to be some discussion about the conclusions...
+                br
+
+    if allowEdits
+        div.modal.modal.column.measureCause-check.galileo-long-modal(id="edit-cause-modal" style="padding: 20px")
+                p(class='card-title' style='font-size: 28px; font-weight: 100; line-height:45px; font-weight: bold;')
+                    span.blue-text Edit the 
+                    span.blue-text.text-darken-4 measurement type
+                    span.blue-text of {{cause}}
+
+
+                p(style='font-size: 20px; font-weight: 100;') How will you manipulate 
+                    span.blue-text.text-darken-2(style='font-weight: bold') #{cause}
+                    | in your experiment?
+                br
+
+                input.measureCause-checkbox-edit(type="radio" class="with-gap" id="cause-absence-checkbox-edit" name="measureCause-radio-group")
+                label(for="cause-absence-checkbox-edit")
+                    p(class="blue-text text-darken-2" style='font-size: 24px; font-weight: 100;') Absence or Presence
+                        //a(href="#" id="help-#{cardId}-1" class="helpbtn"): i.fa.fa-question-circle(aria-hidden="true")
+                        span(class="black-text text-darken-4" style='font-size: 20px; font-weight: 100;')
+                    p E.g. {{getExamples '3-0-0'}}
+                    p E.g. {{getExamples '3-0-1'}}
+
+                    +helpLayout(cardId=cardId helpId="1" title="" description="")
+                        p Absence or presence of the cause can show maximum difference in the effect and enable you to find if your hypothesis is true or not. Tracking absence/ presence is like answering a simple Yes or No question. E.g Assume measuring the effect of drinking milk on your digestion. Now if you drank milk that day, you would say 'Yes, milk in diet present', otherwise you would say 'No, milk in diet absent'
+                        br
+                        p More examples -
+                        ul.browser-default
+                            li anything particular in your diet like gluten, carbs, dairy products like milk, cheese, yogurt etc.
+                            li a particular medicine like supplementary vitamin
+                            li exercise in your day (like going for a run or not, biking or not biking etc.)
+                            li sexual activity
+
+                        p Please be aware that anything you measure as absence or presence, could also be measured more specifically on a Rating Scale or as a Quantity. Remember that more information is better for scientists, so try to avoid choosing Absence/Presence.
+                        p e.g. carbs in your diet could be measured specifically in grams
+                br
+                br
+
+                input.measureCause-checkbox-edit(type="radio" class="with-gap" id="cause-amount-checkbox-edit" name="measureCause-radio-group")
+                label(for="cause-amount-checkbox-edit")
+                    p(class="blue-text text-darken-2" style='font-size: 20px; font-weight: 100;') Amount
+                        //a(href="#" id="help-#{cardId}-2" class="helpbtn"): i.fa.fa-question-circle(aria-hidden="true")
+                    p E.g. {{getExamples '3-1-0'}}
+                    p {{getExamples '3-1-1'}}
+
+                    +helpLayout(cardId=cardId helpId="2" title="")
+                        p Measuring amount is useful when you want to track 'how much' of the cause. By choosing amount, your experiment will ask participants to track a number, like 'number of hours slept', 'number of miles ran', 'number of cups of coffee' etc.
+                        br
+                        ul.browser-default
+                            li distance ran in miles, weights lifted in pounds or kgs, count of laps swam, number of steps taken
+                            li time spent on an activity e.g. hours slept, minutes spent on eating lunch, seconds spent on 30 cycles of breathing exercise
+                            li count of cups of coffee had, number of helpings of food, ounces/grams of protein powder
+                            li amount of medicine in gms or ml
+                br
+                br
+
+                div#cause-amount-dropdown-edit.hide(style="margin-left:34px;margin-top:-20px;")
+                    br
+                    div.row
+                        div.col.m6
+                            p.black-text(style="font-size:16px") Set a unit of measurement for "#{cause}"
+                        div.col.m6
+                            input#cause-amount-unit-edit(placeholder="pounds, hours, number of cups..." style="height:2rem;")
+                    //+gaFrequencyDropdown(id='cause-amount')
+                    //+gaTimeDropdown(id='cause-amount-time' measureType="amount" measureItem=cause)
+
+
+
+                //input.measureCause-checkbox-edit(type="radio" class="with-gap" id="cause-rating-checkbox-edit" name="measureCause-radio-group")
+                //label(for="cause-rating-checkbox-edit")
+                //    p(class="blue-text text-darken-2" style='font-size: 20px; font-weight: 100;') Rating scale
+                //        a(href="#" id="help-#{cardId}-3" class="helpbtn"): i.fa.fa-question-circle(aria-hidden="true")
+                //    p E.g. the severity of a headache can be measured on a scale of 1-5, 1 being mild and 5 being a severe headache
+                //
+                //    +helpLayout(cardId=cardId helpId="3" title=""
+                //    description="A rating scale of 1-5 is useful when you want to track a feeling. e.g. If you want to measure 'headaches' an easy way to do it is by rating your headache 1 if its mild, and 5 if its a migraine. Another example would be 'attentiveness', you can measure how attentive you were by rating yourself on a scale of 1-5")
+                //    br
+
+                //div#cause-severity-dropdown-edit.hide(style="margin-left:34px;margin-top:-20px;")
+                //    br
+                //    //+gaFrequencyDropdown(id='cause-severity')
+                //    +gaTimeDropdown(id='cause-severity-time' measureType="severity" measureItem=cause)
+
+                input.measureCause-checkbox-edit(type="radio" class="with-gap" id="cause-frequency-checkbox-edit" name="measureCause-radio-group")
+                label(for="cause-frequency-checkbox-edit")
+                    p(class="blue-text text-darken-2" style='font-size: 20px; font-weight: 100;') Frequency
+                        //a(href="#" id="help-#{cardId}-4" class="helpbtn"): i.fa.fa-question-circle(aria-hidden="true")
+                    p E.g. {{getExamples '3-2-0'}}
+
+                    +helpLayout(cardId=cardId helpId="4" title="")
+                        p Measuring frequency is useful when you want to track how often do you repeat an activity in a unit time.
+                        br
+                        p More Examples -
+                        ul.browser-default
+                            li You may drink a total of 3 cups of coffee in a day, but the frequency could either be all 3 within 1 hour, 3 cups within 6 hours
+                            li You may exercise for a total of 1 hour every day, but the frequency could either be 1 hour in the morning, or 30mins in the morning and 30mins in the evening
+                br
+                br
+
+                input.measureCause-checkbox-edit(type="radio" class="with-gap" id="cause-rate-checkbox-edit" name="measureCause-radio-group")
+                label(for="cause-rate-checkbox-edit")
+                    p(class="blue-text text-darken-2" style='font-size: 20px; font-weight: 100;') Speed
+                        //a(href="#" id="help-#{cardId}-5" class="helpbtn"): i.fa.fa-question-circle(aria-hidden="true")
+                    p E.g. {{getExamples '3-3-0'}}
+
+                    +helpLayout(cardId=cardId helpId="5" title="")
+                        p Measuring speed is useful when you want to track how quickly or slowly something changes
+                        br
+                        p More Examples -
+                        ul.browser-default
+                            li drinking 1 cup of coffee, but drinking it fast (within a minute) or sipping it slowly (in 30mins)
+                            li taking a fixed amount of glucose, but varying the speed of the drip
+                br
+                br
+
+                div#cause-rate-dropdown-edit.hide(style="margin-left:34px;margin-top:-20px;")
+                    br
+                    p.black-text(style="font-size:16px") Select one of the following:
+                    br
+                    input(type="radio" class="with-gap cause-rate-radio" id="cause-rate-number-checkbox-edit" name="measureRate-radio-group")
+                    label(for="cause-rate-number-checkbox-edit")
+                        p.black-text Measure the rate as a quantity
+
+                    div.row(style="margin-left:25px")
+                        div.col.m6
+                            p Set a unit of measurement for the rate of "#{cause}"
+                        div.col.m3
+                            input#cause-rate-unit-edit(placeholder="miles/hour, ml/second" style="height:2rem;")
+
+                    input(type="radio" class="with-gap cause-rate-radio" id="cause-rate-scale-checkbox-edit" name="measureRate-radio-group")
+                    label(for="cause-rate-scale-checkbox-edit")
+                        p.black-text Measure rate of "#{cause}" on a scale of 1 to 5 (1 being slow, 5 being fast)
+
+                br
+                a.btn.blue.darken-1#change-cause-measurement-type-modal Change Measurement Type
+                a.btn.grey.lighten-1#cancel-cause-measurement-type-modal Cancel
+
+        div.modal.modal.column.galileo-long-modal(id="edit-effect-modal" style="padding: 20px")
+                p.card-title(style='font-size: 28px; font-weight: 100; line-height:45px; font-weight: bold')
+                    span.blue-text Edit the 
+                    span.blue-text.text-darken-4 measurement type
+                    span.blue-text of {{effect}}
+
+
+                p(style='font-size: 20px; font-weight: 100;') How will you measure 
+                    span.blue-text.text-darken-2(style='font-weight: bold') #{effect}
+                    | in your experiment?
+                br
+
+                input.measureEffect-checkbox-edit.with-gap(type="radio" id="effect-absence-checkbox-edit" name="measureEffect-radio-group")
+                label(for="effect-absence-checkbox-edit")
+                    p.blue-text.text-darken-2(style='font-size: 20px; font-weight: 100;') Absence or Presence
+                        //a(href="#" id="help-#{cardId}-1" class="helpbtn"): i.fa.fa-question-circle(aria-hidden="true")
+                    p E.g. {{getExamples '4-0-0'}}
+
+                    +helpLayout(cardId=cardId helpId="1" title="" description="")
+                        p Tracking this is like answering a simple Yes or No question. e.g. suppose you were measuring the effect of a certain medicine on headache. If you noticed a headache, you would say 'Yes, headache present', otherwise you would say 'No, headache absent'
+                        br
+                        p More examples -
+                        ul.browser-default
+                            li any symptom like abdominal pain, bloating, tiredness, anxiety, burning sensation while peeing etc.
+                            li occurrence of an event like menstrual cycle
+                        br
+
+                        p Please be aware that anything you measure as absence or presence, could also be measured more specifically on a Rating Scale or as a Quantity. Remember that more information is better for scientists, so try to avoid choosing Absence/Presence.
+                        p e.g. abdominal pain could be measured on a scale of 1 to 5.
+                    br
+
+
+
+                input.measureEffect-checkbox-edit.with-gap(type="radio" id="effect-amount-checkbox-edit" name="measureEffect-radio-group")
+                label(for="effect-amount-checkbox-edit")
+                    p.blue-text.text-darken-2(style='font-size: 20px; font-weight: 100;') Amount
+                        //a(href="#" id="help-#{cardId}-2" class="helpbtn"): i.fa.fa-question-circle(aria-hidden="true")
+                    p E.g. {{getExamples '4-1-0'}}
+
+                    div#effect-amount-dropdown-edit.hide(style="margin-left:34px;margin-top:-20px;")
+                        br
+                        div.row
+                            div.col.m6
+                                p.black-text(style="font-size:16px") Set a unit of measurement for "#{effect}"
+                            div.col.m4
+                                input#effect-amount-unit-edit(placeholder="pounds, miles, hours, number..." style="height:2rem;")
+                        //+gaFrequencyDropdown(id='effect-amount')
+                        //+gaTimeDropdown(id='effect-amount-time' measureType="amount" measureItem=effect)
+
+                    br
+
+
+                input.measureEffect-checkbox-edit.with-gap(type="radio" id="effect-rating-checkbox-edit" name="measureEffect-radio-group")
+                label(for="effect-rating-checkbox-edit")
+                    p(class="blue-text text-darken-2" style='font-size: 20px; font-weight: 100;') Rating scale
+                        //a(href="#" id="help-#{cardId}-3" class="helpbtn"): i.fa.fa-question-circle(aria-hidden="true")
+                    p E.g. {{getExamples '4-2-0'}}
+
+                    +helpLayout(cardId=cardId helpId="3" title="")
+                        p A rating scale is useful when you want to track a feeling. e.g. You can rate your headache 1 if its mild, and 5 if its a migraine.
+                            br
+                            p More Examples -
+                            ul.browser-default
+                                li attentiveness, drowsiness, happiness, energy, arousal, hunger
+                                li severity of a symptom like a skin rash, anxiety, pain, bloatedness
+                                li ease or difficulty in passing stool measured on a Bristol stool chart
+                                li loudness (1 means silence, 5 means really loud)
+                                li number of times you had to go to the bathroom in a day, number of times you experienced abdominal pain in a day
+                    br
+
+                div#effect-rating-dropdown-edit.hide(style="margin-left:34px;margin-top:-20px;")
+                    br
+                    div.row
+                        div.col.m4
+                            p.black-text(style="font-size:16px") Define what a rating of 1 means
+                        div.col.m4
+                            input#effect-rating-min-edit(placeholder="low #{effect}" style="height:2rem;")
+                    div.row
+                        div.col.m4
+                            p.black-text(style="font-size:16px") Define what a rating of 5 means
+                        div.col.m4
+                            input#effect-rating-max-edit(placeholder="high #{effect}" style="height:2rem;")
+
+
+
+                input.measureEffect-checkbox-edit(type="radio" class="with-gap" id="effect-frequency-checkbox-edit" name="measureEffect-radio-group")
+                label(for="effect-frequency-checkbox-edit")
+                    p.blue-text.text-darken-2(style='font-size: 20px; font-weight: 100;') Frequency
+                        //a(href="#" id="help-#{cardId}-4" class="helpbtn"): i.fa.fa-question-circle(aria-hidden="true")
+                    p E.g. {{getExamples '4-3-0'}}
+
+                    +helpLayout(cardId=cardId helpId="4" title="")
+                        p Measuring frequency is useful when you want to track how much you repeat an activity at a time.
+                        br
+                        p More Examples -
+                        ul.browser-default
+                            li How frequently did you go to the bathroom in 1 hour
+                    br
+
+                input.measureEffect-checkbox-edit.with-gap(type="radio" id="effect-rate-checkbox-edit" name="measureEffect-radio-group")
+                label(for="effect-rate-checkbox-edit")
+                    p(class="blue-text text-darken-2" style='font-size: 20px; font-weight: 100;') Speed
+                        //a(href="#" id="help-#{cardId}-5" class="helpbtn"): i.fa.fa-question-circle(aria-hidden="true")
+                    p E.g. {{getExamples '4-4-0'}}
+
+                    +helpLayout(cardId=cardId helpId="5" title="")
+                        p Measuring speed is useful when you want to track how quickly or slowly something changes
+                        br
+                        p More Examples -
+                        ul.browser-default
+                            li peeing fast or slow
+                            li how fast or slow did you fall asleep (could be measured on a scale of 1-5, or measured in minutes spent in bed before sleeping)
+                            li heart rate measured in beats/minute
+                    br
+
+                div#effect-rate-dropdown-edit.hide(style="margin-left:34px;margin-top:-20px;")
+                    br
+                    p.black-text(style="font-size:16px") Select one of the following:
+                    br
+                    input(type="radio" class="with-gap effect-rate-radio" id="effect-rate-number-checkbox-edit" name="measureRate-radio-group")
+                    label(for="effect-rate-number-checkbox-edit")
+                        p.black-text Measure the rate as a quantity
+
+                    div.row(style="margin-left:25px")
+                        div.col.m6
+                            p Set a unit of measurement for the rate of "#{effect}"
+                        div.col.m3
+                            input#effect-rate-unit-edit(placeholder="miles/hour, ml/second" style="height:2rem;")
+
+                    input(type="radio" class="with-gap effect-rate-radio" id="effect-rate-scale-checkbox-edit" name="measureRate-radio-group")
+                    label(for="effect-rate-scale-checkbox-edit")
+                        p.black-text Measure rate of "#{effect}" on a scale of 1 to 5 (1 being really slow, 5 being really fast)
+
+                br
+                a.btn.blue.darken-1#change-effect-measurement-type-modal Change Measurement Type
+                a.btn.grey.lighten-1#cancel-effect-measurement-type-modal Cancel

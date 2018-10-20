@@ -1,0 +1,18 @@
+template(name='gaFrequencyDropdown')
+    div.row
+        div.col.m6
+            p(style="font-size:20px") How often do you want to take this measurement?
+
+        div.col.m4.dropdown-div(style="cursor:pointer;")
+            p.unchosen(id="frequency-label-#{id}" style="font-size:20px; border-bottom-width:1px; border-bottom-style: groove;") Pick an option
+            input.hide.measureFrequency-text(id="frequency-text-#{id}" type="text" placeholder="enter your own...")
+
+        div.col.m1
+            a.dropdown-button(href='#' data-activates='dropdown-#{id}' id="dropdown-button-#{id}")
+                i.material-icons(style="font-size:30px;") keyboard_arrow_down
+
+            ul.dropdown-content(id="dropdown-#{id}")
+                li: a.frequency-dropdown-option(href="#") Once a day
+                //- li: a.frequency-dropdown-option(href="#") Twice a day
+                //- li: a.frequency-dropdown-option(href="#") Once in 2 days
+                //- li: a.frequency-dropdown-option-custom(href="#" id="frequency-dropdown-custom-#{id}") Enter your own

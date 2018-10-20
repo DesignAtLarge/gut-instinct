@@ -1,0 +1,94 @@
+template(name="gabWhyProbiotics")
+    +gaNavbar
+
+    main#ga-main
+        div.galileo(style="text-align:left;")
+            h2 How can the Probiotics community scientifically test their ideas?
+
+            div(style="margin-top:40px;") The Probiotics community has intuitions about how probiotics affects their health.  
+
+            br
+            h4 People's tracking can yield incorrect/incomplete results
+
+            div(style="margin-top:20px;") To test such intuitions, people often make some changes in their lifestyle, and then observe the effects of those changes. For example, consider Janet, who thinks that her habit of taking a probiotic every morning improves her energy levels throughout the day. To test this, she switches to not taking a probiotic for a week and tracks how she feels every day. But her measurements show that she's actually getting more done after avoiding her daily dose of probiotics! Janet realises that there could be many factors that could be affecting her energy levels - she could’ve been staying up late binge watching that latest show, or she might have been eating different food, or it could be that she increased her soda intake which has high amounts of caffeine.
+
+            div(style="margin-top:20px;") Such unsystematic tracking activities often yield incorrect results that can be frustrating. #[i So what could Janet do to know for sure that taking a probiotic could really help improve her daily energy levels?]
+
+            br
+            h4 Galileo enables running an experiment
+
+            div.workflow-section  
+                //h4.center-align Galileo is extremely easy to use..
+                    br
+                    br
+                div.row.center-align
+                    div.col.m3.s12
+                        img.responsive-img(src="/images/galileo/design/intuition.png" style="padding:30px;")
+                        h5(style="height:50px; margin-bottom:20px") Start with an intuition
+                        //p Lorem 
+
+                    div.col.m3.s12
+                        img.responsive-img(src="/images/galileo/design/designexp1.png" style="padding:30px;")
+                        h5(style="height:50px; margin-bottom:20px") Design an experiment
+                        //p Lorem 
+
+                    div.col.m3.s12
+                        img.responsive-img(src="/images/galileo/design/feedback.png" style="padding:30px")
+                        h5(style="height:50px; margin-bottom:20px") Peers review your experiment
+                        //p Lorem 
+
+                    div.col.m3.s12
+                        img.responsive-img(src="/images/galileo/design/runexp.png" style="padding:30px;")
+                        h5(style="height:50px; margin-bottom:20px") Participate and see the results!
+                        //p Lorem 
+
+
+            div(style="margin-top:20px;") Scientists and researchers have intuitions and ideas too, and they run systematic, controlled experiments to test their ideas. But does that mean that only researchers with a PhD can run experiments and test their ideas? Not at all! 
+
+            br
+            h4 An example of community led experimentation
+
+            div(style="margin-top:20px;") In 2008 a community of 160 ALS patients came together and ran their own experiment to support research about their ailment! Learn about their inspiring story here -
+
+            div.container(style="margin-top:30px;margin-bottom:30px")
+                iframe(src="https://player.vimeo.com/video/149413987" width='100%' height='350' frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen)
+
+            div(style="margin-top:20px;") Now imagine if passionate communities like Probiotics had the tools and support to test their ideas through experimentation. There are many people that already collect vast amounts of data about their lives. Nudging these tremendous efforts towards running scientific experiments can enable anyone to run their own research!
+
+            div.action-section.container
+                br
+                div.row
+                    div.col.m2
+                    div.col.m8.s12
+                        a.waves-effect.waves-light.white-text.z-depth-3.light-blue.darken-4.hoverable.modal-trigger#designExp(style="padding:25px; border-radius:6px; text-align:center; width:100%; ") Design an Experiment!
+                    div.col.m2
+
+
+        div#sign-in-modal.modal
+            div.modal-content
+                h4 Please sign in to continue
+            div.modal-footer
+                a.blue-text(href="/galileo/signup" class="modal-action modal-close btn-flat") Sign In
+                a.gray-text(class="modal-action modal-close btn-flat") Cancel
+
+        //div.divider(style="margin:30px 0px;")
+        //footer.page-footer(style="background-color:#C69214")
+        footer.page-footer(style="background-color:#ffffff")
+            div.container
+                //h5.white-text Powered by
+                h5 Powered by
+                br
+                div.row
+                    div.col.s12.m3
+                        a(href="http://americangut.org/" target="_blank")
+                            img(src="/images/logos/footer-agut.png" height="70")
+                    div.col.s12.m3
+                        a(href="https://knightlab.ucsd.edu/" target="_blank")
+                            img(src="/images/logos/footer-knight.png" height="70")
+                    div.col.s12.m3
+                        a(href="http://designlab.ucsd.edu/" target="_blank")
+                            img(src="/images/logos/footer-dlab.png" height="70")
+                    div.col.s12.m3
+                        a(href="https://www.openhumans.org/" target="_blank")
+                            img(src="/images/logos/openhuman.png" height="70")
+                br

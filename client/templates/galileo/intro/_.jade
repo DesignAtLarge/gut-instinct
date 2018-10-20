@@ -1,0 +1,14 @@
+template(name="gaIntro")
+    +gaNavbar
+    main#ga-main
+        center.wrapper(style="margin-top: 60px")
+            h5.board-header Introduction: How Galileo Works
+            ul#galileo-steps(align="left" style="margin: 0 auto; width: 600px;")
+                each step in steps
+                    li.step
+                        div.step-header
+                            div.step-number {{step.id}}
+                            div.step-title {{step.title}}
+                        div.step-body
+                            p {{step.body}}
+            a.btn.blue(href="/galileo/intuition" style="margin-top: 20px;") Begin with your intuitions!

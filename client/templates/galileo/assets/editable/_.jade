@@ -1,0 +1,7 @@
+template(name="editable")
+    div(id="{{id}}" class="editable")
+        span(id="{{id}}-editable-data" class="editable-data {{#if showValue}}show{{/if}}") {{value}}
+        span(id="{{id}}-editable-input-outer" class="editable-input-outer  {{#if showInput}}show{{/if}}")
+            form(id="{{id}}-editable-form" class="editable-form")
+                input(class="editable-input")
+                button(class="editable-submit" type="submit")

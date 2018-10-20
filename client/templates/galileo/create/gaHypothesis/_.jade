@@ -1,0 +1,83 @@
+template(name="gaHypothesis")
+    +cardLayout(heading="Let's begin with an intuition" cardId=cardId stepnumber=stepnumber nextDisabled=nextDisabled)
+        span(style='font-size: 20px; font-weight: 100;') Intuition selected by you: 
+        input(id="hypothesis-intuition-input" type='text' value="{{intuition}}" placeholder="E.g. Eating cabbage increases bloatedness")
+        a.btn.light-blue.darken-4#hypothesis-intuition-btn(href="#" class="{{#if hideProceed}}hide{{/if}}{{#if noIntuition}}disabled{{/if}}") Proceed
+        br
+        //a(href="#" id="help-#{cardId}-1" class="helpbtn") (?)
+        //+helpLayout(cardId=cardId helpId="1" title="Hypothesis" learnLink="https://google.com" description="A hypothesis should be falsifiable. i.e. You should be able to say 'My hypothesis is true' or 'My hypothesis is false")
+        //div.row
+        //    div.col.s9
+        //        input(id="hypothesis-intuition-input" type='text' placeholder="E.g. Eating cabbage increases bloatedness")
+        //    div.col.s3
+        //        a.btn.light-blue.darken-4#hypothesis-intuition-btn(href="#") Proceed
+
+        div.hypothesis-format(class="{{#if hideHypothesisForm}}hide{{/if}}")
+            p(style='font-size: 20px; font-weight: 100;') Convert your intuition into a hypothesis. Think of activities that affect your gut.
+            br
+            p(style='font-size: 20px; font-weight: 100;') A #[b hypothesis] is a statement that links one cause with one effect. To automatically identify the cause, effect and relationship in your intuition, use the format given below to rewrite your intuition as a hypothesis.
+            //span(style='font-size: 20px; font-weight: 100;') Great, now we have something to work on! Now clearly identify the cause, effect and their relation in your original hypothesis and fill in the blanks below. use the format below to re-formulate your original hypothesis by clearly identifying the cause, effect and how they are related.
+            //span(style='font-size: 20px; font-weight: 100;') Use the format given below to formulate your hypothesis by providing a cause, an effect and how they are related.
+            br
+            br
+
+
+            div.row
+                div.col.s4
+                    p: b.blue-text.text-darken-2(style='font-size: 20px;') Cause
+
+                div.col.s4
+                    p: b.blue-text.text-darken-2(style='font-size: 20px;') Relation
+
+                div.col.s4
+                    p: b.blue-text.text-darken-2(style='font-size: 20px;') Effect
+
+            div.row
+                div.col.s4
+                    input(id ="hypothesis-input-cause" type='text' value="{{cause}}")
+
+                div.col.s4
+                    input(id ="hypothesis-input-reln" type='text' value="{{relation}}")
+
+                div.col.s4
+                    input(id ="hypothesis-input-effect" type='text' value="{{effect}}")
+
+
+            p These examples might help :
+            div.row
+                div.col.s4
+                    span: i Eating cabbage
+                    br
+                    span: i Drinking 3 cups of coffee every day
+
+                div.col.s4
+                    span: i increases
+                    br
+                    span: i decreases
+
+                div.col.s4
+                    span: i bloatedness
+                    br
+                    span: i number of bowel movements
+            
+            br
+            +exampleLayout
+                p(style='font-size: 20px; font-weight: 100;') #[b Here are a few questions/intuitions/statements that are NOT specific enough to be a hypothesis]
+                ul.browser-default(style='font-size: 20px; font-weight: 100;')
+                    li "Running improves health"
+                    br
+                    p #[b Whats wrong : ] Both the cause ("Running") and the effect ("Health") need to be specific.
+                    p #[b Improved hypothesis : ] "Running for 30 mins daily improves quality of sleep"
+                    br
+
+                    li "Could an antibiotic like ciproflocaxin cure an intolerance to gluten and dairy?"
+                    br
+                    p #[b Whats wrong : ] While its easy to identify the cause and effect in this statement, their relation isn't well defined.
+                    p #[b Improved hypothesis : ] "Ciproflocaxin reduces gluten (or dairy) intolerance"
+                    br
+
+                    li "How many times a week can I eat fast food?"
+                    br
+                    p #[b Whats wrong : ] This is an open-ended question with no effect
+                    p #[b Improved hypothesis : ] "Eating fast food daily increases weight", but "fast food" is vague and needs to be defined
+                    br

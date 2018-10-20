@@ -1,0 +1,37 @@
+template(name="gaShareEmailModal")
+    div.modal(id="share-email-modal" style="height: 10%")
+
+        div(style="color:rgba(0,0,0,.54);background:rgba(0,0,0,.03); padding:15px;")
+            h4.left-align
+                | Copy and send the following text via email
+
+
+        div.modal-content.reminder-stats(style="height: 50%; padding-bottom: 0px;")
+            div.card
+                //- div(style="padding:10px 10px 5px 10px;")
+                //-     b(style="float:left; margin:4px 10px 0 0;") To:
+                //-     div
+                //-         span name
+                //- 
+                //- div.divider(style="margin-bottom:10px;")
+
+                div(style="padding:10px;")
+                    div
+                        div#reminder-text-box(contenteditable="false" style="padding:10px; margin-left:5px; overflow-x: scroll;")               
+                            | Hello, 
+                            | I have designed an experiment to test {{title}}. 
+                            | Please help me improve it using your reviews ({{link}}). 
+                            | Thank you 
+                            
+                        input.text(readonly value="{{getMessage}}" id="getEmailMsg" style="padding-left:10px; height:36px; margin-bottom:-15px; display: none;")
+                    br
+                    i.material-icons.edit-design-btn#edit-email mode_edit
+                        p(style="font-family:'Lato', sans-serif; font-size:15px; margin:5px; float:right; font-weight:600") Edit message
+                    i.material-icons.edit-design-btn.accept.hide#accept-edit-email check
+                        p(style="font-family:'Lato', sans-serif; font-size:15px; margin:5px; float:right; font-weight:600") Save
+                    i.material-icons.edit-design-btn.cancel.hide#cancel-edit-email clear
+                        p(style="font-family:'Lato', sans-serif; font-size:15px; margin:5px; float:right; font-weight:600") Cancel
+
+        div.modal-footer
+                a.blue-text#copyEmail(class="modal-action modal-close btn-flat") Copy and Send Email
+                a.gray-text(class="modal-action modal-close btn-flat") Close

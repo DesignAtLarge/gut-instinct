@@ -1,0 +1,12 @@
+template(name="gaMeNotification")
+    +gaNavbar
+    +gaMeSidebar
+    main#ga-me-main
+        h3 Notifications ({{notifications.length}})
+            a#mark-all-read(href="#" style="font-size: 20px; float: right;") Mark all as read
+        div#ga-me-notification-list
+            if hasNotification
+                each notification in notifications
+                    +gaMeNotificationItem(notification=notification)
+            else
+                p No Notifications

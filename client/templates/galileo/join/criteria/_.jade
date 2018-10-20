@@ -1,0 +1,63 @@
+template(name="gaJoinCriteria")
+    +gaNavbar
+    main#ga-main
+        div#sign-in-modal.modal
+            div.modal-content
+                h4 Please sign in to continue
+            div.modal-footer
+                a.blue-text#sign-in(href="" class="modal-action modal-close btn-flat") Sign In
+                a.gray-text(class="modal-action modal-close btn-flat") Cancel
+
+        +phoneModal(incompleteEmail=incompleteEmail incompleteUsername=incompleteUsername)
+
+            div.modal-footer
+                a.gray-text(class="modal-action modal-close btn-flat") Cancel
+
+        div#error-modal.modal(style="padding: 20px")
+            div.modal-content
+                h4 Oops, something went wrong
+                p#error-message(style='font-size: 20px; font-weight: 100;') Text will be replaced by jQuery
+
+            div.modal-footer
+                a.blue-text(href="/galileo/browse" class="modal-action modal-close btn-flat") View Other Experiments
+                a.gray-text(class="modal-action modal-close btn-flat") Cancel
+        div.wrapper
+            h4.board-header
+                    | You've been invited to join an experiment that attempts to answer the question:
+                    br
+                    br
+                    span.blue-text {{experimentTitle}}
+            div.body(style="font-size: 20px !important; padding: 10px 30px;")
+                ul.card(style="padding: 30px 30px 30px 60px;")
+                    h5 Find out if you meet the criteria to join this experiment
+                    br
+                    div
+                        b
+                            | Please select all the items that apply to you. 
+                        span These criteria give a sense of what may occur in the experiment.
+
+                    if isCriteriaLoading
+                        p Loading ...
+                    else
+                        p You:
+                        each item in inclusion
+                            li
+                                input.filled-in.criteria-item(class='checkbox-blue' type="checkbox" id="inc-criteria-{{item.index}}")
+                                label(for="inc-criteria-{{item.index}}") {{item.content}}
+
+                        br
+                        each item in exclusion
+                            li
+                                input.filled-in.criteria-item(class='checkbox-blue' type="checkbox" id="exc-criteria-{{item.index}}")
+                                label(for="exc-criteria-{{item.index}}") {{item.content}}
+
+                p If you pass the eligibility criteria to participate in this experiment, then you will be automatically assigned to one of the conditions. Click next to know!
+
+
+                if isSubmitLoading
+                    center
+                        p Submitting Criteria ...
+                else
+                    center
+                        a.btn.light-blue#back(href="") Back
+                        a.btn.light-blue#submit Next

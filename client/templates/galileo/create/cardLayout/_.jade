@@ -1,0 +1,51 @@
+template(name='cardLayout')
+    div(class="card-frame" id = 'card-#{cardId}' style='display: none;')
+
+        //h5(class='light-blue-text text-darken-4') #{stepnumber}
+
+        if stepnumber
+            h4(class='light-blue-text text-darken-4') #{stepnumber} : #{heading}
+        else
+            h4(class='light-blue-text text-darken-4') #{heading}
+
+        br
+        br
+
+        +UI.contentBlock
+
+        if hideNav
+            div.col.s6
+                a(class="btn next-action light-blue darken-4 {{#if nextDisabled}}disabled{{/if}}" style="display: none;")
+            div.col.s3
+        else
+            br
+            br
+            div.row
+                if nextOnly
+                    div.col.s3
+                    div.col.s6
+                        a(class="btn next-action light-blue darken-4 {{#if nextDisabled}}disabled{{/if}}" style="width:100%;") #{nextButtonText}
+                    div.col.s3
+                else if backOnly
+                    div.col.s3
+                        a.btn.back-action.light-blue.darken-4(style="width:100%;") Back
+                    div.col.s6
+                    div.col.s3
+                else if lastAction
+                    div.col.s3
+                        a.btn.back-action.light-blue.darken-4(style="width:100%;") Back
+                    div.col.s6
+                    div.col.s3
+                        if timeStamp
+                            a(class="btn next-action light-blue darken-4 {{#if nextDisabled}}disabled{{/if}} {{#if noFeedback}}disabled{{/if}}" style="width:100%;" id="finishBtn") Finish
+                        else
+                            a(class="btn next-action light-blue darken-4 {{#if nextDisabled}}disabled{{/if}} {{#if noFeedback}}disabled{{/if}}" style="width:100%;") Finish
+                else
+                    div.col.s3
+                        a.btn.back-action.light-blue.darken-4(style="width:100%;") Back
+                    div.col.s6
+                    div.col.s3
+                        if timeStamp
+                            a(class="btn next-action light-blue darken-4 {{#if nextDisabled}}disabled{{/if}}" style="width:100%;" id="nextBtn") #{nextButtonText}
+                        else 
+                            a(class="btn next-action light-blue darken-4 {{#if nextDisabled}}disabled{{/if}}" style="width:100%;") #{nextButtonText}

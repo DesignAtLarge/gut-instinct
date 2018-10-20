@@ -1,0 +1,119 @@
+template(name='landing')
+    //link(rel='stylesheet', href='login-asset/css/style.css', type='text/css')
+
+    body.stretched(data-loader='11', data-loader-color='#543456')
+        //
+          Document Wrapper
+          =============================================
+        #wrapper.clearfix
+            //
+              Header
+              =============================================
+            header#header.full-header.transparent-header.border-full-header.static-sticky(data-sticky-class='not-dark', data-sticky-offset='full', data-sticky-offset-negative='100')
+                #header-wrap
+                    .container.clearfix
+                        #primary-menu-trigger
+                            i.icon-reorder
+                        //
+                          Logo
+                          =============================================
+                        #logo
+                            a.standard-logo(href='#', data-dark-logo='images/logo.png')
+                                img(src='login-asset/images/logo.png', alt='Logo')
+                            a.retina-logo(href='#', data-dark-logo='images/logo@2x.png')
+                                img(src='login-asset/images/logo@2x.png', alt='Logo')
+                        // #logo end
+                        //
+                          Primary Navigation
+                          =============================================
+                        nav#primary-menu
+                            ul.one-page-menu(data-easing='easeInOutExpo', data-speed='1250', data-offset='65')
+                        // #primary-menu end
+            // #header end
+            //
+              Slider
+              =============================================
+            section#slider.slider-parallax.full-screen
+                .slider-parallax-inner
+                    .full-screen.section.nopadding.nomargin.noborder.ohidden(style="background-image: url('login-asset/images/slider/rev/ken-2.jpg'); background-size: cover; background-position: center center;")
+                        .container.clearfix
+                            .vertical-middle
+                                .row
+                                    .col-md-offset-1.col-md-5.col-sm-6
+                                        .visible-lg.visible-md.topmargin
+                                        h2
+                                            | Welcome to Gut Instinct
+                                            span.label.label-danger(style='color: #ffffff; vertical-align: top; font-size: 55%') Beta
+                                        .fslider.testimonial.testimonials-lg.nobg.noborder.noshadow.nopadding(data-animation='fade', data-arrows='false', data-pagi='false')
+                                            .flexslider
+                                                .slider-wrap
+                                                    .slide
+                                                        .testi-content
+                                                            p
+                                                                | Have you wondered how your diet, exercise, and other habits affect your gut (and life)? Scientists wonder about it, too!
+                                                    .slide
+                                                        .testi-content
+                                                            p
+                                                                | With Gut Instinct, you can don your labcoat and help scientists understand the human gut while having fun!
+                                                    .slide
+                                                        .testi-content
+                                                            p
+                                                                | Learn about current science of the gut microbiome, discuss your ideas with other citizen scientists, and collaborate on popular questions. Share your Gut Instinct!
+                                        .visible-xs.topmargin
+                                    .col-md-offset-1.col-md-4.col-sm-6
+                                        .panel.panel-default(style='border-color: #eee;')
+                                            .panel-body(style='padding: 30px;')
+                                                .heading-block.nobottomborder.bottommargin-sm
+                                                    h1(style='font-size: 20px;') Start your Journey
+                                                    span.t300.capitalize.ls1.notopmargin(style='font-size: 15px;') No account? Sign up here
+                                                    span.login_error
+                                                form.clearfix(action='#')
+                                                    .col_full
+                                                        label.capitalize.t600(for='') Username
+                                                        input#template-op-form-email.form-control.not-dark(type='text', name='username')
+                                                    .col_full
+                                                        label.capitalize.t600(for='') Password
+                                                        input#template-op-form-password.form-control.not-dark(type='password', name='password')
+                                                    .col_full.nobottommargin
+                                                        button.t400.capitalize.button.button-border.button-circle.nomargin(type='submit', name='signin', value="Sign In") Sign In
+                                                p.nobottommargin
+                                                    small.t300
+                                                        em Visit Project Info Page:
+                                                        br
+                                                        a(href='http://gutinstinct.ucsd.edu/info/', target='_blank')
+                                                            | http://gutinstinct.ucsd.edu/info/
+                                        div
+                                            span(style='color: #ffffff') Powered by
+                                            a(href='https://knightlab.ucsd.edu/', target='_blank')
+                                                img(src='images/logos/footer-knight.png', height='40')
+                                            a(href='http://americangut.org/', target='_blank')
+                                                img(src='images/logos/footer-agut.png', height='40')
+                                            a(href='http://designlab.ucsd.edu/', target='_blank')
+                                                img(src='images/logos/footer-dlab.png', height='40')
+                        .video-wrap(style='z-index:1;')
+                            .video-overlay(style='background: rgba(255,255,255,0.75);')
+            // #slider end
+            //
+              Footer
+              =============================================
+            footer#footer.dark.noborder
+                #copyrights
+                    .container.center.clearfix
+                        | Copyright UC San Diego Design Lab 2016 | All Rights Reserved
+            // #footer end
+        // #wrapper end
+        //
+          Go To Top
+          =============================================
+        #gotoTop.icon-angle-up
+
+    script(type='text/javascript', src='login-asset/js/jquery.js')
+    script(type='text/javascript', src='login-asset/js/plugins.js')
+    //
+      Google Map JavaScripts
+      =============================================
+    script(type='text/javascript', src='login-asset/js/jquery.gmap.js')
+    //
+      Footer Scripts
+      =============================================
+    script(type='text/javascript', src='login-asset/js/functions.js')

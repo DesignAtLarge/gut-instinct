@@ -1,0 +1,46 @@
+template(name="gaShareSocialModal")
+    div.modal(id="share-social-modal" style="height: 10%;")
+
+        div(style="color:rgba(0,0,0,.54);background:rgba(0,0,0,.03); padding:15px; ")
+            h4.left-align
+                | Copy the following text to share on Facebook
+
+
+        div.modal-content.reminder-stats(style="height: 50%; padding-bottom: 0px;")
+            div.card(style="height: 80%;")
+                //- div(style="padding:10px 10px 5px 10px;")
+                //-     b(style="float:left; margin:4px 10px 0 0;") To:
+                //-     div
+                //-         span name
+                //- 
+                //- div.divider(style="margin-bottom:10px;")
+
+                div(style="padding:10px;")
+                    div
+                        div#social-reminder-text-box(contenteditable="false" style="padding:10px; margin-left:5px; overflow-x: scroll;" )
+                            | Hello,
+                            br
+                            br
+                            | I have designed an experiment to test {{title}}.
+                            br
+                            br
+                            | Please help me improve it using your reviews.
+                            br
+                            br
+                            | Thank you
+
+                    //- br
+                    //- i.material-icons.edit-design-btn#edit-reminder mode_edit
+                    //-     p(style="font-family:'Lato', sans-serif; font-size:15px; margin:5px; float:right; font-weight:600") Edit message
+                    //- i.material-icons.edit-design-btn.accept.hide#accept-edit-reminder check
+                    //-     p(style="font-family:'Lato', sans-serif; font-size:15px; margin:5px; float:right; font-weight:600") Save
+                    //- i.material-icons.edit-design-btn.cancel.hide#cancel-edit-reminder clear
+                    //-     p(style="font-family:'Lato', sans-serif; font-size:15px; margin:5px; float:right; font-weight:600") Cancel
+
+
+        div.modal-footer
+                div#fb-div
+                    div(id="fb-sharing-area" style="display: none;")
+                        iframe(src='https://www.facebook.com/plugins/share_button.php?href={{getReviewerIframeUrl}}&layout=button&size=large&mobile_iframe=true&width=73&height=28&appId', width='73', height='28', style='border:none;overflow:hidden', scrolling='no', frameborder='0', allowtransparency='true')
+                a.blue-text#copy-and-share-btn(class="modal-action btn-flat") Copy & Share
+                a.gray-text(class="modal-action modal-close btn-flat") Close

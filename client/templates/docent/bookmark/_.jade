@@ -1,0 +1,86 @@
+template(name='bookmark')
+    +header
+    |{{init}}
+    div(class='container content lists' style='max-width: 700px;')
+        div(data-step='1', data-intro='Welcome to your bookmark list! You can see your bookmarked questions, and topics here.')
+            //You can also track your private notes here!
+            h3(class='light-blue-text text-darken-4') <i class="fa fa-bookmark-o" aria-hidden="true" style="font-size: 2em;"></i> My Bookmarks
+            h5(class='light-blue-text text-darken-4') Revisit your favourite questions and topics!
+            //p(style='font-size: 14pt; font-weight: 300; text-transform: uppercase; margin-bottom: 0') Questions
+            //span (To view all questions, click
+            //    a(href='/gutboard?s=4', class='tab-link', id='all-questions') here
+            //    | )
+        br
+        br
+
+        ul(class='tabs', data-step='2', data-intro='Click any tab to see the corresponding bookmarked items')
+            li(class='tab col s3')
+                a(href='#', id='questions', class='tab-link light-blue-text show-question') Questions
+                //a(href='#', id='questions', class='tab-link indigo-text show-question') Questions
+                //$primary-accent
+            li(class='tab col s3')
+                a(href='#', id='topics', class='tab-link light-blue-text show-topics') Topics
+            //li(class='tab col s3')
+                a(href='#', id='articles',class='tab-link light-blue-text show-articles') Articles
+            div(class="indicator indigo" style="z-index:1")
+
+        // div for question bookmark
+        div(class='questions-bk')
+            each fetchbk
+                +qmodule
+
+        // div for topics bookmark
+        div(class='topics-bk' style='display: none')
+            div(class='tiles')
+                each topics
+                    a(href='/t/#{name}')
+                        if firstOf topics
+                            div(class='card', data-step='7', data-intro="vineet to fill in")
+                                .card-image
+                                    if photo_url
+                                        img(src='#{photo_url}', alt='#{name}')
+                                    else
+                                        img(src='/images/topics/placeholder.jpg', alt='#{name}')
+                                    span(class='card-title') #{name}
+                                        if visited name
+                                            img(src='/images/topics/icons/checkmark.png', class='visited_topic')
+                                .card-action
+                                    a(href='/t/#{name}') 
+                        else
+                            .card
+                                .card-image
+                                    if photo_url
+                                        img(src='#{photo_url}', alt='#{name}')
+                                    else
+                                        img(src='/images/topics/placeholder.jpg', alt='#{name}')
+                                    span(class='card-title') #{name}
+                                        if visited name
+                                            img(src='/images/topics/icons/checkmark.png', class='visited_topic')
+                                .card-action
+                                    a(href='/t/#{name}') 
+
+        // div for articles section
+        div(class='articles-bk' style='display: none')
+            div(class='articles')
+                each articles
+                    if isFirst
+                        a(href='#{url}', target="_blank", class='article', data-step='6', data-intro='Each box represents an article. Click them to find out more about what each article is about')
+                            .card
+                                .card-image
+                                    img(src='#{image}')
+                                .card-content
+                                    span(class='card-title') #{title}
+                                    p #{snippet}
+                                    p(class='article-link') #{by}
+                    else
+                        a(href='#{url}', target="_blank", class='article')
+                            .card
+                                .card-image
+                                    img(src='#{image}')
+                                .card-content
+                                    span(class='card-title') #{title}
+                                    p #{snippet}
+                                    p(class='article-link') #{by}
+
+        // div for notes section
+        div(class='notes-bk' style='display: none')

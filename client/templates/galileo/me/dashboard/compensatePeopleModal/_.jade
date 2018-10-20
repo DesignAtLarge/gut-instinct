@@ -1,0 +1,17 @@
+template(name="gaCompensatePeopleModal")
+    div.modal(id="compensate-people-modal")
+
+        div(style="color:rgba(0,0,0,.54);background:rgba(0,0,0,.03); padding:15px;")
+            h4.left-align
+                | Share the infomation with your potential participants
+
+        div.modal-content
+            p(style="font-size: 18px; font-weight: 500;") 1. Who are you? (e.g. I am a Kombucha community member in San Diego...)
+            textarea.materialize-textarea(id="compensate-ppl-first-question" class="textarea-comment compensate-ppl-questions" name="feedback" placeholder="{{hasFirstShareInfo}}" required)
+            p(style="font-size: 18px; font-weight: 500;") 2. What would the world learn? (e.g. The world will learn the benefits of drinking Kombucha, for example, it is a rich source of probiotics...)
+            textarea.materialize-textarea(id="compensate-ppl-second-question" class="textarea-comment compensate-ppl-questions" name="feedback" placeholder="{{hasSecondShareInfo}}" required)
+            p(style="font-size: 18px; font-weight: 500;") 3. Expected time taken for participant? (e.g. 10 minutes per day.)
+            textarea.materialize-textarea(id="compensate-ppl-third-question" class="textarea-comment compensate-ppl-questions" name="feedback" placeholder="{{hasThirdShareInfo}}" required)
+            a.btn.light-blue.darken-4#save-compensatePpl-btn(href="#" class="disabled") Save your answers
+        div.modal-footer
+            a.gray-text(class="modal-action modal-close btn-flat") Close

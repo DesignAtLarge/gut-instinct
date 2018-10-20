@@ -1,0 +1,123 @@
+template(name="gaExperimentFeedbackDetail")
+    div.card.detail-feedback-container(class="blink" id="feedback-detail-{{field}}")
+        if hasPermissionViewFeedbackFollowup
+            div.detail-feedback-header(style="font-size: 20px;") People's review of {{name}}
+        else
+            if isNotOverallPanel
+                div.detail-feedback-header(style="font-size: 20px;") Your review of {{name}}
+                    //i.fa.fa-times.close-container(style="float: right; line-height: 24px; cursor: pointer;")
+            else
+                div.detail-feedback-header(style="font-size: 20px;") Guidelines for overall comments
+                    //i.fa.fa-times.close-container(style="float: right; line-height: 24px; cursor: pointer;")
+        
+        ul.detail-feedback-checklist
+            each c in checklist
+                li
+                    if isNotOverallPanel
+                        p(style="font-size: 20px; font-weight: 100;")
+                            | {{c.option}}
+                            br
+                            //div
+                            span(rid="{{c.rid}}" style="font-size: 16px; font-weight: 100; cursor:pointer;"): a.green-text.feedback-agree(rid="{{c.rid}}" id="detail-feedback-agree-{{field}}-{{c.index}}")
+                                span(rid="{{c.rid}}" style="font-size: 16px; font-weight: 100;") Yes
+                                i(rid="{{c.rid}}" class="fa fa-lg {{agreeButtonClass c.currentUserReview}}")
+                                if hasPermissionViewFeedbackFollowup
+                                    span(rid="{{c.rid}}" style="font-size: 16px; font-weight: 100; cursor:pointer;") #[b {{c.agreeCount}}]
+                                else
+                                    span(rid="{{c.rid}}" style="font-size: 16px; font-weight: 100; cursor:pointer;") {{c.agreeCount}}
+                            span(style="font-size: 16px; font-weight: 100;") &nbsp; | &nbsp;
+                            span(rid="{{c.rid}}" style="font-size: 12px; font-weight: 100; cursor:pointer;"): a.red-text.feedback-disagree(rid="{{c.rid}}" id="detail-feedback-disagree-{{field}}-{{c.index}}")
+                                span(rid="{{c.rid}}" style="font-size: 16px; font-weight: 100;") No
+                                i(rid="{{c.rid}}" class="fa fa-lg {{disagreeButtonClass c.currentUserReview}}")
+                                if hasPermissionViewFeedbackFollowup
+                                    span(rid="{{c.rid}}" style="font-size: 16px; font-weight: 100;") #[b {{c.disagreeCount}}]
+                                else
+                                    span(rid="{{c.rid}}" style="font-size: 16px; font-weight: 100;") {{c.disagreeCount}}
+                        div.feedbackFollowup.grey.lighten-2(style="display: none;" id="{{c.rid}}")
+                            if hasPermissionViewFeedbackFollowup 
+                                span Sorry, you cannot review your own experiment.
+                            else if isAdminReviewer
+                                textarea.materialize-textarea(id="feedbackContent-{{c.rid}}" class="textarea-comment" rid="{{c.rid}}" index="{{c.index}}" name="feedback" placeholder="{{c.hint}}" required)
+                                button.btn.light-blue.feedbackFollowupSubmit(id="submitBtn-{{c.rid}}" rid="{{c.rid}}" index="{{c.index}}" data-id="{{field}}" type="submit" style="display: none;") Add Comment
+                            else 
+                                textarea.materialize-textarea(id="feedbackContent-{{c.rid}}" class="textarea-comment" rid="{{c.rid}}" index="{{c.index}}" name="feedback" placeholder="{{c.hint}}" required)
+                                button.btn.light-blue.feedbackFollowupSubmit(id="submitBtn-{{c.rid}}" rid="{{c.rid}}" index="{{c.index}}" data-id="{{field}}" type="submit" style="display: none;") Add Comment
+                    
+                        div
+                            if hasPermissionViewFeedbackFollowup
+                                div
+                                    //if hasPermissionViewFeedbackFollowup         
+                                    if hasFeedbackFollowupByField field c.index
+                                        div.feedbackFollowupResult(id="feedbackResultArea-{{c.rid}}")
+                                            each feedback in getFeedbackByField c.index
+                                                a(style="font-size: 18px;") #[strong {{feedback.username}}:] {{feedback.content}}
+                                                br
+                                                hr                
+                            else if isAdminReviewer
+                                div
+                                    //if hasPermissionViewFeedbackFollowup         
+                                    if hasFeedbackFollowupByField field c.index
+                                        div.feedbackFollowupResult(id="feedbackResultArea-{{c.rid}}")
+                                            each feedback in getFeedbackByField c.index
+                                                a(style="font-size: 18px;") #[strong {{feedback.username}}:] {{feedback.content}}
+                                                br
+                                                hr      
+                            else
+                                p(style="margin-top: -10px;")
+                                    a.expandFeedbackFollowupResult(data-id="{{field}}" index="{{c.index}}" rid="{{c.rid}}" style="font-size: 18px;") What do other people think?
+                                div.feedbackFollowupResult(id="feedbackResultArea-{{c.rid}}" style="display: none; margin-top:-15px;")
+                                    //if hasPermissionViewFeedbackFollowup         
+                                    if hasFeedbackFollowupByField field c.index
+                                        each feedback in getFeedbackByField c.index
+                                            a(style="font-size: 18px;") #[strong {{feedback.username}}:] {{feedback.content}}
+                                            br
+                                            hr
+                                    else
+                                        span(style="font-size: 16px;") No comments yet. 
+                                //else 
+                                    //span Sorry, only the creator can read the reviews
+                    else
+                        span(style="font-size: 18px; font-weight: 100;")
+                            | {{c.option}}
+                            br
+                            if hasPermissionViewFeedbackFollowup
+                                span 
+                            else 
+                                textarea.materialize-textarea(id="feedbackContent-{{c.rid}}" class="textarea-comment" rid="{{c.rid}}" index="{{c.index}}" name="feedback" placeholder="{{c.hint}}" required)
+                                button.btn.light-blue.feedbackFollowupSubmit(id="submitBtn-{{c.rid}}" rid="{{c.rid}}" index="{{c.index}}" data-id="{{field}}" type="submit" style="display: none;") Add Comment
+                                br
+                        div
+                            if hasPermissionViewFeedbackFollowup
+                                div.feedbackFollowupResult(id="feedbackResultArea-{{c.rid}}")
+                                    //if hasPermissionViewFeedbackFollowup         
+                                    if hasFeedbackFollowupByField field c.index
+                                        each feedback in getFeedbackByField c.index
+                                            a(style="font-size: 18px;") #[strong {{feedback.username}}]: {{feedback.content}}
+                                            br
+                                            hr
+                                    else
+                                        span(style="font-size: 16px;") No comments yet
+                                        br
+                            else if isAdminReviewer
+                                div.feedbackFollowupResult(id="feedbackResultArea-{{c.rid}}")
+                                    //if hasPermissionViewFeedbackFollowup         
+                                    if hasFeedbackFollowupByField field c.index
+                                        each feedback in getFeedbackByField c.index
+                                            a(style="font-size: 18px;") #[strong {{feedback.username}}:] {{feedback.content}}
+                                            br
+                                            hr
+                                    else
+                                        span(style="font-size: 16px;") No comments yet
+                                        br
+                            else
+                                a.expandFeedbackFollowupResult(data-id="{{field}}" index="{{c.index}}" rid="{{c.rid}}" style="font-size: 18px; margin-top: -10px;") What do other people think?
+                                div.feedbackFollowupResult(id="feedbackResultArea-{{c.rid}}" style="display: none;")
+                                    //if hasPermissionViewFeedbackFollowup         
+                                    if hasFeedbackFollowupByField field c.index
+                                        each feedback in getFeedbackByField c.index
+                                            a(style="font-size: 18px;") #[strong {{feedback.username}}:] {{feedback.content}}
+                                            br
+                                            hr
+                                    else
+                                        span(style="font-size: 16px;") No reviews yet
+            div#greyDiv(style="height:30px;background: linear-gradient(rgb(255,255,255,0), rgb(220,220,220,1));left: 15px;width: auto;right: 16px;position: absolute;bottom: 16px;")            

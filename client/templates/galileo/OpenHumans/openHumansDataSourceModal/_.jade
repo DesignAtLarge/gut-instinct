@@ -1,0 +1,60 @@
+template(name="gaOpenHumansDataSourceModal")
+    div.modal.modal-fixed-footer.modal-fixed-header(id="openhumans-data-modal-{{idSuffix}}")
+        div.modal-header
+            h5.left-align Select the data sources that could be used to measure
+                span.blue-text.text-darken-2(style='font-weight: bold') "{{measureVariable}}"
+
+        div.modal-content
+            br
+
+            each row in ohGridRows
+                div.row
+                    div.col.m4
+                        div.oh-item(id="oh-item-{{idSuffix}}-{{row.row1.id}}" class="{{#if row.row1.default}}default{{/if}}")
+                            div.selected-triangle.hide
+                                i.material-icons.checkmark-icon check
+                            div(style="display:flex;align-items:center;")
+                                img(src="/images/galileo/open-humans/data-source-logos/{{row.row1.imgName}}" style="height:30px; margin: 0 5px 5px 0;" onerror="this.style.display='none'")
+                                span {{row.row1.title}}
+                            p {{row.row1.description}}
+                            if row.row1.dataNeeded
+                                p #[b Data needed:] {{row.row1.dataNeeded}}
+                            if row.row1.url
+                                a.oh-data-learn-more(href="{{row.row1.url}}" target="_blank") Learn more
+                                    span: i.material-icons.oh-data-learn-more-icon open_in_new
+
+                    div.col.m4
+                        if row.row2
+                            div.oh-item(id="oh-item-{{idSuffix}}-{{row.row2.id}}")
+                                div.selected-triangle.hide
+                                    i.material-icons.checkmark-icon check
+                                div(style="display:flex;align-items:center;")
+                                    img(src="/images/galileo/open-humans/data-source-logos/{{row.row2.imgName}}" style="height:30px; margin: 0 5px 5px 0;" onerror="this.style.display='none'")
+                                    span {{row.row2.title}}
+                                p {{row.row2.description}}
+                                if row.row2.dataNeeded
+                                    p #[b Data needed:] {{row.row2.dataNeeded}}
+                                if row.row2.url
+                                    a.oh-data-learn-more(href="{{row.row2.url}}" target="_blank") Learn more
+                                        span: i.material-icons.oh-data-learn-more-icon open_in_new
+
+                    div.col.m4
+                        if row.row3
+                            div.oh-item(id="oh-item-{{idSuffix}}-{{row.row3.id}}")
+                                div.selected-triangle.hide
+                                    i.material-icons.checkmark-icon check
+                                div(style="display:flex;align-items:center;")
+                                    img(src="/images/galileo/open-humans/data-source-logos/{{row.row3.imgName}}" style="height:30px; margin: 0 5px 5px 0;" onerror="this.style.display='none'")
+                                    span {{row.row3.title}}
+                                p {{row.row3.description}}
+                                if row.row3.dataNeeded
+                                    p #[b Data needed:] {{row.row3.dataNeeded}}
+                                if row.row3.url
+                                    a.oh-data-learn-more(href="{{row.row3.url}}" target="_blank") Learn more
+                                        span: i.material-icons.oh-data-learn-more-icon open_in_new
+
+
+
+        div.modal-footer
+            a.blue-text#openHumansSubmit(class="modal-action modal-close btn-flat") Submit
+            a.gray-text#openHumansCancel(class="modal-action modal-close btn-flat") Cancel

@@ -1,0 +1,168 @@
+template(name='topics')
+    .animateme
+      ul.bg-bubbles
+        li
+        li
+        li
+        li
+        li
+        li
+        li
+        li
+        li
+        li
+        li
+        li
+        li
+    +header
+    div(class='container content topics' style='max-width: 700px;')
+        div(data-step='1', data-intro='This page lists all the topics/tags that exist in this application. By clicking the box, you can learn more about the topic you clicked. You can click "next" or press right arrow key to move on.')
+            h3(class='light-blue-text text-darken-4') <i class="fa fa-book" aria-hidden="true" style="font-size: 1em;"></i> Learn about your gut
+            h5(class='light-blue-text text-darken-4') Develop your gut instincts by learning what affects the gut
+            br
+        div(class='tiles')
+
+            ul.collapsible.popout(data-collapsible='accordion')
+                li(class="blue-text text-darken-2")
+                    .collapsible-header.active(style='text-align: left; font-weight: 800;')
+                        span(style="font-size: 25px;")
+                            i.material-icons new_releases
+                            | Basics
+                        
+                    .collapsible-body.white
+                        each getBasicTopics
+                            a(href='#', onclick='window.location.replace("/t/#{name}");')
+                                if firstOf topics
+                                    //div(class='card', data-step='7', data-intro='Each box represents a topic/tag. Click on one of them and solve the quiz question. Once you have done so, you have successfully investigated that topic.')
+                                    div(class='card', data-step='7', data-intro='Learn more about a topic (tag) by clicking these cards.')
+                                        .card-image
+                                            if photo_url
+                                                img(src='#{photo_url}', alt='#{name}')
+                                            else
+                                                img(src='/images/topics/placeholder.jpg', alt='#{name}')
+                                            span(class='card-title')
+                                                if visited name
+                                                    img(src='/images/topics/icons/checkmark.png', class='visited_topic')
+                                        .card-action
+                                            a(href='/t/#{name}')
+                                                span(class='light-blue-text' style='text-transform:capitalize; font-size:14pt;') #{name}
+                                else
+                                    .card
+                                        .card-image
+                                            if photo_url
+                                                img(src='#{photo_url}', alt='#{name}')
+                                            else
+                                                img(src='/images/topics/placeholder.jpg', alt='#{name}')
+                                            span(class='card-title')
+                                                if visited name
+                                                    img(src='/images/topics/icons/checkmark.png', class='visited_topic')
+                                        .card-action
+                                            span(class='light-blue-text', style='text-transform:capitalize; font-size:14pt;') #{name}
+
+
+                li(class="blue-text text-darken-2")
+                    .collapsible-header(style='text-align: left; font-weight: 800;')
+                        span(style="font-size: 25px;") 
+                            i.material-icons new_releases
+                            | Autoimmune Diseases
+                    .collapsible-body.white
+                        each getAutoimmuneTopics
+                            a(href='#', onclick='window.location.replace("/t/#{name}");')
+                                if firstOf topics
+                                    //div(class='card', data-step='7', data-intro='Each box represents a topic/tag. Click on one of them and solve the quiz question. Once you have done so, you have successfully investigated that topic.')
+                                    div(class='card', data-step='7', data-intro='Each box represents a topic/tag')
+                                        .card-image
+                                            if photo_url
+                                                img(src='#{photo_url}', alt='#{name}')
+                                            else
+                                                img(src='/images/topics/placeholder.jpg', alt='#{name}')
+                                            span(class='card-title')
+                                                if visited name
+                                                    img(src='/images/topics/icons/checkmark.png', class='visited_topic')
+                                        .card-action
+                                            a(href='/t/#{name}')
+                                                span(class='light-blue-text' style='font-size:14pt;') #{name}
+                                else
+                                    .card
+                                        .card-image
+                                            if photo_url
+                                                img(src='#{photo_url}', alt='#{name}')
+                                            else
+                                                img(src='/images/topics/placeholder.jpg', alt='#{name}')
+                                            span(class='card-title')
+                                                if visited name
+                                                    img(src='/images/topics/icons/checkmark.png', class='visited_topic')
+                                        .card-action
+                                            span(class='light-blue-text', style='font-size:14pt;') #{name}
+                li(class="blue-text text-darken-2")
+                    .collapsible-header(style='text-align: left; font-weight: 800;')
+                        span(style="font-size: 25px;")
+                            i.material-icons new_releases
+                            | Gut Brain Axis
+                    .collapsible-body.white
+                        each getGutBrainAxisTopics
+                            a(href='#', onclick='window.location.replace("/t/#{name}");')
+                                if firstOf topics
+                                    //div(class='card', data-step='7', data-intro='Each box represents a topic/tag. Click on one of them and solve the quiz question. Once you have done so, you have successfully investigated that topic.')
+                                    div(class='card', data-step='7', data-intro='Each box represents a topic/tag')
+                                        .card-image
+                                            if photo_url
+                                                img(src='#{photo_url}', alt='#{name}')
+                                            else
+                                                img(src='/images/topics/placeholder.jpg', alt='#{name}')
+                                            span(class='card-title')
+                                                if visited name
+                                                    img(src='/images/topics/icons/checkmark.png', class='visited_topic')
+                                        .card-action
+                                            a(href='/t/#{name}')
+                                                span(class='light-blue-text' style='font-size:14pt;') #{name}
+                                else
+                                    .card
+                                        .card-image
+                                            if photo_url
+                                                img(src='#{photo_url}', alt='#{name}')
+                                            else
+                                                img(src='/images/topics/placeholder.jpg', alt='#{name}')
+                                            span(class='card-title')
+                                                if visited name
+                                                    img(src='/images/topics/icons/checkmark.png', class='visited_topic')
+                                        .card-action
+                                            span(class='light-blue-text', style='font-size:14pt;') #{name}
+
+
+                li(class="blue-text text-darken-2")
+                    .collapsible-header(style='text-align: left; font-weight: 800;')
+                        span(style="font-size: 25px;")
+                            i.material-icons new_releases
+                            | Gut Diseases
+                    .collapsible-body.white
+                        each getGutDiseasesTopics
+                            a(href='#', onclick='window.location.replace("/t/#{name}");')
+                                if firstOf topics
+                                    //div(class='card', data-step='7', data-intro='Each box represents a topic/tag. Click on one of them and solve the quiz question. Once you have done so, you have successfully investigated that topic.')
+                                    div(class='card', data-step='7', data-intro='Each box represents a topic/tag')
+                                        .card-image
+                                            if photo_url
+                                                img(src='#{photo_url}', alt='#{name}')
+                                            else
+                                                img(src='/images/topics/placeholder.jpg', alt='#{name}')
+                                            span(class='card-title')
+                                                if visited name
+                                                    img(src='/images/topics/icons/checkmark.png', class='visited_topic')
+                                        .card-action
+                                            a(href='/t/#{name}')
+                                                span(class='light-blue-text' style='font-size:14pt;') #{name}
+                                else
+                                    .card
+                                        .card-image
+                                            if photo_url
+                                                img(src='#{photo_url}', alt='#{name}')
+                                            else
+                                                img(src='/images/topics/placeholder.jpg', alt='#{name}')
+                                            span(class='card-title')
+                                                if visited name
+                                                    img(src='/images/topics/icons/checkmark.png', class='visited_topic')
+                                        .card-action
+                                            span(class='light-blue-text', style='font-size:14pt;') #{name}
+
+

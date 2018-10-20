@@ -1,0 +1,61 @@
+template(name="gaCondition")
+    +cardLayout(cardId=cardId stepnumber=stepnumber heading=heading progress=progress nextDisabled=nextDisabled)
+        span(class='card-title' style='font-size: 30px; font-weight: 100;')
+            | Create two conditions for your participants
+        br
+        p(style="font-size: 20px")
+            | For a between-subjects experiment, you should have just two conditions:
+        ol(style="font-size: 18px;")
+            li 
+                strong Control Condition
+                | : a baseline condition, and
+            li 
+                strong Experimental Condition
+                | : a condition that tests your intervention
+        +exampleLayout
+            ol(style="font-size: 18px;")
+                li
+                    ul
+                        li 
+                            strong Hypothesis
+                            | : Drinking Caffeinated coffee decreases quality of sleep
+                        li 
+                            strong Control Condition
+                            | : Participants drink decaffeinated coffee
+                        li 
+                            strong Experimental Condition
+                            | : Participants drink caffeinated coffee
+                li(style="margin-top: 20px")
+                    ul
+                        li 
+                            strong Hypothesis
+                            | : Eating a heavy dinner decreases time taken to fall asleep
+                        li 
+                            strong Control Condition
+                            | : Participants eat a "light" dinner
+                        li 
+                            strong Experimental Condition
+                            | : Participants eat a "heavy" dinner
+        span(class='card-title' style='font-size: 30px; font-weight: 100;') Your Conditions:
+        br
+        p(style="font-size: 18px; ") Your 
+            strong Hypothesis:
+        br
+        p.light-blue-text.darken-4#condition-hypothesis(style="font-size: 18px;") #{hypothesis}
+        br
+        ul#condition-form
+            li.condition
+                p(style="font-size: 18px; ") Your 
+                    strong Control Condition:
+                input.condition-input#control-input(type="text" placeholder="Please type your control condition here" value="{{controlCondition}}")
+                p(style="font-size: 18px; ") Please specify what are the steps that the users need to do in control condition:
+                br
+                +gaOrderedList(id="control-condition-step" array=controlSteps)
+            li.condition
+                p(style="font-size: 18px; ") Your 
+                    strong Experimental Condition:
+                input.condition-input#experimental-input(type="text" placeholder="Please type your experimental condition here" value="{{experimentalCondition}}")
+                p(style="font-size: 18px; ") Please specify what are the steps that the users need to do in experimental condition:
+                br
+                +gaOrderedList(id="experimental-condition-step" array=experimentalSteps)
+            

@@ -1,0 +1,108 @@
+template(name='trial')
+    //#welcome
+    unless isTaken type
+        .progress(style='position: fixed; top:-20px; width: 100%; height: 80px; background-color: #01579B; z-index: 100')
+            h4#trialProgress(style="text-align: center; margin-top:30px; color: white;") Gut Check 0% Complete
+    div(class='container content topics', style='max-width:750px; margin-bottom: 200px')
+        if isTaken type
+            h4(class='animated fadeIn light-blue-text text-darken-4' style='margin-top: 50%;') Thank you for answering our questions!
+            br
+            unless isCondition5
+                h5(class='animated fadeIn light-blue-text text-darken-4' style='') Go back to <a href="/entrance" class="light-blue-text text-darken-4" style="text-decoration: underline;">Gut Instinct</a>
+            else
+                h5(class='animated fadeIn light-blue-text text-darken-4' style='') Learn more about your gut <a href="/topics" class="light-blue-text text-darken-4" style="text-decoration: underline;">here!</a>
+        else
+            h4(class='animated fadeIn light-blue-text text-darken-4' style='') How much do you know about your gut?
+            br
+            //h4(id="trialProgress" class='animated fadeIn light-blue-text text-darken-4' style='') 0% Complete
+            br
+            if isPre type
+                h6(class='timestamp' style="font-size: 12pt;") You must complete this quick check before accessing complete Gut Instinct
+            else
+                h6(class='timestamp' style="font-size: 12pt; text-align: left;") Complete this quick check and survey to enter a raffle to win an American Gut Project kit. Using an American Gut kit you (or a friend/family member) can take samples from your body and learn about your own gut microbiome! <br><br>This check will close in <strong style="color: red;"> {{getHours}} hours - at 23:59 on Saturday, Sep 9 </strong>
+
+            br
+            div(class="quickbites card" style="padding: 20px;")
+                br
+                h5(class="light-blue-text text-darken-4" style='text-align: left;').animated.fadeIn Please answer the following
+                br
+                each q in getTestQuickBites
+                    if isOpenResponse q
+                        div.card.qmodule.cardquestion.animated.fadeIn
+                            .card-content.layer-1
+                                span(class='card-title' style="font-size: 19px;") #{q.question} 
+                                textarea(id="quickbite-#{q.index}" class='with-gap materialize-textarea' style="color: black;" type='text' placeholder="Provide a response here" required)
+                                br
+                                br
+                    else
+                        div.card.qmodule.cardquestion.animated.fadeIn
+                            .card-content.layer-1
+                                span(class='card-title' style="font-size: 19px;") #{q.question}
+                                each getOptions q
+                                    div(class='row' style='margin-bottom: 5px;')
+                                        .col(style="margin-top: 6px;")
+                                            input(class='with-gap qb#{q.index}-option#{option_index}', name="group-#{q.index}" type="radio" id="qb#{q.index}-option#{option_index}")
+                                            label(for='qb#{q.index}-option#{option_index}')
+                                        div(class='col s10' style='padding-top: 5px; padding-bottom: 5px;')
+                                            span(style="font-size: 12pt; color: #424242;") #{option_text} 
+                                            div(class='feedback' style='text-align: left;')
+                                                span(id='qb#{q.index}-option#{option_index}-correct' style='color: #8bc34a; font-size: 12pt; display: none;') Correct
+                                                span(id='qb#{q.index}-option#{option_index}-incorrect' style='color: #f44336; font-size: 12pt; display: none;') Incorrect
+                                            div(id='qb#{q.index}-feedback-#{option_index}' style='text-align: left; font-weight: 800; font-size: 12pt; display: none')
+                                                //span Feedback:
+                                                span(id="qb#{q.index}-fb-#{option_index}") #{feedback}
+
+                button(class='waves-effect waves-light btn light-blue add-topic-bookmark' style="margin-top: 20px; margin-right: 15px;" id='save-quickbites') Save Answers
+                button(class='waves-effect waves-light btn light-blue add-topic-bookmark' style="margin-top: 20px;" disabled id='next-quickbites') Continue
+
+            div(class="mechanisms card" style="padding: 20px; display: none") 
+                br
+                h5(class="light-blue-text text-darken-4" style='text-align: left;').animated.fadeIn Guess the mechanism
+                    a(href='#' id="mechHelp" class="light-blue-text" onclick="$('#mechTip').toggle();") (?)
+                
+                h6(id="mechTip" class="animated fadeIn timestamp" style='font-size: 12pt; text-align: left; display: none') 
+                    br
+                    | Explaining how a phenomenon happens is called identifying the mechanism. Guessing possible mechanisms is a great way to apply what you know. As a Gut Scientist, you’ll need to guess mechanisms when adding your questions, or responding to others’ questions.
+                    br
+                    br
+                    | For example, visiting a new place for a few days might temporarily alter the functioning of your gut. One possible mechanism for this: Having a different diet and being in a different environment exposes you to to different microbes. These microbes can modify how your body digests your food or they can communicate with the brain to change how you feel. 
+                    br
+                    br
+                    | Scientists have discovered the following facts. How might they be related to the gut microbiome? Guess the mechanism! 
+                br
+                each q in getTestMechanisms
+                    div.card.qmodule.cardquestion.animated.fadeIn
+                        .card-content.layer-1
+                            span(class='card-title' style="font-size: 19px;") #{q.question} Identify the <strong>most promising mechanism</strong>:
+                            each getOptions q
+                                div(class='row' style='margin-bottom: 5px;')
+                                    .col(style="margin-top: 6px;")
+                                        input(class='with-gap q#{q.index}-option#{option_index}', name="group-#{q.index}" type="radio" id="q#{q.index}-option#{option_index}")
+                                        label(for='q#{q.index}-option#{option_index}')
+                                    div(class='col s10' style='padding-top: 5px; padding-bottom: 5px;')
+                                        span(style="font-size: 12pt; color: #424242;") #{option_text} 
+                                        div(class='feedback' style='text-align: left;')
+                                            span(id='q#{q.index}-option#{option_index}-correct' style='color: #8bc34a; font-size: 12pt; display: none;') Correct
+                                            span(id='q#{q.index}-option#{option_index}-incorrect' style='color: #f44336; font-size: 12pt; display: none;') Incorrect
+                                        div(id='q#{q.index}-feedback-#{option_index}' style='text-align: left; font-weight: 800; font-size: 12pt; display: none')
+                                            //span Feedback:
+                                            span(id="q#{q.index}-fb-#{option_index}") #{feedback}
+                        
+                button(class='waves-effect waves-light btn light-blue add-topic-bookmark' style="margin-top: 20px; margin-right: 15px;" id='save-mechanisms') Save Answers
+                button(class='waves-effect waves-light btn light-blue add-topic-bookmark' style="margin-top: 20px;" disabled id='next-mechanisms') Continue
+
+            div(class="scenarios card" style="padding: 20px; display: none")
+                br
+                h5(class="light-blue-text text-darken-4" style='text-align: left;').animated.fadeIn Apply your current knowledge to real world scenarios
+                br
+                each q in getTestScenarios
+                    div.card.qmodule.cardquestion.animated.fadeIn
+                        .card-content.layer-1
+                            span(class='card-title' style="font-size: 19px;") #{q.question} 
+                            textarea(id="scenarios-#{q.index}" class='with-gap materialize-textarea' style="color: black;" type='text' placeholder="Provide a response here" required)
+                            br
+                            br
+                if isPre type
+                    button(class='waves-effect waves-light btn light-blue add-topic-bookmark' style="margin-top: 20px;" id='scenarios-finish') Finish
+                else
+                    button(class='waves-effect waves-light btn light-blue add-topic-bookmark' style="margin-top: 20px;" id='scenarios-finish') Take Survey

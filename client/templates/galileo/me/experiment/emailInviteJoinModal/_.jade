@@ -1,0 +1,29 @@
+template(name="gaShareEmailInviteJoinModal")
+    div.modal(id="share-email-join-modal" style="height: 10%")
+
+        div(style="color:rgba(0,0,0,.54);background:rgba(0,0,0,.03); padding:15px;")
+            h4.left-align
+                | Copy and send the following text via email
+
+
+        div.modal-content.reminder-stats(style="height: 50%; padding-bottom: 0px;")
+            div.card
+                div(style="padding:10px;")
+                    div
+                        div#email-text-box(contenteditable="false" style="padding:10px; margin-left:5px; overflow-x: scroll;" )                        
+                            | I have created an experiment on Galileo.
+                            | To start my experiment, I need at least two people to review my experiment.
+                            | Please join the experiment : {{link}}
+                            
+                        input.text(readonly value="{{getMessage}}" id="getEmailContent" style="padding-left:10px; height:36px; margin-bottom:-15px; display: none;")
+                    br
+                    i.material-icons.edit-design-btn#edit-content mode_edit
+                        p(style="font-family:'Lato', sans-serif; font-size:15px; margin:5px; float:right; font-weight:600") Edit message
+                    i.material-icons.edit-design-btn.accept.hide#accept-edit-content check
+                        p(style="font-family:'Lato', sans-serif; font-size:15px; margin:5px; float:right; font-weight:600") Save
+                    i.material-icons.edit-design-btn.cancel.hide#cancel-edit-content clear
+                        p(style="font-family:'Lato', sans-serif; font-size:15px; margin:5px; float:right; font-weight:600") Cancel
+
+        div.modal-footer
+                a.blue-text#copyEmailContent(class="modal-action modal-close btn-flat") Copy and Send Email
+                a.gray-text(class="modal-action modal-close btn-flat") Close

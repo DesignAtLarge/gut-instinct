@@ -1,0 +1,21 @@
+template(name='personal_question_bin')
+    +header
+    | {{init hashcode}}
+
+    div(class='container content gutboard')
+
+        div(data-step='1' data-intro='To help you learn better, Gut Instinct will ask you some questions before you explore #{name} topic!')
+            h3(class='light-blue-text text-darken-4') <i class="fa fa-book" aria-hidden="true" style="font-size: 2em;"></i> Understand your Gut
+            //h4(class='light-blue-text text-darken-4') What's your gut feeling
+            h5(class='light-blue-text text-darken-4') To help you learn better, Gut Instinct will ask you some questions before you explore #{name} topic!
+        div(class='questions')
+            br
+            
+            h3  
+
+            br
+            button(class='waves-effect waves-light btn light-blue submit-personal-question' id='continue-button') Continue to Questions
+            br
+            //br
+            //a(href='/topics')
+                //button(class='waves-effect waves-light btn grey lighten-1 submit-personal-question' style='white-space: normal; height: auto;') Don't want to answer now, return to topics

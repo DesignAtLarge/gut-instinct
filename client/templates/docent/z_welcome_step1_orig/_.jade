@@ -1,0 +1,19 @@
+template(name='welcome_step1_orig')
+    #welcome
+        div(class='container content topics')
+            h1(class='animated fadeIn' style='color: white;') Welcome to Gut Instinct!
+
+            div(class='card', style='margin-top: 10%; margin-left: 20%; margin-right: 20%')
+                br
+                div(style='margin-left: 10%; margin-right: 10%')
+                    h4(class='animated fadeIn' style='color: #696969; margin-top: 20px') If you provide us your American Gut Kit ID, we can create customized feedback for you
+
+                .card-content
+                    form(class='comment-form')
+                        input(type='text', name='agid', class='comment', placeholder='Please enter your American Gut Kit ID here', required)
+                        input(type='submit', class='btn light-green')
+                        br
+                        //a(href='/welcome_step2')
+                        a(href='/gutboard')
+                            button(class='btn blue-grey' style='margin-top: 10px')
+                                | I don't want to provide my American Gut Kit ID right now

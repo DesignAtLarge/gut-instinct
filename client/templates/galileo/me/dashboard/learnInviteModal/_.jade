@@ -1,0 +1,33 @@
+template(name="gaLearnInviteModal")
+    +gaShareInfoModal(expId=expId)
+    +gaWhyCareModal(expId=expId)
+    +gaCompensatePeopleModal(expId=expId)
+    
+    div.modal(id="learn-invite-modal")
+        div(style="color:rgba(0,0,0,.54);background:rgba(0,0,0,.03); padding:15px;")
+            h4.left-align
+                | How to invite participants
+
+        div.modal-content
+            ol
+                div.row
+                    .col.col-num
+                        li.li-dash
+                    .col.col-right
+                        p(style="margin-top: 0px;")
+                            button#shareInfoBtn(class='waves-effect waves-light btn light-blue' style="font-size: 20px; font-weight: 500; margin-bottom: -20px;") Share infomation about experiment
+                div.row
+                    .col.col-num
+                        li.li-dash
+                    .col.col-right
+                        p(style="margin-top: -3px;")
+                            button#whyCareBtn(class='waves-effect waves-light btn light-blue' style="font-size: 20px; font-weight: 500; margin-bottom: -20px;") Why would people care
+                div.row
+                    .col.col-num
+                        li.li-dash
+                    .col.col-right
+                        p(style="margin-top: -3px;")
+                            button#compensatePplBtn(class='waves-effect waves-light btn light-blue' style="font-size: 20px; font-weight: 500; margin-bottom: -20px;") Compensate people 
+                
+        div.modal-footer
+            a.gray-text(class="modal-action modal-close btn-flat") Close

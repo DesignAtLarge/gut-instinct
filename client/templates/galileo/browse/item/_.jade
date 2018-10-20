@@ -1,0 +1,118 @@
+template(name="gaExperimentBoardItem")
+    if show
+        if isFlagged
+            //vineet - i dont know why that check is there?
+            //if true
+            li.experiment(id="experiment-{{expId}}-{{index}}" style="width: calc(100% - 4px); margin-left: 2px; margin-right: 2px;")
+                
+                div.left
+                    div.title(style="font-weight: 600") {{experimentObjective}}
+                        if isNew
+                            span.new NEW
+                        if isEnded
+                            span.completed Completed
+                        if isLookingForReviewers
+                            span.redReviewParticipant LOOKING FOR REVIEWERS AND PARTICIPANTS
+                        if isLookingForParticipants
+                            span.redReviewParticipant LOOKING FOR PARTICIPANTS
+                        if isRunning
+                            span.running RUNNING
+                    div.info
+                        span Created by
+                        a.username(href="#") {{username}}
+                        span.flag-icon(class="{{userflag}}")
+                        span.date {{livestamp createDate}}
+                        br
+                        //commented out by vineet -- we will add this after we figure out how to maintain this count smartly (in exp object itself) rather than throwing out calls to feedback, pilot etc.. collections
+                        div
+                            span() Reviewed by:
+                            span(style="font-weight: bold;") {{getReviewerCount}}
+                            each e in getReviewerFlags
+                                span.flag-icon(class=e style="margin-right: 5px; width: 0.8em; margin-left: 3px;")
+                            br
+                            if showPilot
+                                span() Pilot User(s):
+                                span(style="font-weight: bold;") {{getPilotCount}}
+                                br
+                            span() Participant(s):
+                            span(style="font-weight: bold;") {{getParticipantCount}}
+                            each p in getParticipantFlags
+                                span.flag-icon(class=p.flag style="margin-right: 5px; width: 0.8em; margin-left: 3px;")
+                        if related_works
+                            div(style="padding-top: 10px")
+                                a(url="" style="font-size: large") What is this research about?
+                                br
+                                span(style="font-size: large") {{related_works}}
+
+                    //- div.share(style="margin-top: 5px;")
+                    //-     <iframe src="https://www.facebook.com/plugins/share_button.php?href=http%3A%2F%2Fgutinstinct.ucsd.edu%2Fgalileo%2Fexperiment%2F{{expId}}&layout=button&size=small&mobile_iframe=true&appId=1667529610219243&width=59&height=20" width="59" height="20" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true"></iframe>
+                div.right
+                    if isCreator
+                        a.btn.light-blue(href="/galileo/me/experiment/{{expId}}") My Experiment
+                    else if isPilot
+                        a.btn.light-blue(href="/galileo/me/experiment/{{expId}}/my_pilot") My Pilot
+                    else if isFeedbacking
+                        a.btn.light-blue(href="/galileo/me/experiment/{{expId}}/design") My Review
+                    else if isParticipant
+                        if isFailedCriteria
+                            a.btn.light-blue(href="/galileo/join/failed/{{expId}}") Unable to Join
+                        else
+                            a.btn.light-blue(href="/galileo/me/dashboard") My Participation
+                    else if isWaitlist
+                        a.btn.light-blue Waitlisted
+                    else
+                        if isSpecificExp
+                            a.btn.light-blue.join-specific-btn(id="join-specific-{{expId}}-{{index}}") Join
+                        if isEnded
+                            p I would like to
+                            div.btns
+                                a.btn.light-blue.feedback-btn(id="review-{{expId}}-{{index}}") Review
+                                if showPilot
+                                    a.btn.light-blue.pilot-btn(id="pilot-{{expId}}-{{index}}") Pilot
+                                a.btn.light-blue.join-btn(id="join-{{expId}}-{{index}}") Waitlist
+                        else if isRunning
+                            p I would like to
+                            div.btns
+                                a.btn.light-blue.feedback-btn(id="review-{{expId}}-{{index}}") Review
+                                if showPilot
+                                    a.btn.light-blue.pilot-btn(id="pilot-{{expId}}-{{index}}") Pilot
+                                a.btn.light-blue.join-btn(id="join-{{expId}}-{{index}}") Waitlist
+                        else
+                            p I would like to
+                            div.btns
+                                a.btn.light-blue.feedback-btn(id="review-{{expId}}-{{index}}") Review
+                                if showPilot
+                                    a.btn.light-blue.pilot-btn(id="pilot-{{expId}}-{{index}}") Pilot
+                                a.btn.light-blue.join-btn(id="join-{{expId}}-{{index}}") Join
+                    if isAdmin
+                        br
+                        p Admin:
+                        div.row
+                            div.col.s4
+                                a.btn.light-blue.admin-btn-review(id="admin-{{expId}}-{{index}}") Review
+                            div.col.s4
+                                a.btn.light-blue.admin-btn-dash(id="admin-{{expId}}-{{index}}") Dashboard
+                            div.col.s4
+                                a.btn.light-blue.admin-btn-creator(id="admin-{{expId}}-{{index}}") Info
+                    br
+                    a.btn.light-blue.copy-exp-btn(id="copy-experiment-{{expId}}") Copy Experiment
+                    br
+
+                    //TODO:fix flag and uncomment later
+                    //div(style="margin-bottom: -15px;")
+                        if isFlagged
+                            p.unreport-abuse
+                                i.fa.fa-flag(aria-hidden='true' style='color: #ff5722; font-size: 18pt')
+                                a(style="color: #ff5722" href="#") Issue reported
+                            //commented by vineet -- this does not work as needed -- the renderAbuseDetails function does not populate the response right away    
+                            //p.report-abuse-details-display
+                                textarea(class='with-gap materialize-textarea' placeholder="No reason to display for this flagged experiment") {{renderAbuseDetails}}
+                        else
+                            p.report-abuse(id='{{expId}}-report-init')
+                                
+                                a(style="color: #212121" href="#" onclick='$("#{{expId}}-report-init").hide(); $("#{{expId}}-report-reason-div").show()') Report an issue 
+                                    i.fa.fa-flag-o(aria-hidden='true' style='color: #ff9800; font-size: 18pt')
+                            p.report-abuse-details(id='{{expId}}-report-reason-div' style='display: none;')
+                                textarea(class='with-gap materialize-textarea' rows='5' id='{{expId}}-report-reason' placeholder='Please explain why you think this experiment is inappropriate. Your concerns will help thr Galileo research team evaluate this experiment. Thank you for looking out for the Galileo community!')
+                                a.btn.light-blue(href="#" class='report-abuse-action') Submit Report
+                                a.btn.grey(href="#" class='cancel-report-abuse-action' onclick='$("#{{expId}}-report-init").show(); $("#{{expId}}-report-reason-div").hide()') Cancel

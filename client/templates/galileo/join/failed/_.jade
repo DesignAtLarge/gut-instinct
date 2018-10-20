@@ -1,0 +1,48 @@
+template(name="gaJoinFailed")
+    +gaNavbar
+    main#ga-main
+        div.wrapper
+            h4.board-header Sorry, you cannot participate in this experiment because:
+            div.body(style="font-size: 20px !important; padding: 10px 30px;")
+
+                ul.card(style="padding: 30px 30px 30px 60px;")
+
+                    if failInclusion
+                        p You #[i did not fulfill] the following
+                            a.helpbtn(href="#" id="help-inclusion" style="border-width:0px 0px 1px 0px; border-style:solid") inclusion criteria:
+                                    i.fa.fa-question-circle(aria-hidden="true")
+                            
+                            +helpLayout(cardId="inclusion" title="The creator of the experiment wanted only to include participants who fulfilled the below criteria" learnLink="")
+                        
+                        div.body(style="margin-left: 30px;")
+                            each criteria in failInclusionList
+                                li
+                                    i.fa.fa-times.red-text   
+                                    label(style="font-size: 1rem;") &nbsp; You are {{criteria}}
+
+                    if failExclusion
+                        p You #[i fulfilled] the following
+                                a.helpbtn(href="#" id="help-exclusion" style="border-width:0px 0px 1px 0px; border-style:solid") exclusion criteria:
+                                    i.fa.fa-question-circle(aria-hidden="true")
+                            
+                            +helpLayout(cardId="exclusion" title="Participants are excluded from experiments for the following reasons:" learnLink="")
+                                ol
+                                    li Participants might get hurt while following the experimental instructions. This could be a general safety principle (e.g. pregnant women) or specific to the task (e.g. a gluten intolerant person might hurt himself/herself in an experiment that involves consuming gluten)
+                                    br
+                                    li Non-adults (participants under 18 years of age), prisoners, or potentially cognitively impaired people might not have the autonomy to make an informed decision while participating in experiments.
+                        
+                        div.body(style="margin-left: 30px;")
+                            each criteria in failExclusionList
+                                li
+                                    i.fa.fa-check.red-text   
+                                    label(style="font-size: 1rem;") &nbsp; You are {{criteria}}
+
+                    if isReviewer
+                        p You are reviewing this experiment. You cannot review and participate in the same experiment.
+
+
+                p You may be eligible to join other experiments
+
+                a.btn.light-blue(href="/galileo/browse")
+                    i.fa.fa-angle-left
+                    | View Other Experiments

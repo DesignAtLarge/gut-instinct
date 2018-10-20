@@ -1,0 +1,56 @@
+template(name="gaOhAuth")
+    +gaNavbar
+    if isDataLoading
+        div#loading
+            +loading_wheel
+    else
+        main#ga-main
+            div.wrapper
+                h4.board-header Connect with Open Humans
+                div.body(style="font-size: 20px !important; padding: 10px 30px;")
+                    ul.card(style="padding: 30px 30px 30px 60px;")
+                        p You can now enhance the quality of your experiment's data by connecting to any of the following data sources, automatically through #[a(href="https://www.openhumans.org/" target="_blank") Open Humans]!
+
+                        a.helpbtn(href="#" id="help-1-1" style="border-width:0px 0px 1px 0px; border-style:solid") Why connect
+                            i.fa.fa-question-circle(aria-hidden="true")
+
+                        +helpLayout(cardId="1" helpId="1" title="Why connect?")
+                            p Connecting with Open Humans enables you to get more granular data from various sources, without any extra effort.
+                            p For example, if the experiment involves running every day, adding Fitbit data gets you detailed information about your run e.g. distance, speed, time, heart rate etc.)
+
+                        br
+                        +gaOhSelectedDataSources(ohDataSourceIdsVar=ohDataSourceIdsVar viewOnly=true)
+
+                        br
+                        div#buttondiv1
+                            a.btn.light-blue#show-me(style="margin-right:20px;") Show me how!
+                            a.grey-text.skip(href="" style="font-weight:100;"): u Skip for now
+
+
+                    div.card#oh-steps(style="padding: 30px 30px 30px 60px; display:none;")
+                        div.row
+                            div.col.m4
+                                ul
+                                    li: p #[b Step 1:] Log in to Open Humans (or create an account if you're new)
+                                    li: p #[b Step 2:] Connect to as many data sources as you can that are required by the experiment you're joining
+                                    li: p #[b Step 3:] Authorize the experiment on Open Humans
+                                div
+                                    a.btn.light-blue#get-started(style="margin-right:20px;" href="{{ohOAuthUrl}}" target="_blank") Get Started!
+                                    a.grey-text.skip(href="" style="font-weight:100;"): u Do this later
+
+                            div.col.m8
+                                //img(src="/images/galileo/open-humans/oh-auth.gif", style='display:block; margin:auto; width:80%;')
+                                img(id="oh-step0" src="/images/galileo/open-humans/steps/oh-auth1.png", style='display:block; margin:auto; width:80%;')
+                                img.hide(id="oh-step1" src="/images/galileo/open-humans/steps/oh-auth2.png", style='display:block; margin:auto; width:80%;')
+                                img.hide(id="oh-step2" src="/images/galileo/open-humans/steps/oh-auth3.png", style='display:block; margin:auto; width:80%;')
+                                img.hide(id="oh-step3" src="/images/galileo/open-humans/steps/oh-auth4.png", style='display:block; margin:auto; width:80%;')
+                                img.hide(id="oh-step4" src="/images/galileo/open-humans/steps/oh-auth5.png", style='display:block; margin:auto; width:80%;')
+                                img.hide(id="oh-step5" src="/images/galileo/open-humans/steps/oh-auth6.png", style='display:block; margin:auto; width:80%;')
+                                img.hide(id="oh-step6" src="/images/galileo/open-humans/steps/oh-auth7.png", style='display:block; margin:auto; width:80%;')
+                                img.hide(id="oh-step7" src="/images/galileo/open-humans/steps/oh-auth8.png", style='display:block; margin:auto; width:80%;')
+                                img.hide(id="oh-step8" src="/images/galileo/open-humans/steps/oh-auth9.png", style='display:block; margin:auto; width:80%;')
+                                img.hide(id="oh-step9" src="/images/galileo/open-humans/steps/oh-auth10.png", style='display:block; margin:auto; width:80%;')
+                                p(style='display:block; margin:auto; text-align:center; font-size:16px') Demo with an example experiment
+
+
+

@@ -1,0 +1,25 @@
+template(name='landing_nav_header')
+    div.landing_nav_header
+        nav.navbar.navbar-default.navbar-static-top
+            div.container
+                //Defining toggle
+                div.navbar-header
+                    button.navbar-toggle.collapsed(type="button", data-toggle="collapse" data-target="#navbar3")
+                        span.sr-only Toggle navigation
+                        span.icon-bar
+                        span.icon-bar
+                        span.icon-bar
+                    a.navbar-brand(href='https://www.google.com')
+                        img(src="/images/logos/logo.png", alt="brand image")
+
+                div#navbar3.navbar-collapse.collapse
+                    ul.nav.navbar-nav.navbar-right
+                        li
+                            a(href="#")
+                                img.img-responsive(src="/images/logos/powered-footer-knight.png")
+                        li
+                            a(href="#")
+                                img.img-responsive(src="/images/logos/footer-agut.png")
+                        li
+                            a(href="#")
+                                img.img-responsive(src="/images/logos/footer-dlab.png")

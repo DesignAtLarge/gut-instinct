@@ -1,0 +1,55 @@
+template(name='articles')
+    +header
+    div(class='container content articles')
+        h4 Gut Articles
+        each articles
+            if isFirst
+                a(href='#{url}', target="_blank", class='article', data-step='6', data-intro='Each box represents an article. Click them to find out more about what each article entails', data-position='right')
+                    .card
+                        .card-image
+                            img(src='#{image}')
+                        .card-content
+                            span(class='card-title') #{title}
+                            p #{snippet}
+                            p(class='article-link') #{by}
+            else
+                a(href='#{url}', target="_blank", class='article')
+                    .card
+                        .card-image
+                            img(src='#{image}')
+                        .card-content
+                            span(class='card-title') #{title}
+                            p #{snippet}
+                            p(class='article-link') #{by}
+        //- a(href='http://www.ted.com/talks/jonathan_eisen_meet_your_microbes', target="_blank", class='article')
+        //-     .card
+        //-         .card-image
+        //-             img(src='/images/articles/article1.png')
+        //-         .card-content
+        //-             span(class='card-title') Meet your microbes
+        //-             p Our bodies are covered in a sea of microbes -- both the pathogens that make us ...
+        //-             p(class='article-link') TED.COM | BY JONATHAN EISEN
+        //- a(href='http://www.newyorker.com/tech/elements/breast-feeding-the-microbiome', target="_blank", class='article')
+        //-     .card
+        //-         .card-image
+        //-             img(src='/images/articles/article2.png')
+        //-         .card-content
+        //-             span(class='card-title') Breast-Feeding the Microbiome - The New Yorker
+        //-             p Why human milk is a scientific marvel.
+        //-             p(class='article-link') NEWYORKER.COM | BY ED YONG
+        //- a(href='https://www.statnews.com/2015/11/13/secret-world-microbiome/', target="_blank", class='article')
+        //-     .card
+        //-         .card-image
+        //-             img(src='/images/articles/article3.png')
+        //-         .card-content
+        //-             span(class='card-title') The Secret World Inside You: hands-on with the microbiome
+        //-             p Dr. Matt McCarthy, an infectious disease doctor at Weill Cornell Medicine, reviews a new exhibit at the American Museum of Natural History on the microbiome
+        //-             p(class='article-link') STATNEWS.COM
+        //- a(href='https://www.theguardian.com/lifeandstyle/2016/aug/01/is-your-gut-making-you-sick', target="_blank", class='article')
+        //-     .card
+        //-         .card-image
+        //-             img(src='/images/articles/article4.png')
+        //-         .card-content
+        //-             span(class='card-title') Is your gut making you sick?
+        //-             p New research suggests that the range and quantity of microbes that live in our guts could have a powerful effect on a range of conditions including depression, MS and obesity
+        //-             p(class='article-link') THEGUARDIAN.COM | BY ANN ROBINSON

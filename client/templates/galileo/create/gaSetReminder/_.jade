@@ -1,0 +1,173 @@
+template(name="gaSetReminder")
+    +cardLayout(heading="Remind participants to take measurements" cardId=cardId stepnumber=stepnumber nextDisabled=nextDisabled backOnly=backOnly timeStamp=timeStamp type=type designId=getDesignId)
+
+
+        p(style="font-size: 26px; font-weight: 400;") Hypothesis:
+            span.blue-text.text-darken-2 #{cause} #{relation} #{effect}
+            i.material-icons.edit-design-btn#edit-hypothesis-reminder mode_edit
+            i.material-icons.edit-design-btn.accept.hide#accept-edit-hypothesis-reminder check
+            i.material-icons.edit-design-btn.cancel.hide#cancel-edit-hypothesis-reminder clear
+
+        div#hypothesis-reminder-editable.hide
+            div.row
+                div.col.s4
+                    p: b.blue-text.text-darken-2(style='font-size: 20px;') Cause
+
+                div.col.s4
+                    p: b.blue-text.text-darken-2(style='font-size: 20px;') Relation
+
+                div.col.s4
+                    p: b.blue-text.text-darken-2(style='font-size: 20px;') Effect
+
+            div.row
+                div.col.s4
+                    input(id ="hypothesis-input-cause2" type='text' value="{{cause}}")
+
+                div.col.s4
+                    input(id ="hypothesis-input-reln2" type='text' value="{{relation}}")
+
+                div.col.s4
+                    input(id ="hypothesis-input-effect2" type='text' value="{{effect}}")
+
+        //div#hypothesis-editable.hide
+            div.row
+                div.col.s4
+                    input#cause-text(type='text' value="{{cause}}")
+
+                div.col.s4
+                    input#relation-text(type='text' value="{{relation}}")
+
+                div.col.s4
+                    input#effect-text(type='text' value="{{effect}}")
+
+            div.row.head
+                div.col.m4 Cause
+                div.col.m4 Relation
+                div.col.m4 Effect
+
+        //p(class='card-title' style='font-size: 26px; font-weight: 100; line-height:45px')
+                span.blue-text.text-darken-2.edit-hypothesis
+                    i.material-icons.editIcon#cause-editIcon(contenteditable="false" style="opacity:0.5") mode_edit
+                    span.editText#cause-editText(contenteditable="true") #{cause}
+
+                span.blue-text.text-darken-2.edit-hypothesis
+                    i.material-icons.editIcon#relation-editIcon(contenteditable="false" style="opacity:0.5") mode_edit
+                    span.editText#relation-editText(contenteditable="true") #{relation}
+
+                span.blue-text.text-darken-2.edit-hypothesis
+                    i.material-icons.editIcon#effect-editIcon(contenteditable="false" style="opacity:0.5") mode_edit
+                    span.editText#effect-editText(contenteditable="true") #{effect}
+
+        br
+
+        p(style='font-size: 20px; font-weight: 100;') All participants will provide data about the cause (
+             span.blue-text.text-darken-2(style='font-weight: bold') #{cause}
+             |) and the effect (
+             span.blue-text.text-darken-2(style='font-weight: bold') #{effect}
+             |) every day for the duration (7 days) of the experiment. At what
+             span(style='font-weight: bold') daily fixed time
+             | should participants receive an automated text message reminder?
+        //br
+        //p(style='font-size: 20px; font-weight: 100;') Think of 
+            span(style='font-weight: bold') a daily fixed time
+            | when people should receive an automated text message reminder.
+        br
+        +gaTimeDropdown(id='cause-time' measureType=causeMeasureType measureItem=cause time=causeTimeVar)
+
+        if causeTimeExists
+            p(style='font-size: 16px; font-weight: 100;')
+                b Please 
+                    span.red-text edit 
+                    | the content for the reminder text message to track 
+                    span.blue-text.text-darken-2 #{cause} 
+                    | at 
+                    span.blue-text.text-darken-2 #{causeTimeText}
+            div.input-field
+                i.material-icons.prefix mode_edit
+                if causeMessageExists
+                    textarea#causeReminderTextArea.materialize-textarea.blue-grey.lighten-4(style="width:85%; padding: 20px")
+                        | {{causeMessage}}
+                else 
+                    textarea#causeReminderTextArea.materialize-textarea.blue-grey.lighten-4(style="width:85%; padding: 20px")
+                        | Hello from #{username}! This is your #{causeTimeText} reminder to measure "#{cause}" today.
+                        | &nbsp;
+                        | #{causeReminderQuestion} #{focusCause}
+
+        +gaTimeDropdown(id='effect-time' measureType=effectMeasureType measureItem=effect time=effectTimeVar)
+
+
+        if effectTimeExists
+            //p Participants will get a reminder text message at #{effectTimeText} with the following text. Customize it if there's something missing.
+            p(style='font-size: 16px; font-weight: 100;')
+                b Please 
+                    span.red-text edit 
+                    | the content for the reminder text message to track 
+                    span.blue-text.text-darken-2 #{effect} 
+                    | at 
+                    span.blue-text.text-darken-2 #{effectTimeText}
+            div.input-field
+                i.material-icons.prefix mode_edit
+                if effectMessageExists
+                    textarea#effectReminderTextArea.materialize-textarea.blue-grey.lighten-4(style="width:85%; padding: 20px")
+                        | {{effectMessage}} 
+                else
+                    textarea#effectReminderTextArea.materialize-textarea.blue-grey.lighten-4(style="width:85%; padding: 20px")
+                        | Hello from #{username}! This is your #{effectTimeText} reminder to measure "#{effect}" today.
+                        | &nbsp;
+                        | #{effectReminderQuestion} #{focusEffect}
+
+        //+gaVideoLearnLayout(videoTitle="copy text from elsewhere" videoUrl="https://www.youtube.com/embed/1Qh-CS_GFBk" videoSrc="coursera.org/learn/designexperiments")
+
+        br
+        div.valid-time(class="{{#if hideValidTime}}hide{{/if}}")
+            p(style="font-size: 20px; font-weight: 100;") Before proceeding, please make sure that ... 
+                ul.variable-checklist(style="list-style: none")
+                    li
+                        input.check(style="float: right" type="checkbox" class="filled-in" id="best-scientific")
+                        label(for="best-scientific" class="blue-text text-darken-2" style='font-size: 20px; font-weight: 100; font-color: black')
+                            span the times selected by you are 
+                            span
+                                a.helpbtn(href="#" id="help-#{cardId}-1" style="border-width:0px 0px 1px 0px; border-style:solid") appropriate
+                                    i.fa.fa-question-circle(aria-hidden="true")
+                                //a.helpbtn(href="#" id="help-#{cardId}-1" style="border-width:0px 0px 1px 0px; border-style:solid") specific#[sup ?]
+                            br
+                            +helpLayout(cardId=cardId helpId="1" title="The best time to send a reminder is during/after the event being tracked." learnLink="")
+                                br
+                                p #[b Example]: {{getExamples '5-0-0'}} #[b {{getExamples '5-0-1'}} ] {{getExamples '5-0-2'}} #[b {{getExamples '5-0-3'}} ]  {{getExamples '5-0-4'}} #[b {{getExamples '5-0-5'}}]  {{getExamples '5-0-6'}} 
+                                
+
+
+                    li
+                        input.check(style="float: right" type="checkbox" class="filled-in" id="best-participants")
+                        label(for="best-participants" class="blue-text text-darken-2" style='font-size: 20px; font-weight: 100; font-color: black')
+                            span the times selected by you are
+                            span
+                                a.helpbtn(href="#" id="help-#{cardId}-2" style="border-width:0px 0px 1px 0px; border-style:solid") convenient
+                                    i.fa.fa-question-circle(aria-hidden="true")
+                                //a.helpbtn(href="#" id="help-#{cardId}-2" style="border-width:0px 0px 1px 0px; border-style:solid") specific#[sup ?]
+                            br
+                            +helpLayout(cardId=cardId helpId="2" title="Might participants find it difficult to provide the information at the times selected by you?" learnLink="")
+                                br
+                                p {{getExamples '5-1-0'}}
+                                br
+                                p #[b Example]: {{getExamples '5-1-1'}} 
+                                br
+                                p #[b Fix]: {{getExamples '5-1-2'}}
+
+                    li
+                        input.check(style="float: right" type="checkbox" class="filled-in" id="best-text")
+                        label(for="best-text" class="blue-text text-darken-2" style='font-size: 20px; font-weight: 100; font-color: black')
+                            span the reminder text message
+                            span
+                                a.helpbtn(href="#" id="help-#{cardId}-3" style="border-width:0px 0px 1px 0px; border-style:solid") can be understood
+                                    i.fa.fa-question-circle(aria-hidden="true")
+                                //a.helpbtn(href="#" id="help-#{cardId}-2" style="border-width:0px 0px 1px 0px; border-style:solid") specific#[sup ?]
+                            br
+                            +helpLayout(cardId=cardId helpId="3" title="Will participants be able to easily read the text messages?" learnLink="")
+                                br
+                                p {{getExamples '5-2-0'}}
+                                br
+                                p #[b Bad Example]: {{getExamples '5-2-1'}} 
+                                br
+                                p #[b Fix]: {{getExamples '5-2-2'}}
+                                

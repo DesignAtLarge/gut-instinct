@@ -1,0 +1,151 @@
+template(name='entrance')
+    .animateme
+      ul.bg-bubbles
+        li
+        li
+        li
+        li
+        li
+        li
+        li
+        li
+        li
+        li
+        li
+        li
+        li
+    nav(style='display: none;')
+        div(class='nav-wrapper light-blue darken-4')
+    div(class='container content gutboard' style='max-width: 750px;')
+        //h2(class='animated fadeIn light-blue-text text-darken-4' style='') 
+        img(src='/images/logos/gi_basic_light_bg.png' height='100')
+        br
+        br
+        h5(class='animated fadeIn light-blue-text text-darken-4' style='text-align: left;') Select the appropriate community to join below to learn about the gut microbiome and ask and answer questions to help researchers.
+        br
+        br
+        
+        .row
+            //.col.s12.m6
+                .card.blue-grey.darken-1
+                    .card-content.white-text
+                        span.card-title(style='font-weight: 600') GENERAL
+                        p
+                            | Collaborate with other gut scientists and experts over the human microbiome.
+                    .card-action
+                        if isGuideCompleted
+                            a(href='/gutboard/General' onclick='if(window.location.href.indexOf("gutboard_slider_addq") > -1){sessionStorage.setItem("mendelcode", "General"); window.location.href = "/gutboard_slider_addq";}') Enter
+                        else
+                            a(href='/t/introduction' onclick='sessionStorage.setItem("mendelcode", "General");') Enter
+            // EXPERIMENT 1
+            .col.s12.m12
+                .card.w3-highway-blue.darken-1
+                    .card-content.white-text
+                        span.card-title(style='font-weight: 600;') 
+                            // | American Gut Project
+                            img(src='/images/logos/agp.png', height='70', style='padding-top: 5px;')
+
+                            span.new.badge.light-blue.darken-4(data-badge-caption='' style='margin-top: 5px; margin-left: -1000px;') Questions: {{getNewQuestionCountsbyCondition "AmericanGutProject"}}
+                            span.new.badge.light-blue.darken-4(data-badge-caption='' style='margin-top: 5px; margin-left: -1000px; margin-right: 90px') Users: {{getUsersCounts "AmericanGutProject"}}
+                        p
+                            | Welcome to the general board! Please share your any or all of your insights here and receive feedback from the American Gut community   
+                            a(href='#' onclick="$('#AGPINFO').toggle()" class="light-blue-text") (?)
+                        p(id="AGPINFO" style="display: none;")
+                            | The American Gut Project is a crowd sourced, citizen science development seeking to shed light 
+                            br
+                            | on the connections between the human microbiome and health.
+                    .card-action
+                        if isIntroCompleted
+                            a(href='/gutboard/AmericanGutProject' onclick='localStorage.setItem("position-" + "AmericanGutProject", 0); sessionStorage.setItem("mendelcode", "AmericanGutProject");') Enter <i class="fa fa-sign-in" aria-hidden="true"></i>
+                        else
+                            unless tookPretest
+                                a(href='/trial' onclick='localStorage.setItem("position-" + "AmericanGutProject", 0); sessionStorage.setItem("mendelcode", "AmericanGutProject");') Enter <i class="fa fa-sign-in" aria-hidden="true"></i>
+                            else
+                                a(href='/guide' onclick='localStorage.setItem("position-" + "AmericanGutProject", 0); sessionStorage.setItem("mendelcode", "AmericanGutProject");') Enter <i class="fa fa-sign-in" aria-hidden="true"></i>
+
+            // EXPERIMENT 2
+            //.col.s12.m12
+                .card.w3-highway-blue.darken-1
+                    .card-content.white-text
+                        span.card-title(style='font-weight: 600;') American Gut Project
+                            span.new.badge.light-blue.darken-4(data-badge-caption='' style='margin-top: 5px; margin-left: -1000px;') Questions: {{getNewQuestionCountsbyCondition "AmericanGutProjectEXP2"}}
+                            span.new.badge.light-blue.darken-4(data-badge-caption='' style='margin-top: 5px; margin-left: -1000px; margin-right: 90px') Users: {{getUsersCounts "AmericanGutProjectEXP2"}}
+                        p
+                            | Welcome to the general board! Please share your any or all of your insights here and receive feedback from the American Gut community   
+                            a(href='#' onclick="$('#AGPINFO').toggle()" class="light-blue-text") (?)
+                        p(id="AGPINFO" style="display: none;")
+                            | The American Gut Project is a crowd sourced, citizen science development seeking to shed light 
+                            br
+                            | on the connections between the human microbiome and health.
+                    .card-action
+                        if isGuideCompleted
+                            a(href='/gutboard/AmericanGutProject' onclick='localStorage.setItem("position-" + "AmericanGutProjectEXP2", 0); sessionStorage.setItem("mendelcode", "AmericanGutProjectEXP2");') Enter <i class="fa fa-sign-in" aria-hidden="true"></i>
+                        else
+                            a(href='/trial' onclick='localStorage.setItem("position-" + "AmericanGutProjectEXP2", 0); sessionStorage.setItem("mendelcode", "AmericanGutProjectEXP2");') Enter <i class="fa fa-sign-in" aria-hidden="true"></i>
+
+        //.row
+            .col.s12.m12
+                .card.w3-highway-blue.darken-1
+                    .card-content.white-text
+                        span.card-title(style='font-weight: 600') Inflammatory Bowel Disease
+                            span.new.badge.light-blue.darken-4(data-badge-caption='' style='margin-top: 5px; margin-left: -1000px;') Questions: {{getNewQuestionCountsbyCondition "IBD"}}
+                            span.new.badge.light-blue.darken-4(data-badge-caption='' style='margin-top: 5px; margin-left: -1000px; margin-right: 90px') Users: {{getUsersCounts "IBD"}}
+                        p
+                            | If you suffer from inflammatory bowel disease, click here to share your insights and hear from peers.
+                            a(href='#' onclick="$('#IBDINFO').toggle()" class="light-blue-text") (?)
+                        p(id="IBDINFO" style="display: none;")
+                            | Inflammatory bowel disease is a group of inflammatory conditions affecting the colon and small intestine.
+                    .card-action
+                        if isGuideCompleted
+                            a(href='/gutboard/IBD' onclick='localStorage.setItem("position-" + "IBD", 0); sessionStorage.setItem("mendelcode", "IBD");') Enter <i class="fa fa-sign-in" aria-hidden="true"></i>
+                        else
+                            a(href='/trial' onclick='localStorage.setItem("position-" + "IBD", 0); sessionStorage.setItem("mendelcode", "IBD");') Enter <i class="fa fa-sign-in" aria-hidden="true"></i>
+
+        //.row
+            .col.s12.m12
+                .card.w3-highway-blue.darken-1
+                    .card-content.white-text
+                        span.card-title(style='font-weight: 600') Type 1 Diabetes
+                            span.new.badge.light-blue.darken-4(data-badge-caption='' style='margin-top: 5px; margin-left: -1000px;') Questions: {{getNewQuestionCountsbyCondition "DIABETES"}}
+                            span.new.badge.light-blue.darken-4(data-badge-caption='' style='margin-top: 5px; margin-left: -1000px; margin-right: 90px') Users: {{getUsersCounts "DIABETES"}}
+                        p
+                            | If you suffer from type 1 diabetes, click here to share your insights and hear from peers.
+                            a(href='#' onclick="$('#DIABINFO').toggle()" class="light-blue-text") (?)
+                        p(id="DIABINFO" style="display: none;")
+                            | Over 16 million Americans suffer from diabetes, a condition where blood sugar levels can run high due to lack of insulin.
+                    .card-action
+                        if isGuideCompleted
+                            a(href='/gutboard/DIABETES' onclick='localStorage.setItem("position-" + "DIABETES", 0); sessionStorage.setItem("mendelcode", "DIABETES");') Enter <i class="fa fa-sign-in" aria-hidden="true"></i>
+                        else
+                            a(href='/trial' onclick='localStorage.setItem("position-" + "DIABETES", 0); sessionStorage.setItem("mendelcode", "DIABETES");') Enter <i class="fa fa-sign-in" aria-hidden="true"></i>
+
+
+        //.row
+            .col.s12.m6
+                .card.blue-grey.darken-1
+                    .card-content.white-text
+                        span.card-title(style='font-weight: 600') HDE2017
+                        p
+                            | Collaborate from the Health Data Exploration meeting.
+                            | The HDE project is being undertaken by Calit2.
+                    .card-action
+                        if isGuideCompleted
+                            a(href='/gutboard/HDE2017' onclick='if(window.location.href.indexOf("gutboard_slider_addq") > -1){sessionStorage.setItem("mendelcode", "HDE2017"); window.location.href = "/gutboard_slider_addq";}') Enter Platform
+                            a(href='mailto:gutinstinct@ucsd.edu') Contact Admin
+                        else 
+                            a(href='/t/introduction' onclick='sessionStorage.setItem("mendelcode", "HDE2017");') Enter Platform
+                            a(href='mailto:gutinstinct@ucsd.edu') Contact Admin
+
+            .col.s12.m6
+                .card.blue-grey.darken-1
+                    .card-content.white-text
+                        span.card-title(style='font-weight: 600') DDW2017
+                        p
+                            | Collaborate from the Digestive Disease Week 2017. DDW is the first and foremost GI event in the world.
+                    .card-action
+                        if isGuideCompleted
+                            a(href='/gutboard/DDW2017' onclick='if(window.location.href.indexOf("gutboard_slider_addq") > -1){sessionStorage.setItem("mendelcode", "DDW2017"); window.location.href = "/gutboard_slider_addq";}') Enter Platform
+                            a(href='mailto:gutinstinct@ucsd.edu') Contact Admin
+                        else 
+                            a(href='/t/introduction' onclick='sessionStorage.setItem("mendelcode", "DDW2017");') Enter Platform
+                            a(href='mailto:gutinstinct@ucsd.edu') Contact Admin

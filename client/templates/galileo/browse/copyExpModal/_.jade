@@ -1,0 +1,16 @@
+template(name="gaCopyExpModal")
+    div.modal(id="copy-exp-modal")
+
+        div(style="color:rgba(0,0,0,.54);background:rgba(0,0,0,.03); padding:15px;")
+            h4.left-align
+                | Before copying the experiment
+
+        div.modal-content
+            p(style="font-size: 22px; font-weight: 500;") Copy Policy
+            p(style="font-size: 18px; font-weight: 500;") 1. Lorem ipsum
+            p(style="font-size: 18px; font-weight: 500;") 2. Lorem ipsum
+            p(style="font-size: 18px; font-weight: 500;") 3. Lorem ipsum
+            p(style="font-size: 18px; font-weight: 500;") Click this button if you want to copy this experiment
+            a.btn.light-blue.darken-4#copy-exp-btn(href="#") Copy this experiment
+        div.modal-footer
+            a.gray-text(class="modal-action modal-close btn-flat") Close

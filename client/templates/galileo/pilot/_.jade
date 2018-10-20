@@ -1,0 +1,144 @@
+template(name="gaPilot")
+    div.mask#start-pilot-mask(style="display: none")
+        p Starting Pilot...
+    +gaNavbar
+    main#ga-main
+        div.wrapper
+            h4.board-header 
+                a.btn.btn-sm.light-blue.darken-4(href="/galileo/browse") 
+                    i.fa.fa-angle-left
+                    | BACK
+                | Piloting an Experiment
+            ul#ga-pilot-steps
+                li.pilot-step(class="{{#if isCurrentStep 1}}active{{/if}} {{#if visited 1}}visited{{/if}}")
+                    div.pilot-step-header
+                        span.pilot-step-number 1
+                        span.pilot-step-header Intro: Why be a Pilot user of an experiment?
+                    div.pilot-step-body
+                        div.card
+                            p Before running any experiment with all of the participants, it's a good idea to run a pilot study with a smaller set. 
+                                |  The goal of running a pilot is to catch any bugs in the experiment.
+                            p Therefore, the role of a pilot user is to provide candid feedback based on their experience in the pilot study. Galileo provides a step-by-step guide for piloting an experiment.
+                            div.btns
+                                button.btn.light-blue.next-step Next
+                li.pilot-step(class="{{#if isCurrentStep 2}}active{{/if}} {{#if visited 2}}visited{{/if}}")
+                    div.pilot-step-header
+                        span.pilot-step-number 2
+                        span.pilot-step-header Intro: How do you become a pilot user in Galileo?
+                    div.pilot-step-body
+                        div.card
+                            p The following steps tells you how to be a useful pilot.
+                            ul#intro-run
+                                li 
+                                    strong Step 1. 
+                                    | Sign up as a Pilot user
+                                //    | Run pilot for all conditions (experimental 
+                                    | as well as control conditions)
+                                li 
+                                    strong Step 2. 
+                                    | Follow experimental steps as exactly provided by Galileo. (Remember a pilot user emulates an experiment participant)
+                                li 
+                                    strong Step 3. 
+                                    | Record your experimental data by responding to the text messages or enter
+                                    | your data directly in Galileo for the pilot duration (usually two days)
+                                li
+                                    strong Step 4. 
+                                    | After the pilot ends, provide 
+                                    b clear, actionable feedback 
+                                    | about what worked well and what can be improved to run a successful experiment
+                                //li 
+                                    strong Step 4. 
+                                    | Look at your data at the end of the pilot and either add
+                                    | nuance to your experiment design or provide review comments on how
+                                    | might the experiment design be improved.
+                                //li 
+                                    strong Step 5. 
+                                    | Look at other's reviews, discuss your thoughts with their
+                                    | responses and make changes to the experiment.
+                                //li 
+                                    strong Step 6. 
+                                    | Repeat on the other condition from Step 2 and run pilot 
+                                    | for multiple times to finally make the experiment a well-designed
+                                    | experiment.
+                            div.btns
+                                button.btn.light-blue.prev-step Prev
+                                button.btn.light-blue.next-step Next
+                li.pilot-step(class="{{#if isCurrentStep 3}}active{{/if}} {{#if visited 3}}visited{{/if}}")
+                    div.pilot-step-header
+                        span.pilot-step-number 3
+                        span.pilot-step-header Select a condition group to pilot
+                    div.pilot-step-body
+                        div.card
+                            p Please choose a condition group from the following control group and 
+                                | experimental group. You will need to follow the steps every day
+                                | to do the experiment.
+                            ul#pilot-select
+                                li.pilot-group-choice(class="{{#unless controlAvailable}}disabled{{/unless}}" data-value="0")
+                                    i.fa.fa-cogs
+                                    p.title Control Group
+                                    p.condition #{controlCondition}
+                                    p.title Steps
+                                    ol.steps
+                                        each step in controlSteps
+                                            li #{step.index}. #{step.step}
+                                    unless controlAvailable
+                                        p(style="color: red") The control condition is now piloting by another user.
+                                li.pilot-group-choice(class="{{#unless experimentalAvailable}}disabled{{/unless}}" data-value="1")
+                                    i.fa.fa-flask
+                                    p.title Experimental Group
+                                    p.condition #{experimentalCondition}
+                                    p.title Steps
+                                    ol.steps
+                                        each step in experimentalSteps
+                                            li #{step.index}. #{step.step}
+                                    unless experimentalAvailable
+                                        p(style="color: red") The experimental condition is now piloting by another user.
+                            center.btns
+                                button.btn.light-blue.prev-step Prev
+                                button.btn.light-blue.next-step#group-choice-submit(class="{{#if groupDisabled}}disabled{{/if}}" href="#") Confirm Choice
+                li.pilot-step(class="{{#if isCurrentStep 4}}active{{/if}} {{#if visited 4}}visited{{/if}}")
+                    div.pilot-step-header
+                        span.pilot-step-number 4
+                        span.pilot-step-header Select the duration of the pilot
+                    div.pilot-step-body
+                        div.card
+                            p Please tell us how many days would you like to run this pilot.
+                            div.input-field.col.s12
+                                select#duration-select
+                                    option(value="" disabled selected) Choose your option
+                                    option(value="1") 1 Day
+                                    option(value="2") 2 Days
+                                    option(value="3") 3 Days
+                            div.btns
+                                button.btn.light-blue.prev-step Prev
+                                button.btn.light-blue.next-step#duration-choice-submit(class="{{#if durationDisabled}}disabled{{/if}}") Confirm Choice
+                            
+                li.pilot-step(class="{{#if isCurrentStep 5}}active{{/if}} {{#if visited 5}}visited{{/if}}")
+                    div.pilot-step-header
+                        span.pilot-step-number 5
+                        span.pilot-step-header Select the start date of the pilot
+                    div.pilot-step-body
+                        div.card
+                            p When would you like to start this pilot:
+                            input.datepicker#start-date-input(type="text")
+
+                            unless dateDisabled
+                                p Experiment period
+                                    | : From
+                                    strong {{startDate}}
+                                    | to
+                                    strong {{endDate}}
+
+
+                            div.btns
+                                button.btn.light-blue.prev-step Prev
+                                button.btn.light-blue#date-choice-submit(class="{{#if dateDisabled}}disabled{{/if}}") Confirm Choice
+                li.pilot-step(class="{{#if isCurrentStep 6}}active{{/if}} {{#if visited 6}}visited{{/if}}")
+                    div.pilot-step-header
+                        span.pilot-step-number 6
+                        span.pilot-step-header Complete
+                    div.pilot-step-body
+                        div.card
+                            p Great! Now you have successfully started the pilot! Please
+                                a(href="/galileo/me/experiment/{{id}}") click here
+                                | to go to the experiment detail

@@ -1,0 +1,46 @@
+template(name="gaExperimentDesignCriteria")
+    
+    hr.summary-hr
+    
+    div.dual-section
+        div.design-section.column#criteria-exclusion-block(class="{{#if focusingExclusion}}active{{/if}}")
+            span(style="font-size: 20px; font-weight: 400;") Exclusion Criteria
+            if allowEdits
+                i.material-icons.edit-design-btn#edit-exclusion mode_edit
+                i.material-icons.edit-design-btn.accept.hide#accept-edit-exclusion check
+                i.material-icons.edit-design-btn.cancel.hide#cancel-edit-exclusion clear
+
+            p(style="font-size: 12px; font-weight: 100; color: rgba(208, 14, 14, 1)") (No participant should meet ANY of the following criteria)
+
+            div#exclusion-div
+                if hasExclusionCriteria
+                    ol.criteria-list
+                        each criteria in exclusionCriteria
+                            li #{criteria}
+                else
+                    p.blue-text.text-darken-2(style="font-size: 16px; font-weight: 100; margin-top: 15px;") None
+
+            if allowEdits
+                div#exclusion-editable.hide
+                    +checklist(id='exclusion' checklistItems=editableExclusionCriteria exclude=true criteria="-criteria")
+        div.vert
+        div.design-section.column#criteria-inclusion-block(class="{{#if focusingInclusion}}active{{/if}}")
+            span(style="font-size: 20px; font-weight: 400;") Inclusion Criteria
+            if allowEdits
+                i.material-icons.edit-design-btn#edit-inclusion mode_edit
+                i.material-icons.edit-design-btn.accept.hide#accept-edit-inclusion check
+                i.material-icons.edit-design-btn.cancel.hide#cancel-edit-inclusion clear
+
+            p(style="font-size: 12px; font-weight: 100; color: rgba(0, 203, 20, 1)") (Every participant must meet EACH of the following criteria)
+
+            div#inclusion-div
+                if hasInclusionCriteria
+                    ol.criteria-list
+                        each criteria in inclusionCriteria
+                            li #{criteria}
+                else
+                    p.blue-text.text-darken-2(style="font-size: 16px; font-weight: 100; margin-top: 15px;") None
+
+            if allowEdits
+                div#inclusion-editable.hide
+                    +checklist(id='inclusion' checklistItems=editableInclusionCriteria include=true criteria="-criteria")

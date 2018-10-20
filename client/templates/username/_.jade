@@ -1,0 +1,446 @@
+template(name='username')
+    nav(style='display: none;')
+    |{{init}}
+    div(class='container content topics', style='max-width:750px')
+        //h2(class='animated fadeIn light-blue-text text-darken-4' style='') Before we begin
+
+        div#ga-username(class='card', style='margin-top: 5%;')
+            br
+            div(style='margin-left: 10%; margin-right: 10%')
+                h5(class='animated fadeIn' style='margin-top: 20px;') Profile
+            .card-content(style="margin-right: 30px;")
+                form(class='row', style="text-align: left")
+
+                    if preEnterName
+                        .input-field.col.s12
+                            i.material-icons.prefix(style="margin-top: 10px;") account_circle
+                            input(id='userNameAnswerText', class='', placeholder='Enter your username', disabled, value='{{getCurrentName}}', style="margin-left: 50px;")
+                    else
+                        .input-field.col.s12
+                            i.material-icons.prefix(style="margin-top: 10px;") account_circle
+                            input(id='userNameAnswerText', class='', placeholder='Enter your username', required, style="margin-left: 50px;")
+                    br
+                    br
+                    if notGalileo
+                        h6(class='animated fadeIn' style='margin-left: 9%; margin-top: 20px; text-align: left;') GutInstinct identifies you in your GutInstinct activity using your username. Usernames can only be chosen once, so make it unique.
+                    else
+                        h6(class='animated fadeIn' style='margin-left: 9%; margin-top: 20px; text-align: left;') Galileo identifies you in your Galileo activity using your username. Usernames can only be chosen once, so make it unique.
+                    br
+                    br
+
+
+                    if preEmail
+                        .input-field.col.s12
+                            i.material-icons.prefix(style="margin-top: 10px;") email
+                            input(id='emailAnswerText', class='', placeholder='Provide your email', value='{{getEmail}}', style="margin-left: 50px;")
+                    else
+                        .input-field.col.s12
+                            i.material-icons.prefix(style="margin-top: 10px;") email
+                            input(id='emailAnswerText', class='', placeholder='Provide your email (recommended)', style="margin-left: 50px; padding-left: 20px")
+                    br
+                    br
+                    if notGalileo
+                        h6(class='animated fadeIn' style='margin-left: 9%; margin-top: 30px; text-align: left;') E-mail updates include feedback from peers and experts! Galileo will only send you e-mails that help you learn more about designing experiments.
+                    else
+                        h6(class='animated fadeIn' style='margin-left: 9%; margin-top: 30px; text-align: left;') E-mail updates include feedback from peers and experts! Gut Instinct will only send you e-mails that help you learn more about designing experiments.
+                    br
+                    br
+
+                    if notGalileo
+                        h6(class='animated fadeIn' style='margin-left: 9%; margin-top: 30px; text-align: left;') If you have participated in American Gut Project...
+                        if preAGID
+                            .input-field.col.s12
+                                i.material-icons.prefix(style="margin-top: 10px;") swap_vertical_circle
+                                input(id='agidText', class='', placeholder='Please enter your 9-digit American Gut barcode here (this is NOT your Gut Instinct login ID)', value='{{getAGID}}', style="margin-left: 50px;")
+                        else
+                            .input-field.col.s12
+                                i.material-icons.prefix(style="margin-top: 10px;") swap_vertical_circle
+                                input(id='agidText', class='', placeholder='Please enter your 9-digit American Gut barcode here (this is NOT your Gut Instinct login ID)', style="margin-left: 50px;")
+                        br
+                        br
+                        h6(class='animated fadeIn' style='margin-left: 9%; text-align: left;') Researchers can better understand your data and create a customized version of Gut Instinct for you! You can find your 9-digit American Gut barcode (0000xxxxx) at your American Gut homepage. Please add the stool site barcode. <a href='https://www.microbio.me/AmericanGut/authed/portal/'>(microbio.me)</a>
+                    if isGalileo
+                        .row(style="margin-left: 0px")
+                            .input-field.col.s12
+                                i.material-icons.prefix flag
+                                select#ga-country(style="margin-left: 50px", value="{{getCountry}}")
+                                   option(value='0', selected='', disabled='') Current country of residence
+                                   option(value='AFG') Afghanistan
+                                   option(value='ALA') Åland Islands
+                                   option(value='ALB') Albania
+                                   option(value='DZA') Algeria
+                                   option(value='ASM') American Samoa
+                                   option(value='AND') Andorra
+                                   option(value='AGO') Angola
+                                   option(value='AIA') Anguilla
+                                   option(value='ATA') Antarctica
+                                   option(value='ATG') Antigua and Barbuda
+                                   option(value='ARG') Argentina
+                                   option(value='ARM') Armenia
+                                   option(value='ABW') Aruba
+                                   option(value='AUS') Australia
+                                   option(value='AUT') Austria
+                                   option(value='AZE') Azerbaijan
+                                   option(value='BHS') Bahamas
+                                   option(value='BHR') Bahrain
+                                   option(value='BGD') Bangladesh
+                                   option(value='BRB') Barbados
+                                   option(value='BLR') Belarus
+                                   option(value='BEL') Belgium
+                                   option(value='BLZ') Belize
+                                   option(value='BEN') Benin
+                                   option(value='BMU') Bermuda
+                                   option(value='BTN') Bhutan
+                                   option(value='BOL') Bolivia, Plurinational State of
+                                   option(value='BES') Bonaire, Sint Eustatius and Saba
+                                   option(value='BIH') Bosnia and Herzegovina
+                                   option(value='BWA') Botswana
+                                   option(value='BVT') Bouvet Island
+                                   option(value='BRA') Brazil
+                                   option(value='IOT') British Indian Ocean Territory
+                                   option(value='BRN') Brunei Darussalam
+                                   option(value='BGR') Bulgaria
+                                   option(value='BFA') Burkina Faso
+                                   option(value='BDI') Burundi
+                                   option(value='KHM') Cambodia
+                                   option(value='CMR') Cameroon
+                                   option(value='CAN') Canada
+                                   option(value='CPV') Cape Verde
+                                   option(value='CYM') Cayman Islands
+                                   option(value='CAF') Central African Republic
+                                   option(value='TCD') Chad
+                                   option(value='CHL') Chile
+                                   option(value='CHN') China
+                                   option(value='CXR') Christmas Island
+                                   option(value='CCK') Cocos (Keeling) Islands
+                                   option(value='COL') Colombia
+                                   option(value='COM') Comoros
+                                   option(value='COG') Congo
+                                   option(value='COD') Congo, the Democratic Republic of the
+                                   option(value='COK') Cook Islands
+                                   option(value='CRI') Costa Rica
+                                   option(value='CIV') Côte d'Ivoire
+                                   option(value='HRV') Croatia
+                                   option(value='CUB') Cuba
+                                   option(value='CUW') Curaçao
+                                   option(value='CYP') Cyprus
+                                   option(value='CZE') Czech Republic
+                                   option(value='DNK') Denmark
+                                   option(value='DJI') Djibouti
+                                   option(value='DMA') Dominica
+                                   option(value='DOM') Dominican Republic
+                                   option(value='ECU') Ecuador
+                                   option(value='EGY') Egypt
+                                   option(value='SLV') El Salvador
+                                   option(value='GNQ') Equatorial Guinea
+                                   option(value='ERI') Eritrea
+                                   option(value='EST') Estonia
+                                   option(value='ETH') Ethiopia
+                                   option(value='FLK') Falkland Islands (Malvinas)
+                                   option(value='FRO') Faroe Islands
+                                   option(value='FJI') Fiji
+                                   option(value='FIN') Finland
+                                   option(value='FRA') France
+                                   option(value='GUF') French Guiana
+                                   option(value='PYF') French Polynesia
+                                   option(value='ATF') French Southern Territories
+                                   option(value='GAB') Gabon
+                                   option(value='GMB') Gambia
+                                   option(value='GEO') Georgia
+                                   option(value='DEU') Germany
+                                   option(value='GHA') Ghana
+                                   option(value='GIB') Gibraltar
+                                   option(value='GRC') Greece
+                                   option(value='GRL') Greenland
+                                   option(value='GRD') Grenada
+                                   option(value='GLP') Guadeloupe
+                                   option(value='GUM') Guam
+                                   option(value='GTM') Guatemala
+                                   option(value='GGY') Guernsey
+                                   option(value='GIN') Guinea
+                                   option(value='GNB') Guinea-Bissau
+                                   option(value='GUY') Guyana
+                                   option(value='HTI') Haiti
+                                   option(value='HMD') Heard Island and McDonald Islands
+                                   option(value='VAT') Holy See (Vatican City State)
+                                   option(value='HND') Honduras
+                                   option(value='HKG') Hong Kong
+                                   option(value='HUN') Hungary
+                                   option(value='ISL') Iceland
+                                   option(value='IND') India
+                                   option(value='IDN') Indonesia
+                                   option(value='IRN') Iran, Islamic Republic of
+                                   option(value='IRQ') Iraq
+                                   option(value='IRL') Ireland
+                                   option(value='IMN') Isle of Man
+                                   option(value='ISR') Israel
+                                   option(value='ITA') Italy
+                                   option(value='JAM') Jamaica
+                                   option(value='JPN') Japan
+                                   option(value='JEY') Jersey
+                                   option(value='JOR') Jordan
+                                   option(value='KAZ') Kazakhstan
+                                   option(value='KEN') Kenya
+                                   option(value='KIR') Kiribati
+                                   option(value='PRK') Korea, Democratic People's Republic of
+                                   option(value='KOR') Korea, Republic of
+                                   option(value='KWT') Kuwait
+                                   option(value='KGZ') Kyrgyzstan
+                                   option(value='LAO') Lao People's Democratic Republic
+                                   option(value='LVA') Latvia
+                                   option(value='LBN') Lebanon
+                                   option(value='LSO') Lesotho
+                                   option(value='LBR') Liberia
+                                   option(value='LBY') Libya
+                                   option(value='LIE') Liechtenstein
+                                   option(value='LTU') Lithuania
+                                   option(value='LUX') Luxembourg
+                                   option(value='MAC') Macao
+                                   option(value='MKD') Macedonia, the former Yugoslav Republic of
+                                   option(value='MDG') Madagascar
+                                   option(value='MWI') Malawi
+                                   option(value='MYS') Malaysia
+                                   option(value='MDV') Maldives
+                                   option(value='MLI') Mali
+                                   option(value='MLT') Malta
+                                   option(value='MHL') Marshall Islands
+                                   option(value='MTQ') Martinique
+                                   option(value='MRT') Mauritania
+                                   option(value='MUS') Mauritius
+                                   option(value='MYT') Mayotte
+                                   option(value='MEX') Mexico
+                                   option(value='FSM') Micronesia, Federated States of
+                                   option(value='MDA') Moldova, Republic of
+                                   option(value='MCO') Monaco
+                                   option(value='MNG') Mongolia
+                                   option(value='MNE') Montenegro
+                                   option(value='MSR') Montserrat
+                                   option(value='MAR') Morocco
+                                   option(value='MOZ') Mozambique
+                                   option(value='MMR') Myanmar
+                                   option(value='NAM') Namibia
+                                   option(value='NRU') Nauru
+                                   option(value='NPL') Nepal
+                                   option(value='NLD') Netherlands
+                                   option(value='NCL') New Caledonia
+                                   option(value='NZL') New Zealand
+                                   option(value='NIC') Nicaragua
+                                   option(value='NER') Niger
+                                   option(value='NGA') Nigeria
+                                   option(value='NIU') Niue
+                                   option(value='NFK') Norfolk Island
+                                   option(value='MNP') Northern Mariana Islands
+                                   option(value='NOR') Norway
+                                   option(value='OMN') Oman
+                                   option(value='PAK') Pakistan
+                                   option(value='PLW') Palau
+                                   option(value='PSE') Palestinian Territory, Occupied
+                                   option(value='PAN') Panama
+                                   option(value='PNG') Papua New Guinea
+                                   option(value='PRY') Paraguay
+                                   option(value='PER') Peru
+                                   option(value='PHL') Philippines
+                                   option(value='PCN') Pitcairn
+                                   option(value='POL') Poland
+                                   option(value='PRT') Portugal
+                                   option(value='PRI') Puerto Rico
+                                   option(value='QAT') Qatar
+                                   option(value='REU') Réunion
+                                   option(value='ROU') Romania
+                                   option(value='RUS') Russian Federation
+                                   option(value='RWA') Rwanda
+                                   option(value='BLM') Saint Barthélemy
+                                   option(value='SHN') Saint Helena, Ascension and Tristan da Cunha
+                                   option(value='KNA') Saint Kitts and Nevis
+                                   option(value='LCA') Saint Lucia
+                                   option(value='MAF') Saint Martin (French part)
+                                   option(value='SPM') Saint Pierre and Miquelon
+                                   option(value='VCT') Saint Vincent and the Grenadines
+                                   option(value='WSM') Samoa
+                                   option(value='SMR') San Marino
+                                   option(value='STP') Sao Tome and Principe
+                                   option(value='SAU') Saudi Arabia
+                                   option(value='SEN') Senegal
+                                   option(value='SRB') Serbia
+                                   option(value='SYC') Seychelles
+                                   option(value='SLE') Sierra Leone
+                                   option(value='SGP') Singapore
+                                   option(value='SXM') Sint Maarten (Dutch part)
+                                   option(value='SVK') Slovakia
+                                   option(value='SVN') Slovenia
+                                   option(value='SLB') Solomon Islands
+                                   option(value='SOM') Somalia
+                                   option(value='ZAF') South Africa
+                                   option(value='SGS') South Georgia and the South Sandwich Islands
+                                   option(value='SSD') South Sudan
+                                   option(value='ESP') Spain
+                                   option(value='LKA') Sri Lanka
+                                   option(value='SDN') Sudan
+                                   option(value='SUR') Suriname
+                                   option(value='SJM') Svalbard and Jan Mayen
+                                   option(value='SWZ') Swaziland
+                                   option(value='SWE') Sweden
+                                   option(value='CHE') Switzerland
+                                   option(value='SYR') Syrian Arab Republic
+                                   option(value='TWN') Taiwan, Province of China
+                                   option(value='TJK') Tajikistan
+                                   option(value='TZA') Tanzania, United Republic of
+                                   option(value='THA') Thailand
+                                   option(value='TLS') Timor-Leste
+                                   option(value='TGO') Togo
+                                   option(value='TKL') Tokelau
+                                   option(value='TON') Tonga
+                                   option(value='TTO') Trinidad and Tobago
+                                   option(value='TUN') Tunisia
+                                   option(value='TUR') Turkey
+                                   option(value='TKM') Turkmenistan
+                                   option(value='TCA') Turks and Caicos Islands
+                                   option(value='TUV') Tuvalu
+                                   option(value='UGA') Uganda
+                                   option(value='UKR') Ukraine
+                                   option(value='ARE') United Arab Emirates
+                                   option(value='GBR') United Kingdom
+                                   option(value='USA') United States
+                                   option(value='UMI') United States Minor Outlying Islands
+                                   option(value='URY') Uruguay
+                                   option(value='UZB') Uzbekistan
+                                   option(value='VUT') Vanuatu
+                                   option(value='VEN') Venezuela, Bolivarian Republic of
+                                   option(value='VNM') Viet Nam
+                                   option(value='VGB') Virgin Islands, British
+                                   option(value='VIR') Virgin Islands, U.S.
+                                   option(value='WLF') Wallis and Futuna
+                                   option(value='ESH') Western Sahara
+                                   option(value='YEM') Yemen
+                                   option(value='ZMB') Zambia
+                                   option(value='ZWE') Zimbabwe
+                            .input-field.col.s12
+                                i.material-icons.prefix my_location
+                                input#ga-city(value='{{getCity}}' style="margin-left: 50px", type='text')
+                                label(for='ga-city') Current City
+
+                            br
+                            br
+                             
+                            .input-field.col.s12
+                                i.material-icons.prefix language
+                                select#ga-timezone(value="{{getTimeZone}}")
+                                    option(value="" disabled selected) Choose your time zone
+                                    option(timeZoneId="1" gmtAdjustment="GMT-12:00" useDaylightTime="0" value="-12") (GMT-12:00) International Date Line West
+                                    option(timeZoneId="2" gmtAdjustment="GMT-11:00" useDaylightTime="0" value="-11") (GMT-11:00) Midway Island, Samoa
+                                    option(timeZoneId="3" gmtAdjustment="GMT-10:00" useDaylightTime="0" value="-10") (GMT-10:00) Hawaii
+                                    option(timeZoneId="4" gmtAdjustment="GMT-09:00" useDaylightTime="1" value="-9") (GMT-09:00) Alaska
+                                    option(timeZoneId="5" gmtAdjustment="GMT-08:00" useDaylightTime="1" value="-8") (GMT-08:00) Pacific Time (US & Canada)
+                                    option(timeZoneId="6" gmtAdjustment="GMT-08:00" useDaylightTime="1" value="-8") (GMT-08:00) Tijuana, Baja California
+                                    option(timeZoneId="7" gmtAdjustment="GMT-07:00" useDaylightTime="0" value="-7") (GMT-07:00) Arizona
+                                    option(timeZoneId="8" gmtAdjustment="GMT-07:00" useDaylightTime="1" value="-7") (GMT-07:00) Chihuahua, La Paz, Mazatlan
+                                    option(timeZoneId="9" gmtAdjustment="GMT-07:00" useDaylightTime="1" value="-7") (GMT-07:00) Mountain Time (US & Canada)
+                                    option(timeZoneId="10" gmtAdjustment="GMT-06:00" useDaylightTime="0" value="-6") (GMT-06:00) Central America
+                                    option(timeZoneId="11" gmtAdjustment="GMT-06:00" useDaylightTime="1" value="-6") (GMT-06:00) Central Time (US & Canada)
+                                    option(timeZoneId="12" gmtAdjustment="GMT-06:00" useDaylightTime="1" value="-6") (GMT-06:00) Guadalajara, Mexico City, Monterrey
+                                    option(timeZoneId="13" gmtAdjustment="GMT-06:00" useDaylightTime="0" value="-6") (GMT-06:00) Saskatchewan
+                                    option(timeZoneId="14" gmtAdjustment="GMT-05:00" useDaylightTime="0" value="-5") (GMT-05:00) Bogota, Lima, Quito, Rio Branco
+                                    option(timeZoneId="15" gmtAdjustment="GMT-05:00" useDaylightTime="1" value="-5") (GMT-05:00) Eastern Time (US & Canada)
+                                    option(timeZoneId="16" gmtAdjustment="GMT-05:00" useDaylightTime="1" value="-5") (GMT-05:00) Indiana (East)
+                                    option(timeZoneId="17" gmtAdjustment="GMT-04:00" useDaylightTime="1" value="-4") (GMT-04:00) Atlantic Time (Canada)
+                                    option(timeZoneId="18" gmtAdjustment="GMT-04:00" useDaylightTime="0" value="-4") (GMT-04:00) Caracas, La Paz
+                                    option(timeZoneId="19" gmtAdjustment="GMT-04:00" useDaylightTime="0" value="-4") (GMT-04:00) Manaus
+                                    option(timeZoneId="20" gmtAdjustment="GMT-04:00" useDaylightTime="1" value="-4") (GMT-04:00) Santiago
+                                    option(timeZoneId="21" gmtAdjustment="GMT-03:30" useDaylightTime="1" value="-3.5") (GMT-03:30) Newfoundland
+                                    option(timeZoneId="22" gmtAdjustment="GMT-03:00" useDaylightTime="1" value="-3") (GMT-03:00) Brasilia
+                                    option(timeZoneId="23" gmtAdjustment="GMT-03:00" useDaylightTime="0" value="-3") (GMT-03:00) Buenos Aires, Georgetown
+                                    option(timeZoneId="24" gmtAdjustment="GMT-03:00" useDaylightTime="1" value="-3") (GMT-03:00) Greenland
+                                    option(timeZoneId="25" gmtAdjustment="GMT-03:00" useDaylightTime="1" value="-3") (GMT-03:00) Montevideo
+                                    option(timeZoneId="26" gmtAdjustment="GMT-02:00" useDaylightTime="1" value="-2") (GMT-02:00) Mid-Atlantic
+                                    option(timeZoneId="27" gmtAdjustment="GMT-01:00" useDaylightTime="0" value="-1") (GMT-01:00) Cape Verde Is.
+                                    option(timeZoneId="28" gmtAdjustment="GMT-01:00" useDaylightTime="1" value="-1") (GMT-01:00) Azores
+                                    option(timeZoneId="29" gmtAdjustment="GMT+00:00" useDaylightTime="0" value="0") (GMT+00:00) Casablanca, Monrovia, Reykjavik
+                                    option(timeZoneId="30" gmtAdjustment="GMT+00:00" useDaylightTime="1" value="0") (GMT+00:00) Greenwich Mean Time : Dublin, Edinburgh, Lisbon, London
+                                    option(timeZoneId="31" gmtAdjustment="GMT+01:00" useDaylightTime="1" value="1") (GMT+01:00) Amsterdam, Berlin, Bern, Rome, Stockholm, Vienna
+                                    option(timeZoneId="32" gmtAdjustment="GMT+01:00" useDaylightTime="1" value="1") (GMT+01:00) Belgrade, Bratislava, Budapest, Ljubljana, Prague
+                                    option(timeZoneId="33" gmtAdjustment="GMT+01:00" useDaylightTime="1" value="1") (GMT+01:00) Brussels, Copenhagen, Madrid, Paris
+                                    option(timeZoneId="34" gmtAdjustment="GMT+01:00" useDaylightTime="1" value="1") (GMT+01:00) Sarajevo, Skopje, Warsaw, Zagreb
+                                    option(timeZoneId="35" gmtAdjustment="GMT+01:00" useDaylightTime="1" value="1") (GMT+01:00) West Central Africa
+                                    option(timeZoneId="36" gmtAdjustment="GMT+02:00" useDaylightTime="1" value="2") (GMT+02:00) Amman
+                                    option(timeZoneId="37" gmtAdjustment="GMT+02:00" useDaylightTime="1" value="2") (GMT+02:00) Athens, Bucharest, Istanbul
+                                    option(timeZoneId="38" gmtAdjustment="GMT+02:00" useDaylightTime="1" value="2") (GMT+02:00) Beirut
+                                    option(timeZoneId="39" gmtAdjustment="GMT+02:00" useDaylightTime="1" value="2") (GMT+02:00) Cairo
+                                    option(timeZoneId="40" gmtAdjustment="GMT+02:00" useDaylightTime="0" value="2") (GMT+02:00) Harare, Pretoria
+                                    option(timeZoneId="41" gmtAdjustment="GMT+02:00" useDaylightTime="1" value="2") (GMT+02:00) Helsinki, Kyiv, Riga, Sofia, Tallinn, Vilnius
+                                    option(timeZoneId="42" gmtAdjustment="GMT+02:00" useDaylightTime="1" value="2") (GMT+02:00) Jerusalem
+                                    option(timeZoneId="43" gmtAdjustment="GMT+02:00" useDaylightTime="1" value="2") (GMT+02:00) Minsk
+                                    option(timeZoneId="44" gmtAdjustment="GMT+02:00" useDaylightTime="1" value="2") (GMT+02:00) Windhoek
+                                    option(timeZoneId="45" gmtAdjustment="GMT+03:00" useDaylightTime="0" value="3") (GMT+03:00) Kuwait, Riyadh, Baghdad
+                                    option(timeZoneId="46" gmtAdjustment="GMT+03:00" useDaylightTime="1" value="3") (GMT+03:00) Moscow, St. Petersburg, Volgograd
+                                    option(timeZoneId="47" gmtAdjustment="GMT+03:00" useDaylightTime="0" value="3") (GMT+03:00) Nairobi
+                                    option(timeZoneId="48" gmtAdjustment="GMT+03:00" useDaylightTime="0" value="3") (GMT+03:00) Tbilisi
+                                    option(timeZoneId="49" gmtAdjustment="GMT+03:30" useDaylightTime="1" value="3.5") (GMT+03:30) Tehran
+                                    option(timeZoneId="50" gmtAdjustment="GMT+04:00" useDaylightTime="0" value="4") (GMT+04:00) Abu Dhabi, Muscat
+                                    option(timeZoneId="51" gmtAdjustment="GMT+04:00" useDaylightTime="1" value="4") (GMT+04:00) Baku
+                                    option(timeZoneId="52" gmtAdjustment="GMT+04:00" useDaylightTime="1" value="4") (GMT+04:00) Yerevan
+                                    option(timeZoneId="53" gmtAdjustment="GMT+04:30" useDaylightTime="0" value="4.5") (GMT+04:30) Kabul
+                                    option(timeZoneId="54" gmtAdjustment="GMT+05:00" useDaylightTime="1" value="5") (GMT+05:00) Yekaterinburg
+                                    option(timeZoneId="55" gmtAdjustment="GMT+05:00" useDaylightTime="0" value="5") (GMT+05:00) Islamabad, Karachi, Tashkent
+                                    option(timeZoneId="56" gmtAdjustment="GMT+05:30" useDaylightTime="0" value="5.5") (GMT+05:30) Sri Jayawardenapura
+                                    option(timeZoneId="57" gmtAdjustment="GMT+05:30" useDaylightTime="0" value="5.5") (GMT+05:30) Chennai, Kolkata, Mumbai, New Delhi
+                                    option(timeZoneId="58" gmtAdjustment="GMT+05:45" useDaylightTime="0" value="5.75") (GMT+05:45) Kathmandu
+                                    option(timeZoneId="59" gmtAdjustment="GMT+06:00" useDaylightTime="1" value="6") (GMT+06:00) Almaty, Novosibirsk
+                                    option(timeZoneId="60" gmtAdjustment="GMT+06:00" useDaylightTime="0" value="6") (GMT+06:00) Astana, Dhaka
+                                    option(timeZoneId="61" gmtAdjustment="GMT+06:30" useDaylightTime="0" value="6.5") (GMT+06:30) Yangon (Rangoon)
+                                    option(timeZoneId="62" gmtAdjustment="GMT+07:00" useDaylightTime="0" value="7") (GMT+07:00) Bangkok, Hanoi, Jakarta
+                                    option(timeZoneId="63" gmtAdjustment="GMT+07:00" useDaylightTime="1" value="7") (GMT+07:00) Krasnoyarsk
+                                    option(timeZoneId="64" gmtAdjustment="GMT+08:00" useDaylightTime="0" value="8") (GMT+08:00) Beijing, Chongqing, Hong Kong, Urumqi
+                                    option(timeZoneId="65" gmtAdjustment="GMT+08:00" useDaylightTime="0" value="8") (GMT+08:00) Kuala Lumpur, Singapore
+                                    option(timeZoneId="66" gmtAdjustment="GMT+08:00" useDaylightTime="0" value="8") (GMT+08:00) Irkutsk, Ulaan Bataar
+                                    option(timeZoneId="67" gmtAdjustment="GMT+08:00" useDaylightTime="0" value="8") (GMT+08:00) Perth
+                                    option(timeZoneId="68" gmtAdjustment="GMT+08:00" useDaylightTime="0" value="8") (GMT+08:00) Taipei
+                                    option(timeZoneId="69" gmtAdjustment="GMT+09:00" useDaylightTime="0" value="9") (GMT+09:00) Osaka, Sapporo, Tokyo
+                                    option(timeZoneId="70" gmtAdjustment="GMT+09:00" useDaylightTime="0" value="9") (GMT+09:00) Seoul
+                                    option(timeZoneId="71" gmtAdjustment="GMT+09:00" useDaylightTime="1" value="9") (GMT+09:00) Yakutsk
+                                    option(timeZoneId="72" gmtAdjustment="GMT+09:30" useDaylightTime="0" value="9.5") (GMT+09:30) Adelaide
+                                    option(timeZoneId="73" gmtAdjustment="GMT+09:30" useDaylightTime="0" value="9.5") (GMT+09:30) Darwin
+                                    option(timeZoneId="74" gmtAdjustment="GMT+10:00" useDaylightTime="0" value="10") (GMT+10:00) Brisbane
+                                    option(timeZoneId="75" gmtAdjustment="GMT+10:00" useDaylightTime="1" value="10") (GMT+10:00) Canberra, Melbourne, Sydney
+                                    option(timeZoneId="76" gmtAdjustment="GMT+10:00" useDaylightTime="1" value="10") (GMT+10:00) Hobart
+                                    option(timeZoneId="77" gmtAdjustment="GMT+10:00" useDaylightTime="0" value="10") (GMT+10:00) Guam, Port Moresby
+                                    option(timeZoneId="78" gmtAdjustment="GMT+10:00" useDaylightTime="1" value="10") (GMT+10:00) Vladivostok
+                                    option(timeZoneId="79" gmtAdjustment="GMT+11:00" useDaylightTime="1" value="11") (GMT+11:00) Magadan, Solomon Is., New Caledonia
+                                    option(timeZoneId="80" gmtAdjustment="GMT+12:00" useDaylightTime="1" value="12") (GMT+12:00) Auckland, Wellington
+                                    option(timeZoneId="81" gmtAdjustment="GMT+12:00" useDaylightTime="0" value="12") (GMT+12:00) Fiji, Kamchatka, Marshall Is.
+                                    option(timeZoneId="82" gmtAdjustment="GMT+13:00" useDaylightTime="0" value="13") (GMT+13:00) Nuku'alofa
+                                label(for='ga-timezone') Time Zone
+
+                            .input-field.col.s12
+                                i.material-icons.prefix access_time
+                                select#ga-dst(value="{{getDst}}")
+                                    option(value="" disabled selected) Choose your answer
+                                    option(isDst="1" value="1") Yes
+                                    option(isDst="0" value="0") No
+                                label(for='ga-dst') Are you in daylight savings time?
+                    //- div(style="margin-left: 30px;")
+                
+                    center
+                        .col.s12
+                            iframe#twitter-widget-0.twitter-follow-button.twitter-follow-button-rendered(scrolling='no', frameborder='0', allowtransparency='true', title='Twitter Follow Button', src='https://platform.twitter.com/widgets/follow_button.5f60791584f95f2ec483faec8b16a58b.en.html#dnt=false&id=twitter-widget-0&lang=en&screen_name=GutInstinctUCSD&show_count=true&show_screen_name=true&size=l&time=1500423734379', data-screen-name='GutInstinctUCSD', style='position: static; visibility: visible; width: 279px; height: 28px;')
+                        br
+                        br
+                        br
+                        div(style='overflow: hidden; margin-left: calc(50% - 340px);')
+                            iframe(src='https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2FgutinstinctUCSD&tabs&width=340&height=130&small_header=false&adapt_container_width=false&hide_cover=false&show_facepile=false&appId=1667529610219243', width='340', height='130', style='padding:0px; border-radius: 10px; border-width: 0px;', scrolling='no', allowtransparency='true')
+                    br
+                    br
+                    center
+                        Button(id='submitTest' class='btn light-blue') Continue
+
+            br
+            //div(style='margin-left: 10%; margin-right: 10%')
+                h5(class='animated fadeIn' style='color: #696969; margin-top: 20px;') Please tell us what you know about the gut microbiome!
+
+            //.card-content
+
+                form(class='comment-form')
+                    textarea(id='userAnswerText', class='materialize-textarea', placeholder='You can add as much as you want!', required)
+                    br
+                    br
+                    Button(id='submitTest' class='btn light-blue') Submit
+                    

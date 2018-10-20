@@ -1,0 +1,26 @@
+template(name="gaExperimentDesignFollowupMessage")
+    hr.summary-hr
+
+    br
+    p(style="font-size: 20px; font-weight: 100; font-weight: bold;") Add a custom followup message for participants after having submitted their data
+
+    p(class="" style='font-size: 20px; font-weight: 100; font-color: black') Custom followup messages allow participants to provide more detailed information about their daily submissions and their adherance with the experiment steps
+    br
+    p(class="blue-text text-darken-2" style='font-size: 20px; font-weight: 100; font-color: black') Please write the follow up message here:
+    br    
+    
+    div.dual-section
+        div.design-section.column#criteria-exclusion-block(class="{{#if focusingExclusion}}active{{/if}}") Followup for 
+            span.blue-text.text-darken-2 {{cause}}
+            span message
+            br
+            textarea.materialize-textarea(style="min-height: 88px !important" id="followupMessageCause" class="textarea-comment" name="feedback" placeholder="Default: Your data has been successfully stored. Add more details about your activity in the past day to improve the quality of your results. Did you do something unique? Tell us more..." required) {{causeFollowup}}
+        
+        div.vert
+        
+        div.design-section.column#criteria-inclusion-block(class="{{#if focusingInclusion}}active{{/if}}") Followup for 
+            span.blue-text.text-darken-2 {{effect}}
+            span message
+            br
+            textarea.materialize-textarea(style="min-height: 88px !important" id="followupMessageEffect" class="textarea-comment" name="feedback" placeholder="Default: Your data has been successfully stored. Add more details about your activity in the past day to improve the quality of your results. Did you do something unique? Tell us more..." required) {{effectFollowup}}
+        

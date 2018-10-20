@@ -1,0 +1,40 @@
+{
+    "awsPrivateAccessID" : "INSERT_YOUR_AWS_ACCESS_ID",
+    "awsPrivateAccessKey" : "INSERT_YOUR_AWS_ACCESS_KEY",
+    "emailToken": "INSERT_YOUR_GALILEO_EMAIL_SERVER_TOKEN",
+    "emailAPI": "http://localhost:7000/api/v1/email?action=",
+    "galileoEmailAPI": "http://localhost:7000/api/v1/galileo?action=",
+    "analysisScriptAPI": "http://localhost:8001/api/v1/analysis?action=",
+    "analysisImageURL": "http://localhost:8001/",
+    "mail_url" : "smtps://INSERT_YOUR_GMAIL_ACCOUNT@smtp.gmail.com:465",
+    "debug_mode": true,
+    "facebook" : {
+        "appId" : "INSERT_YOUR_GOOGLE_API_ID",
+        "secret" : "INSERT_YOUR_FACEBOOK_API_SECRET"
+    },
+
+    "google" : {
+        "appId" : "INSERT_YOUR_GOOGLE_APP_ID",
+        "secret" : "INSERT_YOUR_GOOGLE_API_SECRET"
+    },
+
+    "reddit" : {
+        "appId" : "INSERT_YOUR_REDDIT_APP_ID",
+        "secret" : "INSERT_YOUR_REDDIT_API_SECRET"
+    },
+
+    "coursera" : {
+        "appId" : "INSERT_YOUR_REDDIT_APP_ID",
+        "secret" : "INSERT_YOUR_REDDIT_API_SECRET"
+    },
+    "openhumans" : {
+        "appId" : "INSERT_YOUR_OH_APP_ID",
+        "secret" : "INSERT_YOUR_OH_API_SECRET"
+    },
+    "twilio": {
+        "sid": "INSERT_YOUR_TWILIO_SID",
+        "token": "INSERT_YOUR_TWILIO_TOKEN",
+        "phone": "INSERT_YOUR_TWILIO_PHONE_NUMBER",
+        "phone_whatsapp":"INSERT_YOUR_TWILIO_WHATSAPP_NUMBER"
+    }
+}

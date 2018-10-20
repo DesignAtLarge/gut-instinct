@@ -1,0 +1,118 @@
+template(name='header_gray')
+    //- ul(id="dropdown1", class="dropdown-content profile")
+    //-     li
+    //-         a(href='/gutboard?s=3', class='from-nav') My Questions
+    //-     li
+    //-         a(href='/gutboard?s=2', class='from-nav') Answered Questions: #{counter.answered}
+    //-     li
+    //-         a(href='/gutboard?s=0', class='from-nav') Unanswered Questions: #{counter.unanswered}
+    //-     li(class='logout')
+    //-         a(href='#') Sign Out
+    nav
+        div(id="header-grey" class='nav-wrapper grey lighten-1')
+
+            a(href="#", id='mobileMenuSwitch', data-activates="mobile-demo", class="button-collapse")
+                i(class="material-icons") menu
+                    //img.col(style="margin-left: 0px; margin-top: 15px;" src="/images/logos/gi_basic_dark_bg.png" height="35px")
+
+            
+            a(class="brand-logo" style="margin-top: -6px;")
+                a(id="header-grey-progress pull-left" href='javascript:void(0);' style='font-weight: 100; font-size: 14pt; margin-left: 50px;') Docent Guide is 
+                    a(style="color: #f4511e;") &nbsp;{{getProgress}}% &nbsp;
+                    | complete!
+                    if checkComplete
+                        | (Final Step)
+
+                //a(href='#' onClick="alert('To access the complete Gut Instinct system, please complete the Docent Guide!')", style='color:white')
+
+            ul(class="right hide-on-med-and-down pull-right")
+                    
+                li
+                    a(href='javascript:void(0);', class='glasspane', style='color:white') 
+                        //span(class="light-blue-text text-darken-4")
+                        <i class="fa fa-question-circle-o" aria-hidden="true"></i> Confused?
+                li
+                    .headerdivider
+                li
+                    unless isCondition7
+                        a(href='#' onClick="alert('To access the complete Gut Instinct system, please complete the Docent Guide!')", style='color:white') <i class='fa fa-plus-circle' style='vertical-align: middle; color: #f4511e'></i> 
+                            unless isCondition4or6or11
+                                | Add more questions!
+                            else 
+                                | Add ques!
+                            //i(class='fa fa-plus-circle fa-4x waves-effect waves-light', aria-hidden="true", style='vertical-align: middle; color: #f4511e') Add your question!
+                li
+                    unless isCondition1or3or5or8or10
+                        a(href='#' onClick="alert('To access the complete Gut Instinct system, please complete the Docent Guide!')", style='color:white') <i class="fa fa-book" aria-hidden="true"></i> Topics
+                li
+                    unless isCondition1or2or7or8or9
+                        a(href='#' onClick="alert('To access the complete Gut Instinct system, please complete the Docent Guide!')", style='color:white')  <i class="fa fa-list-ul" aria-hidden="true"></i> Guide
+                li
+                    unless isCondition7
+                        a(href='#' onClick="alert('To access the complete Gut Instinct system, please complete the Docent Guide!')", style='color:white') <i class="fa fa-comments-o" aria-hidden="true"></i> GutBoard
+
+                li(class='')
+                    unless isCondition7
+                        a(href='#' onClick="alert('To access the complete Gut Instinct system, please complete the Docent Guide!')", style='color:white') <i class="fa fa-bell-o" aria-hidden="true"></i> Notifications
+       
+                li(class='logout')
+                    a(href='#', style='color:white') 
+                        //span(class="light-blue-text text-darken-4")
+                        <i class="fa fa-sign-out" aria-hidden="true"></i> Sign Out
+                        unless isCondition4
+                            | #{user.username}
+
+            ul(class='side-nav grey lighten-1' id='mobile-demo' style='width:225px; height:500px')
+                li
+                    .userView        
+                        span(class="name", style='margin-bottom: 20px; font-size: 14pt') Welcome, #{user.username}!
+                li
+                    a(href='#', class='closeMobileMenuSwitch', onclick='$("#mobile-demo").css("transform", "translateX(-105%)")')
+                        //div(class="light-blue darken-4")
+                        span(class="light-blue-text text-darken-4")
+                            strong
+                                <i class="fa fa-close" aria-hidden="true"></i> Close Menu
+                li
+                    a(href='javascript:void(0);', class='glasspane') 
+                        span(class="light-blue-text text-darken-4")
+                            strong
+                                <i class="fa fa-question-circle-o" aria-hidden="true"></i> Confused?
+                li
+                    .divider
+                li
+                    unless isCondition7
+                        a(href='#' onClick="alert('To access the complete Gut Instinct system, please complete the Docent Guide!')", style='color:white')
+                            span(class="white-text")
+                                strong
+                                | <i class='fa fa-plus-circle' style='vertical-align: middle; color: #f4511e'></i> Add more questions!
+                li
+                    unless isCondition1or3or5or8or10
+                        a(href='#' onClick="alert('To access the complete Gut Instinct system, please complete the Docent Guide!')")
+                            span(class="white-text")
+                                strong 
+                                | <i class="fa fa-book" aria-hidden="true"></i> Topics
+                li
+                    unless isCondition1or2or7or8or9
+                        a(href='#' onClick="alert('To access the complete Gut Instinct system, please complete the Docent Guide!')")
+                            unless isCondition1
+                                span(class="white-text")
+                                    strong
+                                    | <i class="fa fa-list-ul" aria-hidden="true"></i> Guide
+                li
+                    unless isCondition7
+                        a(href='#' onClick="alert('To access the complete Gut Instinct system, please complete the Docent Guide!')")
+                            span(class="white-text")
+                                strong
+                                | <i class="fa fa-comments-o" aria-hidden="true"></i> GutBoard
+                li
+                    .divider
+                li(class='logout')
+                    a(href='#')
+                        span(class="light-blue-text text-darken-4")
+                            strong 
+                                <i class="fa fa-sign-out" aria-hidden="true"></i> Sign Out
+                li
+                    a(href='#', class='closeMobileMenuSwitch', onclick='$("#mobile-demo").css("transform", "translateX(-105%)")')
+                        span(class="light-blue-text text-darken-4")
+                            strong
+                            | <i class="fa fa-close" aria-hidden="true"></i> Close Menu

@@ -1,0 +1,309 @@
+template(name="gaHome")
+    +gaNavbar
+    +imageModal(url='/images/galileo/ga_summary_example.png')
+
+    main#ga-main
+        div.wrapper
+            div.intro-section(style="margin-top:20px;")
+                div.row
+                    div.col.m3.s12
+                        img.responsive-img(src="/images/galileo/galileo-flask.png" style="width:90%;")
+                    div.col.m9.s12
+                        div.col.s8
+                            h1(style="color: #006A96;") Galileo
+                            h4(style="color: #006A96;") Design and Run Experiments 
+                            h4(style="color: #006A96;") with people from around the world
+                            //h4(style="color: #006A96;") 
+                            br
+                            h5(style="color: #006A96;") You can explore questions like:
+                        div.col.s4
+                            a.waves-effect.waves-light.white-text.z-depth-3.light-blue.darken-4.hoverable.modal-trigger#designExp(style="margin: 5px; padding:25px; border-radius:6px; text-align:center; width:100%; ") Design an Experiment Now!
+
+                        div.col.s12
+                            br
+                            div.hypothesisContainer(style="color: #747678;")
+                                h5 Can a vegan diet improve energy levels?
+                                h5 Does drinking coffee every day reduce quality of sleep?
+                                //br                            
+                                h5 Does your innovation perform better than the current choices?
+    
+                        //div.hypothesisContainer(style="color: #747678;")
+                            h4 Drinking coffee every day
+                            br
+                            h4 increases
+                            br
+                            h4 heart rate
+                                  
+            div.divider(style="margin:30px 0px;")
+            //div.workflow-section(style="margin:0px 50px;")
+            div.workflow-section  
+                div.row
+                    div.col.m3.s12
+                        //img.responsive-img(src="/images/galileo/galileo-flask.png" style="width:90%;")
+                    div.col.m9.s12
+                        h4(style="color: #006A96;") Anyone can test their intuitions...
+                //h4.center-align Galileo is extremely easy to use..
+                    br
+                    br
+                div.row.center-align
+                    div.col.m3.s12
+                        img.responsive-img(src="/images/galileo/design/intuition.png" style="padding:30px;")
+                        h5(style="height:50px; margin-bottom:20px") Start with an intuition
+                        //p Lorem 
+
+                    div.col.m3.s12
+                        img.responsive-img(src="/images/galileo/design/designexp1.png" style="padding:30px;")
+                        h5(style="height:50px; margin-bottom:20px") Design an experiment
+                        //p Lorem 
+
+                    div.col.m3.s12
+                        img.responsive-img(src="/images/galileo/design/feedback.png" style="padding:30px")
+                        h5(style="height:50px; margin-bottom:20px") Peers review your experiment
+                        //p Lorem 
+
+                    div.col.m3.s12
+                        img.responsive-img(src="/images/galileo/design/runexp.png" style="padding:30px;")
+                        h5(style="height:50px; margin-bottom:20px") Participate and see the results!
+                        //p Lorem 
+
+                div.divider(style="margin:30px 0px;")
+            //div.container
+
+            div.divider(style="margin:30px 0px;")
+            //div.workflow-section(style="margin:0px 50px;")
+            div.workflow-section  
+                div.row
+                    div.col.m3.s12
+                        //img.responsive-img(src="/images/galileo/galileo-flask.png" style="width:90%;")
+                    div.col.m9.s12
+                        h4(style="color: #006A96;") Experiments already run on Galileo
+                //h4.center-align Galileo is extremely easy to use..
+                    br
+                    br
+                div.row.center-align
+                    div.col.m4.s12
+                        h5(style="height:50px; margin-bottom:20px") Does drinking kombucha improve stool consistency?
+                        img.responsive-img(src="/images/galileo/experiments/results-kombucha.png" style="padding:30px;")                        
+                        //p Lorem 
+
+                    div.col.m4.s12
+                        h5(style="height:50px; margin-bottom:20px") Does using less social media increase optimism?
+                        img.responsive-img(src="/images/galileo/experiments/results-openhumans.png" style="padding:30px;")
+                        
+                        //p Lorem 
+
+                    div.col.m4.s12
+                        h5(style="height:50px; margin-bottom:20px") Does drinking a beer in the evening help people fall asleep?
+                        img.responsive-img(src="/images/galileo/experiments/results-beer.png" style="padding:30px")
+                        
+                p All three experiments were underpowered to achieve statistical significance. The Open Humans experiment was the most promising, with reduced social media correlating with increased optimism (r=0.25).
+                div.divider(style="margin:30px 0px;")
+            div
+                div.row
+                    div.col.m3.s12
+                        h6 
+                            //i.fa.fa-globe.fa-4x.blue-text.darken-4
+                            img.responsive-img(src="/images/galileo/design/runexp.png" style="width:100%;")
+                    div.col.m9.s12
+                        h4(style="color: #006A96;") Why should I use Galileo?
+                        br
+
+                        div.row
+                            //div.col.m3.s12 
+                                h6 
+                            div.col.m6.s12                           
+                                span(style="font-size: 20px; font-weight: 100; color: #006A96")
+                                    b
+                                        | Upgrade from tracking data to finding a causal relationship
+                                        a.helpbtn(href="#" id="help-whyuse-1" style="border-width:0px 0px 1px 0px; border-style:solid")
+                                            i.fa.fa-question-circle(aria-hidden="true")
+                                +helpLayout(style="background-color: #FAFAFA;" cardId="whyuse" helpId="1" home=true)
+                                    p Tracking provides correlation between activities and symptoms, but experiments help find a causal relationship. 
+                                //br
+                            div.col.m6.s12                
+                                span(style="font-size: 20px; font-weight: 100; color: #006A96")
+                                    b
+                                        | Gain scientific skills to answer your questions
+                                        a.helpbtn(href="#" id="help-whyuse-2" style="border-width:0px 0px 1px 0px; border-style:solid")
+                                            i.fa.fa-question-circle(aria-hidden="true")
+                                +helpLayout(cardId="whyuse" helpId="2" home=true)
+                                    p We all have intuitions about our health and lifestyle, but few of us are trained to design and run experiments. Designing experiments shows some ways how scientists create new knowledge.
+
+                        div.row
+                            div.col.m6.s12      
+                                span(style="font-size: 20px; font-weight: 100; color: #006A96")
+                                    b
+                                        | Help researchers create new knowledge
+                                        a.helpbtn(href="#" id="help-whyuse-3" style="border-width:0px 0px 1px 0px; border-style:solid")
+                                            i.fa.fa-question-circle(aria-hidden="true")
+                                +helpLayout(cardId="whyuse" helpId="3" home=true)
+                                    p Researchers in many domains (including the human microbiome) want to understand how people's lifestyles affect their health. Your experiments will provide them useful knowledge.
+
+                            div.col.m6.s12    
+                                span(style="font-size: 20px; font-weight: 100; color: #006A96")
+                                    b
+                                        | Share and learn from your community
+                                        a.helpbtn(href="#" id="help-whyuse-4" style="border-width:0px 0px 1px 0px; border-style:solid")
+                                            i.fa.fa-question-circle(aria-hidden="true")
+                                +helpLayout(cardId="whyuse" helpId="4" home=true)
+                                    p Tired of long discussions about different opinions about how to improve your health? You can design and run an experiment to test opinions in your community.
+
+
+            //div.divider(style="margin:30px 0px;")
+            //div.workflow-section2    
+                div.row
+                    div.col.m3.s12
+                        //img.responsive-img(src="/images/galileo/testimonials/testimonial_scott.jpg" style="width:90%;")
+                    div.col.m9.s12
+                        h4(style="color: #006A96;") Galileo is useful for designing experiments
+                //h4.center-align Galileo is extremely easy to use..
+                    br
+                    br
+                div.row.center-align
+                    div.col.m3.s12
+                        img.responsive-img(src="/images/galileo/testimonials/testimonial_egeller.jpg" style="padding:10px;")
+                        h6
+                            b 
+                                i Professor Emma Gellar
+                            br 
+                            | Psychology, UC San Diego
+                        h6 "Galileo was used in my class. Students found it useful."
+
+                    div.col.m3.s12
+                        img.responsive-img(src="/images/galileo/testimonials/testimonial_scott2.jpg" style="padding:10px;")
+                        h6
+                            b 
+                                i Professor A B
+                            br 
+                            | Psychology, UC San Diego
+                        h6 "Galileo was"
+                        
+
+                    div.col.m3.s12
+                        img.responsive-img(src="/images/galileo/testimonials/testimonial_scott3.jpg" style="padding:10px;")
+                        h6
+                            b 
+                                i Professor C D
+                            br 
+                            | Psychology, UC San Diego
+                        h6 "Galileo was"
+
+                    div.col.m3.s12
+                        img.responsive-img(src="/images/galileo/testimonials/testimonial_scott3.jpg" style="padding:10px;")
+                        h6
+                            b 
+                                i Professor E F
+                            br 
+                            | Psychology, UC San Diego
+                        h6 "Galileo was"
+
+            //div.divider(style="margin:30px 0px;")            
+            //div.workflow-section3   
+                div.row
+                    div.col.m3.s12
+                        //img.responsive-img(src="/images/galileo/testimonials/testimonial_scott.jpg" style="width:90%;")
+                    div.col.m9.s12
+                        h4(style="color: #006A96;") Galileo's is useful for learning and designing experiments..
+                //h4.center-align Galileo is extremely easy to use..
+                    br
+                    br
+                div.row.center-align
+                    div.col.m3.s12
+                        img.responsive-img(src="/images/galileo/testimonials/testimonial_egeller.jpg" style="padding:10px;")
+                        h6
+                            b 
+                                i Professor Emma Gellar
+                            br 
+                            | Psychology, UC San Diego
+                        h6 "Galileo was used in my class. Students found it useful."
+
+
+            div.divider(style="margin:30px 0px;")
+            div.action-section.container
+                h4.center-align Test your intuitions now!
+                br
+                div.row
+                    div.col.m1
+                    div.col.m5.s12
+                        a.waves-effect.waves-light.white-text.z-depth-3.light-blue.darken-4.hoverable.modal-trigger#designExp(style="padding:25px; border-radius:6px; text-align:center; width:100%; ") Design an Experiment Now!
+                    div.col.m5.s12
+                        a.waves-effect.waves-light.white-text.z-depth-3.light-blue.darken-4.hoverable#browseAll(href="" style="padding:25px; border-radius:6px; text-align:center; width:100%; ") Browse all experiments
+                    div.col.m1
+
+            div.divider(style="margin:30px 0px;")
+            div.action-section.container
+                div.row
+                    div.col.m1
+                    div.col.m5.s12
+                        h4.center-align Learn more from a three minutes demo
+
+                        br 
+
+                        iframe(width="100%" height="237px" style="padding-top:10px" src="https://www.youtube.com/embed/vtayrL2I0mk?rel=0&amp;showinfo=0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen)
+                    div.col.m5.s12
+                        h4.center-align See a sample experiment
+
+                        br
+
+                        a.waves-effect.waves-light.white-text.z-depth-3.light-blue.darken-4.hoverable#exampleExp(href="" style="border-radius:6px; text-align:center; width:100%; top:10px; max-height: 226px; overflow: hidden;")
+                            img(src='/images/galileo/ga_summary_example.png' style="width:100%;")
+                    div.col.m1
+
+
+            //div.divider(style="margin:30px 0px;")
+            //div.container
+                h4 how do you feel?
+                p Do you suffer from Celiac disease?
+                p Are you curious to know if you suffer from Celiac disease? Most people don't even know that they suffer from celiac disease
+                p curious to know how different foods affect you? different medication affects you? different excercises affect you?
+                p want to find proof to convince your friends/family/doctor?
+                p want to find if eating gluten free pizza help you with your symptoms?
+                p want to find what worsens/improves your symptoms?
+                p has anyone suggested that you have celiac?
+                p have your 23 & me results shown you that you might have celiac?
+                p how do you compare to others who are unsure as well?
+                p want to know how serious this is? want to know whats the extent of your disease?
+                p how do you compare to others who are unsure as well
+
+
+                h3 Gluten sensitivity related questions
+                p Is a gluten free diet really good for you? Or are you feeling better because of a placebo effect?
+                p Wanna know if your gluten free lotion or shampoo helps you control your gluten intolerance?
+                p Do you think you're sensitive to gluten but don't know for sure, or haven't been diagnosed?
+                p Is your gluten free food really gluten free?
+                p How do you think you are sensitive to gluten? What symptoms do you see? Do others feel the same way?
+                p How does your gluten free diet affect your microbiome?
+                p how does your gluten free lipstick affect your microbiome?
+                p Do you think a gluten free diet helps you because of placebo effect?
+
+                p RUN AN EXPERIMENT TO FIND OUT
+
+
+        div#sign-in-modal.modal
+            div.modal-content
+                h4 Please sign in to continue
+            div.modal-footer
+                a.blue-text(href="/galileo/signup" class="modal-action modal-close btn-flat") Sign In
+                a.gray-text(class="modal-action modal-close btn-flat") Cancel
+
+        //div.divider(style="margin:30px 0px;")
+        //footer.page-footer(style="background-color:#C69214")
+        footer.page-footer(style="background-color:#ffffff")
+            div.container
+                //h5.white-text Powered by
+                h5 Powered by
+                br
+                div.row
+                    div.col.s12.m3
+                        a(href="http://americangut.org/" target="_blank")
+                            img(src="/images/logos/footer-agut.png" height="70")
+                    div.col.s12.m3
+                        a(href="https://knightlab.ucsd.edu/" target="_blank")
+                            img(src="/images/logos/footer-knight.png" height="70")
+                    div.col.s12.m3
+                        a(href="http://designlab.ucsd.edu/" target="_blank")
+                            img(src="/images/logos/footer-dlab.png" height="70")
+                    div.col.s12.m3
+                        a(href="https://www.openhumans.org/" target="_blank")
+                            img(src="/images/logos/openhuman.png" height="70")
+                br

@@ -1,0 +1,51 @@
+template(name="gaMeDataModal")
+    div.modal.testModal(id="edit-data-modal-part-{{exp_id}}" style="background: #FAFAFA")
+        div.modal-content
+            h5#edit-data-modal-part-title Your Data for the Experiment
+            div.section-body
+                table.sheet-table
+                    tr
+                        td(style="width: 10%;") Date
+                        td(style="padding:2px")
+                        td(style="padding:10px; width: 40%;") {{getCause}} (Cause)
+                            br
+                            span.light-blue-text.text-darken-4 {{causeType}} 
+                            span at ({{getCauseTime}})
+                        td(style="padding:2px")
+                        td(style="padding:10px; width: 40%;") {{getEffect}} (Effect)
+                            br
+                            span.light-blue-text.text-darken-4 {{effectType}}
+                            span at ({{getEffectTime}})
+                    each slot in slots
+                        tr
+                            td(style="padding: 2px" class="{{slot.today}}")
+                                p(style="margin-top:1px; margin-bottom:1px") {{slot.date}}
+                            td.light-blue-text.text-darken-4(style="padding: 2px")
+                            if slot.editable
+                                if noData slot.cause         
+                                    td.light-blue-text.text-darken-4(style="padding: 2px" class="{{slot.today}}")
+                                        textarea.materialize-textarea(style="margin:8px; min-height: 0rem !important; height: 2rem; padding: 0px;width: calc(100% - 16px);" id="editCauseData-{{slot.cause_rid}}" rid="{{slot.cause_rid}}" exp-id="{{getExpId}}" class="textarea-cause" placeholder="{{slot.cause}}" required) 
+                                        button.btn.light-blue.saveCauseChange(id="submitCauseBtn-{{slot.cause_rid}}" rid="{{slot.cause_rid}}" index="{{slot.index}}" exp-id="{{getExpId}}" type="submit" style="display: none; margin: 8px") save
+                                else
+                                    td.light-blue-text.text-darken-4(style="padding: 2px" class="{{slot.today}}")
+                                        textarea.materialize-textarea(style="margin:8px; min-height: 0rem !important; height: 2rem; padding: 0px;width: calc(100% - 16px);" id="editCauseData-{{slot.cause_rid}}" rid="{{slot.cause_rid}}" exp-id="{{getExpId}}" class="textarea-cause" required) {{slot.cause}}
+                                        button.btn.light-blue.saveCauseChange(id="submitCauseBtn-{{slot.cause_rid}}" rid="{{slot.cause_rid}}" index="{{slot.index}}" exp-id="{{getExpId}}" type="submit" style="display: none; margin: 8px") save
+                                td.light-blue-text.text-darken-4(style="padding: 2px")
+                                if noData slot.effect
+                                    td.light-blue-text.text-darken-4(style="padding: 2px" class="{{slot.today}}")
+                                        textarea.materialize-textarea(style="margin:8px; min-height: 0rem !important; height: 2rem; padding: 0px;width: calc(100% - 16px);" id="editEffectData-{{slot.effect_rid}}" rid="{{slot.effect_rid}}" exp-id="{{getExpId}}" class="textarea-effect" placeholder="{{slot.effect}}" required)
+                                        button.btn.light-blue.saveEffectChange(id="submitEffectBtn-{{slot.effect_rid}}" rid="{{slot.effect_rid}}" index="{{slot.index}}" exp-id="{{getExpId}}" type="submit" style="display: none; margin: 8px") save
+                                else
+                                    td.light-blue-text.text-darken-4(style="padding: 2px" class="{{slot.today}}")
+                                        textarea.materialize-textarea(style="margin:8px; min-height: 0rem !important; height: 2rem; padding: 0px;width: calc(100% - 16px);" id="editEffectData-{{slot.effect_rid}}" rid="{{slot.effect_rid}}" exp-id="{{getExpId}}" class="textarea-effect" required) {{slot.effect}}
+                                        button.btn.light-blue.saveEffectChange(id="submitEffectBtn-{{slot.effect_rid}}" rid="{{slot.effect_rid}}" index="{{slot.index}}" exp-id="{{getExpId}}" type="submit" style="display: none; margin: 8px") save    
+                            else 
+                                td.light-blue-text.text-darken-4(style="padding: 10px; padding-top: 15px;padding-bottom: 15px;")
+                                    //- textarea.materialize-textarea(id="editCauseData-{{slot.cause_rid}}" rid="{{slot.cause_rid}}" exp-id="{{getExpId}}" class="textarea-cause" required) {{slot.cause}}
+                                    span {{slot.cause}}
+                                td.light-blue-text.text-darken-4(style="padding: 2px")
+                                td.light-blue-text.text-darken-4(style="padding: 10px; padding-top: 15px;padding-bottom: 15px;")
+                                    //- textarea.materialize-textarea(id="editEffectData-{{slot.effect_rid}}" rid="{{slot.effect_rid}}" exp-id="{{getExpId}}" class="textarea-effect" required) {{slot.effect}}
+                                    span {{slot.effect}}
+        div.modal-footer
+            a.gray-text(class="modal-action modal-close btn-flat") Close

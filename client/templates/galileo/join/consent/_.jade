@@ -1,0 +1,117 @@
+template(name="gaJoinConsent")
+    +gaNavbar
+    main#ga-main
+        div.wrapper
+            if isLoading
+                h4 Loading, please wait ...
+            else
+                h4.board-header
+                    | You've been invited to join an experiment that attempts to answer the question:
+                    br
+                    br
+                    span.blue-text {{experimentTitle}}
+
+                div#sign-in-modal.modal
+                    div.modal-content
+                        h4 Please sign in to continue
+                    div.modal-footer
+                        a.blue-text#sign-in(href="" class="modal-action modal-close btn-flat") Sign In
+                        a.gray-text(class="modal-action modal-close btn-flat") Cancel
+
+                +phoneModal(incompleteEmail=incompleteEmail incompleteUsername=incompleteUsername)
+
+                    div.modal-footer
+                        a.gray-text(class="modal-action modal-close btn-flat") Cancel
+
+                div#error-modal.modal(style="padding: 20px")
+                    div.modal-content
+                        h4 Oops, something went wrong
+                        p#error-message(style='font-size: 20px; font-weight: 100;') Text will be replaced by jQuery
+
+                    div.modal-footer
+                        a.blue-text(href="/galileo/browse" class="modal-action modal-close btn-flat") View Other Experiments
+                        a.gray-text(class="modal-action modal-close btn-flat") Cancel
+
+                div.body(style="font-size: 20px !important; padding: 10px 30px;")
+                    p Please make sure that you agree with the following
+                    
+                    if isEnded
+                        h6.center-align.red-text Sorry, this experiment has concluded.
+                    if isRunning
+                        h6.center-align.red-text Sorry, this experiment has already begun.
+                    div.card(style="padding: 5px 20px 5px 20px;")
+                        br
+                        h6 As a Participant :
+                        ul
+                            li
+                                i.fa.fa-check.green-text &nbsp; &nbsp;
+                                span I will begin following the instructions when I receive a notification about the experiment's start date
+                            li
+                                i.fa.fa-check.green-text &nbsp; &nbsp;
+                                span I will follow the experiment instructions every day for the duration of the experiment
+                            //li
+                                i.fa.fa-check.green-text &nbsp; &nbsp;
+                                span The start date of the experiment is not decided yet. A notification will tell you when to start.
+                            li
+                                i.fa.fa-check.green-text &nbsp; &nbsp;
+                                span I will provide quick responses to text messages to collect experiment data
+                                //Follow the steps exactly as shown on the
+                                //b My Participation
+                                //span page you will be seeing after you have successfully joined this experiment.
+                            li
+                                i.fa.fa-check.green-text &nbsp; &nbsp;
+                                span I consent to using my data towards analysis to answer the study's question
+                                //span Your experiment data associated with your associated information will not be exposed to anyone including the creator. But when the experient ends, everone using the Galileo system will be able to see the data, except the data will be anonymized and used to contribute to the overall conclusion of the experiment.
+                            br
+                            li
+                                i.fa.fa-times.red-text &nbsp; &nbsp;
+                                span I cannot review this experiment's design because that might bias my responses during the experiment
+
+                            li
+                                i.fa.fa-times.red-text &nbsp; &nbsp;
+                                span I cannot participate in any other experiment on Galileo during the course of this experiment
+                                //span Before the experiment ends you will not be able to participate in another experiment.
+
+
+                    //div.body(style="font-size: 20px !important; padding: 10px 30px;")
+                        p Please make sure that you agree with the following
+                        ol.card(style="padding: 30px 30px 30px 60px;")
+                            li I know that I am going to participate the experiment. Before experiment
+                                | starts, I will not and should not know any detail of the experiment
+                                | except how I am going to participate.
+                            li The experiment will run for 7 days.
+                            if hasStartDate
+                                li The experiment will begin on {{startDate}}.
+                            else
+                                li Meanwhile the start date is not decided yet. You will have to wait for
+                                    | the notification telling you when to start.
+                            li Before the experiment ends, you will not be able to participate in or pilot
+                                | any other experiment.
+                            li During the experiment, you will receive notification messages asking you to
+                                | provide your experiment data. You should follow the steps exactly as they
+                                | are shown on
+                                strong My Participation
+                                | page you will be seeing after you have successfully joined this
+                                | experiment.
+                            li Your experiment data associated with your personal information will not be
+                                | exposed to anyone including the creator. But when the experiment end,
+                                | everyone using system Galileo will be able to see the data, except they
+                                | are anonymized and used to contribute to the overall conclusion of this
+                                | experiment.
+                        p How will you use these results? -- add input box here
+                        p Click "I AGREE" and then you will be signed as a participant for this
+                            | experiment. You cannot quit the reviewer group anymore
+                    center
+                        if isEnded
+                            h6.center-align.red-text You may add yourself to a waitlist and we'll notify you when this experiment is ready to run again!
+                            br
+                            a.btn.grey(href="/galileo/browse") BACK
+                            a.btn.light-blue(id="join") Waitlist
+                        else if isRunning
+                            h6.center-align.red-text Sorry, this experiment isn't open for joining right now. You may add yourself to a waitlist.
+                            br
+                            a.btn.grey(href="/galileo/browse") BACK
+                            a.btn.light-blue(id="join") Waitlist
+                        else
+                            a.btn.grey(href="/galileo/browse") BACK
+                            a.btn.light-blue(id="join") I AGREE

@@ -1,0 +1,9 @@
+template(name="gaNavbarNotificationItem")
+    div.navbar-notification-outer
+        a.navbar-notification
+            div.row
+                div(class='col s11').navbar-ind(href="#" data-id="{{notification._id}}" data-url="{{notification.url}}")
+                    p #{notification.message}
+                    p {{livestamp notification.post_time}}
+                div(class='col s1') 
+                    i.material-icons(style="z-index: 2000; padding-top: 15px" href="#" data-id="{{notification._id}}" data-url="{{notification.url}}").dismiss clear

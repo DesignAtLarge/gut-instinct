@@ -1,0 +1,45 @@
+template(name='gaTimeDropdown')
+    div.row
+        div.col.m8
+            //p.black-text(style="font-size:20px") At what time of the day would you like to take this measurement?
+            //p.black-text(style="font-size:20px") When would you like us to remind you about taking this measurement?
+            //p.black-text(style="font-size:16px") Set a reminder to take this measurement at
+            p(style='font-size: 20px; font-weight: 100;') Send all participants a reminder to provide
+                span.blue-text.text-darken-2(id="measureType-{{id}}" style='font-weight: bold') #{measureType}
+                | of 
+                span.blue-text.text-darken-2(style='font-weight: bold') #{measureItem}
+                | at
+
+        div.col.m2.dropdown-div.black-text(style="cursor:pointer;")
+            p.unchosen(id="#{id}" style="font-size:16px; border-bottom-width:1px; border-bottom-style: groove; text-align:center;") Pick a time
+
+        div.col.m1.black-text
+            a.dropdown-button(href='#' data-activates='dropdown-#{id}' id="dropdown-button-#{id}")
+                i.material-icons(style="font-size:30px;") keyboard_arrow_down
+
+            ul.dropdown-content(id="dropdown-#{id}")
+                li: a.frequency-dropdown-option(href="#" data-value="0") 0:00 am
+                li: a.frequency-dropdown-option(href="#" data-value="1") 1:00 am
+                li: a.frequency-dropdown-option(href="#" data-value="2") 2:00 am
+                li: a.frequency-dropdown-option(href="#" data-value="3") 3:00 am
+                li: a.frequency-dropdown-option(href="#" data-value="4") 4:00 am
+                li: a.frequency-dropdown-option(href="#" data-value="5") 5:00 am
+                li: a.frequency-dropdown-option(href="#" data-value="6") 6:00 am
+                li: a.frequency-dropdown-option(href="#" data-value="7") 7:00 am
+                li: a.frequency-dropdown-option(href="#" data-value="8") 8:00 am
+                li: a.frequency-dropdown-option(href="#" data-value="9") 9:00 am
+                li: a.frequency-dropdown-option(href="#" data-value="10") 10:00 am
+                li: a.frequency-dropdown-option(href="#" data-value="11") 11:00 am
+                li: a.frequency-dropdown-option(href="#" data-value="12") 12:00 noon
+                li: a.frequency-dropdown-option(href="#" data-value="13") 1:00 pm
+                li: a.frequency-dropdown-option(href="#" data-value="14") 2:00 pm
+                li: a.frequency-dropdown-option(href="#" data-value="15") 3:00 pm
+                li: a.frequency-dropdown-option(href="#" data-value="16") 4:00 pm
+                li: a.frequency-dropdown-option(href="#" data-value="17") 5:00 pm
+                li: a.frequency-dropdown-option(href="#" data-value="18") 6:00 pm
+                li: a.frequency-dropdown-option(href="#" data-value="19") 7:00 pm
+                li: a.frequency-dropdown-option(href="#" data-value="20") 8:00 pm
+                li: a.frequency-dropdown-option(href="#" data-value="21") 9:00 pm
+                li: a.frequency-dropdown-option(href="#" data-value="22") 10:00 pm
+                li: a.frequency-dropdown-option(href="#" data-value="23") 11:00 pm
+        

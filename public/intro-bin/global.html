@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+		<meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
+        <title>Gut Instinct | Intro</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+        <meta name="description" content="Fullscreen Slit Slider with CSS3 and jQuery" />
+        <meta name="keywords" content="slit slider, plugin, css3, transitions, jquery, fullscreen, autoplay" />
+        <meta name="author" content="Codrops" />
+        <link rel="shortcut icon" href="../favicon.ico"> 
+		<link rel="stylesheet" type="text/css" href="css/demo.css" />
+        <link rel="stylesheet" type="text/css" href="css/style.css" />
+        <link rel="stylesheet" type="text/css" href="css/custom.css" />
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+		<script type="text/javascript" src="js/modernizr.custom.79639.js"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/css/materialize.min.css">
+        <noscript>
+			<link rel="stylesheet" type="text/css" href="css/styleNoJS.css" />
+		</noscript>
+    </head>
+    <body>
+        
+        <div class="container demo-1" style="width: 100%; margin-right: auto; margin-right: auto; max-width: 10000px;"> 
+
+            <div id="slider" class="sl-slider-wrapper">
+
+				<div class="sl-slider">
+				<a name="slide1"></a>
+                    <div id="firstSlide" class="sl-slide bg-1" data-orientation="horizontal" data-slice1-rotation="-25" data-slice2-rotation="-25" data-slice1-scale="2" data-slice2-scale="2" >
+
+                        <div class="sl-slide-inner" style="top: 60px">
+                            <!-- <div class="deco" data-icon="H"></div> -->
+                            <!-- <div class="deco">
+                                <i class="fa fa-commenting" aria-hidden="true" style="font-size: 256px; color: #545454"></i>
+                            </div> -->
+                            <h2 style="text-align: left;">1. The human microbiome: <br> A revolution in our understanding of human health </h2>
+                            <blockquote style="border: 0px;">
+                                <div class="row" style="margin-top: 10px;">
+                                    <div class="col m1"></div>
+                                    <div class="col m5 frame" style="overflow-y: scroll; height: 440px;">
+                                        <p style="font-size:15pt;"> Your body has roughly <a target="_blank"><b>38 trillion</b></a> bacterial cells.
+                                            The entire genomic collection of all these microbes makes up your very own human microbiome.
+                                            <br>
+                                            <br>
+                                            There are surprising links between our health and our microbe buddies! For example, rheumatoid arthritis patients have altered gut and oral bacteria <a style="font-size:8pt; cursor: pointer;" onclick="$('#sources-1-1').toggle(); $('#sources-1-2').hide();" target="_blank">[1]</a>. Similarly, Crohn’s disease patients have been found with signficantly reduced microbial diversities <a style="font-size:8pt; cursor: pointer;" onclick="$('#sources-1-2').toggle(); $('#sources-1-1').hide();" target="_blank">[2]</a>. 
+                                            <br>
+                                            <br>
+                                            
+                                            <b>So how might changing the gut microbiome of such patients influence their symptoms? 🤔</b>
+                                            <br>
+                                            <br>
+
+                                            <span class= "red-text text-darken-4">We are at the tip of an iceberg of scientific discoveries! However, the scientific community still needs to know much more...</span>
+                                            <br>
+                                        </p>
+                                        <br>
+                                        <!--a id="sources-1-show" class="waves-effect waves-light btn light-blue darken-1" onclick="$('#sources-1').show(); $('#sources-1-hide').show(); $(this).hide();" >
+                                            <span style="align:left;">Show Sources
+                                            </span>
+                                        </a>
+                                        <a id="sources-1-hide" style="display: none;" class="waves-effect waves-light btn light-blue darken-1" onclick="$('#sources-1').hide(); $('#sources-1-show').show(); $(this).hide();" >
+                                            <span style="align:left;">Hide Sources
+                                            </span>
+                                        </a-->
+                                        <div id="sources-1-1" style="display: none;">
+                                            
+                                            <p align="left" style="font-size:15pt;">
+                                            
+                                            1. <a href="https://doi.org/10.1038/nm.3914" target="_blank">The oral and gut microbiomes are perturbed in rheumatoid arthritis and partly normalized after treatment</a>. Xuan Zhang, Dongya Zhang, and Huijue et al. Jia. 2015. Nat Med 21, 8: 895–905. 
+                                            <br>
+                                            </p>
+                                        </div>
+                                        <div id="sources-1-2" style="display: none;">
+                                            
+                                            <p align="left" style="font-size:15pt;">
+                
+                                            2. <a href="https://doi.org/10.1038/nrg3182" target="_blank"> The human microbiome: at the interface of health and disease</a>. I. Cho and M.J. Blaser. 2012. Nature Reviews Genetics 13, 4: 260–270. 
+                                            </p>
+                                        </div>
+                                        
+                                    </div>
+                                    <div class="col m5">
+                                        <div style="text-align: center; bottom: 60%; width: 100%;">
+                                            <img class="compress imagezoom" style="border-radius: 5px;" src="images/Good-Bad-bacteria.jpg" >
+                                        </div>
+                                    </div>
+                                    <div class="col m1"></div>
+
+                                </div>
+                            </blockquote>
+                        </div>
+                    </div>
+                    
+
+                    <div class="sl-slide bg-1" data-orientation="vertical" data-slice1-rotation="10" data-slice2-rotation="-15" data-slice1-scale="1.5" data-slice2-scale="1.5">
+                        <div class="sl-slide-inner">
+                            <!-- <div class="deco" data-icon="q"></div>-->
+                            <h2 style="text-align: left;">2. Deciphering the microbiome requires ideas and information from you!</h2>
+
+                            <blockquote style="border: 0px;">
+                            <!--    <p>
+                                 Do they help us digest sushi better? run faster? fight mental disorders? When are these microbes helpful vs. not? Our microbe buddies can have profound effects on our health and well-being!</p>-->
+                                <div class="row" style="margin-top: 10px;">
+                                    <div class="col m1">
+
+                                    </div>
+                                    <div class="col m5 frame" style="overflow-y: scroll; height: 440px;">
+                                         <p style="font-size:15pt;">
+                                            Governments have invested millions into understanding microbiome and their effects all around us! <a style="font-size:8pt; cursor: pointer;" onclick="$('#sources-2-1').toggle(); $('#sources-2-2').hide(); $('#sources-2-3').hide();" target="_blank">[1]</a>
+
+                                            <br>
+                                            <br>
+                                            The <a href="http://americangut.org/" target="_blank">American Gut Project</a> has already identified millions of microbes in thousands of peoples' gut - <i> Firmicutes, Bacteroidetes, </i> you name it! However, researchers now need to understand what affects the microbes in our guts. How are our gut microbial systems changing?
+
+                                        <br>
+                                        <br>
+
+                                        
+                                            <span class= "red-text text-darken-4">
+                                                Where do we even begin to understand the human microbiome? If only there was an expert who already knew in great detail what affects your health...
+                                            </span>
+                                        </p>
+
+                                        <br>
+
+                                        <!--a id="sources-2-show" class="waves-effect waves-light btn light-blue darken-1" onclick="$('#sources-2').show(); $('#sources-2-hide').show(); $(this).hide();" >
+                                            <span style="align:left;">Show Sources
+                                            </span>
+                                        </a>
+                                        <a id="sources-2-hide" style="display: none;" class="waves-effect waves-light btn light-blue darken-1" onclick="$('#sources-2').hide(); $('#sources-2-show').show(); $(this).hide();" >
+                                            <span style="align:left;">Hide Sources
+                                            </span>
+                                        </a-->
+                                        <div id="sources-2-1" style="display: none; align: left">
+                                            <p align="left" style="font-size:15pt;">
+                                            1. <a href="https://www.nytimes.com/2017/03/06/upshot/exciting-microbe-research-temper-that-giddy-feeling-in-your-gut.html?_r=0" target="_blank">Exciting Microbe Research? Temper That Giddy Feeling in Your Gut
+                                            </a>. The Upshot, The New York Times. March 6, 2017.
+                                            </p>
+                                        </div>
+                                        
+                                        <div id="sources-2-2" style="display: none; align: left">
+                                            <p align="left" style="font-size:15pt;">
+                                            2. <a href="https://www.theatlantic.com/science/archive/2016/05/white-house-launches-the-national-microbiome-initiative/482598/" target="_blank"> The White House Launches the National Microbiome Initiative</a>. The Atlantic. May 13, 2016.
+                                            </p>
+                                        </div>
+                                        
+                                        <div id="sources-2-3" style="display: none; align: left">
+                                            <p align="left" style="font-size:15pt;">
+                                            3. <a href="http://americangut.org/" target="_blank">American Gut Project - What's in your gut</a>
+                                            </p>
+                                        </div>
+
+                                        <br>
+                                    </div>
+                                    <div class="col m5">
+                                        <div style="text-align: center; bottom: 60%; width: 80%;">
+                                            
+                                            <a href="https://www.theatlantic.com/science/archive/2016/05/white-house-launches-the-national-microbiome-initiative/482598/" target="_blank"><img class="compress imagezoom" src="images/news2.png" ></a>
+                                            <br> 
+                                            <p style="text-align: center; font-size:15pt;"> Article from The Atlantic.
+                                            <a style="font-size:8pt; cursor: pointer;" onclick="$('#sources-2-2').toggle(); $('#sources-2-1').hide(); $('#sources-2-3').hide();" target="_blank">[2]</a> </p>
+                                            <hr style="margin-top: 15px; margin-bottom: 15px; color: #8b8b8b;"/>
+                                            <!--<img class="compress imagezoom" src="images/news1.png" >
+                                            <hr style="margin-top: 15px; margin-bottom: 15px; color: #8b8b8b;"/>-->
+                                            <a href="http://americangut.org/" target="_blank"><img class="compress imagezoom black" style="border-radius: 5px;" src="images/american-gut.png"></a>
+                                            <br> 
+                                            <p style="text-align: center; font-size:15pt;"> American Gut Website
+                                            <a style="font-size:8pt; cursor: pointer;" onclick="$('#sources-2-3').toggle(); $('#sources-2-1').hide(); $('#sources-2-2').hide();" target="_blank">[3]</a> </p>
+                                        </div>
+                                    </div>
+                                    <div class="col m1">
+
+                                    </div>
+                                </div>
+                            
+                            </blockquote>
+
+                        </div>
+                    </div>
+
+
+                    <div class="sl-slide bg-1" data-orientation="vertical" data-slice1-rotation="10" data-slice2-rotation="-15" data-slice1-scale="1.5" data-slice2-scale="1.5">
+                        <div class="sl-slide-inner">
+                            <!-- <div class="deco" data-icon="q"></div>-->
+                            <h2 style="text-align: left;">3. It's You! Why You Should Become a Gut Scientist?</h2>
+
+                            <blockquote style="border: 0px;">
+                                <div class="row" style="margin-top: 10px;">
+                                    <div class="col m1">
+                                    </div>
+                                    
+                                    <div class="col m5 frame" style="overflow-y: scroll; height: 440px;">
+                                        <p style="font-size:15pt;">
+                                        <span class= "red-text text-darken-4">You</span> are the one with the most knowledge about yourself! Maybe you never get sick on flights or road-trips? Or maybe some medicines never work on you! 
+                                            Using Gut Instinct, you can share insights about yourself with other Gut Scientists by answering and creating questions. Researchers will then use your insights to analyze existing data. And together we can make new discoveries!<br>
+                                            
+                                            <br>
+                                            Don't think it'll work? Here's one of many examples! 23andMe is a genetic testing site and online service that includes a discussion board <a style="font-size:8pt; cursor: pointer;" onclick="$('#sources-3-2').toggle(); $('#sources-3-1').hide();" target="_blank">[2]</a>. On this forum, a user reported disliking the sounds of others eating. She wasn't alone; a 23andMe survey found 16,000 users with the same condition and a predictive genetic similarity among them!
+                                            <br>
+                                            <br>
+
+                                            <span class= "red-text text-darken-4">
+                                            Your contributions can lead to major scientific discoveries! Share your ideas using Gut Instinct - and hear back from people around the world and our experts!
+                                            </span>
+                                        </p>
+
+                                        <!--
+                                        These microbes find a way to your body based on many factors including your lifestyle! Identifying which lifestyle factors are responsible for your microbe buddies (<i>and your health</i>) is challenging. </p> -->
+                                        <!--a id="sources-3-show" class="waves-effect waves-light btn light-blue darken-1" onclick="$('#sources-3').show(); $('#sources-3-hide').show(); $(this).hide();" >
+                                            <span style="align:left;">Show Sources
+                                            </span>
+                                        </a>
+                                        <a id="sources-3-hide" style="display: none;" class="waves-effect waves-light btn light-blue darken-1" onclick="$('#sources-3').hide(); $('#sources-3-show').show(); $(this).hide();" >
+                                            <span style="align:left;">Hide Sources
+                                            </span>
+                                        </a-->
+
+                                        <div id="sources-3-1" style="display: none; align: left">
+                                            <br>
+                                            <br>
+                                            <p align="left" style="font-size:15pt;">
+                                            1. <a href="https://en.wikipedia.org/wiki/You_(Time_Person_of_the_Year)" target="_blank"> You (Time Person of the Year)</a>. Wikipedia.
+                                            <br>
+                                            </p>
+                                        </div>
+                                        <div id="sources-3-2" style="display: none; align: left">
+                                            <br>
+                                            <br>
+                                            <p align="left" style="font-size:15pt;">
+                                            2. <a href="https://blog.23andme.com/23andme-research/something-to-chew-on/" target="_blank"> Something to Chew On</a>. 23andme Research.
+                                            <br>
+                                            </p>
+                                        </div>
+
+                                        <br>
+                                    </div>
+                                    <div class="col m5">
+                                        <div style="text-align: center; bottom: 60%; width: 100%;">
+                                            <a href="https://en.wikipedia.org/wiki/You_(Time_Person_of_the_Year)" target="_blank"><img class="compress imagezoom" src="images/welcome2.jpg" ></a>
+                                            <br>
+                                            <p style="text-align: center; font-size:15pt;"> Time's Person of the Year goes to You!
+                                            <a style="font-size:8pt; cursor: pointer;" onclick="$('#sources-3-1').toggle(); $('#sources-3-2').hide();" target="_blank">[1]</a> </p>
+                                        </div>
+                                        <br>
+
+                                    </div>
+                                        
+                                        <div class="col m1"> 
+                                        </div>
+                                    
+                                </div>    
+                            </blockquote>
+                        </div>
+                    </div>
+
+                    <div class="sl-slide bg-1" data-orientation="vertical" data-slice1-rotation="-5" data-slice2-rotation="25" data-slice1-scale="2" data-slice2-scale="1">
+                        <div class="sl-slide-inner" >
+                            <!-- <div class="deco" data-icon="I"></div> -->
+
+                            <h2>4. Learn and Work with Gut Researchers! </h2>
+
+                            <br/>
+                            <br/>
+                            <br/>
+                            <br/>
+
+                            <blockquote style="border: 0px;">
+                                <div class="row" style="display: none;">
+                                    <div class="col m3"></div>
+                                    <div class="col m1">
+                                        <span style="font-size: 1.5em; font-weight: 700;">
+                                         <i class="fa fa-book" aria-hidden="true" style="font-size: 2em;"></i>
+                                            <br>
+                                            <br>
+                                            <span style="color:#01579b">
+                                             Learn
+                                            </span>
+                                        </span>
+                                    </div>
+                                    <div class="col m5">
+                                        <p style="font-size:15pt;">Gut Instinct provides online videos about different topics that affect your gut like genetics, antibiotics, and more!</p>
+                                    </div>
+                                    <div class="col m3"></div>
+                                </div>
+                                <br/>
+                                <br/>
+                                <div class="row">
+                                    <div class="col m3"></div>
+                                    <div class="col m1">
+                                    <span style="font-size: 1.5em; font-weight: 700;">
+                                     <i class="fa fa-list-ul" aria-hidden="true" style="font-size: 2em;"></i>
+                                        <br>
+                                        <br>
+                                     	<span style="color:#01579b">
+                                    	 Refine
+                                    	</span>
+                                 	</span>
+                                    </div>
+                                    <div class="col m5">
+                                        <p style="font-size:15pt;">Refine your question-asking skills with our guide, so you can ask more insightful and amazing questions</p>
+                                    </div>
+                                    <div class="col m3"></div>
+                                </div>
+                                <br/>
+                                <br/>
+                                <div class="row">
+                                    <div class="col m3"></div>
+                                    <div class="col m1">
+                                    <span style="font-size: 1.5em; font-weight: 700;">
+                                     <i class="fa fa-comments-o" aria-hidden="true" style="font-size: 2em;"></i>
+                                        <br>
+                                        <br>
+                                     	<span style="color:#01579b">
+                                    	 Ask/<br/>Answer
+                                    	</span>
+                                 	</span>
+                                    </div>
+                                    <div class="col m5">
+                                        <p style="font-size:15pt;">Share your questions with your peers and compare your experiences. <span class="blue-text">Your questions will be reviewed by researchers from the American Gut Project.</span> If you ask a really useful question, someone from the American Gut Project will likely talk to you. The best questions will win American Gut Kits provided by UC San Diego Design Lab.</p>
+                                    </div>
+                                    <div class="col m3"></div>
+                                </div>
+
+                                <!--<p>Gut Instinct provides tutorials and learning material about gut microbiome.</p>-->
+
+                                <!--<p>Watch our "Introduction" or explore our increasing list of “Gut Topics”. To ask a question, one must know more about recent science in gut microbiome.</p>-->
+
+                                <!--<div style="text-align: center; width: 100%;">-->
+                                    <!--<img src="images/welcome3.jpg" style="width: 30%">-->
+                                <!--</div>-->
+
+                                <!--<p>Add your learning notes/questions to the learning material.</p>-->
+
+                                <!-- <cite>Michael Klaper M.D.</cite> -->
+                            </blockquote>
+                        </div>
+                    </div>
+
+                    
+
+                    
+                    <div id="finalSlide" class="sl-slide bg-1" data-orientation="horizontal" data-slice1-rotation="-5" data-slice2-rotation="10" data-slice1-scale="2" data-slice2-scale="1">
+                        <div class="sl-slide-inner">
+                            <!--<div class="deco" style="bottom: 12%">-->
+                                <!--<i class="fa fa-thumbs-o-up" aria-hidden="true" style="font-size: 300px; color: #545454"></i>-->
+                            <!--</div>-->
+                            <h2>5. Get started!</h2>
+                            <blockquote style="border: 0px;">
+                                <ul style="text-align: center">
+                                    <h5 style="text-align: center"> Stay up to date with <a href="mailto:gutinstinct@ucsd.edu"><b>Gut Instinct</b></a> and follow us online!</h5>
+                                    <h5><a href="mailto:gutinstinct@ucsd.edu"><b><i class="fa fa-envelope" aria-hidden="true"></i> gutinstinct@ucsd.edu</b></a></h5>
+                                </ul>
+                                <div class="row">
+                                    <br/>
+                                    <div class="col s12">
+                                        <iframe id="twitter-widget-0" scrolling="no" frameborder="0" allowtransparency="true" class="twitter-follow-button twitter-follow-button-rendered" title="Twitter Follow Button" src="https://platform.twitter.com/widgets/follow_button.5f60791584f95f2ec483faec8b16a58b.en.html#dnt=false&amp;id=twitter-widget-0&amp;lang=en&amp;screen_name=GutInstinctUCSD&amp;show_count=true&amp;show_screen_name=true&amp;size=l&amp;time=1500423734379" data-screen-name="GutInstinctUCSD" style="position: static; visibility: visible; width: 279px; height: 28px;"></iframe>
+                                    </div>
+                                    <br/>
+                                    <br/>
+                                    <br/>
+                    
+                                    <div class="col md6 " style="overflow: hidden; margin-left: calc(50% - 340px);">
+                                        <iframe src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2FgutinstinctUCSD&tabs&width=340&height=130&small_header=false&adapt_container_width=false&hide_cover=false&show_facepile=false&appId=1667529610219243" width="340" height="130" style="padding:0px; border-radius: 10px; border-width: 0px;" scrolling="no" allowTransparency="true" ></iframe>
+                                    </div>
+                                    <div class="wrapper col md6">
+                                        <div class="social-counter-2" style="overflow: hidden; height: 130px;">
+                                            <a class="count slack" target="_blank" href="https://join.slack.com/t/gutinstinctcommunity/shared_invite/MjEzNzc1NDIwNjI0LTE1MDA0MDI1NjQtNmZhMzUwMjUwMg">
+                                            <div class="icon"><i class="fa fa-slack"></i></div>
+                                            <span>Slack</span>
+                                            <p class="action-btn">Have questions about how to use Gut Instinct or engage with the general Gut Instinct community? Join our Slack team with a few clicks!</p>
+                                          </a>
+                                        </div>
+                                    </div>
+                                 
+                                </div>
+                                <!--div class="wrapper">
+                                    <div class="social-counter-2">
+                                      <a class="count facebook" target="_blank" href="https://www.facebook.com/gutinstinct.ucsd">
+                                        <div class="icon"><i class="fa fa-facebook"></i></div>
+                                        <span>Facebook</span>
+                                        <p class="action-btn">Like our page</p>
+                                      </a>
+                                    </div>
+                                </div>
+                                <div class="wrapper">
+                                    <div class="social-counter-2">
+                                      <a class="count twitter" target="_blank" href="https://twitter.com/GutInstinctUCSD">
+                                        <div class="icon"><i class="fa fa-twitter"></i></div>
+                                        <span>Twitter</span>
+                                        <p class="action-btn">Follow @GutInstinctUCSD</p>
+                                      </a>
+                                   </div>
+                                </div-->
+                                <!--div class="wrapper">
+                                    <div class="social-counter-2">
+                                        <a class="count youtube" target="_blank" href="https://www.youtube.com/channel/UCB1LJqUuCH7Bv6uSCLioiRQ">
+                                            <div class="icon"><i class="fa fa-youtube"></i></div>
+                                            <span>Youtube</span>
+                                            <p class="action-btn">Subscribe to our videos</p>
+                                        </a>
+                                    </div>
+                                </div-->
+                                <!--div class="wrapper">
+                                    <div class="social-counter-2">
+                                      <a class="count slack" target="_blank" href="https://join.slack.com/t/gutinstinctcommunity/shared_invite/MjEzNzc1NDIwNjI0LTE1MDA0MDI1NjQtNmZhMzUwMjUwMg">
+                                        <div class="icon"><i class="fa fa-slack"></i></div>
+                                        <span>Slack</span>
+                                        <p class="action-btn">Join the community chatter</p>
+                                      </a>
+                                    </div>
+                                </div-->
+
+                                
+                                <!--div style="text-align: center;">
+                                    <a href="https://twitter.com/GutInstinctUCSD" target="_blank">
+                                        <img src="images/follow_twitter.png" style="width: 150px; left: -10%;">
+                                    </a>
+                                    <a href="https://www.facebook.com/gutinstinct.ucsd" target="_blank">
+                                        <img src="images/follow_facebook.png" style="width: 150px; left: -10%;">
+                                    </a>
+                                </div-->
+                            
+                               
+                                    
+
+                                <!--div id="social_sharing">
+                                    <a href="https://twitter.com/GutInstinctUCSD" target="_blank">
+                                        <img src="images/follow_twitter.png" style="width: 150px;">
+                                    </a>
+                                    
+                                    <a href="https://www.facebook.com/gutinstinct.ucsd" target="_blank">
+                                        <img src="images/follow_facebook.png" style="width: 150px;">
+                                    </a>
+                                </div-->
+                                <br/>
+                                <br/>
+                                <a href="/username">
+                                    <button type="button" style="height: 75px; line-height: initial; width: 500px; border-radius: 10px; border: 1px solid #8bc34a; font-size: 30px; background: #01579b; /*black;*/; color: #fff;">I want to share my Gut Instincts! <i class="fa fa-sign-in" aria-hidden="true"></i></button>
+                                </a>
+                            <!-- <cite>Margi Clarke</cite> -->
+                            </blockquote>
+						</div>
+					</div>
+				</div><!-- /sl-slider -->
+				
+				<nav id="nav-arrows" class="nav-arrows">
+					<span id="prevSlideController" class="nav-arrow-prev" onclick="setTimeout(checkEndSlide, 100);">Previous</span>
+					<span id="nextSlideController" class="nav-arrow-next" onclick="setTimeout(checkEndSlide, 300);">Next</span>
+				</nav>
+
+				<nav id="nav-dots" class="z-depth-0 nav-dots" style="background-color: #ffffff; display: none;">
+					<span class="nav-dot-current"></span>
+					<span></span>
+					<span></span>
+					<span></span>
+                    <span></span>
+                    <!--<span></span>-->
+				</nav>
+
+			</div><!-- /slider-wrapper -->
+
+        </div>
+		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+		<script type="text/javascript" src="js/jquery.ba-cond.min.js"></script>
+		<script type="text/javascript" src="js/jquery.slitslider.js"></script>
+		<script type="text/javascript">	
+			// hover image preview
+			// $(".compress").hover(function(){
+			//   $(".rawimage").show();
+
+			// });
+
+        function checkEndSlide(){
+            console.log("enter checking");
+
+            if($("#finalSlide").css('display') != 'none'){
+                $("#nextSlideController").hide();
+            }
+            else{
+                $("#nextSlideController").show();
+            }
+        }
+
+			$(function() {
+			
+				var Page = (function() {
+
+					var $navArrows = $( '#nav-arrows' ),
+						$nav = $( '#nav-dots > span' ),
+						slitslider = $( '#slider' ).slitslider( {
+							onBeforeChange : function( slide, pos ) {
+
+								$nav.removeClass( 'nav-dot-current' );
+								$nav.eq( pos ).addClass( 'nav-dot-current' );
+
+							}
+						} ),
+
+						init = function() {
+
+							initEvents();
+							
+						},
+						initEvents = function() {
+
+							// add navigation events
+							$navArrows.children( ':last' ).on( 'click', function() {
+
+								slitslider.next();
+								return false;
+
+							} );
+
+							$navArrows.children( ':first' ).on( 'click', function() {
+								
+								slitslider.previous();
+								return false;
+
+							} );
+
+							$nav.each( function( i ) {
+							
+								$( this ).on( 'click', function( event ) {
+									
+									var $dot = $( this );
+									
+									if( !slitslider.isActive() ) {
+
+										$nav.removeClass( 'nav-dot-current' );
+										$dot.addClass( 'nav-dot-current' );
+									
+									}
+									
+									slitslider.jump( i + 1 );
+									return false;
+								
+								} );
+								
+							} );
+
+						};
+
+						return { init : init };
+
+				})();
+
+				Page.init();
+
+				/**
+				 * Notes: 
+				 * 
+				 * example how to add items:
+				 */
+
+				/*
+				
+				var $items  = $('<div class="sl-slide sl-slide-color-2" data-orientation="horizontal" data-slice1-rotation="-5" data-slice2-rotation="10" data-slice1-scale="2" data-slice2-scale="1"><div class="sl-slide-inner bg-1"><div class="sl-deco" data-icon="t"></div><h2>some text</h2><blockquote><p>bla bla</p><cite>Margi Clarke</cite></blockquote></div></div>');
+				
+				// call the plugin's add method
+				ss.add($items);
+
+				*/
+			
+			});
+        
+      
+		</script>
+	</body>
+</html>
+
+<!--
+                    <div class="sl-slide bg-1" data-orientation="vertical" data-slice1-rotation="-5" data-slice2-rotation="25" data-slice1-scale="2" data-slice2-scale="1">
+                        <div class="sl-slide-inner">
+                            <!-- <div class="deco" data-icon="I"></div>
+
+                            <h2>4.1 Learn about the gut microbiome</h2>
+
+                            <blockquote>
+
+                                <p>Gut Instinct provides tutorials and learning material about gut microbiome.</p>
+
+                                <p>Watch our "Introduction" or explore our increasing list of “Gut Topics”. To ask a question, one must know more about recent science in gut microbiome.</p>
+
+                                <div style="text-align: center; width: 100%;">
+                                    <img src="images/welcome3.jpg" style="width: 30%">
+                                </div>
+
+                                <p>Add your learning notes/questions to the learning material.</p>
+
+                                
+                            </blockquote>
+                        </div>
+                    </div>
+
+					<div class="sl-slide bg-1" data-orientation="horizontal" data-slice1-rotation="3" data-slice2-rotation="3" data-slice1-scale="2" data-slice2-scale="1">
+						<div class="sl-slide-inner">
+							<!-- <div class="deco" data-icon="O"></div> 
+							
+
+							<h2>4.2 Ask/Answer/Discuss</h2>
+							
+							<blockquote>
+							
+							<!--<p><u>Share your idea as a question on our GutBoard. </u></p>
+							<br>
+
+							<p><b>·</b> You can see others’ questions,</p>
+							<p><b>·</b> add to the discussion, or</p>
+							<p><b>·</b> even suggest modifications to the questions to improve them</p>
+							<br>
+							<br>
+
+							<div style="text-align: center; width: 100%;">
+								<img src="images/gutboardpic.jpg" style="width: 30%">
+							</div>
+
+							<p>Embarrassed to add questions? Don’t be. You are anonymous to your peers!</p>
+
+							<!-- <cite>Dame Jane Morris Goodall</cite>
+							</blockquote>
+						</div>
+					</div>-->

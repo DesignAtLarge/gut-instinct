@@ -1,0 +1,16 @@
+template(name="gaCorrectnessModal")
+    div.modal(id="correctness-modal" style="height: 10%;")
+
+        div(style="color:rgba(0,0,0,.54);background:rgba(0,0,0,.03); padding:15px; ")
+            h4.left-align
+                | Please ensure the correctness of the experiment
+
+
+        div.modal-content.reminder-stats(style="height: 50%; padding-bottom: 0px;")
+            p(style="font-size: large") Please remember that the responsibility for correctness of all experiment details rests with the creator.
+
+            p(style="font-size: large") Proceed to invite participants or go back  and edit your experiment.
+
+        div.modal-footer
+            a.blue-text#invite-btn(class="modal-action btn-flat") Invite Now
+            a.gray-text(class="modal-action modal-close btn-flat") Go Back And Edit

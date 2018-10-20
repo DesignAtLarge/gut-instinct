@@ -1,0 +1,57 @@
+template(name="gaCriteria")
+    +cardLayout(heading="Provide criteria for your experiment participants" cardId=cardId nextDisabled=nextDisabled timeStamp=timeStamp type=type designId=getDesignId)
+        p(style="font-size: 20px; font-weight: 400;") Hypothesis:
+            span.blue-text.text-darken-2 #{hypothesis}
+        br
+        div.row
+            div.col.s6
+                p(style="font-size: 20px; font-weight: 400;") Experimental Condition:
+                span.light-blue-text.darken-4 #{experimentalCondition}
+                if hasExperimentalInstructions
+                    ol.criteria-list(style="font-size: 15px;")
+                        each step in experimentalSteps
+                            li #{step}
+                else 
+                    p No instructions yet
+            div.col.s6
+                p(style="font-size: 20px; font-weight: 400;") Control Condition:
+                span.light-blue-text.darken-4 #{controlCondition}
+                if hasControlInstructions
+                    ol.criteria-list(style="font-size: 15px;")
+                        each step in controlSteps
+                            li #{step}
+                else 
+                    p No instructions yet
+        br
+
+        span(class='card-title' style='font-size: 20px; font-weight: 100;') Which participants would you select for your experiment?
+
+        p(style='font-size: 20px; font-weight: 100;')
+            span.red-text: b Exclude
+            | a participant from your experiment if they:
+        br
+
+        +checklist(id='exclusion' checklistItems=exclusionCriteria style="font: 300 15px Lato;" exclude=true criteria="-criteria")
+
+        // help link called from inside checklist
+        +helpLayout(cardId="checklist" helpId="1" title="Participants are excluded from experiments for the following reasons:" learnLink="")
+            ol
+                li Participants might get hurt while following the experimental instructions. This could be a general safety principle (e.g. pregnant women) or specific to the task (e.g. a gluten intolerant person might hurt himself/herself in an experiment that involves consuming gluten)
+                br
+                li Non-adults (participants under 18 years of age), prisoners, or potentially cognitively impaired people might not have the autonomy to make an informed decision while participating in experiments.                
+
+            b For your experimental instructions, think about who might need to be excluded and add them to the list!
+        br
+        br
+
+        p(style='font-size: 20px; font-weight: 100;')
+            span.green-text: b Include
+            | a participant in your experiment if they:
+        br
+
+        +checklist(id='inclusion' checklistItems=inclusionCriteria style="font: 300 15px Lato;" include=true criteria="-criteria")
+
+
+        br
+
+        +gaVideoLearnLayout(videoTitle="Learn More - Your Experiments#4 - Selecting participants and creating inclusion/exclusion criteria" videoUrl="https://www.youtube.com/embed/s7RgSJsyvhs" videoSrc="coursera.org/learn/designexperiments")

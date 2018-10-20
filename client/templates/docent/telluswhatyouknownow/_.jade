@@ -1,0 +1,16 @@
+template(name='telluswhatyouknownow')
+    #welcome
+        div(class='container content topics', style='max-width:750px')
+            h2(class='animated fadeIn' style='color: white;') Before you leave <br/> 
+
+            div(class='card', style='margin-top: 5%;')
+                br
+                div(style='margin-left: 10%; margin-right: 10%')
+                    h5(class='animated fadeIn' style='color: #696969; margin-top: 20px;') Can you tell us what you know about the gut microbiome!
+
+                .card-content
+                    form(class='comment-form')
+                        textarea(id='userAnswerText', class='materialize-textarea', placeholder='Please enter your answer here', required)
+                        br
+                        br
+                        Button(id='submitTest' class='btn light-blue') Submit

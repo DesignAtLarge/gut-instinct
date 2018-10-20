@@ -1,0 +1,90 @@
+template(name="gaExperimentDesignMeasures")
+    
+    hr.summary-hr
+    +imageModal(url='/images/galileo/exp_design/bristol_stool_chart.png')
+    +textModal(id="cause-message-textarea" name="feedback" rows="20" cols="50")
+    +textModal(id="effect-message-textarea" name="feedback" rows="20" cols="50")
+    div.dual-section#measure-section
+        div.design-section.column#cause-measure-block(class="{{#if focusingCause}}active{{/if}}")
+            p(style="font-size: 20px; font-weight: 400;")
+                | How is
+                span(class="blue-text text-darken-2") #{cause}
+                | manipulated?
+                if allowEdits
+                    i.material-icons.edit-design-btn#edit-cause mode_edit
+                    i.material-icons.edit-design-btn.accept.hide#accept-edit-cause check
+                    i.material-icons.edit-design-btn.cancel.hide#cancel-edit-cause clear
+
+            ul.browser-default
+                li
+                    p(style="font-size: 18px; font-weight: 100;")
+                        | Participants measure
+                        span.blue-text.text-darken-2#cause-measure-type #{causeMeasureType}
+                        span.blue-text.text-darken-2#edit-cause-measure-type.column(style="cursor: pointer; border: 2px solid rgba(25, 118, 210, 0.5); border-radius: 6px; padding: 4px;").hide
+                            span#measureCause-editableText(contenteditable="false" ) #{causeMeasureType}
+                        |  of
+                        span.blue-text.text-darken-2 #{cause}
+                        | #{hasCauseUnit} #{isCauseRateScaleType}
+                        span.blue-text.text-darken-2 #{causeMeasureDetails}
+                li#cause-reminder-time-bullet
+                    p(style="font-size: 18px; font-weight: 100; ")
+                        | Reminder sent every day at
+                        span.blue-text.text-darken-2(id="cause-reminder-time") #{causeMeasureTime}
+                        | with the following message:
+                    br
+                    p#cause-message "#{causeMeasureReminder}"
+            
+            if allowEdits
+                div.cause-edit.hide
+                    +gaTimeDropdown(id='cause-amount-time' measureType=causeMeasureType measureItem=cause)
+                    p.blue-text.text-darken-2#cause-message-textarea-text(style="cursor: pointer; border: 2px solid rgba(25, 118, 210, 0.5); border-radius: 6px; padding: 4px;") #{causeMeasureReminder}
+            
+            if showCauseOhDataSources
+                ul.browser-default
+                    li
+                        p(style="font-size:18px;") Data sources:
+                        +gaOhSelectedDataSources(idSuffix="causeSummary" ohDataSourceIdsVar=causeOhDataSourceIdsVar viewOnly=ohViewOnly)
+
+        div.vert
+        div.design-section.column#effect-measure-block(class="{{#if focusingEffect}}active{{/if}}")
+            p(style="font-size: 20px; font-weight: 400;")
+                | How is
+                span(class="blue-text text-darken-2") #{effect}
+                | measured?
+
+                if allowEdits
+                    i.material-icons.edit-design-btn#edit-effect mode_edit
+                    i.material-icons.edit-design-btn.accept.hide#accept-edit-effect check
+                    i.material-icons.edit-design-btn.cancel.hide#cancel-edit-effect clear
+
+            ul.browser-default
+                li
+                    p(style="font-size: 18px; font-weight: 100;")
+                        | Participants measure
+                        span.blue-text.text-darken-2#effect-measure-type #{effectMeasureType}
+                        span.blue-text.text-darken-2#edit-effect-measure-type.column(style="cursor: pointer; border: 2px solid rgba(25, 118, 210, 0.5); border-radius: 6px; padding: 4px;").hide
+                            span#measureEffect-editableText(contenteditable="false" ) #{effectMeasureType}
+                        | of
+                        span.blue-text.text-darken-2 #{effect}
+                        | #{hasEffectUnit} #{hasEffectRating}
+                        span.blue-text.text-darken-2 #{effectMeasureDetails}
+                    if isBristol
+                        img#bristol-stool(src='/images/galileo/exp_design/bristol_stool_chart.png' style="width:100%;")
+                li#effect-reminder-time-bullet
+                    p(style="font-size: 18px; font-weight: 100; ")
+                        | Reminder sent every day at
+                        span.blue-text.text-darken-2(id="effect-reminder-time") #{effectMeasureTime}
+                        | with the following message:
+                    br
+                    p(id="effect-message") "#{effectMeasureReminder}"
+            
+            if allowEdits
+                div.effect-edit.hide
+                    +gaTimeDropdown(id='effect-amount-time' measureType=effectMeasureType measureItem=effect)
+                    p.blue-text.text-darken-2#effect-message-textarea-text(style="cursor: pointer; border: 2px solid rgba(25, 118, 210, 0.5); border-radius: 6px; padding: 4px;") #{effectMeasureReminder}
+            
+            if showEffectOhDataSources
+                ul.browser-default
+                    li
+                        p(style="font-size:18px;") Data sources:
+                        +gaOhSelectedDataSources(idSuffix="effectSummary" ohDataSourceIdsVar=effectOhDataSourceIdsVar viewOnly=ohViewOnly)

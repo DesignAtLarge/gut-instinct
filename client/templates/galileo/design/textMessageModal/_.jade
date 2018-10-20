@@ -1,0 +1,8 @@
+template(name='textModal')
+	div.modal(id="{{id}}-modal")
+		div.modal-content
+			textarea.textarea-sms(id="{{id}}" rows="30" name="{{name}}" style="max-height: 95%" required)
+
+		div.modal-footer
+			a.btn.blue.darken-1.changeMessage(data-id="{{id}}") Change Message
+			a.gray-text(class="btn-flat" id="cancel") Close

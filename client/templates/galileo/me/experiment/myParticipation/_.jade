@@ -1,0 +1,67 @@
+template(name="gaMeExperimentMyParticipation")
+    +imageModal(url='/images/galileo/exp_design/bristol_stool_chart.png')
+    +gaMeExperimentMaster(id=id section=section)
+        section
+            h5.section-header My Participation
+            div.section-body
+                unless hasStartDate
+                    blockquote.warning This experiment has not yet started! When the experiment creator decides the start
+                        | date of the experiment, Galileo will send you text messages
+                        | as well as emails. For now, please wait for a day or two 
+                        | before this experiment begins.
+
+                if prepSteps
+                    p(style="font-size: 20px;") You can prepare in advance for the experiment by following these steps:
+                    ol.browser-default.light-blue-text.text-darken-4
+                        each prepStep in prepSteps
+                            li.light-blue-text.text-darken-4 {{prepStep}}
+                
+                p(style="font-size: 20px;") Once the experiment begins, you must follow these steps every day:
+                ol.browser-default.light-blue-text.text-darken-4
+                    each step in steps
+                        li.light-blue-text.text-darken-4 {{step}}
+                if isBristol
+                    p(style="margin-left:25px") {{relatedStep}}
+                    button#bristol(class='waves-effect waves-light btn light-blue' href="#" style="padding: 0px; height: 250px; width: 209px; margin-left:25px")
+                        img#bristol-stool(src='/images/galileo/exp_design/bristol_stool_chart.png' style="height:250px;")
+                    br
+                    br
+                
+                if hasStartDate  
+                    br
+                    p(style="font-size: 20px; color: #3a3839;") The start date of experiment is: &nbsp;{{getStartDate}}.
+                else
+                    p(style="font-size: 20px;") The creator of experiment has not decided the start date yet.
+        section
+            h5.section-header Participation Tracking Sheet
+            div.section-body
+                if hasStartDate
+                    table.sheet-table
+                        tr
+                            td Date
+                            td(style="padding:10px") {{getCause}} (Cause)
+                                br
+                                span.light-blue-text.text-darken-4 {{causeType}}
+                            td(style="padding:10px") {{getEffect}} (Effect)
+                                br
+                                span.light-blue-text.text-darken-4 {{effectType}}
+                        each slot in slots
+                            tr
+                                td(style="padding: 2px")
+                                    p(style="margin-top:1px; margin-bottom:1px") {{slot.date}}
+                                if slot.editable         
+                                    td.light-blue-text.text-darken-4(style="padding: 2px")
+                                        textarea.materialize-textarea(style="margin:8px; min-height: 0rem !important; height: 2rem; padding: 0px" id="editCauseData-{{slot.cause_rid}}" rid="{{slot.cause_rid}}" exp-id="{{getExpId}}" class="textarea-cause" required) {{slot.cause}}
+                                        button.btn.light-blue.saveCauseChange(id="submitCauseBtn-{{slot.cause_rid}}" rid="{{slot.cause_rid}}" index="{{slot.index}}" exp-id="{{getExpId}}" type="submit" style="display: none; margin: 8px") save
+                                    td.light-blue-text.text-darken-4(style="padding: 2px")
+                                        textarea.materialize-textarea(style="margin:8px; min-height: 0rem !important; height: 2rem; padding: 0px" id="editEffectData-{{slot.effect_rid}}" rid="{{slot.effect_rid}}" exp-id="{{getExpId}}" class="textarea-effect" required) {{slot.effect}}
+                                        button.btn.light-blue.saveEffectChange(id="submitEffectBtn-{{slot.effect_rid}}" rid="{{slot.effect_rid}}" index="{{slot.index}}" exp-id="{{getExpId}}" type="submit" style="display: none; margin: 8px") save
+                                else 
+                                    td.light-blue-text.text-darken-4(style="padding: 10px; padding-top: 15px;padding-bottom: 15px;")
+                                        //- textarea.materialize-textarea(id="editCauseData-{{slot.cause_rid}}" rid="{{slot.cause_rid}}" exp-id="{{getExpId}}" class="textarea-cause" required) {{slot.cause}}
+                                        span {{slot.cause}}
+                                    td.light-blue-text.text-darken-4(style="padding: 10px; padding-top: 15px;padding-bottom: 15px;")
+                                        //- textarea.materialize-textarea(id="editEffectData-{{slot.effect_rid}}" rid="{{slot.effect_rid}}" exp-id="{{getExpId}}" class="textarea-effect" required) {{slot.effect}}
+                                        span {{slot.effect}}
+                else
+                    p The participation tracking sheet will be populated once the creator provides a start date for the experiment.. Stay tuned!

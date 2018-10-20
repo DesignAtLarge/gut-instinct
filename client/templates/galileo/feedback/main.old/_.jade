@@ -1,0 +1,39 @@
+template(name="gaExperimentFeedbackOld")
+    +gaNavbar
+    main#ga-main
+        
+        //- div.container.galileo
+        //-     nav.light-blue.darken-4(style="position: relative; z-index: 0")
+        //-         div.nav-wrapper(style="text-align: center; font-size: 24px") {{headline}}
+        //- 
+        
+        div.container.galileo.animatedTransition
+            nav.light-blue.darken-4(style='position:relative; z-index:0')
+                div.nav-wrapper(style="text-align: center; font-size: 24px") #{headline}
+                    if allowEdits
+                        ul.left.hide-on-med-and-down
+                            li: a#top-back-button(href="") Back
+        
+            if isGuestMode
+                h5(style="text-align: center; color: #616161; margin-top: 10px; margin-bottom: 10px;") You are invited to review this experiment
+            div(class='card qmodule cardquestion')
+                div(class='card-content layer-1')
+                    +gaExperimentDesign(allowFeedback=true designId=designId isFeedbackMode=isFeedbackMode isGuestMode=isGuestMode allowEdits=allowEdits userCount=userCount examples=examples pilotId=pilotId)
+            //div(class='card qmodule cardquestion')
+                +gaExperimentFeedbackList(expId=id isGuestMode=guestMode)
+        
+            if isGuestMode
+                h6(style='text-align: center; margin-bottom: 10px; margin-top: 10px;') You will be able to review this (or any) experiment after you signing in!
+                    a.btn.light-blue#sign-in Sign In Now!
+            else
+                div(class='card qmodule cardquestion')
+                    +gaExperimentFeedbackList(expId=id isGuestMode=isGuestMode pilotId=pilotId)
+        
+                if allowEdits
+                    a.btn.grey#cancel-review GO BACK
+                else
+                    a.btn.light-blue.darken-1.waves-effect.waves-light#finish-review FINISH REVIEWING
+                    a.btn.grey#cancel-review GO BACK
+        
+            br
+            br

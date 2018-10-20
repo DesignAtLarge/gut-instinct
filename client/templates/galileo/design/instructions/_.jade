@@ -1,0 +1,75 @@
+template(name="gaExperimentDesignInstructions")
+
+    hr.summary-hr
+    
+    //NEED THIS OUTER DIV AND RELATIVE POSITION FOR FLOATING REVIEW CONTAINER NEXT TO THIS SECTION
+    div#instructions-section.animatedTransition(style="position:relative;")
+        div.dual-section
+            div.design-section.column#experimental-condition-block(class="{{#if focusingExperimental}}active{{/if}}")
+                span(style="font-size: 20px; font-weight: 400;") Experimental Condition
+                if allowEdits
+                    i.material-icons.edit-design-btn#edit-experimental mode_edit
+                    i.material-icons.edit-design-btn.accept.hide#accept-edit-experimental check
+                    i.material-icons.edit-design-btn.cancel.hide#cancel-edit-experimental clear
+                br
+
+                div#experimental-div
+                    span.light-blue-text.darken-4 #{experimentalCondition}
+
+                    p(style="font-size: 18px; margin-top: 15px") 
+                        | #[b Preparation steps]
+                        ol.criteria-list(style="font-size: 18px; margin-top: 0px")
+                            each step in experimentalPrepSteps
+                                li #{step}
+
+                    hr.summary-hr(style="margin: 15px 15px")
+                    p(style="font-size: 18px;") 
+                        | #[b Experiment steps]
+                        ol.criteria-list(style="font-size: 18px;margin-top: 0px")
+                            each step in experimentalSteps
+                                li #{step}
+
+                div#experimental-editable.hide
+                    input#experimental-text(type='text' value="{{experimentalCondition}}")
+                    p(style="font-size: 18px;") 
+                        | #[b Preparation steps]
+                        +checklist(id='experimentalPrepSteps' checklistItems=editableExperimentalPrepSteps) 
+                    hr.summary-hr(style="margin: 15px 15px")
+                    p(style="font-size: 18px;") 
+                        | #[b Experiment steps]
+                    +checklist(id='experimentalSteps' checklistItems=editableExperimentalSteps)
+                    
+            div.vert
+            div.design-section.column#control-condition-block(class="{{#if focusingControl}}active{{/if}}")
+                span(style="font-size: 20px; font-weight: 400;") Control Condition
+                if allowEdits
+                    i.material-icons.edit-design-btn#edit-control mode_edit
+                    i.material-icons.edit-design-btn.accept.hide#accept-edit-control check
+                    i.material-icons.edit-design-btn.cancel.hide#cancel-edit-control clear
+                
+                br
+                div#control-div
+                    span.light-blue-text.darken-4 #{controlCondition}
+
+                    p(style="font-size: 18px; margin-top: 15px")
+                        | #[b Preparation steps]
+                        ol.criteria-list(style="font-size: 18px; margin-top: 0px")
+                            each step in controlPrepSteps
+                                li #{step}
+
+                    hr.summary-hr(style="margin: 15px 15px")
+                    p(style="font-size: 18px")
+                        | #[b Control steps]
+                        ol.criteria-list(style="font-size: 18px;")
+                            each step in controlSteps
+                                li #{step}
+
+                div#control-editable.hide
+                    input#control-text(type='text' value="{{controlCondition}}")
+                    p(style="font-size: 18px;")
+                        | #[b Preparation steps]
+                        +checklist(id='controlPrepSteps' checklistItems=editableControlPrepSteps) 
+                    hr.summary-hr(style="margin: 15px 15px")
+                    p(style="font-size: 18px;") 
+                        | #[b Control steps]
+                    +checklist(id='controlSteps' checklistItems=editableControlSteps)

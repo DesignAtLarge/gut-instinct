@@ -1,0 +1,196 @@
+template(name='profile')
+    +header
+    |{{init}}
+    nav(style='display: none;')
+        div(class='nav-wrapper light-blue darken-4')
+    div(class='container content gutboard' style='max-width: 700px;')
+        h3(class='animated fadeIn light-blue-text text-darken-4' style='') Welcome, {{getCurrentUserName}}!
+        br
+        h5(class='animated fadeIn light-blue-text text-darken-4' style='') Manage your profile and notification settings
+        br
+        br
+        .row(style="height:auto;")
+            .card.profilepage
+                .card-content
+                    p
+                        | Have a question about how we are using these information? Visit Project info page at
+                        a(href='http://gutinstinct.ucsd.edu/info#section-data') http://gutinstinct.ucsd.edu/info#section-data
+
+                .card-tabs
+                    ul.tabs.tabs-fixed-width
+                        li.tab
+                            a.tab-link.light-blue-text(href='#basic_setting' data-step='10', data-intro='This is your profile page. You can update your personal information here. An email is highly reccomended so that Gut Instinct can keep you up to date.') Basic
+                        unless isCondition7
+                            li.tab
+                                a.tab-link.light-blue-text(href='#notification_setting' data-step='11', data-intro='Enable notifications so you can be up to date on any changes!') Notifications
+                        //li.tab
+                            a.tab-link.light-blue-text(href='#profile_question' data-step='12', data-intro='And be sure to answer these questions so we can learn more about you!') Questions
+                        //li.tab
+                            a.tab-link(href='#delete_account' data-step='13', data-intro='If you feel the need to leave Gut Intinct, delete your account here.') Delete Account
+                .card-content.grey.lighten-4(style='height: auto;//')
+                    #basic_setting.col.s12
+                        .row
+                            form.col.s12#basic_profile
+                                .row
+                                    .input-field.col.s6
+                                        i.material-icons.prefix account_circle
+                                        input#username_field(type='text' disabled placeholder='{{getCurrentUserName}}')
+                                        label(for='username_field') Username (Cannot be changed)
+                                    .input-field.col.s6
+                                        unless hasEmail
+                                            i.material-icons.prefix(style="color: #f4511e;") error
+                                        else
+                                            i.material-icons.prefix email
+                                        input#useremail_field(type='email' value='{{getCurrentEmail}}')
+                                        label(for='useremail_field') Personal Email (Recommended)
+
+                                .row
+                                    .input-field.col.s6
+                                        i.material-icons.prefix my_location
+                                        input#userlocation_field(type='text' value='{{getCurrentLocation}}')
+                                        label(for='userlocation_field') Your City
+                                    .input-field.col.s6
+                                        i.material-icons.prefix swap_vertical_circle
+                                        input#useragid_field(type='text' value='{{getCurrentAGID}}')
+                                        label(for='useragid_field') American Gut ID (Recommended)
+
+                                .row
+                                    .input-field.col.s12
+                                        i.material-icons.prefix textsms
+                                        input#gi-profile-interest-input(type="text" value="{{getWhyInterested}}")
+                                        label(for='gi-profile-interest-input')  I am interested in using Gut Instinct because .... 
+
+                                //.row
+                                    .wrapperdemo.col.s4
+                                      .social-counter-2
+                                        a.count.facebook(target='_blank', href='https://www.facebook.com/gutinstinct.ucsd')
+                                            .icon
+                                                i.fa.fa-facebook
+                                            span Like our page
+                       
+                                    .wrapperdemo.col.s4
+                                      .social-counter-2
+                                        a.count.twitter(target='_blank', href='https://twitter.com/GutInstinctUCSD')
+                                            .icon
+                                                i.fa.fa-twitter
+                                            span Follow us
+
+                                    //.wrapperdemo.col.s3
+                                      .social-counter-2
+                                        a.count.youtube(target='_blank', href='https://www.youtube.com/channel/UCB1LJqUuCH7Bv6uSCLioiRQ')
+                                            .icon
+                                                i.fa.fa-youtube
+                                            span Subscribe
+                                    .wrapperdemo.col.s4
+                                      .social-counter-2
+                                        a.count.slack(target='_blank', href='https://join.slack.com/t/gutinstinctcommunity/shared_invite/MjEzNzc1NDIwNjI0LTE1MDA0MDI1NjQtNmZhMzUwMjUwMg')
+                                            .icon
+                                                i.fa.fa-slack
+                                            span Join the team
+                                .row
+                                  .col.s12
+                                    iframe#twitter-widget-0.twitter-follow-button.twitter-follow-button-rendered(scrolling='no', frameborder='0', allowtransparency='true', title='Twitter Follow Button', src='https://platform.twitter.com/widgets/follow_button.5f60791584f95f2ec483faec8b16a58b.en.html#dnt=false&id=twitter-widget-0&lang=en&screen_name=GutInstinctUCSD&show_count=true&show_screen_name=true&size=l&time=1500423734379', data-screen-name='GutInstinctUCSD', style='position: static; visibility: visible; width: 279px; height: 28px;')
+                                  .col.s12(style='overflow: hidden;')
+                                    iframe(src='https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2FgutinstinctUCSD&tabs&width=340&height=70&small_header=true&adapt_container_width=true&hide_cover=false&show_facepile=false&appId=1667529610219243', width='340', height='70', style="padding:0px; border-radius: 10px; border-width: 0px;", scrolling='no', frameborder='0', allowtransparency='true')
+                                  .wrapper.col.s12
+                                    .social-counter-2
+                                      a.count.slack(target='_blank', href='https://join.slack.com/t/gutinstinctcommunity/shared_invite/MjEzNzc1NDIwNjI0LTE1MDA0MDI1NjQtNmZhMzUwMjUwMg')
+                                        .icon
+                                          i.fa.fa-slack
+                                        span Slack
+                                        p.action-btn
+                                          | Have questions about how to use Gut Instinct or engage with the general Gut Instinct community? Join our Slack team with a few clicks!
+
+
+                                br 
+                                button.btn.waves-effect.waves-light.light-blue.darken-4(type='submit', name='action')
+                                    | Save
+                                    i.material-icons.right done
+                        .row
+                            a.btn.waves-effect.waves-red.w3-highway-red.darken-4(href="#delete-modal")
+                                | Delete Account
+                                i.material-icons.right delete
+
+                    #notification_setting.col.s12
+                        unless isCondition7
+                            if hasEmail
+                                .row
+                                    form.col.s12#notification_div
+                                        span(style='font-size: 13pt; font-weight: 800;') Notify me when...
+                                        .row(style='margin-top: 40px;')
+                                            .col.s1
+                                            .col.s6(style='text-align: left;')
+                                                span Others add a new follow-up question to my question
+                                            .col.s3
+                                                .switch
+                                                    label
+                                                        | Off
+                                                        input(id='n0checkbox' type='checkbox')
+                                                        span.lever
+                                                        | On
+                                        .row(style='margin-top: 20px;')
+                                            .col.s1
+                                            .col.s6(style='text-align: left;')
+                                                if isCondition2or4or0or6or9or11
+                                                    span Others add a new mechanism to my question
+                                                else
+                                                    span Others add a new comment to my question
+                                            .col.s3
+                                                .switch
+                                                    label
+                                                        | Off
+                                                        input(id='n1checkbox' type='checkbox')
+                                                        span.lever
+                                                        |       On
+                                        .row(style='margin-top: 20px;')
+                                            .col.s1
+                                            .col.s6(style='text-align: left;')
+                                                span Others add option(s) to my questions
+                                            .col.s3
+                                                .switch
+                                                    label
+                                                        | Off
+                                                        input(id='n2checkbox' type='checkbox')
+                                                        span.lever
+                                                        | On
+                                        .row(style='margin-top: 20px;')
+                                            .col.s1
+                                            .col.s6(style='text-align: left;')
+                                                span Experts star my question
+                                            .col.s3
+                                                .switch
+                                                    label
+                                                        | Off
+                                                        input(id='n3checkbox' type='checkbox')
+                                                        span.lever
+                                                        | On
+                                        .row(style='margin-top: 20px;')
+                                            .col.s1
+                                            .col.s6(style='text-align: left;')
+                                                span Experts provide feedback using scientific material on my question
+                                            .col.s3
+                                                .switch
+                                                    label
+                                                        | Off
+                                                        input(id='n4checkbox' type='checkbox')
+                                                        span.lever
+                                                        | On
+                            else
+                                span(style='font-size: 13pt; font-weight: 800; color: grey;')  Please enter your email address in the "Basic" tab to enable notification
+                    //#profile_question.col.s12
+                        span Some question will be displayed here.
+
+                    //#delete_account.col.s12
+                        br
+                        br
+                        br
+                        a.btn.waves-effect.waves-red.w3-highway-red.darken-4(href="#delete-modal")
+                            | Terminate
+                            i.material-icons.right delete
+
+    div(id="delete-modal" class="modal" style=" width: 25% !important;")
+        div(class="modal-content")
+            h6 Are you sure?
+        div(class="modal-footer")
+            a(id="delete_button" class="modal-action modal-close waves-effect waves-red btn-flat" style="color: red;") Yes
+            a(class="modal-action modal-close waves-effect waves-blue btn-flat" style="color: #03A9F4;") No

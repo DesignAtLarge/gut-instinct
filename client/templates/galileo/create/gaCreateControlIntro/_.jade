@@ -1,0 +1,35 @@
+template(name="gaCreateControlIntro")
+    +cardLayout(cardId=cardId stepnumber=stepnumber heading=heading progress=progress)
+        span(class='card-title' style='font-size: 30px; font-weight: 100;') Galileo will enable you to design a between-subjects randomized controlled experiment.
+        br
+        //p An experiment demonstrates which effect shows up when the cause is changed. In its simplest form, one can change the cause once, observe its effect and claim to have run an experiment. But there is a chance that this experiment was biased by many factors and running the experiment again would provide different outcomes. To account for this challenge, experiments include multiple runs. To further generalize the findings, an experiment is run with many participants so the specific biases of one user do not overwhelm the results of the experiment. !!give examples for all?!!
+        //p A between-subjects randomized controlled experiment tackles these challenges
+        br
+
+        ul.collapsible(data-collapsible="accordion")
+            li
+                div.collapsible-header
+                    p(class="blue-text text-darken-2" style='font-size: 20px; font-weight: 100; font-color: black') 1. Between-subjects
+                div.collapsible-body
+                    p(style='font-size: 20px; font-weight: 100;') Each participant is placed in one condition - E.g. if you're testing the effect of "brand A" probiotic yogurt on sleep quality, some people will ALWAYS consume "brand A" probiotic yogurt while others will ALWAYS consume normal yogurt.
+                        //LEARN MORE (tells about within-subjects)
+
+            li
+                div.collapsible-header
+                    p(class="blue-text text-darken-2" style='font-size: 20px; font-weight: 100; font-color: black') 2. Randomized
+                div.collapsible-body
+                    p(style='font-size: 20px; font-weight: 100;') Participants are randomly placed in one (or the other) condition. If participants are placed in a condition based on a specific heuristic, then there's the chance that that heuristic biases the results. Without randomization, ...
+
+            li
+                div.collapsible-header
+                    p(class="blue-text text-darken-2" style='font-size: 20px; font-weight: 100; font-color: black') 3. Controlled experiment
+                div.collapsible-body
+                    p(style='font-size: 20px; font-weight: 100;') The experiment has control condition and at least one experimental  condition (also called treatment condition). The idea is to use the control condition to set a baseline of performance and compare experimental condition's performance to it. Without a control condition to compare to, an experimental condition's performance cannot be adjudged to be better or worse.
+            li
+                div.collapsible-header
+                    p(class="blue-text text-darken-2" style='font-size: 20px; font-weight: 100; font-color: black') 4. Blind
+                div.collapsible-body
+                    p(style='font-size: 20px; font-weight: 100;') Ideally, a participant does not know which condition he/she is in. This is needed to protect against the placebo effect (help) where a participant can demonstrate benefits based on just the fact that he/she is part of an experiment. In some cases, placebo effects have been found to be as much as 70% of an actual experimental effect. (ref)
+                    p(style='font-size: 20px; font-weight: 100;') Galileo does not suggest using blind experiments because they can be difficult to pull off in practise without expert guidelines. One way to reduce the effects of non-blind condition is to use objective measures (e.g. heart rate) as compared to subjective measures (e.g. how do you feel today?).
+
+        br

@@ -1,3 +1,9 @@
+# Meteor
+.meteor/local
+
+# Mac
+.DS_Store
+
 # Google Cloud
 *.pem
 *.key

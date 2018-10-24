@@ -36,7 +36,9 @@ How to build your own Gut Instinct
 
 + Step 4: Run ```npm run start``` in your terminal.
 
-+ Step 5: Before opening ```http://localhost:3000```, ```cd``` ```script``` folder, run ```./poulate_db.bash```.
++ Step 5: Before opening ```http://localhost:3000```, ```cd``` ```script``` folder, then run ```./poulate_db.bash```.
+
++ Step 6: Done. Open ```http://localhost:3000``` in your browser and try it out!
 
 ### Building Gut Instinct on Internet?
 TODO: Update deployment google doc to here.

@@ -1,0 +1,283 @@
+[
+    {
+        "mendel_code": "KNIGHTLAB",
+        "mendel_name": "For Knight Lab members",
+        "img": "/images/logos/footer-knight.png",
+        "note": "If you are affiliated with the Knight Lab, click here to design, review, and participate in experiments.",
+        "google_form_id" : "",
+        "blog" : "KNIGHTLAB",
+        "status": 1
+    },
+    {
+        "mendel_code": "DIET",
+        "mendel_name": "Diet (including Coffee)",
+        "img": "/images/galileo/entrance/diet.jpg",
+        "note": "If you are interested in Diet (incl Coffee), click here to design, review and participate in experiments",
+        "hint": "Diet (incl Coffee)",
+        "google_form_id" : "",
+        "blog" : "DIET",
+        "status": 1
+    },
+    {
+        "mendel_code": "AMERICANGUT",
+        "mendel_name": "American Gut Project",
+        "img": "/images/logos/american-gut.png",
+        "note": "Join the American Gut Project community to design, review, and participate in experiments!",
+        "hint": "American Gut Project",
+        "google_form_id" : "1FAIpQLSdBE-8nUKnRRjQ8GHW71IRlJZcxxFGoldY5bMkCVzpeVAmUGA",
+        "blog" : "AGP",
+        "status": 1
+    },
+    {
+        "mendel_code": "AMERICANGUT",
+        "mendel_name": "Coursera Gut Check",
+        "img": "/images/logos/GutCheck.jpg",
+        "note": "Join the Coursera Gut Check community to design, review, and participate in experiments!",
+        "hint": "Coursera Gut Check",
+        "google_form_id" : "1FAIpQLSdBE-8nUKnRRjQ8GHW71IRlJZcxxFGoldY5bMkCVzpeVAmUGA",
+        "blog" : "GUT-CHECK",
+        "status": 1
+    },
+    {
+        "mendel_code": "OPENHUMANS",
+        "mendel_name": "Open Humans",
+        "img": "/images/galileo/entrance/ohlogo.png",
+        "note": "If you are interested in Open Humans, click here to design, review and participate in experiments",
+        "hint": "Open Humans",
+        "google_form_id" : "1FAIpQLSclk9X_oIdAzxzURRRQV9-mY-s70YGq82qBBRRByRoIxHQU2g",
+        "blog" : "OPENHUMANS",
+        "status": 1
+    },
+    {
+        "mendel_code": "CIRCADIAN",
+        "mendel_name": "Circadian Rhythms",
+        "img": "/images/galileo/entrance/circadian.jpg",
+        "note": "Join the Circadian Rhythm community to design, review, and participate in experiments!",
+        "hint": "Circadian Rhythm",
+        "google_form_id" : "",
+        "blog" : "CIRCADIAN",
+        "status": 1
+    },
+    {
+        "mendel_code": "KOMBUCHA",
+        "mendel_name": "Kombucha and Kefir",
+        "img": "/images/galileo/entrance/kombucha-kefir.png",
+        "note": "Join the Kombucha and Kefir communities to design, review, and participate in experiments!",
+        "hint": "Kombucha is a variety of fermented, lightly effervescent sweetened black or green tea drinks commonly intended as functional beverages for their supposed health benefits.",
+        "google_form_id" : "1FAIpQLSesdJhnlLOinBDQBTG3CaJnV5up6lGf8Mv4RBP4aQfqSTVl2g",
+        "blog" : "KOMBUCHA",
+        "status": 1
+    },
+    {
+        "mendel_code": "PROBIOTICS",
+        "mendel_name": "Probiotics",
+        "img": "/images/galileo/entrance/probiotics.jpg",
+        "note": "Join the Probiotic community to design, review, and participate in experiments!",
+        "hint": "Join the Probiotics community to design, review, and participate in experiments!",
+        "google_form_id" : "",
+        "blog" : "PROBIOTICS",
+        "status": 1
+    },
+    {
+        "mendel_code": "KOMBUCHA",
+        "mendel_name": "Kombucha",
+        "img": "/images/galileo/entrance/kombucha.jpg",
+        "note": "Join the Kombucha community to design, review, and participate in experiments!",
+        "hint": "Kombucha is a variety of fermented, lightly effervescent sweetened black or green tea drinks commonly intended as functional beverages for their supposed health benefits.",
+        "google_form_id" : "1FAIpQLSesdJhnlLOinBDQBTG3CaJnV5up6lGf8Mv4RBP4aQfqSTVl2g",
+        "blog" : "KOMBUCHA",
+        "status": 0
+    },
+    {
+        "mendel_code": "NERDNITE",
+        "mendel_name": "Nerd Nite",
+        "img": "/images/galileo/entrance/nerdnite.png",
+        "note": "Join the Nerd Nite community to design, review, and participate in experiments!",
+        "hint": "",
+        "google_form_id" : "",
+        "blog" : "NERDNITE",
+        "status": 1
+    },
+    {
+        "mendel_code": "KOMBUCHA",
+        "mendel_name": "Kefir",
+        "img": "/images/galileo/entrance/kefir.jpg",
+        "note": "Join the Kefir community to design, review, and participate in experiments!",
+        "hint": "Kefir",
+        "google_form_id" : "1FAIpQLScB0SGvpkw6l5vn3-yckQU9thRvMElj8AdFUjKnsnRY-ZM1tA",
+        "blog" : "KEFIR",
+        "status": 0
+    },
+    {
+        "mendel_code": "BEER",
+        "mendel_name": "Beer and Cheese",
+        "img": "/images/galileo/entrance/beer-cheese.png",
+        "note": "Join the Beer and Cheese community to design, review, and participate in experiments!",
+        "hint": "Beer",
+        "google_form_id" : "",
+        "blog" : "BEER",
+        "status": 1
+    },
+    {
+        "mendel_code": "BEER",
+        "mendel_name": "Beer",
+        "img": "/images/galileo/entrance/beer.jpg",
+        "note": "Join the Beer community to design, review, and participate in experiments!",
+        "hint": "Beer",
+        "google_form_id" : "",
+        "blog" : "BEER",
+        "status": 0
+    },
+    {
+        "mendel_code": "SPICE",
+        "mendel_name": "SPICE",
+        "img": "/images/galileo/entrance/spice.jpg",
+        "note": "Join the Spice community to design, review, and participate in experiments!",
+        "hint": "Spice",
+        "google_form_id" : "",
+        "blog" : "SPICE",
+        "status": 0
+    },
+    {
+        "mendel_code": "CHEESE",
+        "mendel_name": "Cheese",
+        "img": "/images/galileo/entrance/cheese.gif",
+        "note": "Join the Cheese community to design, review, and participate in experiments!",
+        "hint": "Cheese",
+        "google_form_id" : "",
+        "blog" : "",
+        "status": 0
+    },
+    {
+        "mendel_code": "T1 Diabetes",
+        "mendel_name": "T1 Diabetes",
+        "img": "/images/galileo/entrance/T1D.jpg",
+        "note": "If you are interested in T1 Diabetes, click here to share your insights and hear from peers.",
+        "hint": "OpenAps",
+        "google_form_id" : "1FAIpQLSdEB18McCkbwv-MU7aT5w0vsAqnct6obXAkBQHa8q4ZYAhklg",
+        "blog" : "T1D",
+        "status": 1
+    },
+    {
+        "mendel_code": "LYME",
+        "mendel_name": "Lyme Disease Research",
+        "img": "/images/galileo/entrance/Lyme.png",
+        "note": "Join the Lyme disease research community to design, review, and participate in experiments!",
+        "hint": "Lyme disease is a tick-borne illness whose symptoms can sometimes linger long after antibiotic treatment.",
+        "google_form_id" : "1LBZGM2YvQV2G_hQpwp5uugTTilEFfTL85phlvS_4uiI",
+        "blog" : "LYME",
+        "status": 1
+    },
+    {
+        "mendel_code": "APOLLO",
+        "mendel_name": "Project Apollo",
+        "img": "/images/galileo/entrance/Apollo.png",
+        "note": "Join the Project Apollo community to design, review, and participate in experiments!",
+        "hint": "Born of the passion of Dr. Michael Kurisu, and his ability to attract profound individuals, Project Apollo draws on the inspiration of the health journey undertaken by Dr. Larry Smarr, and calls together the next round of practitioners in this lineage of exploration…",
+        "google_form_id" : "",
+        "blog" : "APOLLO",
+        "status": 1
+    },
+    {
+        "mendel_code": "TUDELFT",
+        "mendel_name": "TU Delft - Instructor: Derek Lomas",
+        "note": "Join this community if you're working in Professor Lomas' class",
+        "hint": "TU Delft - Instructor: Derek Lomas",
+        "google_form_id" : "",
+        "blog" : "TUDELFT",
+        "status": 0
+    },
+    {
+        "mendel_code": "SOYLENT",
+        "mendel_name": "Soylent",
+        "img": "/images/galileo/entrance/soylent.jpg",
+        "note": "Join the Soylent community to design, review, and participate in experiments!",
+        "hint": "Soylent is a meal-replacement drink/powder",
+        "google_form_id" : "",
+        "blog" : "SOYLENT",
+        "status": 1
+    },
+        {
+        "mendel_code": "GLUTEN",
+        "mendel_name": "Gluten Sensitivity",
+        "note": "If you are sensitive to gluten, click here to share your insights, and review and participate in experiments!",
+        "hint": "Gluten Sensitivity",
+        "google_form_id" : "",
+        "blog" : "GLUTEN",
+        "status": 0
+    },
+    {
+        "mendel_code": "CSE216",
+        "mendel_name": "CSE 216/COGS 230 Grad HCI - Instructor: Scott Klemmer",
+        "note": "Join this community if you're working in Professor Klemmer's class",
+        "hint": "CSE 216/COGS 230 Grad HCI - Instructor: Scott Klemmer",
+        "google_form_id" : "",
+        "blog" : "CSE216",
+        "status": 0
+    },
+    {
+        "mendel_code": "SONA",
+        "mendel_name": "SONA Participants",
+        "img": "/images/galileo/entrance/sona.png",
+        "note": "Join the Galileo SONA Study here!",
+        "google_form_id" : "",
+        "blog" : "SONA",
+        "status": 0
+    },
+    {
+        "mendel_code": "INNOVATION",
+        "mendel_name": "Harvard Innovation Lab",
+        "note": "Click here if you learnt about Gut Instinct at the innovation Lab meeting Apr3-4!",
+        "google_form_id" : "",
+        "blog" : "INNOVATION",
+        "status": 0
+    },
+    {
+        "mendel_code": "STUDY3",
+        "mendel_name": "Study 3 Participants",
+        "note": "Join Study 3 for Galileo here!",
+        "google_form_id" : "",
+        "blog" : "STUDY3",
+        "status": 0
+    },
+    {
+        "mendel_code": "TDCS",
+        "mendel_name": "Transcranial direct-current stimulation",
+        "img": "/images/galileo/entrance/tdcs.jpg",
+        "note": "Join the tDCS research community to design, review, and participate in experiments!",
+        "hint": "Transcranial direct current stimulation (tDCS) is a form of neurostimulation that uses constant, low direct current delivered via electrodes on the head.",
+        "google_form_id" : "",
+        "blog" : "TDCS",
+        "status": 0
+    },
+    {
+        "mendel_code": "ATHLETES",
+        "mendel_name": "Athletes",
+        "img": "/images/galileo/entrance/athletes.jpg",
+        "note": "If you are an athlete or a coach, click here to design, review, and participate in experiments.",
+        "hint": "Athletes are professionally competing players who want to enhance their performance.",
+        "google_form_id" : "",
+        "blog" : "ATHLETES",
+        "status": 1
+    },
+    {
+        "mendel_code": "LITW",
+        "mendel_name": "Lab in the Wild",
+        "img": "/images/galileo/entrance/LITW.png",
+        "note": "Join the Lab in the Wild research community to design, review, and participate in experiments!",
+        "hint": "",
+        "google_form_id" : "",
+        "blog" : "LITW",
+        "status": 1
+    },
+    {
+        "mendel_code": "SKIN",
+        "mendel_name": "Skin Microbiome",
+        "img": "/images/galileo/entrance/skin.jpg",
+        "note": "Join the Skin microbiome community to design, review, and participate in experiments!",
+        "hint": "The skin is home to a complex skin microbiome comprised of trillions of bacteria and lymphocytes that are part of the immune system.",
+        "google_form_id" : "",
+        "blog" : "SKIN",
+        "status": 0
+    }
+]

@@ -1,0 +1,515 @@
+[   
+    {
+        "question": "Did you watch any of the topic videos (like antiobiotics, diet etc..)?",
+        "options": [ 
+                {
+                    "option_text" : "Yes",
+                    "option_index" : 0
+                }, 
+                {
+                    "option_text" : "No",
+                    "option_index" : 1
+                } 
+        ],
+        "index": 0,
+        "response_type": "single",
+        "cluster": "intro",
+        "condition": "learn"
+    },
+    {
+        "question": "Did the following influence the questions you asked?",
+        "items": [
+            {
+                "item": "Question training guide",
+                "item_index": 0,
+                "options": [ 
+                    {
+                        "option_text" : "Not at all",
+                        "option_index" : 0
+                    }, 
+                    {
+                        "option_text" : "Somewhat",
+                        "option_index" : 1
+                    }, 
+                    {
+                        "option_text" : "Yes, definitely",
+                        "option_index" : 2
+                    },
+                    {
+                        "option_text" : "I dont know what it is",
+                        "option_index" : 3
+                    } 
+                ],
+                "response_type": "single",
+                "condition": "train"
+            },
+            {
+                "item": "Topic videos",
+                "item_index": 1,
+                "options": [ 
+                    {
+                        "option_text" : "Not at all",
+                        "option_index" : 0
+                    }, 
+                    {
+                        "option_text" : "Somewhat",
+                        "option_index" : 1
+                    }, 
+                    {
+                        "option_text" : "Yes, definitely",
+                        "option_index" : 2
+                    },
+                    {
+                        "option_text" : "I dont know what it is",
+                        "option_index" : 3
+                    } 
+                ],
+                "response_type": "single",
+                "condition": "learn"
+            }
+        ],
+        "index": 1,
+        "response_type": "items",
+        "cluster": "intro"
+    },
+    {
+        "question": "Did the following help you learn more about your query?",
+        "items": [
+            {
+                "item": "Others' response on your gutboard questions",
+                "item_index": 0,
+                "options": [ 
+                    {
+                        "option_text" : "Not at all",
+                        "option_index" : 0
+                    }, 
+                    {
+                        "option_text" : "Somewhat",
+                        "option_index" : 1
+                    }, 
+                    {
+                        "option_text" : "Yes, definitely",
+                        "option_index" : 2
+                    }
+                ],
+                "response_type": "single",
+                "condition": "all"
+            },
+            {
+                "item": "Feedback from scientific material",
+                "item_index": 1,
+                "options": [ 
+                    {
+                        "option_text" : "Not at all",
+                        "option_index" : 0
+                    }, 
+                    {
+                        "option_text" : "Somewhat",
+                        "option_index" : 1
+                    }, 
+                    {
+                        "option_text" : "Yes, definitely",
+                        "option_index" : 2
+                    } 
+                ],
+                "response_type": "single",
+                "condition": "learn"
+            }
+        ],
+        "index": 2,
+        "response_type": "items",
+        "cluster": "intro"
+    },
+    {
+        "question": "What motivates you to ask questions?",
+        "options": [ 
+                {
+                    "option_text" : "Personal health",
+                    "option_index" : 0
+                }, 
+                {
+                    "option_text" : "Interest in the microbiome (hobby/leisure)",
+                    "option_index" : 1                
+                }, 
+                {
+                    "option_text" : "Advancing scientific knowledge",
+                    "option_index" : 2
+                },
+                {
+                    "option_text" : "Self-promotion (e.g., reputation and social or employment advancement)",
+                    "option_index" : 3
+                },
+                {
+                    "option_text" : "Talking to other interested people",
+                    "option_index" : 4
+                },
+                {
+                    "option_text" : "Talking to scientists",
+                    "option_index" : 5
+                },
+                {
+                    "option_text" : "Other",
+                    "option_index" : 6
+                }
+        ],
+        "open_ended_index": 6,
+        "index": 3,
+        "response_type": "multiple",
+        "cluster": "questions"
+    },
+    {
+        "question": "Who do you think you were asking questions of?",
+        "options": [ 
+                {
+                    "option_text" : "Other participants",
+                    "option_index" : 0
+                }, 
+                {
+                    "option_text" : "Scientists",
+                    "option_index" : 1                
+                }, 
+                {
+                    "option_text" : "Both",
+                    "option_index" : 2
+                }
+        ],
+        "index": 4,
+        "response_type": "single",
+        "cluster": "questions"
+    },
+    {
+        "question": "Do you think you can ask better questions now, compared to before using Gut Instinct?",
+        "options": [ 
+            {
+                "option_text" : "Not at all",
+                "option_index" : 0
+            }, 
+            {
+                "option_text" : "Somewhat",
+                "option_index" : 1
+            }, 
+            {
+                "option_text" : "Yes, definitely",
+                "option_index" : 2
+            }
+        ],
+        "index": 5,
+        "response_type": "single",
+        "cluster": "questions"
+    },
+    {
+        "question": "What would encourage you to ask questions? You can reflect on what you found difficult or how you came up with questions.",
+        "index": 6,
+        "response_type": "open",
+        "cluster": "questions"
+    },
+    {
+        "question": "Did you feel comfortable about sharing insights about personal health?",
+        "options": [ 
+            {
+                "option_text" : "Not at all",
+                "option_index" : 0
+            }, 
+            {
+                "option_text" : "Somewhat",
+                "option_index" : 1
+            }, 
+            {
+                "option_text" : "Yes, definitely",
+                "option_index" : 2
+            }
+        ],
+        "index": 7,
+        "response_type": "single",
+        "cluster": "questions"
+    },
+    {
+        "question": "Do you feel you better understand microbiome science having used Gut Instinct?",
+        "options": [ 
+            {
+                "option_text" : "Not at all",
+                "option_index" : 0
+            }, 
+            {
+                "option_text" : "Somewhat",
+                "option_index" : 1
+            }, 
+            {
+                "option_text" : "Yes, definitely",
+                "option_index" : 2
+            }
+        ],
+        "index": 8,
+        "response_type": "single",
+        "cluster": "learning"
+    },
+    {
+        "question": "Did Gut Instinct help you relate your lifestyle to knowledge about the gut microbiome? If so, how?",
+        "index": 9,
+        "response_type": "open",
+        "cluster": "learning"
+    },
+    {
+        "question": "What did you learn about the microbiome from using the Gut instinct?",
+        "index": 10,
+        "response_type": "open",
+        "cluster": "learning"
+    },
+    {
+        "question": "Did you use extra resources — related to the microbiome -- when using Gut Instinct? If yes, which ones (general pointers - doesn’t need to be a specific page)",
+        "index": 11,
+        "response_type": "open",
+        "cluster": "learning"
+    },
+    {
+        "question": "Would you prefer to learn using Gut Instinct (by asking and answering questions) over online classes in their current format (watching videos and solving assignments)?",
+        "options": [ 
+                {
+                    "option_text" : "Yes",
+                    "option_index" : 0
+                }, 
+                {
+                    "option_text" : "No",
+                    "option_index" : 1
+                } 
+        ],
+        "index": 12,
+        "response_type": "single",
+        "cluster": "learning"
+    },
+    {
+        "question": "How would you rate your expertise about the microbiome before using Gut Instinct?",
+        "options": [ 
+                {
+                    "option_text" : "Didn’t know anything",
+                    "option_index" : 0
+                }, 
+                {
+                    "option_text" : "Knew a little (read online articles etc)",
+                    "option_index" : 1
+                }, 
+                {
+                    "option_text" : "Know a fair bit (my work is related to the microbiome, or I have read papers about it)",
+                    "option_index" : 2
+                }, 
+                {
+                    "option_text" : "Expert",
+                    "option_index" : 3
+                }  
+        ],
+        "index": 13,
+        "response_type": "single",
+        "cluster": "demography"
+    },
+    {
+        "question": "General education (not necessarily related to microbiome)",
+        "options": [ 
+                {
+                    "option_text" : "None",
+                    "option_index" : 0
+                }, 
+                {
+                    "option_text" : "High school",
+                    "option_index" : 1
+                }, 
+                {
+                    "option_text" : "Undergraduate",
+                    "option_index" : 2
+                }, 
+                {
+                    "option_text" : "Advanced professional degree (e.g. MBA)",
+                    "option_index" : 3
+                }, 
+                {
+                    "option_text" : "Graduate school",
+                    "option_index" : 4
+                }
+        ],
+        "index": 14,
+        "response_type": "single",
+        "cluster": "demography"
+    },
+    {
+        "question": "Age",
+        "options": [ 
+                {
+                    "option_text" : "Under 12 years old",
+                    "option_index" : 0
+                }, 
+                {
+                    "option_text" : "12-17 years old",
+                    "option_index" : 1
+                },
+                {
+                    "option_text" : "18-24 years old",
+                    "option_index" : 2
+                }, 
+                {
+                    "option_text" : "25-34 years old",
+                    "option_index" : 3
+                },
+                {
+                    "option_text" : "35-44 years old",
+                    "option_index" : 4
+                }, 
+                {
+                    "option_text" : "45-54 years old",
+                    "option_index" : 5
+                }, 
+                {
+                    "option_text" : "55-64 years old",
+                    "option_index" : 6
+                }, 
+                {
+                    "option_text" : "65-74 years old",
+                    "option_index" : 7
+                }, 
+                {
+                    "option_text" : "75 years or older",
+                    "option_index" : 8
+                }
+        ],
+        "index": 15,
+        "response_type": "single",
+        "cluster": "demography"
+    },
+    {
+        "question": "Gender",
+        "options": [ 
+                {
+                    "option_text" : "Male",
+                    "option_index" : 0
+                }, 
+                {
+                    "option_text" : "Female",
+                    "option_index" : 1
+                }
+        ],
+        "index": 16,
+        "response_type": "single",
+        "cluster": "demography"
+    },
+    {
+        "question": "Nationality",
+        "index": 17,
+        "response_type": "open",
+        "cluster": "demography"
+    },
+    {
+        "question": "Ethnicity",
+        "options": [ 
+                {
+                    "option_text" : "White",
+                    "option_index" : 0
+                }, 
+                {
+                    "option_text" : "Hispanic or Latino",
+                    "option_index" : 1
+                },
+                {
+                    "option_text" : "Black or African American",
+                    "option_index" : 2
+                }, 
+                {
+                    "option_text" : "Native American or American Indian",
+                    "option_index" : 3
+                },
+                {
+                    "option_text" : "Asian / Pacific Islander",
+                    "option_index" : 4
+                }, 
+                {
+                    "option_text" : "Indian subcontinent",
+                    "option_index" : 5
+                }, 
+                {
+                    "option_text" : "2 or more races",
+                    "option_index" : 6
+                }, 
+                {
+                    "option_text" : "Other",
+                    "option_index" : 7
+                }
+        ],
+        "index": 18,
+        "open_ended_index": 7,
+        "response_type": "multiple",
+        "cluster": "demography"
+    },
+    {
+        "question": "Living in US? If yes, for how many years?",
+        "index": 19,
+        "options": [ 
+                {
+                    "option_text" : "Less than 2 years",
+                    "option_index" : 0
+                }, 
+                {
+                    "option_text" : "2-5 years",
+                    "option_index" : 1
+                }, 
+                {
+                    "option_text" : "6-10 years",
+                    "option_index" : 2
+                }, 
+                {
+                    "option_text" : "11-20 years",
+                    "option_index" : 3
+                }, 
+                {
+                    "option_text" : "More than 20 years",
+                    "option_index" : 4
+                }, 
+                {
+                    "option_text" : "I don't live in the US",
+                    "option_index" : 5
+                }
+        ],
+        "open_ended_index": 5,
+        "placeholder": "Where do you live?",
+        "response_type": "single",
+        "cluster": "demography"
+    },
+    {
+        "question": "Would you be willing to be interviewed by a Gut Instinct researcher for 10 mins over phone or Skype/Google Hangouts?",
+        "options": [ 
+                {
+                    "option_text" : "Yes",
+                    "option_index" : 0
+                }, 
+                {
+                    "option_text" : "No",
+                    "option_index" : 1
+                }
+        ],
+        "open_ended_index": 0,
+        "placeholder": "Provide your email and/or phone number here.",
+        "index": 20,
+        "response_type": "single",
+        "cluster": "demography"
+    },
+    {
+        "question": "Has using Gut Instinct helped you with other tasks in your general day-to-day life? If so, how?",
+        "index": 21,
+        "response_type": "open",
+        "cluster": "more"
+    },
+    {
+        "question": "How might you improve Gut Instinct to be more helpful, engaging, fun?",
+        "index": 22,
+        "response_type": "open",
+        "cluster": "more"
+    },
+    {
+        "question": "Which aspect of Gut Instinct did you find most useful?",
+        "index": 23,
+        "response_type": "open",
+        "cluster": "more"
+    },
+    {
+        "question": "Which aspect of Gut Instinct did you find least useful?",
+        "index": 24,
+        "response_type": "open",
+        "cluster": "more"
+    }
+]

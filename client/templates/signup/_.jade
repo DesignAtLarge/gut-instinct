@@ -9,6 +9,11 @@ template(name='signup')
                     br
                     span(class='login_error') #{error_message}
                     div(class='login-buttons')
+                        p(style="font-weight: 600;") Please Note: 
+                        | The following OAuth feature does not function unless you provided correct API keys in settings-dev.json. 
+                        | To bypass OAuth, you can login using 
+                        span(style="color: blue;") "Sign in with email"
+                        | link.  
                         button(id='login-coursera', class='btn btn-block') login with coursera
                         div.coursera-options
                             h7(style="display: block; text-align: center; font-size: 23px; font-weight: bold;") How have you joined Coursera?
@@ -24,8 +29,6 @@ template(name='signup')
                             p.coursera-email
                                 input(class="with-gap" name="group3" type="radio" id="via-email")
                                 label(for="via-email" style="color: black; font-weight: bold;") Via my email address
-
-
 
                             button(id='login-coursera', class='btn btn-block coursera-auth login-coursera2' style="display: none;") continue with login
                             div(id='back-coursera') back

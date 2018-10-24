@@ -309,18 +309,20 @@ function canEmailNotify(userNotificationSettings, type) {
 }
 
 function emailNotify(user, email, type, args) {
-    asciiArgs = scanAscii(args);
-    HTTP.call("post", Meteor.settings.galileoEmailAPI + "sendEmail", {
-        data: {
-            "token": Meteor.settings.emailToken,
-            "type": type,
-            "email": email,
-            "args": asciiArgs
-        }
-    }, function(err, res) {
-        // callback added to make this call async
-        // needed because sending email is heavy operation
-    });
+    console.log("==========================EMAIL IS SENDING================================");
+    // TODO-GI: uncomment the following block to enable email sending
+    // make sure you have correctly filled in settings-dev.json before uncomment
+    // asciiArgs = scanAscii(args);
+    // HTTP.call("post", Meteor.settings.galileoEmailAPI + "sendEmail", {
+    //     data: {
+    //         "token": Meteor.settings.emailToken,
+    //         "type": type,
+    //         "email": email,
+    //         "args": asciiArgs
+    //     }
+    // }, function(err, res) {
+    //     console.log("email sending error");
+    // });
 }
 
 // tail recursion to deep loop json obj

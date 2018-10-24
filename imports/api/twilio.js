@@ -3,7 +3,9 @@ import {
 } from "meteor/meteor";
 
 const Twilio = require("twilio");
-const client = Twilio(Meteor.settings.twilio.sid, Meteor.settings.twilio.token);
+// TODO-GI: uncomment the following line to enable sms sending
+// make sure you added Twilio API infomation in settings-dev.json file before uncomment
+// const client = Twilio(Meteor.settings.twilio.sid, Meteor.settings.twilio.token);
 
 module.exports = {
     /**
@@ -40,22 +42,26 @@ function sendWithoutCountryCode(phoneNum, message) {
 }
 
 function sendFromTwilio(to, message) {
-    if (to.includes("whatsapp:")) {
-        send("whatsapp:+441618507453", to, message);
-    }
-    else {
-        send(Meteor.settings.twilio.phone, to, message);
-    }
+    // TODO-GI: uncomment the following block to enable sms sending
+    // make sure you added Twilio API infomation in settings-dev.json file before uncomment
+    // if (to.includes("whatsapp:")) {
+    //     send("whatsapp:+441618507453", to, message);
+    // }
+    // else {
+    //     send(Meteor.settings.twilio.phone, to, message);
+    // }
 }
 
 function send(from, to, message) {
-    client.messages.create({
-        to: to,
-        from: from,
-        body: message,
-    }, function(err, result) {
-        if (err) {
-            throw err;
-        }
-    });
+    // TODO-GI: uncomment the following block to enable sms sending
+    // make sure you added Twilio API infomation in settings-dev.json file before uncomment
+    // client.messages.create({
+    //     to: to,
+    //     from: from,
+    //     body: message,
+    // }, function(err, result) {
+    //     if (err) {
+    //         throw err;
+    //     }
+    // });
 }

@@ -1,0 +1,181 @@
+<template name="username">
+    <div class="container content topics" style="max-width:750px">
+        <!-- Before we begin -->
+        <div id="ga-username" class="card" style="margin-top: 5%;">
+            <br>
+            <div style="margin-left: 10%; margin-right: 10%">
+                <h5 class="animated fadeIn" style="margin-top: 20px;">Profile</h5>
+            </div>
+            <div class="card-content" style="margin-right: 30px;">
+                <form class="row" style="text-align: left;">
+
+                    {{#if preEnterName}}
+                    <div class="input-field col s12">
+                        <i class="material-icons prefix" style="margin-top: 10px;">account_circle</i>
+                        <input id="userNameAnswerText" placeholder="Enter your username" disabled
+                            value="{{getCurrentName}}" style="margin-left: 50px;">
+                    </div>
+                    {{else}}
+                    <div class="input-field col s12">
+                        <i class="material-icons prefix" style="margin-top: 10px;">account_circle</i>
+                        <input id="userNameAnswerText" placeholder="Enter your username" required
+                            style="margin-left: 50px;">
+                    </div>
+                    {{/if}}
+
+                    <br><br>
+
+                    {{#unless notGalileo}}
+                    <h6 class="animated fadeIn" style="margin-left: 9%; margin-top: 20px; text-align: left;">
+                        Galileo identifies you in your Galileo activity using your username. Usernames can only be
+                        chosen once, so make it unique.
+                    </h6>
+                    {{else}}
+                    <h6 class="animated fadeIn" style="margin-left: 9%; margin-top: 20px; text-align: left;">
+                        GutInstinct identifies you in your GutInstinct activity using your username. Usernames can only
+                        be chosen once, so make it unique.
+                    </h6>
+                    {{/unless}}
+
+                    <br><br>
+
+                    {{#if preEmail}}
+                    <div class="input-field col s12">
+                        <i class="material-icons prefix" style="margin-top: 10px;">email</i>
+                        <input id="emailAnswerText" placeholder="Provide your email" value="{{getEmail}}"
+                            style="margin-left: 50px;">
+                    </div>
+                    {{else}}
+                    <div class="input-field col s12">
+                        <i class="material-icons prefix" style="margin-top: 10px;">email</i>
+                        <input id="emailAnswerText" placeholder="Provide your email (recommended)"
+                            style="margin-left: 50px; padding-left: 20px;">
+                    </div>
+                    {{/if}}
+
+                    <br><br>
+
+                    {{#unless notGalileo}}
+                    <h6 class="animated fadeIn" style="margin-left: 9%; margin-top: 30px; text-align: left;">
+                        E-mail updates include feedback from peers and experts! Gut Instinct will only send you e-mails
+                        that help you learn more about designing experiments.
+                    </h6>
+                    {{else}}
+                    <h6 class="animated fadeIn" style="margin-left: 9%; margin-top: 30px; text-align: left;">
+                        E-mail updates include feedback from peers and experts! Galileo will only send you e-mails that
+                        help you learn more about designing experiments.
+                    </h6>
+                    {{/unless}}
+
+                    <br><br>
+
+                    {{#unless notGalileo}}
+                    <h6 class="animated fadeIn" style="margin-left: 9%; margin-top: 30px; text-align: left;">
+                        If you have participated in American Gut Project...
+                        {{#if preAGID}}
+                        <div class="input-field col s12">
+                            <i class="material-icons prefix" style="margin-top: 10px;">swap_vertical_circle</i>
+                            <input id="agidText"
+                                placeholder="Please enter your 9-digit American Gut barcode here (this is NOT your Gut Instinct login ID)"
+                                value="{{getAGID}}" style="margin-left: 50px;">
+                        </div>
+                        {{else}}
+                        <div class="input-field col s12">
+                            <i class="material-icons prefix" style="margin-top: 10px;">swap_vertical_circle</i>
+                            <input id="agidText"
+                                placeholder="Please enter your 9-digit American Gut barcode here (this is NOT your Gut Instinct login ID)"
+                                style="margin-left: 50px;">
+                        </div>
+                        {{/if}}
+                        <br><br>
+                        Researchers can better understand your data and create a customized version of Gut Instinct for
+                        you! You can find your 9-digit American Gut barcode (0000xxxxx) at your American Gut homepage.
+                        Please add the stool site barcode. <a
+                            href="https://www.microbio.me/AmericanGut/authed/portal/">(microbio.me)</a>
+                    </h6>
+                    {{/unless}}
+
+                    {{#if isGalileo}}
+                    <div class="row" style="margin-left: 0px;">
+                        <div class="input-field col s12">
+                            <i class="material-icons prefix">flag</i>
+                            <select id="ga-country" style="margin-left: 50px" value="{{getCountry}}">
+                                <option value="0" selected disabled>Current country of residence</option>
+                                <option value="AFG">Afghanistan</option>
+                                <option value="ALA">Åland Islands</option>
+                                <!-- Add other country options here -->
+                                <option value="ZWE">Zimbabwe</option>
+                            </select>
+                            <label for="ga-country">Country</label>
+                        </div>
+                        <div class="input-field col s12">
+                            <i class="material-icons prefix">my_location</i>
+                            <input id="ga-city" value="{{getCity}}" style="margin-left: 50px;" type="text">
+                            <label for="ga-city">Current City</label>
+                        </div>
+                        <br><br>
+                        <div class="input-field col s12">
+                            <i class="material-icons prefix">language</i>
+                            <select id="ga-timezone" value="{{getTimeZone}}">
+                                <option value="" disabled selected>Choose your time zone</option>
+                                <option value="-12">(GMT-12:00) International Date Line West</option>
+                                <!-- Add other time zone options here -->
+                                <option value="12">(GMT+12:00) Auckland, Wellington</option>
+                            </select>
+                            <label for="ga-timezone">Time Zone</label>
+                        </div>
+                        <div class="input-field col s12">
+                            <i class="material-icons prefix">access_time</i>
+                            <select id="ga-dst" value="{{getDst}}">
+                                <option value="" disabled selected>Choose your answer</option>
+                                <option value="1">Yes</option>
+                                <option value="0">No</option>
+                            </select>
+                            <label for="ga-dst">Are you in daylight savings time?</label>
+                        </div>
+                    </div>
+                    {{/if}}
+
+                    <center>
+                        <div class="col s12">
+                            <iframe id="twitter-widget-0" class="twitter-follow-button twitter-follow-button-rendered"
+                                scrolling="no" frameborder="0" allowtransparency="true" title="Twitter Follow Button"
+                                src="https://platform.twitter.com/widgets/follow_button.5f60791584f95f2ec483faec8b16a58b.en.html#dnt=false&id=twitter-widget-0&lang=en&screen_name=GutInstinctUCSD&show_count=true&show_screen_name=true&size=l&time=1500423734379"
+                                data-screen-name="GutInstinctUCSD"
+                                style="position: static; visibility: visible; width: 279px; height: 28px;"></iframe>
+                            <br><br><br>
+                            <div style="overflow: hidden; margin-left: calc(50% - 340px);">
+                                <iframe
+                                    src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2FgutinstinctUCSD&tabs&width=340&height=130&small_header=false&adapt_container_width=false&hide_cover=false&show_facepile=false&appId=1667529610219243"
+                                    width="340" height="130"
+                                    style="padding:0px; border-radius: 10px; border-width: 0px;" scrolling="no"
+                                    allowtransparency="true"></iframe>
+                            </div>
+                        </div>
+                    </center>
+
+                    <br><br>
+
+                    <center>
+                        <button id="submitTest" class="btn light-blue">Continue</button>
+                    </center>
+                </form>
+
+                <br>
+
+                <h5 class="animated fadeIn" style="color: #696969; margin-top: 20px;">Please tell us what you know about
+                    the gut microbiome!</h5>
+
+                <form class="comment-form">
+                    <textarea id="userAnswerText" class="materialize-textarea" placeholder="Write your answer here..."
+                        style="height: 150px;"></textarea>
+                    <br>
+                    <center>
+                        <button id="submitTest" class="btn light-blue">Submit</button>
+                    </center>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</template>

@@ -1,0 +1,91 @@
+<template name="login">
+    <div id="login">
+        <div class="login_wrapper">
+            <section class="sign_in" style="height: 600px;">
+                <div class="dummy-bar"></div>
+                <form>
+                    <span class="login_error">{{error_message}}</span>
+                    <input type="text" name="username" id="username" placeholder="Username" required>
+                    <br>
+                    <input type="password" name="password" id="password" placeholder="Password" required>
+                    <br>
+                    {{#if signup}}
+                    <input type="submit" name="signup" value="Sign Up">
+                    <p style="display: none">Have an account? <a href="#" class="toggle">Sign in</a></p>
+                    {{else}}
+                    <input type="submit" name="signin" value="Sign In">
+                    <br>
+                    <br>
+                    <p>No account? <a href="#" class="toggle">Sign up</a></p>
+                    {{/if}}
+
+                    <div class="login-buttons">
+                        <button id="login-coursera" class="btn light-green btn-block">coursera</button>
+                        <button id="login-google" class="btn red btn-block">google</button>
+                        <button id="login-facebook" class="btn blue btn-block">facebook</button>
+                    </div>
+                </form>
+            </section>
+
+            <section class="description" style="height: 600px;">
+                <article>
+                    <h1>Gut Instinct <span class="label label-info">BETA</span></h1>
+                    <br>
+                    <p>Have you wondered how your diet, exercise, and other habits affect your gut (and life)?
+                        Scientists wonder about it, too!</p>
+                    <p>With Gut Instinct, you can don your labcoat and help scientists understand human gut while having
+                        fun!</p>
+                    <p>Learn about current science of the gut microbiome, discuss your ideas with other citizen
+                        scientists, and collaborate on popular questions. Share your Gut Instinct!</p>
+                    <p>There are <b>50</b> citizen scientists contributing to Gut Instinct currently!</p>
+                    <div id="active-login-question">
+                        <h3>STRAIGHT FROM THE GUT</h3>
+                        <span id="attention-getter-words" style="font-weight: 300; font-size: 10pt;">&nbsp;Popular
+                            Questions!</span>
+                        <ul>
+                            {{#each s4tg}}
+                            <a class="to-login" href="#">
+                                <li>{{layer_1.text}}</li>
+                            </a>
+                            {{/each}}
+                            {{#unless s4tg}}
+                            <p>There are no questions available :</p>
+                            {{/unless}}
+                        </ul>
+                        <div style="text-align: center;">
+                            <button id="click-login-btn" class="btn light-green to-login">Click here to login</button>
+                        </div>
+                    </div>
+                    <br>
+                    <br>
+                    <div style="display: block; margin: 0 auto; text-align: center;">
+                        <span style="color: #ffffff; opacity: 0;">----</span>
+                        <br>
+                        <span style="color: #ffffff; font-weight: bold; font-size: 14px;">Powered by</span>
+                    </div>
+                    <div id="powered-logos"
+                        style="display: block; margin: 0 auto; text-align: center; margin-top: 10px;">
+                        <a href="https://knightlab.ucsd.edu/" target="_blank">
+                            <img src="/images/logos/footer-knight.png" height="40">
+                        </a>
+                        <a href="http://americangut.org/" target="_blank">
+                            <img src="/images/logos/footer-agut.png" height="40">
+                        </a>
+                        <a href="http://designlab.ucsd.edu/" target="_blank">
+                            <img src="/images/logos/footer-dlab.png" height="40">
+                        </a>
+                    </div>
+                    <div style="display: block; margin: 0 auto; text-align: center;">
+                        <span style="color: #ffffff; opacity: 0; font-size: 14px;">----</span>
+                        <br>
+                        <a href="http://gutinstinct.ucsd.edu/info/" target="_blank">
+                            <span style="color: #ffffff; font-weight: bold;">Visit Project Info Page</span>
+                            <br>
+                            <span style="color: #ffffff; font-weight: bold;">gutinstinct.ucsd.edu/info/</span>
+                        </a>
+                    </div>
+                </article>
+            </section>
+        </div>
+    </div>
+</template>

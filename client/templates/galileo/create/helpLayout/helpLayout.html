@@ -1,0 +1,28 @@
+<template name="helpLayout">
+    {{#if home}}
+    <div class="card helpcard" id="helpcard-{{this.cardId}}-{{this.helpId}}"
+        style="font-size:16px; display: none; background-color: #FAFAFA;">
+        <div class="card-content black-text">
+            <span class="card-title">{{this.title}}</span>
+            <p>{{this.description}}</p>
+            {{> UI.contentBlock}}
+        </div>
+    </div>
+    {{else}}
+    <div class="card helpcard" id="helpcard-{{this.cardId}}-{{this.helpId}}"
+        style="font-size:16px; display: none; background-color:rgb(227, 242, 253);">
+        <div class="card-content black-text">
+            <span class="card-title">{{this.title}}</span>
+            <p>{{this.description}}</p>
+            {{> UI.contentBlock}}
+        </div>
+        <div class="card-action">
+            <a class="btn white grey-text text-darken-4 helpclose" href="#">Close</a>
+            {{#if this.learnLink}}
+            <a class="btn white grey-text text-darken-4" href="{{this.learnLink}}" target="_blank"
+                style="margin-left: 10px;">Learn more</a>
+            {{/if}}
+        </div>
+    </div>
+    {{/if}}
+</template>

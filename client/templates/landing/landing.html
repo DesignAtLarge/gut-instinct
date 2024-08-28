@@ -1,0 +1,175 @@
+<template name="landing">
+    <link rel="stylesheet" href="login-asset/css/style.css" type="text/css">
+
+    <body class="stretched" data-loader="11" data-loader-color="#543456">
+        <!-- Document Wrapper -->
+        <div id="wrapper" class="clearfix">
+            <!-- Header -->
+            <header id="header" class="full-header transparent-header border-full-header static-sticky"
+                data-sticky-class="not-dark" data-sticky-offset="full" data-sticky-offset-negative="100">
+                <div id="header-wrap">
+                    <div class="container clearfix">
+                        <div id="primary-menu-trigger">
+                            <i class="icon-reorder"></i>
+                        </div>
+
+                        <!-- Logo -->
+                        <div id="logo">
+                            <a class="standard-logo" href="#" data-dark-logo="images/logo.png">
+                                <img src="login-asset/images/logo.png" alt="Logo">
+                            </a>
+                            <a class="retina-logo" href="#" data-dark-logo="images/logo@2x.png">
+                                <img src="login-asset/images/logo@2x.png" alt="Logo">
+                            </a>
+                        </div>
+                        <!-- #logo end -->
+
+                        <!-- Primary Navigation -->
+                        <nav id="primary-menu">
+                            <ul class="one-page-menu" data-easing="easeInOutExpo" data-speed="1250" data-offset="65">
+                                <!-- Navigation items can go here -->
+                            </ul>
+                        </nav>
+                        <!-- #primary-menu end -->
+                    </div>
+                </div>
+            </header>
+            <!-- #header end -->
+
+            <!-- Slider -->
+            <section id="slider" class="slider-parallax full-screen">
+                <div class="slider-parallax-inner">
+                    <div class="full-screen section nopadding nomargin noborder ohidden"
+                        style="background-image: url('login-asset/images/slider/rev/ken-2.jpg'); background-size: cover; background-position: center center;">
+                        <div class="container clearfix">
+                            <div class="vertical-middle">
+                                <div class="row">
+                                    <div class="col-md-offset-1 col-md-5 col-sm-6">
+                                        <div class="visible-lg visible-md topmargin">
+                                            <h2>
+                                                Welcome to Gut Instinct
+                                                <span class="label label-danger"
+                                                    style="color: #ffffff; vertical-align: top; font-size: 55%;">Beta</span>
+                                            </h2>
+                                            <div class="fslider testimonial testimonials-lg nobg noborder noshadow nopadding"
+                                                data-animation="fade" data-arrows="false" data-pagi="false">
+                                                <div class="flexslider">
+                                                    <div class="slider-wrap">
+                                                        <div class="slide">
+                                                            <div class="testi-content">
+                                                                <p>
+                                                                    Have you wondered how your diet, exercise, and other
+                                                                    habits affect your gut (and life)? Scientists wonder
+                                                                    about it, too!
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="slide">
+                                                            <div class="testi-content">
+                                                                <p>
+                                                                    With Gut Instinct, you can don your labcoat and help
+                                                                    scientists understand the human gut while having
+                                                                    fun!
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="slide">
+                                                            <div class="testi-content">
+                                                                <p>
+                                                                    Learn about current science of the gut microbiome,
+                                                                    discuss your ideas with other citizen scientists,
+                                                                    and collaborate on popular questions. Share your Gut
+                                                                    Instinct!
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="visible-xs topmargin"></div>
+                                    </div>
+                                    <div class="col-md-offset-1 col-md-4 col-sm-6">
+                                        <div class="panel panel-default" style="border-color: #eee;">
+                                            <div class="panel-body" style="padding: 30px;">
+                                                <div class="heading-block nobottomborder bottommargin-sm">
+                                                    <h1 style="font-size: 20px;">Start your Journey</h1>
+                                                    <span class="t300 capitalize ls1 notopmargin"
+                                                        style="font-size: 15px;">No account? Sign up here</span>
+                                                    <span class="login_error"></span>
+                                                </div>
+                                                <form class="clearfix" action="#">
+                                                    <div class="col_full">
+                                                        <label class="capitalize t600" for="">Username</label>
+                                                        <input id="template-op-form-email" class="form-control not-dark"
+                                                            type="text" name="username">
+                                                    </div>
+                                                    <div class="col_full">
+                                                        <label class="capitalize t600" for="">Password</label>
+                                                        <input id="template-op-form-password"
+                                                            class="form-control not-dark" type="password"
+                                                            name="password">
+                                                    </div>
+                                                    <div class="col_full nobottommargin">
+                                                        <button
+                                                            class="t400 capitalize button button-border button-circle nomargin"
+                                                            type="submit" name="signin" value="Sign In">Sign In</button>
+                                                    </div>
+                                                </form>
+                                                <p class="nobottommargin">
+                                                    <small class="t300">
+                                                        <em>Visit Project Info Page:</em>
+                                                        <br>
+                                                        <a href="http://gutinstinct.ucsd.edu/info/"
+                                                            target="_blank">http://gutinstinct.ucsd.edu/info/</a>
+                                                    </small>
+                                                </p>
+                                                <div>
+                                                    <span style="color: #ffffff">Powered by</span>
+                                                    <a href="https://knightlab.ucsd.edu/" target="_blank">
+                                                        <img src="images/logos/footer-knight.png" height="40">
+                                                    </a>
+                                                    <a href="http://americangut.org/" target="_blank">
+                                                        <img src="images/logos/footer-agut.png" height="40">
+                                                    </a>
+                                                    <a href="http://designlab.ucsd.edu/" target="_blank">
+                                                        <img src="images/logos/footer-dlab.png" height="40">
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="video-wrap" style="z-index:1;">
+                            <div class="video-overlay" style="background: rgba(255,255,255,0.75);"></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- #slider end -->
+
+            <!-- Footer -->
+            <footer id="footer" class="dark noborder">
+                <div id="copyrights">
+                    <div class="container center clearfix">
+                        &copy; Copyright UC San Diego Design Lab 2016 | All Rights Reserved
+                    </div>
+                </div>
+            </footer>
+            <!-- #footer end -->
+        </div>
+        <!-- #wrapper end -->
+
+        <!-- Go To Top -->
+        <div id="gotoTop" class="icon-angle-up"></div>
+
+        <script type="text/javascript" src="login-asset/js/jquery.js"></script>
+        <script type="text/javascript" src="login-asset/js/plugins.js"></script>
+        <!-- Google Map JavaScripts -->
+        <script type="text/javascript" src="login-asset/js/jquery.gmap.js"></script>
+        <!-- Footer Scripts -->
+        <script type="text/javascript" src="login-asset/js/functions.js"></script>
+    </body>
+</template>

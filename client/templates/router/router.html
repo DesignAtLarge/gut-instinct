@@ -1,0 +1,24 @@
+<template name="router">
+    {{#if isStringEqual windowPath "/"}}
+    {{> gaHome}}
+    {{else if isStringEqual windowPath "/galileo/home"}}
+    {{> gaHome}}
+    {{else if isStringEqual windowPath "/landing"}}
+    {{> landing}}
+    {{else if isStringEqual windowPath "/login"}}
+    {{> login}}
+    {{else if isStringEqual windowPath "/signup"}}
+    {{> signup}}
+    {{else if isStringEqual windowPath "/galileo/consent"}}
+    {{> consent}}
+    {{else if isStringEqual windowPath "/galileo/username"}}
+    {{> username}}
+    {{else if isStringEqual windowPath "/galileo/entrance"}}
+    {{> entrance}}
+    {{else if isStringEqual windowPath "/trial"}}
+    {{> trial}}
+    {{else}}
+
+    {{/if}}
+
+</template>

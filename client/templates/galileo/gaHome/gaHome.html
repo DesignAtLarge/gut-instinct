@@ -1,0 +1,271 @@
+<template name="gaHome">
+    {{> gaNavbar}}
+    {{> imageModal url='/images/galileo/ga_summary_example.png'}}
+
+    <main id="ga-main">
+        <div class="wrapper">
+            <div class="intro-section" style="margin-top:20px;">
+                <div class="row">
+                    <div class="col m3 s12">
+                        <img class="responsive-img" src="/images/galileo/galileo-flask.png" style="width:90%;" />
+                    </div>
+                    <div class="col m9 s12">
+                        <div class="col s8">
+                            <h1 style="color: #006A96;">Galileo</h1>
+                            <h4 style="color: #006A96;">Design and Run Experiments</h4>
+                            <h4 style="color: #006A96;">with people from around the world</h4>
+                            <br />
+                            <h5 style="color: #006A96;">You can explore questions like:</h5>
+                        </div>
+                        <div class="col s4">
+                            <a class="waves-effect waves-light white-text z-depth-3 light-blue darken-4 hoverable modal-trigger"
+                                id="designExp"
+                                style="margin: 5px; padding:25px; border-radius:6px; text-align:center; width:100%;">Design
+                                an Experiment Now!</a>
+                        </div>
+                        <div class="col s12">
+                            <br />
+                            <div class="hypothesisContainer" style="color: #747678;">
+                                <h5>Can a vegan diet improve energy levels?</h5>
+                                <h5>Does drinking coffee every day reduce quality of sleep?</h5>
+                                <h5>Does your innovation perform better than the current choices?</h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="divider" style="margin:30px 0px;"></div>
+
+                <div class="workflow-section">
+                    <div class="row">
+                        <div class="col m3 s12">
+                            <!-- <img class="responsive-img" src="/images/galileo/galileo-flask.png" style="width:90%;" /> -->
+                        </div>
+                        <div class="col m9 s12">
+                            <h4 style="color: #006A96;">Anyone can test their intuitions...</h4>
+                            <br />
+                            <br />
+                            <div class="row center-align">
+                                <div class="col m3 s12">
+                                    <img class="responsive-img" src="/images/galileo/design/intuition.png"
+                                        style="padding:30px;" />
+                                    <h5 style="height:50px; margin-bottom:20px;">Start with an intuition</h5>
+                                </div>
+                                <div class="col m3 s12">
+                                    <img class="responsive-img" src="/images/galileo/design/designexp1.png"
+                                        style="padding:30px;" />
+                                    <h5 style="height:50px; margin-bottom:20px;">Design an experiment</h5>
+                                </div>
+                                <div class="col m3 s12">
+                                    <img class="responsive-img" src="/images/galileo/design/feedback.png"
+                                        style="padding:30px;" />
+                                    <h5 style="height:50px; margin-bottom:20px;">Peers review your experiment</h5>
+                                </div>
+                                <div class="col m3 s12">
+                                    <img class="responsive-img" src="/images/galileo/design/runexp.png"
+                                        style="padding:30px;" />
+                                    <h5 style="height:50px; margin-bottom:20px;">Participate and see the results!</h5>
+                                </div>
+                            </div>
+                            <div class="divider" style="margin:30px 0px;"></div>
+                        </div>
+                    </div>
+
+                    <div class="workflow-section">
+                        <div class="row">
+                            <div class="col m3 s12">
+                                <!-- <img class="responsive-img" src="/images/galileo/galileo-flask.png" style="width:90%;" /> -->
+                            </div>
+                            <div class="col m9 s12">
+                                <h4 style="color: #006A96;">Experiments already run on Galileo</h4>
+                                <br />
+                                <br />
+                                <div class="row center-align">
+                                    <div class="col m4 s12">
+                                        <h5 style="height:50px; margin-bottom:20px;">Does drinking kombucha improve
+                                            stool consistency?</h5>
+                                        <img class="responsive-img"
+                                            src="/images/galileo/experiments/results-kombucha.png"
+                                            style="padding:30px;" />
+                                    </div>
+                                    <div class="col m4 s12">
+                                        <h5 style="height:50px; margin-bottom:20px;">Does using less social media
+                                            increase optimism?</h5>
+                                        <img class="responsive-img"
+                                            src="/images/galileo/experiments/results-openhumans.png"
+                                            style="padding:30px;" />
+                                    </div>
+                                    <div class="col m4 s12">
+                                        <h5 style="height:50px; margin-bottom:20px;">Does drinking a beer in the evening
+                                            help people fall asleep?</h5>
+                                        <img class="responsive-img" src="/images/galileo/experiments/results-beer.png"
+                                            style="padding:30px;" />
+                                    </div>
+                                </div>
+                                <p>All three experiments were underpowered to achieve statistical significance. The Open
+                                    Humans experiment was the most promising, with reduced social media correlating with
+                                    increased optimism (r=0.25).</p>
+                                <div class="divider" style="margin:30px 0px;"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col m3 s12">
+                            <img class="responsive-img" src="/images/galileo/design/runexp.png" style="width:100%;" />
+                        </div>
+                        <div class="col m9 s12">
+                            <h4 style="color: #006A96;">Why should I use Galileo?</h4>
+                            <br />
+                            <div class="row">
+                                <div class="col m6 s12">
+                                    <span style="font-size: 20px; font-weight: 100; color: #006A96">
+                                        <b>Upgrade from tracking data to finding a causal relationship</b>
+                                        <a class="helpbtn" href="#" id="help-whyuse-1"
+                                            style="border-width:0px 0px 1px 0px; border-style:solid">
+                                            <i class="fa fa-question-circle" aria-hidden="true"></i>
+                                        </a>
+                                    </span>
+                                    {{> helpLayout style="background-color: #FAFAFA;" cardId="whyuse" helpId="1"
+                                    home=true}}
+                                    <p>Tracking provides correlation between activities and symptoms, but experiments
+                                        help find a causal relationship.</p>
+                                </div>
+                                <div class="col m6 s12">
+                                    <span style="font-size: 20px; font-weight: 100; color: #006A96">
+                                        <b>Gain scientific skills to answer your questions</b>
+                                        <a class="helpbtn" href="#" id="help-whyuse-2"
+                                            style="border-width:0px 0px 1px 0px; border-style:solid">
+                                            <i class="fa fa-question-circle" aria-hidden="true"></i>
+                                        </a>
+                                    </span>
+                                    {{> helpLayout cardId="whyuse" helpId="2" home=true}}
+                                    <p>We all have intuitions about our health and lifestyle, but few of us are trained
+                                        to design and run experiments. Designing experiments shows some ways how
+                                        scientists create new knowledge.</p>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col m6 s12">
+                                    <span style="font-size: 20px; font-weight: 100; color: #006A96">
+                                        <b>Help researchers create new knowledge</b>
+                                        <a class="helpbtn" href="#" id="help-whyuse-3"
+                                            style="border-width:0px 0px 1px 0px; border-style:solid">
+                                            <i class="fa fa-question-circle" aria-hidden="true"></i>
+                                        </a>
+                                    </span>
+                                    {{> helpLayout cardId="whyuse" helpId="3" home=true}}
+                                    <p>Researchers in many domains (including the human microbiome) want to understand
+                                        how people's lifestyles affect their health. Your experiments will provide them
+                                        useful knowledge.</p>
+                                </div>
+                                <div class="col m6 s12">
+                                    <span style="font-size: 20px; font-weight: 100; color: #006A96">
+                                        <b>Share and learn from your community</b>
+                                        <a class="helpbtn" href="#" id="help-whyuse-4"
+                                            style="border-width:0px 0px 1px 0px; border-style:solid">
+                                            <i class="fa fa-question-circle" aria-hidden="true"></i>
+                                        </a>
+                                    </span>
+                                    {{> helpLayout cardId="whyuse" helpId="4" home=true}}
+                                    <p>Tired of long discussions about different opinions about how to improve your
+                                        health? You can design and run an experiment to test opinions in your community.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="divider" style="margin:30px 0px;"></div>
+
+                    <div class="action-section container">
+                        <h4 class="center-align">Test your intuitions now!</h4>
+                        <br />
+                        <div class="row">
+                            <div class="col m1"></div>
+                            <div class="col m5 s12">
+                                <a class="waves-effect waves-light white-text z-depth-3 light-blue darken-4 hoverable modal-trigger"
+                                    id="designExp"
+                                    style="padding:25px; border-radius:6px; text-align:center; width:100%;">Design an
+                                    Experiment Now!</a>
+                            </div>
+                            <div class="col m5 s12">
+                                <a class="waves-effect waves-light white-text z-depth-3 light-blue darken-4 hoverable"
+                                    id="browseAll" href=""
+                                    style="padding:25px; border-radius:6px; text-align:center; width:100%;">Browse all
+                                    experiments</a>
+                            </div>
+                            <div class="col m1"></div>
+                        </div>
+                    </div>
+
+                    <div class="divider" style="margin:30px 0px;"></div>
+
+                    <div class="action-section container">
+                        <div class="row">
+                            <div class="col m1"></div>
+                            <div class="col m5 s12">
+                                <h4 class="center-align">Learn more from a three minutes demo</h4>
+                                <br />
+                                <iframe width="100%" height="237px" style="padding-top:10px"
+                                    src="https://www.youtube.com/embed/vtayrL2I0mk?rel=0&amp;showinfo=0" frameborder="0"
+                                    allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                            </div>
+                            <div class="col m5 s12">
+                                <h4 class="center-align">See a sample experiment</h4>
+                                <br />
+                                <a class="waves-effect waves-light white-text z-depth-3 light-blue darken-4 hoverable"
+                                    id="exampleExp" href=""
+                                    style="border-radius:6px; text-align:center; width:100%; top:10px; max-height: 226px; overflow: hidden;">
+                                    <img src='/images/galileo/ga_summary_example.png' style="width:100%;" />
+                                </a>
+                            </div>
+                            <div class="col m1"></div>
+                        </div>
+                    </div>
+
+                    <div id="sign-in-modal" class="modal">
+                        <div class="modal-content">
+                            <h4>Please sign in to continue</h4>
+                        </div>
+                        <div class="modal-footer">
+                            <a class="blue-text modal-action modal-close btn-flat" href="/galileo/signup">Sign In</a>
+                            <a class="gray-text modal-action modal-close btn-flat">Cancel</a>
+                        </div>
+                    </div>
+
+                    <footer class="page-footer" style="background-color:#ffffff">
+                        <div class="container">
+                            <h5>Powered by</h5>
+                            <br />
+                            <div class="row">
+                                <div class="col s12 m3">
+                                    <a href="http://americangut.org/" target="_blank">
+                                        <img src="/images/logos/footer-agut.png" height="70" />
+                                    </a>
+                                </div>
+                                <div class="col s12 m3">
+                                    <a href="https://knightlab.ucsd.edu/" target="_blank">
+                                        <img src="/images/logos/footer-knight.png" height="70" />
+                                    </a>
+                                </div>
+                                <div class="col s12 m3">
+                                    <a href="http://designlab.ucsd.edu/" target="_blank">
+                                        <img src="/images/logos/footer-dlab.png" height="70" />
+                                    </a>
+                                </div>
+                                <div class="col s12 m3">
+                                    <a href="https://www.openhumans.org/" target="_blank">
+                                        <img src="/images/logos/openhuman.png" height="70" />
+                                    </a>
+                                </div>
+                            </div>
+                            <br />
+                        </div>
+                    </footer>
+                </div>
+            </div>
+        </div>
+    </main>
+</template>

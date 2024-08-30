@@ -1,0 +1,57 @@
+<template name="gaEthics">
+    {{> cardLayout
+    heading="Complete Ethics Training"
+    cardId=cardId
+    nextDisabled=nextDisabled
+    nextOnly=nextOnly
+    nextButtonText=nextButtonText
+    }}
+
+    <p style="font-size: 20px;">{{prompt}}</p>
+    <br>
+    <div id="ga-ethics-steps">
+        <div class="card" id="step-1">
+            <h5>Option 1. Complete Ethical Training provided by National Institute of Health (3 hours)</h5>
+            <p>
+                Please visit
+                <a href="https://phrp.nihtraining.com/users/login.php" target="_blank">National Institute of Health
+                    portal</a>
+                | and complete
+                <strong>Ethics Training</strong>
+                |. Please upload your certificate below when done:
+            </p>
+            <center style="margin-top: 15px;">
+                {{> fileUploadBtn
+                id="certificate-file"
+                text="Upload Certificate"
+                }}
+            </center>
+            <center style="margin-top: 15px;">
+                <!-- Preview & Continue -->
+                <div id="preview">
+                    <p>Preview of certificate:</p>
+                    <center>
+                        <img src="{{downloadUrl}}">
+                    </center>
+                </div>
+            </center>
+            <!-- Uncomment if needed
+        <button class="btn light-blue darken-4" id="step-1-next">Next</button>
+        -->
+        </div>
+        <br>
+        <br>
+        <div class="card" id="step-2">
+            <h5>Option 2. Watch Gut Instinct Ethical Responsibilities Lecture (7 mins)</h5>
+            {{> gaVideoLearnLayout
+            videoTitle="Learn more - UC San Diego PhD student Vineet summarizes ethical considerations in designing, running and participating in experiments"
+            videoUrl="https://www.youtube.com/embed/lrHHCJwEs-U"
+            videoSrc="coursera.org/learn/designexperiments"
+            }}
+            <center style="margin-top: 15px;">
+                <!-- Done Button -->
+                <button class="btn light-blue darken-4" id="done-btn">Done</button>
+            </center>
+        </div>
+    </div>
+</template>

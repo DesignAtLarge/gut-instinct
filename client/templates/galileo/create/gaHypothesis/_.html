@@ -1,0 +1,114 @@
+<template name="gaHypothesis">
+    {{> cardLayout
+    heading="Let's begin with an intuition"
+    cardId=cardId
+    stepnumber=stepnumber
+    nextDisabled=nextDisabled
+    }}
+
+    <span style="font-size: 20px; font-weight: 100;">
+        Intuition selected by you:
+    </span>
+    <input id="hypothesis-intuition-input" type="text" value="{{intuition}}"
+        placeholder="E.g. Eating cabbage increases bloatedness">
+    <a class="btn light-blue darken-4 {{#if hideProceed}}hide{{/if}}{{#if noIntuition}}disabled{{/if}}" id="hypothesis-intuition-btn" href="#">
+        Proceed
+    </a>
+    <br>
+
+    <div class="hypothesis-format {{#if hideHypothesisForm}}hide{{/if}}">
+        <p style="font-size: 20px; font-weight: 100;">
+            Convert your intuition into a hypothesis. Think of activities that affect your gut.
+        </p>
+        <br>
+        <p style="font-size: 20px; font-weight: 100;">
+            A <b>hypothesis</b> is a statement that links one cause with one effect. To automatically identify the
+            cause, effect and relationship in your intuition, use the format given below to rewrite your intuition as a
+            hypothesis.
+        </p>
+        <br>
+        <br>
+
+        <div class="row">
+            <div class="col s4">
+                <p class="blue-text text-darken-2" style="font-size: 20px;">
+                    Cause
+                </p>
+            </div>
+
+            <div class="col s4">
+                <p class="blue-text text-darken-2" style="font-size: 20px;">
+                    Relation
+                </p>
+            </div>
+
+            <div class="col s4">
+                <p class="blue-text text-darken-2" style="font-size: 20px;">
+                    Effect
+                </p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col s4">
+                <input id="hypothesis-input-cause" type="text" value="{{cause}}">
+            </div>
+
+            <div class="col s4">
+                <input id="hypothesis-input-reln" type="text" value="{{relation}}">
+            </div>
+
+            <div class="col s4">
+                <input id="hypothesis-input-effect" type="text" value="{{effect}}">
+            </div>
+        </div>
+
+        <p>These examples might help:</p>
+        <div class="row">
+            <div class="col s4">
+                <span>i Eating cabbage</span>
+                <br>
+                <span>i Drinking 3 cups of coffee every day</span>
+            </div>
+
+            <div class="col s4">
+                <span>i increases</span>
+                <br>
+                <span>i decreases</span>
+            </div>
+
+            <div class="col s4">
+                <span>i bloatedness</span>
+                <br>
+                <span>i number of bowel movements</span>
+            </div>
+        </div>
+
+        <br>
+        {{> exampleLayout}}
+        <p style="font-size: 20px; font-weight: 100;">
+            <b>Here are a few questions/intuitions/statements that are NOT specific enough to be a hypothesis</b>
+        </p>
+        <ul class="browser-default" style="font-size: 20px; font-weight: 100;">
+            <li>Running improves health</li>
+            <br>
+            <p><b>What's wrong:</b> Both the cause ("Running") and the effect ("Health") need to be specific.</p>
+            <p><b>Improved hypothesis:</b> "Running for 30 mins daily improves quality of sleep"</p>
+            <br>
+
+            <li>Could an antibiotic like ciproflocaxin cure an intolerance to gluten and dairy?</li>
+            <br>
+            <p><b>What's wrong:</b> While it's easy to identify the cause and effect in this statement, their relation
+                isn't well defined.</p>
+            <p><b>Improved hypothesis:</b> "Ciproflocaxin reduces gluten (or dairy) intolerance"</p>
+            <br>
+
+            <li>How many times a week can I eat fast food?</li>
+            <br>
+            <p><b>What's wrong:</b> This is an open-ended question with no effect.</p>
+            <p><b>Improved hypothesis:</b> "Eating fast food daily increases weight", but "fast food" is vague and needs
+                to be defined.</p>
+            <br>
+        </ul>
+    </div>
+</template>

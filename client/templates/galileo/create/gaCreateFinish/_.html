@@ -1,0 +1,59 @@
+<template name="gaCreateFinish">
+    {{> cardLayout
+    cardId=cardId
+    heading="Experiment Created"
+    hideNav=true
+    progress=progress
+    }}
+
+    <p style="font-size: 20px; font-weight: 100;">
+        Share your experiment design with
+        <b>anyone online</b>
+        | to receive feedback and improve your work!
+    </p>
+
+    <b>Please
+        <span class="red-text">personalize</span>
+        | the content for the shared message
+    </b>
+
+    <div class="input-field">
+        <i class="material-icons prefix">mode_edit</i>
+        <textarea class="materialize-textarea blue-grey lighten-4" autofocus id="exp_created_text"
+            style="width:85%; padding-left: 20px; padding-right: 20px">
+        Hi! I have designed an experiment to study the effect of {{cause}} on {{effect}}.
+        If you're curious to learn more, check it out! You can help me by reviewing my experiment, or joining it as a pilot or future participant.
+        {{inviteReviewerLink}}
+      </textarea>
+    </div>
+
+    {{#if isDemo}}
+    <p style="font-size: 20px; font-weight: 100;">
+        Your experiment design will be posted on the Galileo forum with the above message. You may continue with getting
+        your experiment reviewed after submitting.
+    </p>
+    {{else}}
+    <!-- Uncomment if needed
+      <p>Hitting share will post your experiment design with the above message on the Galileo forum. You may continue with running your pilot after submitting.</p>
+      -->
+    {{/if}}
+
+    <iframe
+        src="https://www.facebook.com/plugins/share_button.php?href={{getIframeUrl}}&layout=button&size=large&mobile_iframe=true&width=73&height=28&appId"
+        width="73" height="28" style="border:none;overflow:hidden" scrolling="no" frameborder="0"
+        allowtransparency="true">
+    </iframe>
+
+    <br><br>
+
+    <div class="row">
+        <div class="col s3">
+            <a class="btn back-action light-blue darken-4" style="width:100%;">Back</a>
+        </div>
+        <div class="col s5"></div>
+        <div class="col s4">
+            <a class="btn next-action light-blue darken-4 {{#if nextDisabled}}disabled{{/if}}"
+                style="width:100%;">Finish</a>
+        </div>
+    </div>
+</template>

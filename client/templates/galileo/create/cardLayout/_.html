@@ -1,0 +1,70 @@
+<template name="cardLayout">
+    <div class="card-frame" id="card-{{cardId}}" style="display: none;">
+
+        {{#if stepnumber}}
+        <h4 class="light-blue-text text-darken-4">{{stepnumber}} : {{heading}}</h4>
+        {{else}}
+        <h4 class="light-blue-text text-darken-4">{{heading}}</h4>
+        {{/if}}
+
+        <br>
+        <br>
+
+        {{> contentBlock}}
+
+        {{#if hideNav}}
+        <div class="col s6">
+            <a class="btn next-action light-blue darken-4 {{#if nextDisabled}}disabled{{/if}}"
+                style="display: none;"></a>
+        </div>
+        <div class="col s3"></div>
+        {{else}}
+        <br>
+        <br>
+        <div class="row">
+            {{#if nextOnly}}
+            <div class="col s3"></div>
+            <div class="col s6">
+                <a class="btn next-action light-blue darken-4 {{#if nextDisabled}}disabled{{/if}}"
+                    style="width:100%;">{{nextButtonText}}</a>
+            </div>
+            <div class="col s3"></div>
+            {{else if backOnly}}
+            <div class="col s3">
+                <a class="btn back-action light-blue darken-4" style="width:100%;">Back</a>
+            </div>
+            <div class="col s6"></div>
+            <div class="col s3"></div>
+            {{else if lastAction}}
+            <div class="col s3">
+                <a class="btn back-action light-blue darken-4" style="width:100%;">Back</a>
+            </div>
+            <div class="col s6"></div>
+            <div class="col s3">
+                {{#if timeStamp}}
+                <a class="btn next-action light-blue darken-4 {{#if nextDisabled}}disabled{{/if}} {{#if noFeedback}}disabled{{/if}}"
+                    style="width:100%;" id="finishBtn">Finish</a>
+                {{else}}
+                <a class="btn next-action light-blue darken-4 {{#if nextDisabled}}disabled{{/if}} {{#if noFeedback}}disabled{{/if}}"
+                    style="width:100%;">Finish</a>
+                {{/if}}
+            </div>
+            {{else}}
+            <div class="col s3">
+                <a class="btn back-action light-blue darken-4" style="width:100%;">Back</a>
+            </div>
+            <div class="col s6"></div>
+            <div class="col s3">
+                {{#if timeStamp}}
+                <a class="btn next-action light-blue darken-4 {{#if nextDisabled}}disabled{{/if}}" style="width:100%;"
+                    id="nextBtn">{{nextButtonText}}</a>
+                {{else}}
+                <a class="btn next-action light-blue darken-4 {{#if nextDisabled}}disabled{{/if}}"
+                    style="width:100%;">{{nextButtonText}}</a>
+                {{/if}}
+            </div>
+            {{/if}}
+        </div>
+        {{/if}}
+    </div>
+</template>

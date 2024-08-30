@@ -1,0 +1,188 @@
+<template name="gaSetReminder">
+    {{> cardLayout
+    heading="Remind participants to take measurements"
+    cardId=cardId
+    stepnumber=stepnumber
+    nextDisabled=nextDisabled
+    backOnly=backOnly
+    timeStamp=timeStamp
+    type=type
+    designId=getDesignId
+    }}
+
+    <p style="font-size: 26px; font-weight: 400;">
+        Hypothesis:
+        <span class="blue-text text-darken-2">{{cause}} {{relation}} {{effect}}</span>
+        <i class="material-icons edit-design-btn" id="edit-hypothesis-reminder">mode_edit</i>
+        <i class="material-icons edit-design-btn accept hide" id="accept-edit-hypothesis-reminder">check</i>
+        <i class="material-icons edit-design-btn cancel hide" id="cancel-edit-hypothesis-reminder">clear</i>
+    </p>
+
+    <div id="hypothesis-reminder-editable" class="hide">
+        <div class="row">
+            <div class="col s4">
+                <p><b class="blue-text text-darken-2" style="font-size: 20px;">Cause</b></p>
+            </div>
+            <div class="col s4">
+                <p><b class="blue-text text-darken-2" style="font-size: 20px;">Relation</b></p>
+            </div>
+            <div class="col s4">
+                <p><b class="blue-text text-darken-2" style="font-size: 20px;">Effect</b></p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col s4">
+                <input id="hypothesis-input-cause2" type="text" value="{{cause}}">
+            </div>
+            <div class="col s4">
+                <input id="hypothesis-input-reln2" type="text" value="{{relation}}">
+            </div>
+            <div class="col s4">
+                <input id="hypothesis-input-effect2" type="text" value="{{effect}}">
+            </div>
+        </div>
+    </div>
+
+    <p style="font-size: 20px; font-weight: 100;">
+        All participants will provide data about the cause (
+        <span class="blue-text text-darken-2" style="font-weight: bold;">{{cause}}</span>) and the effect (
+        <span class="blue-text text-darken-2" style="font-weight: bold;">{{effect}}</span>) every day for the duration
+        (7 days) of the experiment. At what
+        <span style="font-weight: bold;">daily fixed time</span> should participants receive an automated text message
+        reminder?
+    </p>
+
+    {{> gaTimeDropdown id='cause-time' measureType=causeMeasureType measureItem=cause time=causeTimeVar}}
+
+    {{#if causeTimeExists}}
+    <p style="font-size: 16px; font-weight: 100;">
+        <b>Please</b>
+        <span class="red-text">edit</span>
+        | the content for the reminder text message to track
+        <span class="blue-text text-darken-2">{{cause}}</span>
+        | at
+        <span class="blue-text text-darken-2">{{causeTimeText}}</span>
+    </p>
+    <div class="input-field">
+        <i class="material-icons prefix">mode_edit</i>
+        {{#if causeMessageExists}}
+        <textarea id="causeReminderTextArea" class="materialize-textarea blue-grey lighten-4"
+            style="width:85%; padding: 20px;">
+            {{causeMessage}}
+          </textarea>
+        {{else}}
+        <textarea id="causeReminderTextArea" class="materialize-textarea blue-grey lighten-4"
+            style="width:85%; padding: 20px;">
+            Hello from {{username}}! This is your {{causeTimeText}} reminder to measure "{{cause}}" today.
+            &nbsp;
+            {{causeReminderQuestion}} {{focusCause}}
+          </textarea>
+        {{/if}}
+    </div>
+    {{/if}}
+
+    {{> gaTimeDropdown id='effect-time' measureType=effectMeasureType measureItem=effect time=effectTimeVar}}
+
+    {{#if effectTimeExists}}
+    <p style="font-size: 16px; font-weight: 100;">
+        <b>Please</b>
+        <span class="red-text">edit</span>
+        | the content for the reminder text message to track
+        <span class="blue-text text-darken-2">{{effect}}</span>
+        | at
+        <span class="blue-text text-darken-2">{{effectTimeText}}</span>
+    </p>
+    <div class="input-field">
+        <i class="material-icons prefix">mode_edit</i>
+        {{#if effectMessageExists}}
+        <textarea id="effectReminderTextArea" class="materialize-textarea blue-grey lighten-4"
+            style="width:85%; padding: 20px;">
+            {{effectMessage}}
+          </textarea>
+        {{else}}
+        <textarea id="effectReminderTextArea" class="materialize-textarea blue-grey lighten-4"
+            style="width:85%; padding: 20px;">
+            Hello from {{username}}! This is your {{effectTimeText}} reminder to measure "{{effect}}" today.
+            &nbsp;
+            {{effectReminderQuestion}} {{focusEffect}}
+          </textarea>
+        {{/if}}
+    </div>
+    {{/if}}
+
+    <br>
+
+    <div class="valid-time {{#if hideValidTime}}hide{{/if}}">
+        <p style="font-size: 20px; font-weight: 100;">
+            Before proceeding, please make sure that ...
+        <ul class="variable-checklist" style="list-style: none;">
+            <li>
+                <input type="checkbox" class="filled-in" id="best-scientific" style="float: right;">
+                <label for="best-scientific" class="blue-text text-darken-2" style="font-size: 20px; font-weight: 100;">
+                    <span>the times selected by you are</span>
+                    <span>
+                        <a class="helpbtn" href="#" id="help-{{cardId}}-1"
+                            style="border-width:0px 0px 1px 0px; border-style:solid;">
+                            <i class="fa fa-question-circle" aria-hidden="true"></i>
+                        </a>
+                    </span>
+                    <br>
+                    {{> helpLayout cardId=cardId helpId="1" title="The best time to send a reminder is during/after the
+                    event being tracked." learnLink="" }}
+                    <br>
+                    <p>
+                        <b>Example:</b> {{getExamples '5-0-0'}} <b>{{getExamples '5-0-1'}}</b> {{getExamples '5-0-2'}}
+                        <b>{{getExamples '5-0-3'}}</b> {{getExamples '5-0-4'}} <b>{{getExamples '5-0-5'}}</b>
+                        {{getExamples '5-0-6'}}
+                    </p>
+                </label>
+            </li>
+
+            <li>
+                <input type="checkbox" class="filled-in" id="best-participants" style="float: right;">
+                <label for="best-participants" class="blue-text text-darken-2"
+                    style="font-size: 20px; font-weight: 100;">
+                    <span>the times selected by you are</span>
+                    <span>
+                        <a class="helpbtn" href="#" id="help-{{cardId}}-2"
+                            style="border-width:0px 0px 1px 0px; border-style:solid;">
+                            <i class="fa fa-question-circle" aria-hidden="true"></i>
+                        </a>
+                    </span>
+                    <br>
+                    {{> helpLayout cardId=cardId helpId="2" title="Might participants find it difficult to provide the
+                    information at the times selected by you?" learnLink="" }}
+                    <br>
+                    <p>{{getExamples '5-1-0'}}</p>
+                    <br>
+                    <p><b>Example:</b> {{getExamples '5-1-1'}}</p>
+                    <br>
+                    <p><b>Fix:</b> {{getExamples '5-1-2'}}</p>
+                </label>
+            </li>
+
+            <li>
+                <input type="checkbox" class="filled-in" id="best-text" style="float: right;">
+                <label for="best-text" class="blue-text text-darken-2" style="font-size: 20px; font-weight: 100;">
+                    <span>the reminder text message</span>
+                    <span>
+                        <a class="helpbtn" href="#" id="help-{{cardId}}-3"
+                            style="border-width:0px 0px 1px 0px; border-style:solid;">
+                            <i class="fa fa-question-circle" aria-hidden="true"></i>
+                        </a>
+                    </span>
+                    <br>
+                    {{> helpLayout cardId=cardId helpId="3" title="Will participants be able to easily read the text
+                    messages?" learnLink="" }}
+                    <br>
+                    <p>{{getExamples '5-2-0'}}</p>
+                    <br>
+                    <p><b>Bad Example:</b> {{getExamples '5-2-1'}}</p>
+                    <br>
+                    <p><b>Fix:</b> {{getExamples '5-2-2'}}</p>
+                </label>
+            </li>
+        </ul>
+        </p>
+    </div>
+</template>

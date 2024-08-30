@@ -1,0 +1,87 @@
+<template name="gaCriteriaDemo">
+    {{> gaNavbar}}
+
+    <div class="container galileo" style="margin-top: 50px;">
+
+        <div class="loading" style="display: none;">
+            <div class="preloader-wrapper big active">
+                <div class="spinner-layer spinner-blue-only">
+                    <div class="circle-clipper left">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="gap-patch">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="circle-clipper right">
+                        <div class="circle"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card qmodule">
+            <div class="card-content layer-1">
+                {{> cardLayout
+                heading="Decide who can participate in your experiment"
+                nextDisabled=nextDisabled
+                hideNav=true
+                }}
+
+                <p style="font-size: 20px; font-weight: 400;">
+                    Hypothesis:
+                    <span class="blue-text text-darken-2">{{hypothesis}}</span>
+                </p>
+
+                <span class="card-title" style="font-size: 20px; font-weight: 100;">
+                    Which participants would you select for your experiment?
+                </span>
+                <br>
+
+                <p style="font-size: 20px; font-weight: 100;">
+                    <span class="green-text"><b>Include</b></span>
+                    | a participant in your experiment if they:
+                </p>
+                <br>
+
+                {{> checklist
+                id='inclusion'
+                checklistItems=inclusionCriteria
+                }}
+
+                <br>
+                <br>
+
+                <p style="font-size: 20px; font-weight: 100;">
+                    <span class="red-text"><b>Exclude</b></span>
+                    | a participant from your experiment if they:
+                </p>
+                <br>
+
+                {{> checklist
+                id='exclusion'
+                checklistItems=exclusionCriteria
+                }}
+
+                <br>
+
+                {{> gaVideoLearnLayout
+                videoTitle="Learn More - Your Experiments#4 - Selecting participants and creating inclusion/exclusion criteria"
+                videoUrl="https://www.youtube.com/embed/s7RgSJsyvhs"
+                videoSrc="coursera.org/learn/designexperiments"
+                }}
+
+                <div class="row">
+                    <div class="col s3"></div>
+                    <div class="col s6">
+                        <a class="btn next-action light-blue darken-4 {{#if nextDisabled}}disabled{{/if}}"
+                            style="width:100%;">
+                            Add Criteria
+                        </a>
+                    </div>
+                    <div class="col s3"></div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</template>

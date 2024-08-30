@@ -1,0 +1,73 @@
+<template name="gaPhase1End">
+    {{> cardLayout
+    cardId=cardId
+    heading="Congratulations! Phase 1 completed"
+    hideNav=true
+    }}
+
+    <p style="font-size: 20px; font-weight: 100;">
+        Now is the time to review your work and get some feedback.
+    </p>
+
+    <p style="font-size: 20px; font-weight: 100;">
+        Share your
+        <a class="experiment-link" href="{{sheetLink}}" target="_blank">experiment sheet</a>
+        with other interested participants using the invite message below.
+    </p>
+
+    <div class="input-field">
+        <i class="material-icons prefix">mode_edit</i>
+        <textarea class="materialize-textarea blue-grey lighten-4" style="width:85%;">
+        Hi there! I'm running an experiment to figure out if {{hypothesis}}.
+  
+        I would love to collaborate with you to see what we can find! You can find the experiment at -
+        {{sheetLink}}
+  
+        Thank you and I look forward to working together!
+      </textarea>
+    </div>
+
+    <!-- Social Sharing Icons -->
+    <div>
+        <p>
+            <i class="fa fa-facebook-square indigo-text darken-3" aria-hidden="true" style="font-size: 3em;"></i>
+            <a href="#">Share with Facebook friends</a>
+        </p>
+        <p>
+            <i class="fa fa-google-plus-square red-text darken-3" aria-hidden="true" style="font-size: 3em;"></i>
+            <a href="#">Invite contacts on Gmail</a>
+        </p>
+        <p>
+            <i class="fa fa-twitter-square blue-text" aria-hidden="true" style="font-size: 3em;"></i>
+            <a href="#">Tweet to your followers</a>
+        </p>
+        <p>
+            <i class="fa fa-commenting" aria-hidden="true" style="font-size: 3em;"></i>
+            <a href="#">SMS your contacts</a>
+        </p>
+    </div>
+
+    <iframe
+        src="https://www.facebook.com/plugins/share_button.php?href=http%3A%2F%2Fgutinstinct.ucsd.edu%2Fgalileo%2Fexperiment%2F{{id}}&layout=button&size=large&mobile_iframe=true&appId=1667529610219243&width=106&height=28"
+        width="106" height="28" style="border:none;overflow:hidden" scrolling="no" frameborder="0"
+        allowtransparency="true"></iframe>
+
+    <br>
+
+    <p>
+        Hitting share will post a preliminary version of your experiment with the above message on the Galileo forum.
+        You may continue with your experiment design after submitting.
+    </p>
+
+    <br><br>
+
+    <div class="row">
+        <div class="col s3">
+            <a class="btn back-action light-blue darken-4" style="width:100%;">Back</a>
+        </div>
+        <div class="col s5"></div>
+        <div class="col s4">
+            <a class="btn next-action light-blue darken-4" style="width:100%;">Share & Continue</a>
+        </div>
+    </div>
+</template>

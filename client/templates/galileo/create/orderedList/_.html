@@ -1,0 +1,19 @@
+<template name="gaOrderedList">
+    <div class="ordered-list-holder">
+        <ol class="ordered-list" id="{{id}}">
+            {{#each array}}
+            <li class="ordered-list-item">
+                <div class="ordered-list-item-container">
+                    <input class="ordered-list-input" value="{{this.value}}" data-id="{{this.index}}" />
+                    <button class="ordered-list-delete">
+                        <i class="fa fa-times"></i>
+                    </button>
+                </div>
+            </li>
+            {{/each}}
+        </ol>
+        <button class="btn ordered-list-add light-blue {{#if addDisabled}}disabled{{/if}}">
+            <i class="fa fa-plus"></i> Add Step
+        </button>
+    </div>
+</template>

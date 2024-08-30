@@ -1,0 +1,46 @@
+<template name="exampleLayout">
+    <div class="example-container">
+        <div class="example-header">
+            {{#if iconType}}
+            <i class="material-icons">{{iconType}}</i>
+            {{else}}
+            <i class="material-icons">device_hub</i>
+            {{/if}}
+
+            {{#if title}}
+            <span class="example-title">{{title}}</span>
+            {{else}}
+            <span class="example-title">Learn from examples</span>
+            {{/if}}
+
+            <i class="fa fa-angle-down"></i>
+        </div>
+        <div class="example-body" style="display: none;">
+            {{> contentBlock}}
+        </div>
+    </div>
+</template>
+
+
+<template name="exampleLayoutNotHidden">
+    <div class="example-container">
+        <div class="example-header">
+            {{#if iconType}}
+            <i class="material-icons">{{iconType}}</i>
+            {{else}}
+            <i class="material-icons">device_hub</i>
+            {{/if}}
+
+            {{#if title}}
+            <span class="example-title">{{title}}</span>
+            {{else}}
+            <span class="example-title">Learn from examples</span>
+            {{/if}}
+
+            <i class="fa fa-angle-down"></i>
+        </div>
+        <div class="example-body">
+            {{> contentBlock}}
+        </div>
+    </div>
+</template>

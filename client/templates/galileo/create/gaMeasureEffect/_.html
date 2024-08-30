@@ -1,0 +1,224 @@
+<template name="gaMeasureEffect">
+
+    {{> imageModal url='/images/galileo/exp_design/bristol_stool_chart.png'}}
+    {{> gaOpenHumansDataSourceModal
+      idSuffix="effect"
+      measureVariable=effectVariable
+      ohDataSourceVariable=effectOhDataSourceIdsVar
+    }}
+  
+    {{> cardLayout
+      heading="Measure the effect in your hypothesis"
+      cardId=cardId
+      stepnumber=stepnumber
+      nextDisabled=nextDisabled
+      timeStamp=timeStamp
+      type=type
+      designId=getDesignId
+    }}
+  
+    <span style="font-size:26px;">{{cause}}&nbsp;</span>
+    <span style="font-size:26px;">{{relation}}&nbsp;</span>
+    <span class="resizing-input blue-text text-darken-2">
+      <i class="material-icons" style="opacity:0.5;">mode_edit</i>
+      <input class="edit-hypothesis-input" type="text" id="measureEffect-editableText" placeholder="effect" value="{{effect}}">
+      <span style="display:none;"></span>
+    </span>
+  
+    <br><br>
+  
+    <p style="font-size: 20px; font-weight: 100;">
+      How will participants measure 
+      <span class="blue-text text-darken-2" style="font-weight: bold;">{{effect}}</span>
+      in your experiment?
+    </p>
+  
+    <p>To keep your experiment simple, choose <b>one</b> option</p>
+    
+    <br>
+  
+    <p style="font-size: 20px; font-weight: 100;">
+      This is the exact information that your participants will provide you!
+    </p>
+  
+    <br>
+  
+    {{#if showBristol}}
+      <input type="radio" class="measureEffect-checkbox with-gap" id="effect-bristol-checkbox" name="measureEffect-radio-group">
+      <label for="effect-bristol-checkbox">
+        <p class="blue-text text-darken-2" style="font-size: 20px; font-weight: 100;">Bristol Stool Scale</p>
+        <p>This scientific chart helps participants measure the quality of their stool</p>
+        <p>
+          <a href="https://en.wikipedia.org/wiki/Bristol_stool_scale" target="blank" class="helpbtn">Learn more</a>
+          <i class="material-icons oh-data-learn-more-icon">open_in_new</i>
+        </p>
+        <img id="bristol-stool" src="/images/galileo/exp_design/bristol_stool_chart.png" style="height:250px;">
+      </label>
+      <br><br>
+    {{/if}}
+  
+    <input type="radio" class="measureEffect-checkbox with-gap" id="effect-absence-checkbox" name="measureEffect-radio-group">
+    <label for="effect-absence-checkbox">
+      <p class="blue-text text-darken-2" style="font-size: 20px; font-weight: 100;">Absence or Presence</p>
+      <p>E.g. {{getExamples '4-0-0'}}</p>
+      <p>
+        <a href="#" id="help-{{cardId}}-1" class="helpbtn">More examples...</a>
+      </p>
+    </label>
+  
+    {{> helpLayout
+      cardId=cardId
+      helpId="1"
+      title=""
+      description="Tracking this is like answering a simple Yes or No question. e.g. suppose you were measuring the effect of a certain medicine on headache. If you noticed a headache, you would say 'Yes, headache present', otherwise you would say 'No, headache absent'. More examples: any symptom like abdominal pain, bloating, tiredness, anxiety, burning sensation while peeing etc.; occurrence of an event like menstrual cycle. Please be aware that anything you measure as absence or presence, could also be measured more specifically on a Rating Scale or as a Quantity. Remember that more information is better for scientists, so try to avoid choosing Absence/Presence. e.g. abdominal pain could be measured on a scale of 1 to 5."
+    }}
+  
+    <br><br>
+  
+    <input type="radio" class="measureEffect-checkbox with-gap" id="effect-amount-checkbox" name="measureEffect-radio-group">
+    <label for="effect-amount-checkbox">
+      <p class="blue-text text-darken-2" style="font-size: 20px; font-weight: 100;">Amount</p>
+      <p>E.g. {{getExamples '4-1-0'}}</p>
+      <p>
+        <a href="#" id="help-{{cardId}}-2" class="helpbtn">More examples...</a>
+      </p>
+    </label>
+  
+    {{> helpLayout
+      cardId=cardId
+      helpId="2"
+      title=""
+      description="Measuring amount is useful when you want to find out 'how much' is the quantity of the effect that you're tracking. Amount means that you'll be tracking a number, like 'number of hours slept', 'number of miles ran' etc. More Examples: track your ability to do a physical activity e.g. distance you were able to run in miles, weights lifted in pounds or kgs, count of laps swam; weight lost or gained in pounds or kgs; duration of an event e.g. duration of pain during periods in minutes, duration of sleep in hours; number of times you had to go to the bathroom in a day, number of times you experienced abdominal pain in a day; loudness in decibels; your blood sugar in mg/dL."
+    }}
+  
+    <div id="effect-amount-dropdown" class="hide" style="margin-left:34px; margin-top:-20px;">
+      <br>
+      <div class="row">
+        <div class="col m6">
+          <p class="black-text" style="font-size:16px;">Set a unit of measurement for "{{effect}}"</p>
+        </div>
+        <div class="col m4">
+          <input id="effect-amount-unit" placeholder="pounds, miles, hours, number..." style="height:2rem;">
+        </div>
+      </div>
+    </div>
+  
+    <br><br>
+  
+    <input type="radio" class="measureEffect-checkbox with-gap" id="effect-rating-checkbox" name="measureEffect-radio-group">
+    <label for="effect-rating-checkbox">
+      <p class="blue-text text-darken-2" style="font-size: 20px; font-weight: 100;">Rating scale</p>
+      <p>E.g. {{getExamples '4-2-0'}}</p>
+      <p>
+        <a href="#" id="help-{{cardId}}-3" class="helpbtn">More examples...</a>
+      </p>
+    </label>
+  
+    {{> helpLayout
+      cardId=cardId
+      helpId="3"
+      title=""
+      description="A rating scale is useful when you want to track a feeling. e.g. You can rate your headache 1 if it's mild, and 5 if it's a migraine. More Examples: attentiveness, drowsiness, happiness, energy, arousal, hunger; severity of a symptom like a skin rash, anxiety, pain, bloatedness; loudness (1 means silence, 5 means really loud); number of times you had to go to the bathroom in a day, number of times you experienced abdominal pain in a day."
+    }}
+  
+    <div id="effect-rating-dropdown" class="hide" style="margin-left:34px; margin-top:-20px;">
+      <br>
+      <div class="row">
+        <div class="col m4">
+          <p class="black-text" style="font-size:16px;">Define what a rating of 1 means</p>
+        </div>
+        <div class="col m4">
+          <input id="effect-rating-min" placeholder="low {{effect}}" style="height:2rem;">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col m4">
+          <p class="black-text" style="font-size:16px;">Define what a rating of 5 means</p>
+        </div>
+        <div class="col m4">
+          <input id="effect-rating-max" placeholder="high {{effect}}" style="height:2rem;">
+        </div>
+      </div>
+    </div>
+  
+    <br><br>
+  
+    <input type="radio" class="measureEffect-checkbox with-gap" id="effect-frequency-checkbox" name="measureEffect-radio-group">
+    <label for="effect-frequency-checkbox">
+      <p class="blue-text text-darken-2" style="font-size: 20px; font-weight: 100;">Frequency</p>
+      <p>E.g. {{getExamples '4-3-0'}}</p>
+      <p>
+        <a href="#" id="help-{{cardId}}-4" class="helpbtn">More examples...</a>
+      </p>
+    </label>
+  
+    {{> helpLayout
+      cardId=cardId
+      helpId="4"
+      title=""
+      description="Measuring frequency is useful when you want to track how often you repeat an activity at a time. More Examples: How frequently did you go to the bathroom in 1 hour."
+    }}
+  
+    <br><br>
+  
+    <input type="radio" class="measureEffect-checkbox with-gap" id="effect-rate-checkbox" name="measureEffect-radio-group">
+    <label for="effect-rate-checkbox">
+      <p class="blue-text text-darken-2" style="font-size: 20px; font-weight: 100;">Speed</p>
+      <p>E.g. {{getExamples '4-4-0'}}</p>
+      <p>
+        <a href="#" id="help-{{cardId}}-5" class="helpbtn">More examples...</a>
+      </p>
+    </label>
+  
+    {{> helpLayout
+      cardId=cardId
+      helpId="5"
+      title=""
+      description="Measuring speed is useful when you want to track how quickly or slowly something changes. More Examples: peeing fast or slow; how fast or slow did you fall asleep (could be measured on a scale of 1-5, or measured in minutes spent in bed before sleeping); heart rate measured in beats/minute."
+    }}
+  
+    <div id="effect-rate-dropdown" class="hide" style="margin-left:34px; margin-top:-20px;">
+      <br>
+      <p class="black-text" style="font-size:16px;">Select one of the following:</p>
+      <br>
+      <input type="radio" class="with-gap effect-rate-radio" id="effect-rate-number-checkbox" name="measureRate-radio-group">
+      <label for="effect-rate-number-checkbox">
+        <p class="black-text">Measure the rate as a quantity</p>
+        <div class="row" style="margin-left:25px;">
+          <div class="col m6">
+            <p class="black-text" style="font-size:16px;">Set a unit of measurement for the rate of "{{effect}}"</p>
+          </div>
+          <div class="col m3">
+            <input id="effect-rate-unit" placeholder="miles/hour, ml/second" style="height:2rem;">
+          </div>
+        </div>
+      </label>
+  
+      <input type="radio" class="with-gap effect-rate-radio" id="effect-rate-scale-checkbox" name="measureRate-radio-group">
+      <label for="effect-rate-scale-checkbox">
+        <p class="black-text">Measure rate of "{{effect}}" on a scale of 1 to 5 (1 being really slow, 5 being really fast)</p>
+      </label>
+    </div>
+  
+    {{#if showOhDataSources}}
+      <div class="divider" id="effectDataSources" style="margin:30px 0;">
+        <p style="font-size:24px;">You selected the following data sources to measure
+          <span class="blue-text text-darken-2" style="font-weight: bold;">{{effect}}</span>
+          :
+        </p>
+        {{> gaOhSelectedDataSources
+          ohDataSourceIdsVar=effectOhDataSourceIdsVar
+          viewOnly=false
+        }}
+      </div>
+    {{/if}}
+  
+    <br>
+    {{> gaVideoLearnLayout
+      videoTitle="Cause (Independent variable) and Effect (Dependent variable) in your experiment"
+      videoUrl="https://www.youtube.com/embed/1Qh-CS_GFBk"
+      videoSrc="coursera.org/learn/designexperiments"
+    }}
+  
+  </template>
+  

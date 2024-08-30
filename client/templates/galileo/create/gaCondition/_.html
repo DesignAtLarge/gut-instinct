@@ -1,0 +1,90 @@
+<template name="gaCondition">
+    {{> cardLayout
+    cardId=cardId
+    stepnumber=stepnumber
+    heading=heading
+    progress=progress
+    nextDisabled=nextDisabled
+    }}
+    <span class="card-title" style="font-size: 30px; font-weight: 100;">
+        Create two conditions for your participants
+    </span>
+    <br>
+    <p style="font-size: 20px;">
+        For a between-subjects experiment, you should have just two conditions:
+    </p>
+    <ol style="font-size: 18px;">
+        <li>
+            <strong>Control Condition</strong>: a baseline condition, and
+        </li>
+        <li>
+            <strong>Experimental Condition</strong>: a condition that tests your intervention
+        </li>
+    </ol>
+    {{> exampleLayout}}
+    <ol style="font-size: 18px;">
+        <li>
+            <ul>
+                <li>
+                    <strong>Hypothesis</strong>: Drinking Caffeinated coffee decreases quality of sleep
+                </li>
+                <li>
+                    <strong>Control Condition</strong>: Participants drink decaffeinated coffee
+                </li>
+                <li>
+                    <strong>Experimental Condition</strong>: Participants drink caffeinated coffee
+                </li>
+            </ul>
+        </li>
+        <li style="margin-top: 20px;">
+            <ul>
+                <li>
+                    <strong>Hypothesis</strong>: Eating a heavy dinner decreases time taken to fall asleep
+                </li>
+                <li>
+                    <strong>Control Condition</strong>: Participants eat a "light" dinner
+                </li>
+                <li>
+                    <strong>Experimental Condition</strong>: Participants eat a "heavy" dinner
+                </li>
+            </ul>
+        </li>
+    </ol>
+    <span class="card-title" style="font-size: 30px; font-weight: 100;">
+        Your Conditions:
+    </span>
+    <br>
+    <p style="font-size: 18px;">
+        Your <strong>Hypothesis:</strong>
+    </p>
+    <p class="light-blue-text darken-4" id="condition-hypothesis" style="font-size: 18px;">
+        {{hypothesis}}
+    </p>
+    <br>
+    <ul id="condition-form">
+        <li class="condition">
+            <p style="font-size: 18px;">
+                Your <strong>Control Condition:</strong>
+            </p>
+            <input class="condition-input" id="control-input" type="text"
+                placeholder="Please type your control condition here" value="{{controlCondition}}">
+            <p style="font-size: 18px;">
+                Please specify what are the steps that the users need to do in control condition:
+            </p>
+            <br>
+            {{> gaOrderedList id="control-condition-step" array=controlSteps}}
+        </li>
+        <li class="condition">
+            <p style="font-size: 18px;">
+                Your <strong>Experimental Condition:</strong>
+            </p>
+            <input class="condition-input" id="experimental-input" type="text"
+                placeholder="Please type your experimental condition here" value="{{experimentalCondition}}">
+            <p style="font-size: 18px;">
+                Please specify what are the steps that the users need to do in experimental condition:
+            </p>
+            <br>
+            {{> gaOrderedList id="experimental-condition-step" array=experimentalSteps}}
+        </li>
+    </ul>
+</template>

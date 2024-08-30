@@ -1,0 +1,104 @@
+<template name="gaExperimentDesignInstructions">
+    <hr class="summary-hr">
+    
+    <!-- NEED THIS OUTER DIV AND RELATIVE POSITION FOR FLOATING REVIEW CONTAINER NEXT TO THIS SECTION -->
+    <div id="instructions-section" class="animatedTransition" style="position:relative;">
+        <div class="dual-section">
+            <!-- Experimental Condition Section -->
+            <div class="design-section column" id="experimental-condition-block" class="{{#if focusingExperimental}}active{{/if}}">
+                <span style="font-size: 20px; font-weight: 400;">Experimental Condition</span>
+                {{#if allowEdits}}
+                    <i class="material-icons edit-design-btn" id="edit-experimental">mode_edit</i>
+                    <i class="material-icons edit-design-btn accept hide" id="accept-edit-experimental">check</i>
+                    <i class="material-icons edit-design-btn cancel hide" id="cancel-edit-experimental">clear</i>
+                {{/if}}
+                <br>
+
+                <div id="experimental-div">
+                    <span class="light-blue-text darken-4">{{experimentalCondition}}</span>
+
+                    <p style="font-size: 18px; margin-top: 15px;">
+                        <b>Preparation steps</b>
+                        <ol class="criteria-list" style="font-size: 18px; margin-top: 0px;">
+                            {{#each experimentalPrepSteps}}
+                                <li>{{this}}</li>
+                            {{/each}}
+                        </ol>
+                    </p>
+
+                    <hr class="summary-hr" style="margin: 15px 15px;">
+                    <p style="font-size: 18px;">
+                        <b>Experiment steps</b>
+                        <ol class="criteria-list" style="font-size: 18px; margin-top: 0px;">
+                            {{#each experimentalSteps}}
+                                <li>{{this}}</li>
+                            {{/each}}
+                        </ol>
+                    </p>
+                </div>
+
+                <div id="experimental-editable" class="hide">
+                    <input id="experimental-text" type="text" value="{{experimentalCondition}}">
+                    <p style="font-size: 18px;">
+                        <b>Preparation steps</b>
+                        {{> checklist id='experimentalPrepSteps' checklistItems=editableExperimentalPrepSteps}}
+                    </p>
+                    <hr class="summary-hr" style="margin: 15px 15px;">
+                    <p style="font-size: 18px;">
+                        <b>Experiment steps</b>
+                        {{> checklist id='experimentalSteps' checklistItems=editableExperimentalSteps}}
+                    </p>
+                </div>
+            </div>
+
+            <div class="vert"></div>
+
+            <!-- Control Condition Section -->
+            <div class="design-section column" id="control-condition-block" class="{{#if focusingControl}}active{{/if}}">
+                <span style="font-size: 20px; font-weight: 400;">Control Condition</span>
+                {{#if allowEdits}}
+                    <i class="material-icons edit-design-btn" id="edit-control">mode_edit</i>
+                    <i class="material-icons edit-design-btn accept hide" id="accept-edit-control">check</i>
+                    <i class="material-icons edit-design-btn cancel hide" id="cancel-edit-control">clear</i>
+                {{/if}}
+                
+                <br>
+                <div id="control-div">
+                    <span class="light-blue-text darken-4">{{controlCondition}}</span>
+
+                    <p style="font-size: 18px; margin-top: 15px;">
+                        <b>Preparation steps</b>
+                        <ol class="criteria-list" style="font-size: 18px; margin-top: 0px;">
+                            {{#each controlPrepSteps}}
+                                <li>{{this}}</li>
+                            {{/each}}
+                        </ol>
+                    </p>
+
+                    <hr class="summary-hr" style="margin: 15px 15px;">
+                    <p style="font-size: 18px;">
+                        <b>Control steps</b>
+                        <ol class="criteria-list" style="font-size: 18px;">
+                            {{#each controlSteps}}
+                                <li>{{this}}</li>
+                            {{/each}}
+                        </ol>
+                    </p>
+                </div>
+
+                <div id="control-editable" class="hide">
+                    <input id="control-text" type="text" value="{{controlCondition}}">
+                    <p style="font-size: 18px;">
+                        <b>Preparation steps</b>
+                        {{> checklist id='controlPrepSteps' checklistItems=editableControlPrepSteps}}
+                    </p>
+                    <hr class="summary-hr" style="margin: 15px 15px;">
+                    <p style="font-size: 18px;">
+                        <b>Control steps</b>
+                        {{> checklist id='controlSteps' checklistItems=editableControlSteps}}
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>

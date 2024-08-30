@@ -1,0 +1,132 @@
+<template name="gaExperimentDesignMeasures">
+    <hr class="summary-hr">
+    {{> imageModal url="/images/galileo/exp_design/bristol_stool_chart.png"}}
+    {{> textModal id="cause-message-textarea" name="feedback" rows="20" cols="50"}}
+    {{> textModal id="effect-message-textarea" name="feedback" rows="20" cols="50"}}
+
+    <div class="dual-section" id="measure-section">
+        <div class="design-section column" id="cause-measure-block" class="{{#if focusingCause}}active{{/if}}">
+            <p style="font-size: 20px; font-weight: 400;">
+                How is
+                <span class="blue-text text-darken-2">{{cause}}</span>
+                manipulated?
+                {{#if allowEdits}}
+                <i class="material-icons edit-design-btn" id="edit-cause">mode_edit</i>
+                <i class="material-icons edit-design-btn accept hide" id="accept-edit-cause">check</i>
+                <i class="material-icons edit-design-btn cancel hide" id="cancel-edit-cause">clear</i>
+                {{/if}}
+            </p>
+
+            <ul class="browser-default">
+                <li>
+                    <p style="font-size: 18px; font-weight: 100;">
+                        Participants measure
+                        <span class="blue-text text-darken-2" id="cause-measure-type">{{causeMeasureType}}</span>
+                        <span class="blue-text text-darken-2 edit-cause-measure-type column"
+                            style="cursor: pointer; border: 2px solid rgba(25, 118, 210, 0.5); border-radius: 6px; padding: 4px;"
+                            id="edit-cause-measure-type">
+                            <span id="measureCause-editableText" contenteditable="false">{{causeMeasureType}}</span>
+                        </span>
+                        of
+                        <span class="blue-text text-darken-2">{{cause}}</span>
+                        {{hasCauseUnit}} {{isCauseRateScaleType}}
+                        <span class="blue-text text-darken-2">{{causeMeasureDetails}}</span>
+                    </p>
+                </li>
+                <li id="cause-reminder-time-bullet">
+                    <p style="font-size: 18px; font-weight: 100;">
+                        Reminder sent every day at
+                        <span class="blue-text text-darken-2" id="cause-reminder-time">{{causeMeasureTime}}</span>
+                        with the following message:
+                        <br>
+                    <p id="cause-message">{{causeMeasureReminder}}</p>
+                    </p>
+                </li>
+            </ul>
+
+            {{#if allowEdits}}
+            <div class="cause-edit hide">
+                {{> gaTimeDropdown id='cause-amount-time' measureType=causeMeasureType measureItem=cause}}
+                <p class="blue-text text-darken-2" id="cause-message-textarea-text"
+                    style="cursor: pointer; border: 2px solid rgba(25, 118, 210, 0.5); border-radius: 6px; padding: 4px;">
+                    {{causeMeasureReminder}}</p>
+            </div>
+            {{/if}}
+
+            {{#if showCauseOhDataSources}}
+            <ul class="browser-default">
+                <li>
+                    <p style="font-size: 18px;">Data sources:</p>
+                    {{> gaOhSelectedDataSources idSuffix="causeSummary" ohDataSourceIdsVar=causeOhDataSourceIdsVar
+                    viewOnly=ohViewOnly}}
+                </li>
+            </ul>
+            {{/if}}
+        </div>
+
+        <div class="vert"></div>
+
+        <div class="design-section column" id="effect-measure-block" class="{{#if focusingEffect}}active{{/if}}">
+            <p style="font-size: 20px; font-weight: 400;">
+                How is
+                <span class="blue-text text-darken-2">{{effect}}</span>
+                measured?
+                {{#if allowEdits}}
+                <i class="material-icons edit-design-btn" id="edit-effect">mode_edit</i>
+                <i class="material-icons edit-design-btn accept hide" id="accept-edit-effect">check</i>
+                <i class="material-icons edit-design-btn cancel hide" id="cancel-edit-effect">clear</i>
+                {{/if}}
+            </p>
+
+            <ul class="browser-default">
+                <li>
+                    <p style="font-size: 18px; font-weight: 100;">
+                        Participants measure
+                        <span class="blue-text text-darken-2" id="effect-measure-type">{{effectMeasureType}}</span>
+                        <span class="blue-text text-darken-2 edit-effect-measure-type column"
+                            style="cursor: pointer; border: 2px solid rgba(25, 118, 210, 0.5); border-radius: 6px; padding: 4px;"
+                            id="edit-effect-measure-type">
+                            <span id="measureEffect-editableText" contenteditable="false">{{effectMeasureType}}</span>
+                        </span>
+                        of
+                        <span class="blue-text text-darken-2">{{effect}}</span>
+                        {{hasEffectUnit}} {{hasEffectRating}}
+                        <span class="blue-text text-darken-2">{{effectMeasureDetails}}</span>
+                        {{#if isBristol}}
+                        <img id="bristol-stool" src="/images/galileo/exp_design/bristol_stool_chart.png"
+                            style="width: 100%;">
+                        {{/if}}
+                    </p>
+                </li>
+                <li id="effect-reminder-time-bullet">
+                    <p style="font-size: 18px; font-weight: 100;">
+                        Reminder sent every day at
+                        <span class="blue-text text-darken-2" id="effect-reminder-time">{{effectMeasureTime}}</span>
+                        with the following message:
+                        <br>
+                    <p id="effect-message">{{effectMeasureReminder}}</p>
+                    </p>
+                </li>
+            </ul>
+
+            {{#if allowEdits}}
+            <div class="effect-edit hide">
+                {{> gaTimeDropdown id='effect-amount-time' measureType=effectMeasureType measureItem=effect}}
+                <p class="blue-text text-darken-2" id="effect-message-textarea-text"
+                    style="cursor: pointer; border: 2px solid rgba(25, 118, 210, 0.5); border-radius: 6px; padding: 4px;">
+                    {{effectMeasureReminder}}</p>
+            </div>
+            {{/if}}
+
+            {{#if showEffectOhDataSources}}
+            <ul class="browser-default">
+                <li>
+                    <p style="font-size: 18px;">Data sources:</p>
+                    {{> gaOhSelectedDataSources idSuffix="effectSummary" ohDataSourceIdsVar=effectOhDataSourceIdsVar
+                    viewOnly=ohViewOnly}}
+                </li>
+            </ul>
+            {{/if}}
+        </div>
+    </div>
+</template>

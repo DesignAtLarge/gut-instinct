@@ -1,0 +1,32 @@
+<template name="gaFrequencyDropdown">
+    <div class="row">
+        <div class="col m6">
+            <p style="font-size: 20px;">
+                How often do you want to take this measurement?
+            </p>
+        </div>
+
+        <div class="col m4 dropdown-div" style="cursor: pointer;">
+            <p id="frequency-label-{{id}}"
+                style="font-size: 20px; border-bottom-width: 1px; border-bottom-style: groove;">
+                Pick an option
+            </p>
+            <input class="hide measureFrequency-text" id="frequency-text-{{id}}" type="text"
+                placeholder="enter your own...">
+        </div>
+
+        <div class="col m1">
+            <a class="dropdown-button" href="#" data-activates="dropdown-{{id}}" id="dropdown-button-{{id}}">
+                <i class="material-icons" style="font-size: 30px;">keyboard_arrow_down</i>
+            </a>
+
+            <ul class="dropdown-content" id="dropdown-{{id}}">
+                <li><a class="frequency-dropdown-option" href="#">Once a day</a></li>
+                <!-- Uncomment and add more options as needed -->
+                <!-- <li><a class="frequency-dropdown-option" href="#">Twice a day</a></li> -->
+                <!-- <li><a class="frequency-dropdown-option" href="#">Once in 2 days</a></li> -->
+                <!-- <li><a class="frequency-dropdown-option-custom" href="#" id="frequency-dropdown-custom-{{id}}">Enter your own</a></li> -->
+            </ul>
+        </div>
+    </div>
+</template>

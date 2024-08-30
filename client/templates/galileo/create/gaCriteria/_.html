@@ -1,0 +1,112 @@
+<template name="gaCriteria">
+    {{> cardLayout
+    heading="Provide criteria for your experiment participants"
+    cardId=cardId
+    nextDisabled=nextDisabled
+    timeStamp=timeStamp
+    type=type
+    designId=getDesignId
+    }}
+
+    <p style="font-size: 20px; font-weight: 400;">
+        Hypothesis:
+        <span class="blue-text text-darken-2">{{hypothesis}}</span>
+    </p>
+
+    <br>
+
+    <div class="row">
+        <div class="col s6">
+            <p style="font-size: 20px; font-weight: 400;">
+                Experimental Condition:
+            </p>
+            <span class="light-blue-text darken-4">{{experimentalCondition}}</span>
+
+            {{#if hasExperimentalInstructions}}
+            <ol class="criteria-list" style="font-size: 15px;">
+                {{#each experimentalSteps}}
+                <li>{{this}}</li>
+                {{/each}}
+            </ol>
+            {{else}}
+            <p>No instructions yet</p>
+            {{/if}}
+        </div>
+
+        <div class="col s6">
+            <p style="font-size: 20px; font-weight: 400;">
+                Control Condition:
+            </p>
+            <span class="light-blue-text darken-4">{{controlCondition}}</span>
+
+            {{#if hasControlInstructions}}
+            <ol class="criteria-list" style="font-size: 15px;">
+                {{#each controlSteps}}
+                <li>{{this}}</li>
+                {{/each}}
+            </ol>
+            {{else}}
+            <p>No instructions yet</p>
+            {{/if}}
+        </div>
+    </div>
+
+    <br>
+
+    <span class="card-title" style="font-size: 20px; font-weight: 100;">
+        Which participants would you select for your experiment?
+    </span>
+
+    <p style="font-size: 20px; font-weight: 100;">
+        <span class="red-text"><b>Exclude</b></span>
+        | a participant from your experiment if they:
+    </p>
+
+    {{> checklist
+    id="exclusion"
+    checklistItems=exclusionCriteria
+    style="font: 300 15px Lato;"
+    exclude=true
+    criteria="-criteria"
+    }}
+
+    {{> helpLayout
+    cardId="checklist"
+    helpId="1"
+    title="Participants are excluded from experiments for the following reasons:"
+    learnLink=""
+    }}
+    <ol>
+        <li>Participants might get hurt while following the experimental instructions. This could be a general safety
+            principle (e.g., pregnant women) or specific to the task (e.g., a gluten-intolerant person might hurt
+            themselves in an experiment that involves consuming gluten).</li>
+        <br>
+        <li>Non-adults (participants under 18 years of age), prisoners, or potentially cognitively impaired people might
+            not have the autonomy to make an informed decision while participating in experiments.</li>
+    </ol>
+    <b>For your experimental instructions, think about who might need to be excluded and add them to the list!</b>
+
+    <br>
+    <br>
+
+    <p style="font-size: 20px; font-weight: 100;">
+        <span class="green-text"><b>Include</b></span>
+        | a participant in your experiment if they:
+    </p>
+
+    {{> checklist
+    id="inclusion"
+    checklistItems=inclusionCriteria
+    style="font: 300 15px Lato;"
+    include=true
+    criteria="-criteria"
+    }}
+
+    <br>
+
+    {{> gaVideoLearnLayout
+    videoTitle="Learn More - Your Experiments#4 - Selecting participants and creating inclusion/exclusion criteria"
+    videoUrl="https://www.youtube.com/embed/s7RgSJsyvhs"
+    videoSrc="coursera.org/learn/designexperiments"
+    }}
+</template>

@@ -1,0 +1,71 @@
+<template name="gaExperimentDesignHypothesis">
+    <div class="design-section" id="hypothesis-section" class="{{#if focusing}}active{{/if}}">
+        <p style="font-size: 20px; font-weight: 400; display: flex;">Hypothesis:
+            &nbsp;
+            <span class="blue-text text-darken-2">{{hypothesis}}</span>
+            {{#if allowEdits}}
+            <i class="material-icons edit-design-btn" id="edit-hypothesis">mode_edit</i>
+            <i class="material-icons edit-design-btn accept hide" id="accept-edit-hypothesis">check</i>
+            <i class="material-icons edit-design-btn cancel hide" id="cancel-edit-hypothesis">clear</i>
+            {{/if}}
+            {{#if isReviewer}}
+            <i class="material-icons edit-design-btn" id="edit-suggest-hypothesis">lightbulb_outline</i>
+            <i class="material-icons edit-design-btn accept hide" id="accept-edit-suggest-hypothesis">check</i>
+            <i class="material-icons edit-design-btn cancel hide" id="cancel-edit-suggest-hypothesis">clear</i>
+            {{/if}}
+        </p>
+        <br>
+        {{#if suggestingHypothesis}}
+        <blockquote class="info">
+            You are now entering suggestion mode. The modification you make will not take
+            effect to the experiment design. But the creator as well as the other reviewers
+            will be able to see the suggestion you have made.
+        </blockquote>
+        {{/if}}
+        <div id="summary-table">
+            <div class="row head">
+                <div class="col m4">
+                    <p><strong>Cause</strong></p>
+                </div>
+                <div class="col m4">
+                    <p><strong>Relation</strong></p>
+                </div>
+                <div class="col m4">
+                    <p><strong>Effect</strong></p>
+                </div>
+            </div>
+            <div class="row" id="hypothesis-div">
+                <div class="col m4">{{cause}}</div>
+                <div class="col m4">{{relation}}</div>
+                <div class="col m4">{{effect}}</div>
+            </div>
+            <div class="row hide" id="hypothesis-editable">
+                <div class="col s4">
+                    <textarea class="textarea-summary" id="cause-text" type="text" rows="4">{{cause}}</textarea>
+                </div>
+                <div class="col s4">
+                    <textarea class="textarea-summary" id="relation-text" type="text" rows="4">{{relation}}</textarea>
+                </div>
+                <div class="col s4">
+                    <textarea class="textarea-summary" id="effect-text" type="text" rows="4">{{effect}}</textarea>
+                </div>
+            </div>
+        </div>
+
+        <p style="font-size: 20px; font-weight: 400;">Mechanism:</p>
+        <p id="mechanism-div" style="font-size: 18px; font-weight: 100;">{{mechanism}}</p>
+        <div class="row hide" id="mechanism-editable">
+            <div class="col s12">
+                <input id="mechanism-text" type="text" value="{{mechanism}}">
+            </div>
+        </div>
+        <br>
+        <p style="font-size: 20px; font-weight: 400;">Related Work:</p>
+        <p id="related-works-div" style="font-size: 18px; font-weight: 100;">{{related_works}}</p>
+        <div class="row hide" id="related-works-editable">
+            <div class="col s12">
+                <input id="related-works-text" type="text" value="{{related_works}}">
+            </div>
+        </div>
+    </div>
+</template>

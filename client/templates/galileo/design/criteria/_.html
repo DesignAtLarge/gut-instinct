@@ -1,0 +1,67 @@
+<template name="gaExperimentDesignCriteria">
+    <hr class="summary-hr">
+    
+    <div class="dual-section">
+        <!-- Exclusion Criteria Section -->
+        <div class="design-section column" id="criteria-exclusion-block" class="{{#if focusingExclusion}}active{{/if}}">
+            <span style="font-size: 20px; font-weight: 400;">Exclusion Criteria</span>
+            {{#if allowEdits}}
+                <i class="material-icons edit-design-btn" id="edit-exclusion">mode_edit</i>
+                <i class="material-icons edit-design-btn accept hide" id="accept-edit-exclusion">check</i>
+                <i class="material-icons edit-design-btn cancel hide" id="cancel-edit-exclusion">clear</i>
+            {{/if}}
+
+            <p style="font-size: 12px; font-weight: 100; color: rgba(208, 14, 14, 1);">(No participant should meet ANY of the following criteria)</p>
+
+            <div id="exclusion-div">
+                {{#if hasExclusionCriteria}}
+                    <ol class="criteria-list">
+                        {{#each exclusionCriteria}}
+                            <li>{{this}}</li>
+                        {{/each}}
+                    </ol>
+                {{else}}
+                    <p class="blue-text text-darken-2" style="font-size: 16px; font-weight: 100; margin-top: 15px;">None</p>
+                {{/if}}
+            </div>
+
+            {{#if allowEdits}}
+                <div id="exclusion-editable" class="hide">
+                    {{> checklist id='exclusion' checklistItems=editableExclusionCriteria exclude=true criteria="-criteria"}}
+                </div>
+            {{/if}}
+        </div>
+        
+        <div class="vert"></div>
+        
+        <!-- Inclusion Criteria Section -->
+        <div class="design-section column" id="criteria-inclusion-block" class="{{#if focusingInclusion}}active{{/if}}">
+            <span style="font-size: 20px; font-weight: 400;">Inclusion Criteria</span>
+            {{#if allowEdits}}
+                <i class="material-icons edit-design-btn" id="edit-inclusion">mode_edit</i>
+                <i class="material-icons edit-design-btn accept hide" id="accept-edit-inclusion">check</i>
+                <i class="material-icons edit-design-btn cancel hide" id="cancel-edit-inclusion">clear</i>
+            {{/if}}
+
+            <p style="font-size: 12px; font-weight: 100; color: rgba(0, 203, 20, 1);">(Every participant must meet EACH of the following criteria)</p>
+
+            <div id="inclusion-div">
+                {{#if hasInclusionCriteria}}
+                    <ol class="criteria-list">
+                        {{#each inclusionCriteria}}
+                            <li>{{this}}</li>
+                        {{/each}}
+                    </ol>
+                {{else}}
+                    <p class="blue-text text-darken-2" style="font-size: 16px; font-weight: 100; margin-top: 15px;">None</p>
+                {{/if}}
+            </div>
+
+            {{#if allowEdits}}
+                <div id="inclusion-editable" class="hide">
+                    {{> checklist id='inclusion' checklistItems=editableInclusionCriteria include=true criteria="-criteria"}}
+                </div>
+            {{/if}}
+        </div>
+    </div>
+</template>

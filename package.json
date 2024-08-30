@@ -10,6 +10,8 @@
   "dependencies": {
     "@babel/runtime": "^7.17.9",
     "bourbon": "^7.3.0",
+    "compromise": "^14.14.0",
+    "elasticlunr": "^0.9.5",
     "jquery": "^3.6.0",
     "meteor-node-stubs": "^1.2.1",
     "sass": "^1.77.8",

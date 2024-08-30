@@ -1,0 +1,18 @@
+<template name="gaNavbarNotificationItem">
+    <div class="navbar-notification-outer">
+        <a class="navbar-notification">
+            <div class="row">
+                <div class="col s11 navbar-ind" href="#" data-id="{{notification._id}}" data-url="{{notification.url}}">
+                    <p>{{notification.message}}</p>
+                    <p>{{livestamp notification.post_time}}</p>
+                </div>
+                <div class="col s1">
+                    <i class="material-icons" style="z-index: 2000; padding-top: 15px" href="#"
+                        data-id="{{notification._id}}" data-url="{{notification.url}}">
+                        clear
+                    </i>
+                </div>
+            </div>
+        </a>
+    </div>
+</template>

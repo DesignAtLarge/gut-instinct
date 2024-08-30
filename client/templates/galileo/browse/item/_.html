@@ -1,0 +1,158 @@
+<template name="gaExperimentBoardItem">
+    {{#if show}}
+    {{#if isFlagged}}
+    <li class="experiment" id="experiment-{{expId}}-{{index}}"
+        style="width: calc(100% - 4px); margin-left: 2px; margin-right: 2px;">
+
+        <div class="left">
+            <div class="title" style="font-weight: 600;">{{experimentObjective}}
+                {{#if isNew}}
+                <span class="new">NEW</span>
+                {{/if}}
+                {{#if isEnded}}
+                <span class="completed">Completed</span>
+                {{/if}}
+                {{#if isLookingForReviewers}}
+                <span class="redReviewParticipant">LOOKING FOR REVIEWERS AND PARTICIPANTS</span>
+                {{/if}}
+                {{#if isLookingForParticipants}}
+                <span class="redReviewParticipant">LOOKING FOR PARTICIPANTS</span>
+                {{/if}}
+                {{#if isRunning}}
+                <span class="running">RUNNING</span>
+                {{/if}}
+            </div>
+            <div class="info">
+                <span>Created by</span>
+                <a class="username" href="#">{{username}}</a>
+                <span class="flag-icon {{userflag}}"></span>
+                <span class="date">{{livestamp createDate}}</span>
+                <br>
+                <!-- Commented out section -->
+                <div>
+                    <span>Reviewed by:</span>
+                    <span style="font-weight: bold;">{{getReviewerCount}}</span>
+                    {{#each getReviewerFlags}}
+                    <span class="flag-icon {{this}}" style="margin-right: 5px; width: 0.8em; margin-left: 3px;"></span>
+                    {{/each}}
+                    <br>
+                    {{#if showPilot}}
+                    <span>Pilot User(s):</span>
+                    <span style="font-weight: bold;">{{getPilotCount}}</span>
+                    <br>
+                    {{/if}}
+                    <span>Participant(s):</span>
+                    <span style="font-weight: bold;">{{getParticipantCount}}</span>
+                    {{#each getParticipantFlags}}
+                    <span class="flag-icon {{this.flag}}"
+                        style="margin-right: 5px; width: 0.8em; margin-left: 3px;"></span>
+                    {{/each}}
+                </div>
+                {{#if related_works}}
+                <div style="padding-top: 10px;">
+                    <a href="#" style="font-size: large;">What is this research about?</a>
+                    <br>
+                    <span style="font-size: large;">{{related_works}}</span>
+                </div>
+                {{/if}}
+            </div>
+        </div>
+
+        <div class="right">
+            {{#if isCreator}}
+            <a class="btn light-blue" href="/galileo/me/experiment/{{expId}}">My Experiment</a>
+            {{else if isPilot}}
+            <a class="btn light-blue" href="/galileo/me/experiment/{{expId}}/my_pilot">My Pilot</a>
+            {{else if isFeedbacking}}
+            <a class="btn light-blue" href="/galileo/me/experiment/{{expId}}/design">My Review</a>
+            {{else if isParticipant}}
+            {{#if isFailedCriteria}}
+            <a class="btn light-blue" href="/galileo/join/failed/{{expId}}">Unable to Join</a>
+            {{else}}
+            <a class="btn light-blue" href="/galileo/me/dashboard">My Participation</a>
+            {{/if}}
+            {{else if isWaitlist}}
+            <a class="btn light-blue">Waitlisted</a>
+            {{else}}
+            {{#if isSpecificExp}}
+            <a class="btn light-blue join-specific-btn" id="join-specific-{{expId}}-{{index}}">Join</a>
+            {{/if}}
+            {{#if isEnded}}
+            <p>I would like to</p>
+            <div class="btns">
+                <a class="btn light-blue feedback-btn" id="review-{{expId}}-{{index}}">Review</a>
+                {{#if showPilot}}
+                <a class="btn light-blue pilot-btn" id="pilot-{{expId}}-{{index}}">Pilot</a>
+                {{/if}}
+                <a class="btn light-blue join-btn" id="join-{{expId}}-{{index}}">Waitlist</a>
+            </div>
+            {{else if isRunning}}
+            <p>I would like to</p>
+            <div class="btns">
+                <a class="btn light-blue feedback-btn" id="review-{{expId}}-{{index}}">Review</a>
+                {{#if showPilot}}
+                <a class="btn light-blue pilot-btn" id="pilot-{{expId}}-{{index}}">Pilot</a>
+                {{/if}}
+                <a class="btn light-blue join-btn" id="join-{{expId}}-{{index}}">Waitlist</a>
+            </div>
+            {{else}}
+            <p>I would like to</p>
+            <div class="btns">
+                <a class="btn light-blue feedback-btn" id="review-{{expId}}-{{index}}">Review</a>
+                {{#if showPilot}}
+                <a class="btn light-blue pilot-btn" id="pilot-{{expId}}-{{index}}">Pilot</a>
+                {{/if}}
+                <a class="btn light-blue join-btn" id="join-{{expId}}-{{index}}">Join</a>
+            </div>
+            {{/if}}
+            {{/if}}
+            {{#if isAdmin}}
+            <br>
+            <p>Admin:</p>
+            <div class="row">
+                <div class="col s4">
+                    <a class="btn light-blue admin-btn-review" id="admin-{{expId}}-{{index}}">Review</a>
+                </div>
+                <div class="col s4">
+                    <a class="btn light-blue admin-btn-dash" id="admin-{{expId}}-{{index}}">Dashboard</a>
+                </div>
+                <div class="col s4">
+                    <a class="btn light-blue admin-btn-creator" id="admin-{{expId}}-{{index}}">Info</a>
+                </div>
+            </div>
+            {{/if}}
+            <br>
+            <a class="btn light-blue copy-exp-btn" id="copy-experiment-{{expId}}">Copy Experiment</a>
+            <br>
+
+            <!-- TODO: fix flag and uncomment later -->
+            {{#if isFlagged}}
+            <p class="unreport-abuse">
+                <i class="fa fa-flag" aria-hidden="true" style="color: #ff5722; font-size: 18pt;"></i>
+                <a style="color: #ff5722;" href="#">Issue reported</a>
+            </p>
+            <!-- Commented out section -->
+            <!-- <p class="report-abuse-details-display">
+                            <textarea class="with-gap materialize-textarea" placeholder="No reason to display for this flagged experiment">{{renderAbuseDetails}}</textarea>
+                        </p> -->
+            {{else}}
+            <p class="report-abuse" id="{{expId}}-report-init">
+                <a style="color: #212121;" href="#"
+                    onclick='$("#{{expId}}-report-init").hide(); $("#{{expId}}-report-reason-div").show()'>Report an
+                    issue
+                    <i class="fa fa-flag-o" aria-hidden="true" style="color: #ff9800; font-size: 18pt;"></i>
+                </a>
+            </p>
+            <p class="report-abuse-details" id="{{expId}}-report-reason-div" style="display: none;">
+                <textarea class="with-gap materialize-textarea" rows="5" id="{{expId}}-report-reason"
+                    placeholder="Please explain why you think this experiment is inappropriate. Your concerns will help the Galileo research team evaluate this experiment. Thank you for looking out for the Galileo community!"></textarea>
+                <a class="btn light-blue report-abuse-action" href="#">Submit Report</a>
+                <a class="btn grey cancel-report-abuse-action" href="#"
+                    onclick='$("#{{expId}}-report-init").show(); $("#{{expId}}-report-reason-div").hide()'>Cancel</a>
+            </p>
+            {{/if}}
+        </div>
+    </li>
+    {{/if}}
+    {{/if}}
+</template>

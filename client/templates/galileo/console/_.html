@@ -1,0 +1,54 @@
+<template name="gaConsole">
+    {{> gaNavbar}}
+    <main id="ga-main">
+        <div class="wrapper">
+            <h4 class="board-header">Galileo Developer Console</h4>
+            <section>
+                <h4 class="board-header">Control Panel</h4>
+                <ul>
+                    <li>
+                        <div class="card" style="padding: 30px;">
+                            <h5>Pilot Stages</h5>
+                            <br>
+                            <div>
+                                <button class="btn" id="check-single-pilot-end">Check Single Pilot ended</button>
+                                <button class="btn" id="check-all-pilots-end">Check all Pilots ended</button>
+                                <button class="btn" id="send-cause-effect-pilot">Send measure cause effect
+                                    message</button>
+                                <button class="btn" id="send-morning-msg-pilot">Send morning message</button>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="card" style="padding: 30px;">
+                            <h5>Run Stages</h5>
+                            <br>
+                            <div>
+                                <button class="btn" id="check-experiment-start">Check Experiment Start</button>
+                                <button class="btn" id="send-cause-effect-msg">Send measure cause effect
+                                    message</button>
+                                <button class="btn" id="check-experiment-end">Check Experiment End</button>
+                                <button class="btn" id="check-experiment-run-day1">Check Experiment run before day
+                                    1</button>
+                                <button class="btn" id="send-morning-msg-exp">Send morning message</button>
+                                <button class="btn" id="send-test-email">Send test email</button>
+                                <button class="btn" id="send-test-sms">Send test Sms</button>
+                                <button class="btn" id="send-remind-email">Send remind email</button>
+                                <button class="btn" id="send-weekly-email">Send weekly email</button>
+                                <button class="btn" id="send-weekly-email-server">Send weekly email on server</button>
+                                <button class="btn" id="send-weekly-email-server-dingmei">Send weekly email on server to
+                                    dingmei</button>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </section>
+            <section>
+                <h4 class="board-header">Result Panel</h4>
+                <blockquote class="card" style="padding: 30px;">
+                    <div id="result">{{result}}</div>
+                </blockquote>
+            </section>
+        </div>
+    </main>
+</template>

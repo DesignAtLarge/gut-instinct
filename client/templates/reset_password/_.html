@@ -1,0 +1,37 @@
+<template name="reset_password">
+    <div id="login">
+        <div class="signup_wrapper">
+            <section class="description" style="height: 125%;">
+                <article>
+                    <a href="/">
+                        <h1 style="background-color: #1D3866;">
+                            <span class="label label-info">Reset Password</span>
+                        </h1>
+                    </a>
+                    <br>
+                    <span id="link_check" class="timestamp animated fadeIn"
+                        style="align-content: center; color: red; font-size: 15px; display: none;">Reset link has
+                        expired</span>
+                    <span id="pass_check" class="timestamp animated fadeIn"
+                        style="color: red; font-size: 15px; display: none;">Passwords did not match</span>
+                    <br>
+                    <br>
+                    <form>
+                        <label class="active timestamp control-label" for="new_password" style="font-size: 15px;">Enter
+                            new password</label>
+                        <input id="new_password" type="password" class="validate" style="font-size: 24px;">
+
+                        <label class="active timestamp control-label" for="confirm_password"
+                            style="font-size: 15px;">Reenter password</label>
+                        <input id="confirm_password" type="password" class="validate" style="font-size: 24px;">
+
+                        <br>
+                        <br>
+                        <button id="reset-pass" class="btn btn-block light-blue"
+                            style="text-align: center;">reset</button>
+                    </form>
+                </article>
+            </section>
+        </div>
+    </div>
+</template>

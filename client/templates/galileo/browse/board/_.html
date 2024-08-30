@@ -1,0 +1,73 @@
+<template name="gaExperimentBoard">
+    {{> gaNavbar}}
+
+    <main id="ga-main" style="height:100%;">
+        <div class="wrapper" style="height:100%;">
+            <h4 class="board-header">Experiment Board
+                <a class="btn light-blue" id="designExpBtn" style="float: right;">Design an Experiment</a>
+            </h4>
+
+            {{#if isFeedbackStep}}
+            <p>Please pick an experiment to review it.</p>
+            {{/if}}
+
+            {{> gaExploreModal exp=selectedExp showPilot=showPilot}}
+            {{> gaCopyExpModal}}
+
+            <div id="sign-in-modal" class="modal">
+                <div class="modal-content">
+                    <h4>Please sign in to continue</h4>
+                </div>
+                <div class="modal-footer">
+                    <a class="blue-text modal-action modal-close btn-flat" id="signin">Sign In</a>
+                    <a class="gray-text modal-action modal-close btn-flat">Cancel</a>
+                </div>
+            </div>
+
+            {{> phoneModal data-id=expId incompleteEmail=incompleteEmail incompleteUsername=incompleteUsername}}
+
+            {{#if isLoaded}}
+            {{#if hasExperiment}}
+            <div class="row" style="margin-bottom: 0px;">
+                <div class="input-field" style="float: right; width: 30%; min-width: 250px; margin-top: 0px;">
+                    <i class="material-icons prefix">search</i>
+                    <input id="search_input" class="validate" type="text" style="margin-bottom: 0px;">
+                    <label for="icon_prefix">Search for an experiment</label>
+                </div>
+
+                {{#if noneValidSearchResult}}
+                <span style="font-size: 20px;">Sorry, your search did not match any experiments.</span>
+                <ul style="font-size: 18px;">
+                    <li>1. Make sure all words are spelled correctly.</li>
+                    <li>2. Try different keywords.</li>
+                    <li>3. Try more general keywords.</li>
+                </ul>
+                {{else}}
+                {{#if hasInitSearch}}
+                {{#if hasGreaterThanOneSearchResult}}
+                <span style="font-size: 20px;">Found {{getSearchCount}} results.</span>
+                {{else}}
+                <span style="font-size: 20px;">Found {{getSearchCount}} result.</span>
+                {{/if}}
+                <br>
+                <p style="margin-top: 0px;">Search results are sorted based on how much your keyword matches with
+                    experiment design (cause & effect).</p>
+                <ul id="experiment-list" style="height: calc(100% - 120px); overflow-y: auto;">
+                    {{#each experiments}}
+                    {{> gaExperimentBoardItem exp=this index=@index showPilot=showPilot}}
+                    {{/each}}
+                </ul>
+                {{/if}}
+                {{/if}}
+            </div>
+            {{else}}
+            <h5>No experiments have been designed so far..</h5>
+            <br><br>
+            <h5 class="light-blue-text text-darken-4">Why don't you design one? It's really easy..</h5>
+            {{/if}}
+            {{else}}
+            <p>Loading ...</p>
+            {{/if}}
+        </div>
+    </main>
+</template>

@@ -1,0 +1,47 @@
+<template name="gaEmailDropdown">
+    <div class="row">
+        <div class="col m5">
+            {{#if reminderEmail}}
+            <p style="font-size: 20px; font-weight: 400;">Send a data reminder to</p>
+            {{else}}
+            <p style="font-size: 20px; font-weight: 400;">Send a thank-you-note to</p>
+            {{/if}}
+        </div>
+
+        <div class="col m7">
+            <div class="row" style="margin-bottom: 0px; border-width:1px; border-style: groove;">
+                <div class="col m10 dropdown-div black-text center-align">
+                    {{#if reminderEmail}}
+                    <p id="{{id}}" style="font-size:20px; padding:0px; margin: 0px">Participants with missing data from
+                        yesterday</p>
+                    {{else}}
+                    <p id="{{id}}" style="font-size:20px; padding:0px; margin: 0px">All experiment participants</p>
+                    {{/if}}
+                </div>
+
+                <div class="col m2 black-text">
+                    <div style="height:100%">
+                        <a class="dropdown-button" href="#" data-activates="dropdown-{{id}}"
+                            id="dropdown-button-{{id}}">
+                            <i class="material-icons" style="font-size:25px;">keyboard_arrow_down</i>
+                        </a>
+                        <ul class="dropdown-content" id="dropdown-{{id}}" style="width: 350px;">
+                            {{#if reminderEmail}}
+                            <li><a class="frequency-dropdown-option" href="#" data-value="0">Participants with missing
+                                    data from yesterday</a></li>
+                            <li><a class="frequency-dropdown-option" href="#" data-value="1">Participants with data from
+                                    yesterday</a></li>
+                            <li><a class="frequency-dropdown-option" href="#" data-value="2">Participants with missing
+                                    data from today</a></li>
+                            <li><a class="frequency-dropdown-option" href="#" data-value="3">Participants with data from
+                                    today</a></li>
+                            {{/if}}
+                            <li><a class="frequency-dropdown-option" href="#" data-value="4">All experiment
+                                    participants</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>

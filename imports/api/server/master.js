@@ -1,0 +1,20 @@
+// import '../imports/api/server/profile.js';
+// import '../imports/api/server/email.js';
+// import '../imports/api/server/trainingQuestions.js';
+// import '../imports/api/server/personalQuestions.js';
+// import '../imports/api/server/questions.js';
+// import '../imports/api/server/testQuestions.js';
+// import '../imports/api/server/comments.js';
+// import '../imports/api/server/tags.js';
+// import '../imports/api/server/tours.js';
+
+import './profile.js';
+import './email.js';
+import './trainingQuestions.js';
+import './personalQuestions.js';
+import './questions.js';
+import './testQuestions.js';
+import './surveyQuestions.js';
+import './comments.js';
+import './tags.js';
+import './tours.js';

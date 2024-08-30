@@ -1,0 +1,217 @@
+<template name="gaExploreModal">
+    <div id="explore-item-modal" class="modal galileo-long-modal">
+        <div class="modal-content">
+            <h4 class="center-align">{{experimentObjective}}</h4>
+            <br>
+            <h5 class="center-align">
+                Choose
+                <span style="color:red;">one</span>
+                {{#if showPilot}}
+                of three roles below for this experiment
+                {{else}}
+                of two roles below for this experiment
+                {{/if}}
+            </h5>
+            <br>
+            <div class="row center-align">
+                {{#if showPilot}}
+                <div class="col m4">
+                    <a class="btn" id="reviewerBtn">Reviewer</a>
+                </div>
+                <div class="col m4">
+                    <a class="btn" id="pilotBtn">Pilot User</a>
+                </div>
+                <div class="col m4">
+                    <a class="btn" id="participantBtn">Participant</a>
+                </div>
+                {{else}}
+                <div class="col m6">
+                    <a class="btn" id="reviewerBtn">Reviewer</a>
+                </div>
+                <div class="col m6">
+                    <a class="btn" id="participantBtn">Participant</a>
+                </div>
+                {{/if}}
+            </div>
+            <br>
+
+            <div id="reviewerContent" class="hide">
+                <!-- p -->
+                <!-- Almost every experiment design has issues in its early versions. -->
+                <!-- As a reviewer, you will improve the experiment design by answering questions about it, providing candid and useful feedback, and clear, actionable suggestions. -->
+                <h6 class="center-align">Provide feedback to improve the experiment design so it can be run successfully
+                </h6>
+                <div class="card" style="padding: 5px 20px;">
+                    <br>
+                    <h6>As a reviewer:</h6>
+                    <ul>
+                        <li>
+                            <i class="fa fa-check green-text"></i>
+                            <span>I will provide useful feedback on all aspects of this experiment so the creator can
+                                run a successful experiment. Useful feedback includes pointing out issues and providing
+                                clear, actionable suggestions.</span>
+                            <!-- including … -->
+                            <!-- <ul style="margin-left:40px"> -->
+                            <!-- <li>... the experiment hypothesis</li> -->
+                            <!-- <li>... cause & effect variables</li> -->
+                            <!-- <li>... inclusion & exclusion criteria</li> -->
+                            <!-- <li>... instructions for participants</li> -->
+                            <!-- </ul> -->
+                        </li>
+                        <li>
+                            <i class="fa fa-check green-text"></i>
+                            <span>I will discuss the experiment with other reviewers and the creator in the comments
+                                section</span>
+                        </li>
+                        <!-- <li>
+                            <i class="fa fa-check green-text"></i>
+                            <span>You will answer review questions about the experiment</span>
+                        </li> -->
+                        <br>
+                        <li>
+                            <i class="fa fa-times red-text"></i>
+                            <span>I cannot reveal any details about the experiment to the experiment participants</span>
+                        </li>
+                        <li>
+                            <i class="fa fa-times red-text"></i>
+                            <span>I cannot pilot this experiment since I already know the experiment's objective and
+                                details</span>
+                        </li>
+                        <li>
+                            <i class="fa fa-times red-text"></i>
+                            <span>I cannot participate in this experiment since I already know the experiment's
+                                objective and details</span>
+                        </li>
+                    </ul>
+                    <p>Gut Instinct’s “Review” interface has been designed to provide you detailed guidance.</p>
+                </div>
+            </div>
+
+            {{#if showPilot}}
+            <div id="pilotParticipantContent" class="hide">
+                {{#if showNotOpenForPilot}}
+                <h6 class="center-align red-text">Sorry, the creator of this experiment hasn't opened it for pilot right
+                    now</h6>
+                <br>
+                {{else}}
+                <h6 class="center-align">Test this experiment by acting as a real participant</h6>
+                {{/if}}
+                <div class="card" style="padding: 5px 20px;">
+                    <br>
+                    <h6>As a Pilot user :</h6>
+                    <ul>
+                        <li>
+                            <i class="fa fa-check green-text"></i>
+                            <span>I will participate in the experiment just like a real participant for 1 or 2 days by
+                                following the exact instructions and providing experimental data</span>
+                        </li>
+                        <!-- <li>
+                                <i class="fa fa-check green-text"></i>
+                                <span>I will provide clear, actionable feedback</span>
+                                <ul style="margin-left:40px">
+                                    <li>... providing data for cause and effect variables</li>
+                                    <li>... noting specific parts that were unclear</li>
+                                </ul>
+                            </li> -->
+                        <li>
+                            <i class="fa fa-check green-text"></i>
+                            <span>I will answer questions and provide detailed comments to ensure that the creator can
+                                improve the experiment to remove any run-time issues</span>
+                        </li>
+                        <br>
+                        <li>
+                            <i class="fa fa-times red-text"></i>
+                            <span>I cannot reveal any details about the experiment to other pilot or experiment
+                                participants because it might bias them</span>
+                        </li>
+                        <li>
+                            <i class="fa fa-times red-text"></i>
+                            <span>I cannot participate in this experiment because I already know how the experiment
+                                works</span>
+                            <!-- span: u why? -->
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            {{/if}}
+
+            <div id="participantContent" class="hide">
+                {{#if isEnded}}
+                <h6 class="center-align red-text">Sorry, this experiment has concluded.</h6>
+                <br>
+                {{else if isRunning}}
+                <h6 class="center-align red-text">Sorry, this experiment has already begun.</h6>
+                <br>
+                {{else}}
+                <h6 class="center-align">Participate in this experiment to contribute your data along with other Galileo
+                    users</h6>
+                {{/if}}
+                <div class="card" style="padding: 5px 20px;">
+                    <br>
+                    <h5>Find out if you meet the criteria to join this experiment</h5>
+                    <br>
+                    <div>
+                        <b>Please select all the items that apply to you.</b>
+                        <span>These criteria give a sense of what may occur in the experiment.</span>
+                    </div>
+
+                    {{#if isCriteriaLoading}}
+                    <p>Loading ...</p>
+                    {{else}}
+                    <p style="margin-bottom: 0px;">You:</p>
+                    <ul style="list-style-type: none;">
+                        {{#each inclusion}}
+                        <li>
+                            <input class="filled-in criteria-item checkbox-blue" type="checkbox"
+                                id="inc-criteria-{{this.index}}">
+                            <label for="inc-criteria-{{this.index}}">{{this.content}}</label>
+                        </li>
+                        {{/each}}
+                        <br>
+                        {{#each exclusion}}
+                        <li>
+                            <input class="filled-in criteria-item checkbox-blue" type="checkbox"
+                                id="exc-criteria-{{this.index}}">
+                            <label for="exc-criteria-{{this.index}}">{{this.content}}</label>
+                        </li>
+                        {{/each}}
+                    </ul>
+                    <p>If you pass the eligibility criteria to participate in this experiment, then you will be
+                        automatically assigned to one of the conditions. Click Proceed As A Participant to know!</p>
+                    {{/if}}
+                </div>
+            </div>
+
+            {{#if showNotOpenForWaitlist}}
+            <h6 class="center-align red-text">You may add yourself to a waitlist and we'll notify you when this
+                experiment is ready to run again!</h6>
+            {{else if showNotOpenForPilot}}
+            <h6 class="center-align red-text">Sorry, the creator of this experiment hasn't opened it for pilot right now
+            </h6>
+            {{/if}}
+
+            <br>
+            <div id="proceedDiv" class="row hide">
+                <div class="col m4 center-align">
+                    <a class="btn modal-action modal-close btn-flat">Cancel</a>
+                </div>
+                <div class="col m4 center-align">
+                    {{#if showNotOpenForPilot}}
+                    <a class="btn light-blue disabled" id="proceedBtn">Proceed as a {{selectedRole}}</a>
+                    {{else if showNotOpenForWaitlist}}
+                    <h6 class="center-align red-text"></h6>
+                    <a class="btn light-blue" id="proceedBtn">Proceed to Waitlist</a>
+                    {{else}}
+                    <a class="btn light-blue" id="proceedBtn" style="line-height:23pt; height: auto;">Proceed as a
+                        {{selectedRole}}</a>
+                    {{/if}}
+                </div>
+            </div>
+        </div>
+        <!-- Modal footer is commented out in the original Jade/Pug template -->
+        <!-- <div class="modal-footer">
+            <a class="blue-text modal-action modal-close btn-flat" href="/galileo/signup">Proceed With Review</a>
+            <a class="gray-text modal-action modal-close btn-flat">Cancel</a>
+        </div> -->
+    </div>
+</template>

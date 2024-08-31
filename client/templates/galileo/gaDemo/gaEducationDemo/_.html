@@ -1,0 +1,138 @@
+<template name="gaEducationDemo">
+
+    {{> gaNavbar}}
+  
+    <div class="container galileo" style="margin-top: 50px;">
+  
+      <!-- Loading spinner -->
+      <div class="loading" style="display: none;">
+        <div class="preloader-wrapper big active">
+          <div class="spinner-layer spinner-blue-only">
+            <div class="circle-clipper left">
+              <div class="circle"></div>
+            </div>
+            <div class="gap-patch">
+              <div class="circle"></div>
+            </div>
+            <div class="circle-clipper right">
+              <div class="circle"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+  
+      <!-- Breadcrumb navigation -->
+      <nav class="light-blue darken-4" style="position:relative; z-index:0; text-align:left;">
+        <div class="nav-wrapper" id="breadcrumb-nav">
+          <div class="container" style="width: 95%;">
+            {{#each phases}}
+              <a class="breadcrumb light-blue darken-4 {{#if isLaterPhase this}}hide{{/if}}" 
+                 id="breadcrumb-{{this.id}}" 
+                 style="margin-left: 2px;">
+                {{#if isCurrentPhase this}}
+                  Phase {{this.text}} - {{this.description}}
+                {{else}}
+                  {{this.text}}
+                {{/if}}
+              </a>
+            {{/each}}
+            <img style="float: right; height: 36px; margin-top: 14px;" 
+                 src="/images/galileo-flask-white.png">
+          </div>
+        </div>
+      </nav>
+  
+      <!-- Progress bar -->
+      <div class="progress blue lighten-5">
+        <div class="determinate blue darken-2"></div>
+      </div>
+  
+      <!-- Main content -->
+      <div class="card qmodule">
+        <div class="card-content layer-1">
+  
+          <!-- Phase components -->
+          {{> gaDemoHypothesis 
+             cardId="1" 
+             stepnumber="" 
+             expId=expId 
+             designId=designId 
+             intuition=intuition 
+             cause=cause 
+             relation=relation 
+             effect=effect 
+             mechanism=mechanism 
+             examples=examples
+          }}
+          {{> gaMeasureCause 
+             cardId="2" 
+             stepnumber="" 
+             designId=designId 
+             cause=cause 
+             relation=relation 
+             effect=effect 
+             causeMeasure=causeMeasure 
+             examples=examples
+          }}
+          {{> gaMeasureEffect 
+             cardId="3" 
+             stepnumber="" 
+             designId=designId 
+             cause=cause 
+             relation=relation 
+             effect=effect 
+             effectMeasure=effectMeasure 
+             examples=examples
+          }}
+          {{> gaSetReminder 
+             cardId="4" 
+             stepnumber="" 
+             designId=designId 
+             cause=cause 
+             relation=relation 
+             effect=effect 
+             causeMeasure=causeMeasure 
+             effectMeasure=effectMeasure 
+             examples=examples
+          }}
+          {{> gaExperimentInstructions 
+             cardId="5" 
+             stepnumber="" 
+             designId=designId 
+             cause=cause 
+             relation=relation 
+             effect=effect 
+             instructions=instructions 
+             examples=examples
+          }}
+          {{> gaCriteria 
+             cardId="6" 
+             designId=designId 
+             cause=cause 
+             relation=relation 
+             effect=effect 
+             instructions=instructions 
+             inclusionCriteria=inclusionCriteria 
+             exclusionCriteria=exclusionCriteria
+          }}
+          {{> gaSummary2 
+             cardId="7" 
+             stepnumber="" 
+             designId=designId 
+             examples=examples
+          }}
+          {{> gaCreateFinish 
+             cardId="8" 
+             expId=expId 
+             designId=designId 
+             cause=cause 
+             effect=effect
+          }}
+  
+        </div>
+      </div>
+      
+    </div>
+  
+  </template>
+  

@@ -5,7 +5,7 @@
     {{> textModal id="effect-message-textarea" name="feedback" rows="20" cols="50"}}
 
     <div class="dual-section" id="measure-section">
-        <div class="design-section column" id="cause-measure-block" class="{{#if focusingCause}}active{{/if}}">
+        <div class="design-section column {{#if focusingCause}}active{{/if}}" id="cause-measure-block">
             <p style="font-size: 20px; font-weight: 400;">
                 How is
                 <span class="blue-text text-darken-2">{{cause}}</span>
@@ -66,7 +66,7 @@
 
         <div class="vert"></div>
 
-        <div class="design-section column" id="effect-measure-block" class="{{#if focusingEffect}}active{{/if}}">
+        <div class="design-section column {{#if focusingEffect}}active{{/if}}" id="effect-measure-block">
             <p style="font-size: 20px; font-weight: 400;">
                 How is
                 <span class="blue-text text-darken-2">{{effect}}</span>

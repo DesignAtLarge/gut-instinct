@@ -1,0 +1,375 @@
+<template name="gaDemoHypothesis">
+    {{> cardLayout 
+      heading="Let's begin with an intuition" 
+      cardId=cardId 
+      stepnumber=stepnumber 
+      nextDisabled=nextDisabled 
+      backOnly=backOnly 
+      timeStamp=timeStamp 
+      type=type 
+      designId=getDesignId
+    }}
+    
+    <span style="font-size: 20px; font-weight: 100;">
+      Have you wondered how different activities affect your health? Maybe consuming a specific diet or a beverage, or activities like jogging, swimming, meditation or just sitting for long hours at your desk.
+    </span>
+    <br>
+    <br>
+    <span style="font-size: 20px; font-weight: 100;">
+      Think about such an experience from your personal life and how it affected your health. Use it to formulate an intuition you'd like to test:
+    </span>
+    <br>
+    <br>
+    <input 
+      autofocus 
+      id="hypothesis-intuition-input" 
+      type="text" 
+      value="{{intuition}}" 
+      placeholder="E.g. Eating cabbage increases bloatedness"
+    >
+    <a 
+      class="btn light-blue darken-4 {{#if hideProceed}}hide{{/if}} {{#if noIntuition}}disabled{{/if}}" 
+      id="hypothesis-intuition-btn" 
+      href="#"
+    >
+      Proceed
+    </a>
+    <br>
+    <br>
+  
+    <div class="hypothesis-format {{#if hideHypothesisForm}}hide{{/if}}">
+      <p style="font-size: 20px; font-weight: 100;">
+        Now rewrite your intuition in terms of a cause, an effect and their relationship using the format below.
+      </p>
+      <br>
+      <p>
+        These examples might help:
+      </p>
+      <div class="row">
+        <div class="col s4">
+          <span>i {{getExamples '0-0-0'}}</span>
+          <br>
+          <span>i {{getExamples '0-1-0'}}</span>
+          <br>
+          <span>i {{getExamples '0-2-0'}}</span>
+        </div>
+        <div class="col s4">
+          <span>i {{getExamples '0-0-1'}}</span>
+          <br>
+          <span>i {{getExamples '0-1-1'}}</span>
+          <br>
+          <span>i {{getExamples '0-2-1'}}</span>
+        </div>
+        <div class="col s4">
+          <span>i {{getExamples '0-0-2'}}</span>
+          <br>
+          <span>i {{getExamples '0-1-2'}}</span>
+          <br>
+          <span>i {{getExamples '0-2-2'}}</span>
+        </div>
+      </div>
+      <br>
+      <div class="row">
+        <div class="col s4">
+          <p class="blue-text text-darken-2" style="font-size: 20px;">Cause</p>
+        </div>
+        <div class="col s4">
+          <p class="blue-text text-darken-2" style="font-size: 20px;">Relation</p>
+        </div>
+        <div class="col s4">
+          <p class="blue-text text-darken-2" style="font-size: 20px;">Effect</p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col s4">
+          <input 
+            id="hypothesis-input-cause" 
+            type="text" 
+            value="{{cause}}"
+          >
+        </div>
+        <div class="col s4">
+          <input 
+            id="hypothesis-input-reln" 
+            type="text" 
+            value="{{relation}}"
+          >
+        </div>
+        <div class="col s4">
+          <input 
+            id="hypothesis-input-effect" 
+            type="text" 
+            value="{{effect}}"
+          >
+        </div>
+      </div>
+      <a 
+        class="btn light-blue darken-4 {{#if hideProceed2}}hide{{/if}} {{#if noHypothesis}}disabled{{/if}}" 
+        id="hypothesis-improve-btn" 
+        href="#"
+      >
+        Proceed
+      </a>
+    </div>
+    
+    <br>
+    <br>
+  
+    <div class="improve-hypothesis {{#if hideImproveHypo}}hide{{/if}}">
+      <span style="font-size: 20px; font-weight: 100;">
+        Great! Now you have a
+        <a 
+          class="helpbtn" 
+          href="#" 
+          id="help-{{cardId}}-1" 
+          style="border-width:0px 0px 1px 0px; border-style:solid"
+        >
+          hypothesis
+          <i class="fa fa-question-circle" aria-hidden="true"></i>
+        </a>
+        for your experiment:
+      </span>
+      {{> helpLayout 
+        cardId=cardId 
+        helpId="1" 
+        title="What is a hypothesis?" 
+        learnLink="https://www.youtube.com/watch?v=bp2fbzWZDmA&ab_channel=AshfordScience"
+      }}
+      <p>
+        A hypothesis is a statement that links one cause with one effect. Scientists come up with intuitions based on their observations and a hypothesis is a tentative answer to that question.
+      </p>
+      <br>
+      <p>
+        For example, for an intuition like this: 
+        <b>{{getExamples '1-0-0'}}</b>
+      </p>
+      <p>
+        The corresponding hypothesis could be: 
+        <b>{{getExamples '1-1-0'}}</b>.
+      </p>
+      <br>
+      <br>
+      <a id="edit-hypothesis-1" href="#">
+        <span class="blue-text text-darken-2 edit-hypothesis" style="font-size: 20px; font-weight: 100;">
+          <i class="material-icons measureCause-editableIcon" style="opacity:0.5;">mode_edit</i>
+          {{cause}} {{relation}} {{effect}}
+        </span>
+      </a>
+      <br>
+      <br>
+      <br>
+      <div id="mechanism-container" class="card" style="padding:15px;">
+        <p style="font-size: 20px; font-weight: 100;">
+          When scientists create a hypothesis, they also think about why their hypothesis might be true. What might be the underlying mechanism?
+        </p>
+        <br>
+        <p style="font-size: 20px; font-weight: 100;">
+          <b>Write a</b>
+          <a 
+            class="helpbtn" 
+            href="#" 
+            id="help-{{cardId}}-2" 
+            style="border-width:0px 0px 1px 0px; border-style:solid; font-weight: 600;"
+          >
+            mechanism
+            <i class="fa fa-question-circle" aria-hidden="true"></i>
+          </a>
+          <b>for why</b>
+          <span class="blue-text text-darken-2" style="font-size: 20px; font-weight: 100;">
+            {{cause}} {{relation}} {{effect}}
+          </span>
+          <b>by taking a guess. Don't be afraid of being wrong.</b>
+          Your guesses might just prove to be valuable to researchers in understanding your experiment and its results!
+        </p>
+        {{> helpLayout 
+          cardId=cardId 
+          helpId="2" 
+          title="What is a mechanism?" 
+        }}
+        <p>
+          A mechanism describes the specific process by which something happens. In your hypothesis, how does {{cause}} affect {{effect}}?
+        </p>
+        <br>
+        <p>
+          For example:
+        </p>
+        <p>
+          For a hypothesis: 
+          <b>{{getExamples '2-0-0'}}</b>
+        </p>
+        <p>
+          The corresponding mechanism could be: 
+          <b>{{getExamples '2-1-0'}}</b>.
+        </p>
+        <br>
+        <div class="row">
+          <div class="input-field col s12">
+            <p for="hypothesis-input-mechanism" style="font-size:16px; color: #9e9e9e">
+              I think '{{cause}} {{relation}} {{effect}}' because ...
+            </p>
+            <textarea 
+              id="hypothesis-input-mechanism" 
+              class="materialize-textarea" 
+              type="text" 
+              value="{{mechanism}}" 
+              style="height:30px;"
+            ></textarea>
+          </div>
+        </div>
+        <a 
+          class="btn light-blue darken-4 {{#if hideProceed3}}hide{{/if}} {{#if noMechanism}}disabled{{/if}}" 
+          id="mechanism-improve-btn" 
+          href="#"
+        >
+          Proceed
+        </a>
+      </div>
+    </div>
+  
+    <div class="improve-mechanism {{#if hideImproveMechanism}}hide{{/if}}">
+      <div id="related-works-container" class="card" style="padding:15px;">
+        <p style="font-size: 20px; font-weight: 100;">
+          Scientists also link their experiments with what's already known. Click
+          <a href="{{googleScholar}}" target="_blank">here</a>
+          <a 
+            class="btn white" 
+            href="{{googleScholar}}"  
+            target="_blank" 
+            style="padding: 0px !important"
+          >
+            <img 
+              src="/images/galileo/exp_design/scholar_logo_64dp.png" 
+              style="height: calc(100% - 6px); margin: 5px;"
+            >
+          </a>
+          to search for current research on
+          <span class="blue-text text-darken-2" style="font-size: 20px; font-weight: 100;">
+            {{cause}} {{relation}} {{effect}}
+          </span>.
+        </p>
+        <br>
+        <br>
+        <p style="font-size: 20px; font-weight: 100;">
+          <b>Add two sentences</b> about how your experiment is related to existing science.
+        </p>
+        <br>
+        <div class="row">
+          <div class="input-field col s12">
+            <p for="hypothesis-input-related-works" style="font-size:16px; color: #9e9e9e">
+              Some related works to '{{cause}} {{relation}} {{effect}}' are ...
+            </p>
+            <textarea 
+              id="hypothesis-input-related-works" 
+              class="materialize-textarea" 
+              type="text" 
+              value="{{relatedWorks}}" 
+              style="height:30px;"
+            ></textarea>
+          </div>
+        </div>
+        <p style="font-size: 20px; font-weight: 100;">
+          Before proceeding, please make sure that ...
+        </p>
+        <ul class="variable-checklist" style="list-style: none;">
+          <li>
+            <input 
+              class="filled-in" 
+              type="checkbox" 
+              id="cause-specific-check"
+            >
+            <label for="cause-specific-check" class="blue-text text-darken-2" style="font-size: 20px; font-weight: 100;">
+              ... the cause is
+              <a 
+                class="helpbtn" 
+                href="#" 
+                id="help-{{cardId}}-2" 
+                style="border-width:0px 0px 1px 0px; border-style:solid"
+              >
+                specific
+              </a>
+            </label>
+            {{> helpLayout 
+              cardId=cardId 
+              helpId="2" 
+              title="If your cause is ambiguous or too broad, edit it to make it specific"
+            }}
+          </li>
+          <li>
+            <input 
+              class="filled-in" 
+              type="checkbox" 
+              id="effect-specific-check"
+            >
+            <label for="effect-specific-check" class="blue-text text-darken-2" style="font-size: 20px; font-weight: 100;">
+              ... the effect is
+              <a 
+                class="helpbtn" 
+                href="#" 
+                id="help-{{cardId}}-3" 
+                style="border-width:0px 0px 1px 0px; border-style:solid"
+              >
+                specific
+              </a>
+            </label>
+            {{> helpLayout 
+              cardId=cardId 
+              helpId="3" 
+              title="If your effect is ambiguous or too broad, edit it to make it specific"
+            }}
+          </li>
+          <li>
+            <input 
+              class="filled-in" 
+              type="checkbox" 
+              id="relation-defined-check"
+            >
+            <label for="relation-defined-check" class="blue-text text-darken-2" style="font-size: 20px; font-weight: 100;">
+              ... the relation between cause and effect is
+              <a 
+                class="helpbtn" 
+                href="#" 
+                id="help-{{cardId}}-4" 
+                style="border-width:0px 0px 1px 0px; border-style:solid"
+              >
+                clear
+              </a>
+            </label>
+            {{> helpLayout 
+              cardId=cardId 
+              helpId="4" 
+              title="Improving the 'relation'"
+            }}
+          </li>
+          <li>
+            <input 
+              class="filled-in" 
+              type="checkbox" 
+              id="mechanism-defined-check"
+            >
+            <label for="mechanism-defined-check" class="blue-text text-darken-2" style="font-size: 20px; font-weight: 100;">
+              ... the mechanism makes sense (think about: The hypothesis is unambiguous - it either holds or it does not)
+              <a 
+                class="helpbtn" 
+                href="#" 
+                id="help-{{cardId}}-5" 
+                style="border-width:0px 0px 1px 0px; border-style:solid"
+              >
+                clear
+              </a>
+            </label>
+            {{> helpLayout 
+              cardId=cardId 
+              helpId="5" 
+              title="Improving the 'mechanism'"
+            }}
+          </li>
+        </ul>
+      </div>
+      {{> gaVideoLearnLayout 
+        videoTitle="Learn more - Your Experiments#1 - Dr. Jacob Wobbrock explains why we design experiments" 
+        videoUrl="https://www.youtube.com/embed/Uded7kC3l48" 
+        videoSrc="coursera.org/learn/designexperiments"
+      }}
+    </div>
+  </template>
+  

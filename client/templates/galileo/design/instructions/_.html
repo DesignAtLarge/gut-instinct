@@ -5,7 +5,7 @@
     <div id="instructions-section" class="animatedTransition" style="position:relative;">
         <div class="dual-section">
             <!-- Experimental Condition Section -->
-            <div class="design-section column" id="experimental-condition-block" class="{{#if focusingExperimental}}active{{/if}}">
+            <div class="design-section column {{#if focusingExperimental}}active{{/if}}" id="experimental-condition-block">
                 <span style="font-size: 20px; font-weight: 400;">Experimental Condition</span>
                 {{#if allowEdits}}
                     <i class="material-icons edit-design-btn" id="edit-experimental">mode_edit</i>
@@ -54,7 +54,7 @@
             <div class="vert"></div>
 
             <!-- Control Condition Section -->
-            <div class="design-section column" id="control-condition-block" class="{{#if focusingControl}}active{{/if}}">
+            <div class="design-section column {{#if focusingControl}}active{{/if}}" id="control-condition-block">
                 <span style="font-size: 20px; font-weight: 400;">Control Condition</span>
                 {{#if allowEdits}}
                     <i class="material-icons edit-design-btn" id="edit-control">mode_edit</i>

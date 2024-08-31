@@ -1,0 +1,165 @@
+<template name="gaExperimentFeedback">
+    {{> gaNavbar}}
+    <main id="ga-main">
+        <div id="ga-exp-feedback">
+            <div class="main">
+                <div class="header">
+                    <!-- Uncommented for functionality in Blaze, as Blaze does not directly support comments inside HTML -->
+                    <!-- <button class="btn light-blue back">
+                        <i class="fa fa-angle-left"></i> Back
+                    </button> -->
+                    <div class="middle light-blue darken-4">Experiment Details</div>
+                </div>
+
+                <div class="card qmodule cardquestion">
+                    <div class="card-content">
+                        {{> gaExperimentDesign
+                        allowFeedback=true
+                        designId=designId
+                        isGuestMode=isGuestMode
+                        allowEdits=allowEdits
+                        userCount=userCount
+                        examples=examples
+                        pilotId=pilotId
+                        step=step
+                        focus=focus
+                        }}
+                    </div>
+                </div>
+            </div>
+
+            <div class="feedback stick-to-top" style="position: fixed; top: 65px; left: 70%;">
+                <div class="header">
+                    <div class="middle light-blue darken-4">Review</div>
+                </div>
+                <div style="margin-top: 15px;">
+                    {{#if isCreator}}
+                    <div class="card"
+                        style="padding: 1px 25px !important; height: 200px; overflow-y: scroll; border-bottom: 1px solid rgba(220, 220, 220, 1)">
+                        <p>
+                            Your experiment has
+                            <a style="color: #0950c1;"><strong>{{numberOfReviewer}}</strong></a>
+                            reviewers:
+                            {{#each nameOfReviewers as n}}
+                            <a style="color: #0950c1;">&nbsp;<strong>{{n}}</strong>&nbsp;</a>
+                            {{/each}}
+                        </p>
+                        <p style="margin-top: 0px; max-width: 1000px">Feedback requested by you:</p>
+                        <p style="margin-top: -20px; max-width: 1000px">
+                            <strong>{{getFeedbackRequest}}</strong>&nbsp;
+                            <a id="editFeedbackReq">Edit</a>
+                        </p>
+                        <div id="editDiv" style="width: 50%; padding-left: 30px; display: none; max-width: 1000px">
+                            <textarea class="materialize-textarea textarea-comment" id="feedbackReqText" name="feedback"
+                                placeholder="{{getFeedbackRequest}}" required></textarea>
+                            <button class="btn light-blue" id="cancelFeedbackReq" type="submit"
+                                style="margin-top:-30px;">Cancel</button>
+                            <button class="btn light-blue" id="saveFeedbackReq" type="submit"
+                                style="display: none; margin-top:-30px;" data-design-id="{{getDesignId}}">Save
+                                Change</button>
+                        </div>
+                    </div>
+                    {{else}}
+                    <div class="card"
+                        style="padding: 1px 25px !important; height: 200px; overflow-y: scroll; border-bottom: 1px solid rgba(220, 220, 220, 1)">
+                        <p style="margin-top: 0px; max-width: 1000px">Feedback request from the creator of the
+                            experiment:</p>
+                        <p style="margin-top: -20px; max-width: 1000px">
+                            <strong>{{getFeedbackRequest}}</strong>
+                        </p>
+                    </div>
+                    {{/if}}
+
+                    {{#if focusing "hypothesis"}}
+                    {{> gaExperimentFeedbackDetail
+                    expId=getExpId
+                    expCreatorID=getExpCreatorID
+                    field="hypothesis"
+                    name="the hypothesis"
+                    }}
+                    <button class="btn light-blue {{#if showNext}}show{{/if}}" id="next">Next Section</button>
+                    {{/if}}
+
+                    {{#if focusing "measure_cause"}}
+                    {{> gaExperimentFeedbackDetail
+                    expId=getExpId
+                    expCreatorID=getExpCreatorID
+                    field="measure_cause"
+                    name="the cause measure"
+                    }}
+                    <button class="btn light-blue {{#if showNext}}show{{/if}}" id="next">Next Section</button>
+                    {{/if}}
+
+                    {{#if focusing "measure_effect"}}
+                    {{> gaExperimentFeedbackDetail
+                    expId=getExpId
+                    expCreatorID=getExpCreatorID
+                    field="measure_effect"
+                    name="the effect measure"
+                    }}
+                    <button class="btn light-blue {{#if showNext}}show{{/if}}" id="next">Next Section</button>
+                    {{/if}}
+
+                    {{#if focusing "condition_experimental"}}
+                    {{> gaExperimentFeedbackDetail
+                    expId=getExpId
+                    expCreatorID=getExpCreatorID
+                    field="condition_experimental"
+                    name="the experimental condition"
+                    }}
+                    <button class="btn light-blue {{#if showNext}}show{{/if}}" id="next">Next Section</button>
+                    {{/if}}
+
+                    {{#if focusing "condition_control"}}
+                    {{> gaExperimentFeedbackDetail
+                    expId=getExpId
+                    expCreatorID=getExpCreatorID
+                    field="condition_control"
+                    name="the control condition"
+                    }}
+                    <button class="btn light-blue {{#if showNext}}show{{/if}}" id="next">Next Section</button>
+                    {{/if}}
+
+                    {{#if focusing "criteria_exclusion"}}
+                    {{> gaExperimentFeedbackDetail
+                    expId=getExpId
+                    expCreatorID=getExpCreatorID
+                    field="criteria_exclusion"
+                    name="the exclusion criteria"
+                    }}
+                    <button class="btn light-blue {{#if showNext}}show{{/if}}" id="next">Next Section</button>
+                    {{/if}}
+
+                    {{#if focusing "criteria_inclusion"}}
+                    {{> gaExperimentFeedbackDetail
+                    expId=getExpId
+                    expCreatorID=getExpCreatorID
+                    field="criteria_inclusion"
+                    name="the inclusion criteria"
+                    }}
+                    <button class="btn light-blue {{#if showNext}}show{{/if}}" id="next">Next Section</button>
+                    {{/if}}
+
+                    {{#if focusing "overall"}}
+                    {{> gaExperimentFeedbackDetail
+                    expId=getExpId
+                    expCreatorID=getExpCreatorID
+                    field="overall"
+                    name="the overall experiment"
+                    }}
+                    {{#if isCreator}}
+                    <button class="btn light-blue {{#if showNext}}show{{/if}}" id="finishReadingReview"
+                        style="width: 100%;">Finish Reading Reviews</button>
+                    {{else if isAdmin}}
+                    <button class="btn light-blue {{#if showNext}}show{{/if}}" id="finishReadingAdmin"
+                        style="width: 100%;">Finish Reading Reviews</button>
+                    {{else}}
+                    <button class="btn light-blue {{#if showNext}}show{{/if}}" id="finishReview"
+                        style="width: 100%;">Finish Review</button>
+                    {{/if}}
+                    {{/if}}
+                </div>
+            </div>
+        </div>
+    </main>
+</template>

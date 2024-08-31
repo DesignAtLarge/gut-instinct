@@ -1,0 +1,22 @@
+<template name="gaExperimentFeedbackItem">
+    <div class="ga-exp-comment" id="comment-{{feedback._id}}">
+        <div class="info">
+            <span>Posted {{livestamp feedback.date_time}}</span>
+            <span>by</span>
+            <a href="#">{{feedback.username}}</a>
+            <span>:</span>
+        </div>
+        <div class="comment-content">{{feedback.content}}</div>
+        <div class="score">
+            <a class="up-vote" href="#">
+                <i class="fa {{upvoteClass}}"></i>
+                <span>{{upvoteAmount}}</span>
+            </a>
+            <span> | </span>
+            <a class="down-vote" href="#">
+                <i class="fa {{downvoteClass}}"></i>
+                <span>{{downvoteAmount}}</span>
+            </a>
+        </div>
+    </div>
+</template>

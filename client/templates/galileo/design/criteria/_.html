@@ -3,7 +3,7 @@
     
     <div class="dual-section">
         <!-- Exclusion Criteria Section -->
-        <div class="design-section column" id="criteria-exclusion-block" class="{{#if focusingExclusion}}active{{/if}}">
+        <div class="design-section column {{#if focusingExclusion}}active{{/if}}" id="criteria-exclusion-block">
             <span style="font-size: 20px; font-weight: 400;">Exclusion Criteria</span>
             {{#if allowEdits}}
                 <i class="material-icons edit-design-btn" id="edit-exclusion">mode_edit</i>
@@ -35,7 +35,7 @@
         <div class="vert"></div>
         
         <!-- Inclusion Criteria Section -->
-        <div class="design-section column" id="criteria-inclusion-block" class="{{#if focusingInclusion}}active{{/if}}">
+        <div class="design-section column {{#if focusingInclusion}}active{{/if}}" id="criteria-inclusion-block">
             <span style="font-size: 20px; font-weight: 400;">Inclusion Criteria</span>
             {{#if allowEdits}}
                 <i class="material-icons edit-design-btn" id="edit-inclusion">mode_edit</i>

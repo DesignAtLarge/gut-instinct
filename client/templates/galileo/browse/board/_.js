@@ -13,8 +13,8 @@ Template.gaExperimentBoard.rendered = function() {
 
 Template.gaExperimentBoard.onCreated(function() {
     let inst = this;
-    this.experiments = new ReactiveArray();
-    this.experimentsSearchDisplay = new ReactiveArray();
+    this.experiments = new ReactiveVar([]);
+    this.experimentsSearchDisplay = new ReactiveVar([]);
     this.elasticSearch = new ReactiveVar(undefined);
     this.isFeedbackStep = new ReactiveVar(false);
     this.noneValidSearchResult = new ReactiveVar(false);

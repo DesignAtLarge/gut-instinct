@@ -1,0 +1,59 @@
+<template name="gaFeedbackConsent">
+    {{> gaNavbar}}
+    <main id="ga-main">
+        <div class="wrapper">
+            {{#if isLoading}}
+            <h4>Loading, please wait ...</h4>
+            {{else}}
+            <h4 class="board-header">
+                You've been invited to review an experiment that attempts to answer the question:
+                <br>
+                <br>
+                <span class="blue-text">{{experimentTitle}}</span>
+            </h4>
+            <div class="body" style="font-size: 20px !important; padding: 10px 30px;">
+                <p>By signing up to review, I know that</p>
+                <div class="card" style="padding: 5px 20px;">
+                    <br>
+                    <h6>As a Reviewer :</h6>
+                    <ul>
+                        <li>
+                            <i class="fa fa-check green-text"></i> &nbsp; &nbsp;
+                            <span>I will provide useful feedback on all aspects of this experiment so the creator can
+                                run a successful experiment. Useful feedback includes pointing out issues and providing
+                                clear, actionable suggestions.</span>
+                        </li>
+                        <li>
+                            <i class="fa fa-check green-text"></i> &nbsp; &nbsp;
+                            <span>I will discuss the experiment with other reviewers and the creator in the comments
+                                section</span>
+                        </li>
+                        <br>
+                        <li>
+                            <i class="fa fa-times red-text"></i> &nbsp; &nbsp;
+                            <span>I cannot reveal any details about the experiment to the experiment participants</span>
+                        </li>
+                        <li>
+                            <i class="fa fa-times red-text"></i> &nbsp; &nbsp;
+                            <span>I cannot pilot this experiment since I already know the experiment's objective and
+                                details</span>
+                        </li>
+                        <li>
+                            <i class="fa fa-times red-text"></i> &nbsp; &nbsp;
+                            <span>I cannot participate in this experiment since I already know the experiment's
+                                objective and details</span>
+                        </li>
+                    </ul>
+                    <p>Gut Instinct’s “Review” interface has been designed to provide you detailed guidance.</p>
+                </div>
+                <p>Reminder: If you plan to participate in this experiment, then click CANCEL. Reviewing an experiment
+                    bars you from participating in the same experiment.</p>
+            </div>
+            <center>
+                <a class="btn grey accent-2" href="/galileo/browse">CANCEL</a>
+                <a class="btn light-blue" id="join-feedback">PROCEED TO REVIEW</a>
+            </center>
+            {{/if}}
+        </div>
+    </main>
+</template>

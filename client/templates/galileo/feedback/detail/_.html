@@ -1,0 +1,211 @@
+<template name="gaExperimentFeedbackDetail">
+    <div class="card detail-feedback-container blink" id="feedback-detail-{{field}}">
+        {{#if hasPermissionViewFeedbackFollowup}}
+        <div class="detail-feedback-header" style="font-size: 20px;">
+            People's review of {{name}}
+        </div>
+        {{else}}
+        {{#if isNotOverallPanel}}
+        <div class="detail-feedback-header" style="font-size: 20px;">
+            Your review of {{name}}
+            <!-- Uncomment if you need the close icon -->
+            <!-- <i class="fa fa-times close-container" style="float: right; line-height: 24px; cursor: pointer;"></i> -->
+        </div>
+        {{else}}
+        <div class="detail-feedback-header" style="font-size: 20px;">
+            Guidelines for overall comments
+            <!-- Uncomment if you need the close icon -->
+            <!-- <i class="fa fa-times close-container" style="float: right; line-height: 24px; cursor: pointer;"></i> -->
+        </div>
+        {{/if}}
+        {{/if}}
+
+        <ul class="detail-feedback-checklist">
+            {{#each checklist as c}}
+            <li>
+                {{#if isNotOverallPanel}}
+                <p style="font-size: 20px; font-weight: 100;">
+                    {{c.option}}
+                    <br>
+                    <!-- Uncomment if needed -->
+                    <!-- <div></div> -->
+                    <span rid="{{c.rid}}" style="font-size: 16px; font-weight: 100; cursor:pointer;">
+                        <a class="green-text feedback-agree" rid="{{c.rid}}"
+                            id="detail-feedback-agree-{{field}}-{{c.index}}">
+                            <span rid="{{c.rid}}" style="font-size: 16px; font-weight: 100;">Yes</span>
+                            <i rid="{{c.rid}}" class="fa fa-lg {{agreeButtonClass c.currentUserReview}}"></i>
+                            {{#if hasPermissionViewFeedbackFollowup}}
+                            <span rid="{{c.rid}}" style="font-size: 16px; font-weight: 100; cursor:pointer;">#[b
+                                {{c.agreeCount}}]</span>
+                            {{else}}
+                            <span rid="{{c.rid}}"
+                                style="font-size: 16px; font-weight: 100; cursor:pointer;">{{c.agreeCount}}</span>
+                            {{/if}}
+                        </a>
+                    </span>
+                    <span style="font-size: 16px; font-weight: 100;"> &nbsp; | &nbsp; </span>
+                    <span rid="{{c.rid}}" style="font-size: 12px; font-weight: 100; cursor:pointer;">
+                        <a class="red-text feedback-disagree" rid="{{c.rid}}"
+                            id="detail-feedback-disagree-{{field}}-{{c.index}}">
+                            <span rid="{{c.rid}}" style="font-size: 16px; font-weight: 100;">No</span>
+                            <i rid="{{c.rid}}" class="fa fa-lg {{disagreeButtonClass c.currentUserReview}}"></i>
+                            {{#if hasPermissionViewFeedbackFollowup}}
+                            <span rid="{{c.rid}}" style="font-size: 16px; font-weight: 100;">#[b
+                                {{c.disagreeCount}}]</span>
+                            {{else}}
+                            <span rid="{{c.rid}}" style="font-size: 16px; font-weight: 100;">{{c.disagreeCount}}</span>
+                            {{/if}}
+                        </a>
+                    </span>
+                </p>
+                <div class="feedbackFollowup grey lighten-2" style="display: none;" id="{{c.rid}}">
+                    {{#if hasPermissionViewFeedbackFollowup}}
+                    <span>Sorry, you cannot review your own experiment.</span>
+                    {{else if isAdminReviewer}}
+                    <textarea class="materialize-textarea textarea-comment" id="feedbackContent-{{c.rid}}"
+                        rid="{{c.rid}}" index="{{c.index}}" name="feedback" placeholder="{{c.hint}}"
+                        required></textarea>
+                    <button class="btn light-blue feedbackFollowupSubmit" id="submitBtn-{{c.rid}}" rid="{{c.rid}}"
+                        index="{{c.index}}" data-id="{{field}}" type="submit" style="display: none;">Add
+                        Comment</button>
+                    {{else}}
+                    <textarea class="materialize-textarea textarea-comment" id="feedbackContent-{{c.rid}}"
+                        rid="{{c.rid}}" index="{{c.index}}" name="feedback" placeholder="{{c.hint}}"
+                        required></textarea>
+                    <button class="btn light-blue feedbackFollowupSubmit" id="submitBtn-{{c.rid}}" rid="{{c.rid}}"
+                        index="{{c.index}}" data-id="{{field}}" type="submit" style="display: none;">Add
+                        Comment</button>
+                    {{/if}}
+                </div>
+                <div>
+                    {{#if hasPermissionViewFeedbackFollowup}}
+                    <div>
+                        {{#if hasFeedbackFollowupByField field c.index}}
+                        <div class="feedbackFollowupResult" id="feedbackResultArea-{{c.rid}}">
+                            {{#each getFeedbackByField c.index as feedback}}
+                            <a style="font-size: 18px;">
+                                #[strong {{feedback.username}}:] {{feedback.content}}
+                            </a>
+                            <br>
+                            <hr>
+                            {{/each}}
+                        </div>
+                        {{/if}}
+                    </div>
+                    {{else if isAdminReviewer}}
+                    <div>
+                        {{#if hasFeedbackFollowupByField field c.index}}
+                        <div class="feedbackFollowupResult" id="feedbackResultArea-{{c.rid}}">
+                            {{#each getFeedbackByField c.index as feedback}}
+                            <a style="font-size: 18px;">
+                                #[strong {{feedback.username}}:] {{feedback.content}}
+                            </a>
+                            <br>
+                            <hr>
+                            {{/each}}
+                        </div>
+                        {{/if}}
+                    </div>
+                    {{else}}
+                    <p style="margin-top: -10px;">
+                        <a class="expandFeedbackFollowupResult" data-id="{{field}}" index="{{c.index}}" rid="{{c.rid}}"
+                            style="font-size: 18px;">What do other people think?</a>
+                    <div class="feedbackFollowupResult" id="feedbackResultArea-{{c.rid}}"
+                        style="display: none; margin-top: -15px;">
+                        {{#if hasPermissionViewFeedbackFollowup}}
+                        {{#if hasFeedbackFollowupByField field c.index}}
+                        {{#each getFeedbackByField c.index as feedback}}
+                        <a style="font-size: 18px;">
+                            #[strong {{feedback.username}}:] {{feedback.content}}
+                        </a>
+                        <br>
+                        <hr>
+                        {{/each}}
+                        {{else}}
+                        <span style="font-size: 16px;">No comments yet.</span>
+                        {{/if}}
+                        {{else}}
+                        <span style="font-size: 16px;">Sorry, only the creator can read the reviews</span>
+                        {{/if}}
+                    </div>
+                    </p>
+                    {{/if}}
+                </div>
+                {{else}}
+                <span style="font-size: 18px; font-weight: 100;">
+                    {{c.option}}
+                    <br>
+                    {{#if hasPermissionViewFeedbackFollowup}}
+                    <!-- No additional content for this condition -->
+                    {{else}}
+                    <textarea class="materialize-textarea textarea-comment" id="feedbackContent-{{c.rid}}"
+                        rid="{{c.rid}}" index="{{c.index}}" name="feedback" placeholder="{{c.hint}}"
+                        required></textarea>
+                    <button class="btn light-blue feedbackFollowupSubmit" id="submitBtn-{{c.rid}}" rid="{{c.rid}}"
+                        index="{{c.index}}" data-id="{{field}}" type="submit" style="display: none;">Add
+                        Comment</button>
+                    <br>
+                    {{/if}}
+                </span>
+                <div>
+                    {{#if hasPermissionViewFeedbackFollowup}}
+                    <div class="feedbackFollowupResult" id="feedbackResultArea-{{c.rid}}">
+                        {{#if hasFeedbackFollowupByField field c.index}}
+                        {{#each getFeedbackByField c.index as feedback}}
+                        <a style="font-size: 18px;">
+                            #[strong {{feedback.username}}:] {{feedback.content}}
+                        </a>
+                        <br>
+                        <hr>
+                        {{/each}}
+                        {{else}}
+                        <span style="font-size: 16px;">No comments yet</span>
+                        <br>
+                        {{/if}}
+                    </div>
+                    {{else if isAdminReviewer}}
+                    <div class="feedbackFollowupResult" id="feedbackResultArea-{{c.rid}}">
+                        {{#if hasFeedbackFollowupByField field c.index}}
+                        {{#each getFeedbackByField c.index as feedback}}
+                        <a style="font-size: 18px;">
+                            #[strong {{feedback.username}}:] {{feedback.content}}
+                        </a>
+                        <br>
+                        <hr>
+                        {{/each}}
+                        {{else}}
+                        <span style="font-size: 16px;">No comments yet</span>
+                        <br>
+                        {{/if}}
+                    </div>
+                    {{else}}
+                    <a class="expandFeedbackFollowupResult" data-id="{{field}}" index="{{c.index}}" rid="{{c.rid}}"
+                        style="font-size: 18px; margin-top: -10px;">What do other people think?</a>
+                    <div class="feedbackFollowupResult" id="feedbackResultArea-{{c.rid}}" style="display: none;">
+                        {{#if hasPermissionViewFeedbackFollowup}}
+                        {{#if hasFeedbackFollowupByField field c.index}}
+                        {{#each getFeedbackByField c.index as feedback}}
+                        <a style="font-size: 18px;">
+                            #[strong {{feedback.username}}:] {{feedback.content}}
+                        </a>
+                        <br>
+                        <hr>
+                        {{/each}}
+                        {{else}}
+                        <span style="font-size: 16px;">No reviews yet</span>
+                        {{/if}}
+                        {{else}}
+                        <span style="font-size: 16px;">No reviews yet</span>
+                        {{/if}}
+                    </div>
+                    {{/if}}
+                </div>
+                {{/if}}
+            </li>
+            {{/each}}
+        </ul>
+        <div id="greyDiv"
+            style="height:30px; background: linear-gradient(rgb(255,255,255,0), rgb(220,220,220,1)); left: 15px; width: auto; right: 16px; position: absolute; bottom: 16px;">
+        </div>
+    </div>
+</template>

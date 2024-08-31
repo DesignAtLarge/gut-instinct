@@ -2,61 +2,16 @@ import { Template } from 'meteor/templating';
 import { Meteor } from 'meteor/meteor';
 import { Blaze } from 'meteor/blaze';
 import './main.html';
+import './routes.js'
 
 Meteor.startup(() => {
-  window.onload = checkPath;
 });
 
-function checkPath() {
-  var path = window.location.pathname;
 
-  if (path === '/') {
-    Blaze.render(Template.gaExperimentBoard, document.body);
-  }
-  else if (path === '/galileo/signup') {
-    Blaze.render(Template.signup, document.body);
-    $("title").html("Signup");
-  }
-  else if (path === '/login') {
-    Blaze.render(Template.login, document.body);
-    $("title").html("Login");
-  }
-  else if (path === '/') {
-    Blaze.render(Template.gaHome, document.body);
-    $("title").html("Gut Instinct");
-  }
-  else if (path === '/galileo/home') {
-    Blaze.render(Template.gaHome, document.body);
-  }
-  else if (path === '/galileo/consent') {
-    Blaze.render(Template.consent, document.body);
-  }
-  else if (path === '/galileo/username') {
-    Blaze.render(Template.username, document.body);
-  }
-  else if (path === '/galileo/landing') {
-    Blaze.render(Template.gaLanding, document.body);
-  }
-  else if (path === '/galileo/entrance') {
-    Blaze.render(Template.entrance, document.body);
-  }
-
-  else if (path === '/trial') {
-    Blaze.render(Template.trial, document.body);
-    $("title").html("Trial");
-  }
-  else if (path === '/landing') {
-    Blaze.render(Template.landing, document.body);
-  }
-  else if (path === '/galileo') {
-    $("title").html("Gut Instinct");
-  } else if (path === '/galileo/browse/GLUTEN') {
-    $("title").html("Gut Instinct | GLUTEN");
-  }
-}
-
-
+import './templates/logout/_.js';
+import './templates/reset_password/_.js';
 import './templates/login/_.js';
+import './templates/login-process/_.js';
 import './templates/signup/_.js';
 import './templates/username/_.js';
 import './templates/landing/_.js';
@@ -80,6 +35,45 @@ import './templates/galileo/gaHome/_.js';
 import './templates/galileo/gaLanding/_.js';
 import './templates/galileo/console/_.js';
 import './templates/galileo/error/_.js';
+import './templates/galileo/intro/_.js';
+import './templates/galileo/intuitionTour/_.js';
+import './templates/galileo/pilot/_.js';
+import './templates/galileo/pretest/_.js';
+import './templates/galileo/run/_.js';
+
+import './templates/galileo/feedback/consent/_.js';
+import './templates/galileo/feedback/detail/_.js';
+import './templates/galileo/feedback/feedbackList/_.js';
+import './templates/galileo/feedback/item/_.js';
+import './templates/galileo/feedback/main/_.js';
+import './templates/galileo/feedback/participantsView/_.js';
+import './templates/galileo/feedback/checklist.js';
+import './templates/galileo/feedback/FeedbackSourceHelper.js';
+
+
+import './templates/galileo/gaBlog/gabTutorial/_.js';
+import './templates/galileo/gaBlog/gabWhyExpAGP/_.js';
+import './templates/galileo/gaBlog/gabWhyExpBeer/_.js';
+import './templates/galileo/gaBlog/gabWhyExpCircadian/_.js';
+import './templates/galileo/gaBlog/gabWhyExpDiet/_.js';
+import './templates/galileo/gaBlog/gabWhyExpGutCheck/_.js';
+import './templates/galileo/gaBlog/gabWhyExpKefir/_.js';
+import './templates/galileo/gaBlog/gabWhyExpKombucha/_.js';
+import './templates/galileo/gaBlog/gabWhyExpLyme/_.js';
+import './templates/galileo/gaBlog/gabWhyExpNerdNite/_.js';
+import './templates/galileo/gaBlog/gabWhyExpOH/_.js';
+import './templates/galileo/gaBlog/gabWhyExpProbiotics/_.js';
+import './templates/galileo/gaBlog/gabWhyExpSoylent/_.js';
+import './templates/galileo/gaBlog/gabWhyExpSpice/_.js';
+import './templates/galileo/gaBlog/gabWhyExpT1D/_.js';
+
+
+import './templates/galileo/gaDemo/gaCreateDemo/_.js';
+import './templates/galileo/gaDemo/gaDemoHypothesis/_.js';
+import './templates/galileo/gaDemo/gaEducationDemo/_.js';
+import './templates/galileo/gaDemo/gaExperimentInstructions/_.js';
+
+
 
 import './templates/galileo/design/criteria/_.js';
 import './templates/galileo/design/followupMessage/_.js';

@@ -1,0 +1,285 @@
+<template name="gaExperimentInstructions">
+  <div class="card-layout">
+    <h1 class="card-title" style="font-size: 28px; font-weight: 100;">
+      Provide explicit steps for participants to follow
+    </h1>
+
+    <div class="step1-intro" style="padding:20px;">
+      <p style="font-size: 18px;">
+        For your experiment, you will create two groups:
+      </p>
+      <ol style="font-size: 18px;">
+        <li>
+          <strong>Experimental group</strong>: Participants alter their behavior to try your intervention
+        </li>
+        <li>
+          <strong>Control group</strong>: Participants continue with usual/standard behavior (think of it as the
+          baseline)
+        </li>
+      </ol>
+
+      <div class="example-layout">
+        <ol style="font-size: 18px;">
+          <li>
+            <ul>
+              <li>
+                <strong>Hypothesis</strong>: Drinking coffee decreases quality of sleep
+              </li>
+              <li>
+                <strong>Experimental group</strong>: Participants drink caffeinated coffee
+              </li>
+              <li>
+                <strong>Control group</strong>: Participants drink decaffeinated coffee
+              </li>
+            </ul>
+          </li>
+          <li style="margin-top: 20px;">
+            <ul>
+              <li>
+                <strong>Hypothesis</strong>: Running in the morning increases energy levels
+              </li>
+              <li>
+                <strong>Experimental group</strong>: Participants run for 30 mins in the morning
+              </li>
+              <li>
+                <strong>Control group</strong>: Participants do a light walk for 30 mins in the morning
+              </li>
+            </ul>
+          </li>
+        </ol>
+      </div>
+
+      <p class="card-title" style="font-size: 18px; font-weight: 100;">
+        To learn more, watch this 2min video from Clinical and Translational Research Institute at UC San Diego to
+        better understand control and experimental groups (also called conditions) (Recommended)!
+      </p>
+      <iframe src="https://www.youtube.com/embed/RMlHnky-N6Y" frameborder="0"
+        allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+      <p style="font-size: 18px;">Your <strong>Hypothesis</strong>:</p>
+      <p class="light-blue-text darken-4" id="condition-hypothesis">
+        {{cause}} {{relation}} {{effect}}
+      </p>
+
+      <ul id="condition-form">
+        <li>
+          <p style="font-size: 18px;">Your <strong>Experimental Group</strong>:</p>
+          <input type="text" id="experimental-input"
+            placeholder="Please type your experimental condition here (E.g. Participants drink coffee)"
+            value="{{experimentalCondition}}" class="condition-input" />
+        </li>
+        <li>
+          <p style="font-size: 18px;">Your <strong>Control Group</strong>:</p>
+          <input type="text" id="control-input"
+            placeholder="Please type your control condition here (E.g. Participants do not drink coffee)"
+            value="{{controlCondition}}" class="condition-input" />
+        </li>
+      </ul>
+
+      <p class="card-title" style="font-size: 18px; font-weight: 100; font-weight: bold;">
+        Why create two groups?
+      </p>
+      <p style="font-size: 18px; font-weight: 100;">
+        Having a control group provides a baseline to compare your interventions' effects. Without a control group there
+        won't be a way to know whether your intervention makes things better/worse or keeps them the same.
+      </p>
+
+      <p class="card-title" style="font-size: 18px; font-weight: 100; font-weight: bold;">
+        Why are participants randomly placed in groups? Why can't I or a participant decide their group?
+      </p>
+      <p style="font-size: 18px; font-weight: 100;">
+        Randomly placing people in control/experimental groups helps prevent systemic bias where participants/researcher
+        (you!) might choose a condition based on your feelings, introduced consciously or unconsciously, about the
+        experiment. Randomization evenly spreads any remaining (and possibly unknown) potential causes of the outcome
+        between the experimental and control groups.
+      </p>
+      <p style="font-size: 18px; font-weight: 100;">
+        People who join your experiment might want your hypothesis to be true or false based on their personal needs and
+        beliefs. Putting people in these two groups randomly enables you to argue that any effect seen is due to your
+        intervention and not because of people's beliefs or faith in it.
+      </p>
+
+      <p class="card-title" style="font-size: 18px; font-weight: 100; font-weight: bold;">
+        Randomized Controlled Trials, aka RCTs (described above), are considered the gold standard of scientific
+        knowledge creation.
+      </p>
+      <p class="blue-text text-darken-2" style="font-weight: bold;">
+        Following the idea of RCTs increases the chances that your experimental results will be considered more
+        credible!
+      </p>
+
+      <a href="#" id="proceedToStep2-btn"
+        class="{{#if hideProceedToStep2}}hide{{/if}}{{#if noGroups}}disabled{{/if}} btn light-blue darken-4">Proceed</a>
+    </div>
+
+    <hr style="border-width:0.5px;border-style:dashed;border-color:gray;" />
+    <br />
+    <br>
+
+    <div class="{{#if hideStep2}}hide{{/if}}">
+      <span class="card-title" style="font-size: 28px; font-weight: 100;">
+        Step 2. Provide steps to follow for your participants
+      </span>
+
+      <span class="card-title" style="font-size: 24px; font-weight: 100;">
+        Your experiment will run for 7 days.
+      </span>
+
+      <div style="padding:20px;">
+        <div class="examples">
+          <!-- Commented out sections not included in the conversion 
+           <div>
+                    <span class="card-title" style="font-size: 30px; font-weight: 100;">
+                        Step 2. Create your experimental steps (using examples and guidance)
+                    </span>
+                    <div class="why2">
+                        <span class="card-title" style="font-size: 18px; font-weight: 100; font-weight: bold;">
+                            Why should I create concrete steps? Won't participants figure it out?
+                        </span>
+                        <ol style="font-size: 18px;">
+                            <li><strong>Responsibility</strong>: As a scientist, you are responsible for providing clear instructions to participants that they can follow without any confusion.</li>
+                            <li><strong>Correctness</strong>: Participants in a group (control or experimental) should follow identical steps. Providing no steps or vague steps will lead to people doing different things which destroys your experiment's credibility.</li>
+                            <li><strong>Replicability</strong>: If your experiment turns out to be a hit, then other citizens or researchers might want to assess and replicate your experiment! Providing explicit instructions and experimental steps help you go one step beyond by enabling them to do so.</li>
+                            <li><strong>Avoid wasting resources</strong>: Not providing explicit instructions might lead to a wrong or failed experiment. Poorly designed experiments almost certainly fail leading to waste of time, effort, and other resources.</li>
+                            <li><strong>Avoid wasting resources</strong>: Not providing explicit instructions might lead to a wrong or failed experiment. Poorly designed experiments almost certainly fail leading to waste of time, effort, and other resources.</li>
+                        </ol>
+                    </div>
+                    <span class="card-title" style="font-size: 20px; font-weight: 100;">
+                        Remember, the control condition has steps that follow the existing norm. In the case of drinking coffee, this might be just normal behavior associated with drinking coffee.
+                    </span>
+                    <span>Teach about placebo == ?????</span>
+                </div> -->
+
+          {{> exampleLayout title="Learn from examples"}}
+
+          <br>
+        </div>
+
+
+        <div class="{{#if hideMinimal}}hide{{/if}}">
+          <br>
+          <span class="card-title" style="font-size: 32px; font-weight: 100;">
+            Lessons about creating experimental steps
+          </span>
+          <span class="card-title" style="font-size: 24px; font-weight: 100;">
+            Select conditions appropriately to maximize differences
+          </span>
+          <br>
+          <p>Control and experimental conditions should be reasonable but also enable you an improved chance to see a
+            difference.</p>
+          <p>For example, an experiment that compares people's bowel movements after eating bread might need to bring
+            out the point of white bread vs brown bread AND bread vs no bread -- which effect might be easier to see and
+            which one of those might be easier for people to participate in.</p>
+          <br>
+          <p>One kind of greens over others...</p>
+          <br>
+          <p>Teaching about effect size: "If the expected effect is small, the sample must be larger. This might seem
+            counterintuitive, but think of it this way: The smaller the expected effect, the greater the number of
+            observations that are required to detect it from the surrounding noise with the desired statistical
+            confidence." -- just assume so.</p>
+          <br>
+          <br>
+          <span class="card-title" style="font-size: 24px; font-weight: 100;">
+            Both conditions differ in only one step
+          </span>
+          <p>Why differ in just one step? Care is taken to have a minimal-pairs experimental design, where the two
+            conditions vary in only one dimension. Conditions that vary in multiple ways prevent ascertaining cause. --
+            Things are all the same and differ ONLY in 1 variable.</p>
+          <br>
+          <span class="card-title" style="font-size: 20px; font-weight: 100;">
+            To run the experiment successfully, all your participants need to know exactly what to do. Your control
+            participants will follow the same identical set of instructions, while your experimental participants will
+            follow another identical set of instructions.
+          </span>
+          <br>
+          <span class="card-title" style="font-size: 20px; font-weight: 100;">
+            However, conditions that vary in multiple ways prevent ascertaining cause. Hence, Gut Instinct enforces a
+            minimal-pairs experimental design, where the two conditions (control and experimental) vary in only one
+            dimension. This implies that control and experimental group participants will perform identical steps except
+            one step that alters the cause for them. For example, look at the control and experimental details for an
+            experiment that studies the effect of coffee on quality of sleep and has the hypothesis, "Drinking more than
+            3 cups of coffee decreases quality of sleep."
+          </span>
+          <br>
+          {{> gaVideoLearnLayout videoTitle="Learn more -Your Experiments#3 - Creating experimental steps (aka procedure)" videoUrl="https://www.youtube.com/embed/-UNpQ8kQfBM"
+          videoSrc="coursera.org/learn/designexperiments"}}
+          <span class="card-title" style="font-size: 20px; font-weight: 100;">
+            Similarly, to run your experiment successfully, participants need to know exactly what to do. Define
+            specific instructions for the participants to follow below and highlight which step differs for the two
+            cases.
+          </span>
+          <br>
+          <a class="btn light-blue darken-4 {{#if hideProceedSteps}}hide{{/if}}{{#if noIntuition}}disabled{{/if}}"
+            id="steps-btn" href="#">
+            Proceed
+          </a>
+          <br>
+        </div>
+
+        <div>
+          <span id="exp_experimental_steps" class="card-title" style="font-size: 24px; font-weight: 100;">
+            Add steps for the Experimental group:
+            <span class="light-blue-text darken-4">{{experimentalCondition}}</span>
+          </span>
+
+          <!-- Checklists -->
+          {{> checklist id='Expinstructions' checklistItems=expGroupInstructions}}
+
+          <a class="btn light-blue darken-4 {{#if hideProceedPrepsteps}}hide{{/if}}{{#if noIntuition}}disabled{{/if}}"
+            id="exp-prepsteps-btn" href="#">
+            Proceed
+          </a>
+
+          <br>
+          <div class="{{#if hidePrepsteps}} hide {{/if}}">
+            <span id="exp_prep_steps" class="card-title" style="font-size: 24px; font-weight: 100;">
+              Define how participants in the
+              <strong>Experiment Group</strong>
+              could prepare in advance to easily follow your instructions while the experiment is running.
+            </span>
+            <br>
+            {{> checklist id="Prepinstructions" checklistItems=expGroupPrepInstructions}}
+            <br>
+            <a class="btn light-blue darken-4 {{#if hideProceedControlsteps}}hide{{/if}}{{#if noIntuition}}disabled{{/if}}"
+              id="control-steps-btn" href="#">
+              Add steps for the experimental group
+            </a>
+            <br>
+          </div>
+
+          <div class="{{#if hideControlSteps}}hide{{/if}}">
+            <span id="exp_control_steps" class="card-title" style="font-size: 24px; font-weight: 100;">
+              Add steps for the Control group:
+              <span class="light-blue-text darken-4">{{controlCondition}}</span>
+            </span>
+            <br>
+            <br>
+            {{> checklist id='Controlinstructions' checklistItems=controlGroupInstructions}}
+
+            <a class="btn light-blue darken-4 {{#if hideProceedControlPrepsteps}}hide{{/if}}{{#if noIntuition}}disabled{{/if}}"
+              id="control-prepsteps-btn" href="#">
+              Proceed
+            </a>
+          </div>
+
+          <br>
+          <div class="{{#if hideControlPrepsteps}} hide {{/if}}">
+            <span id="control_prep_steps" class="card-title" style="font-size: 24px; font-weight: 100;">
+              Define how participants in the
+              <strong>Control Group</strong>
+              could prepare in advance to easily follow your instructions while the experiment is running.
+            </span>
+            <br>
+            {{> checklist id="ControlPrepinstructions" checklistItems=controlGroupPrepInstructions}}
+
+            <a class="btn light-blue darken-4 {{#if hideProceedChecklist}}hide{{/if}}{{#if noIntuition}}disabled{{/if}}"
+              id="checklist-btn" href="#">
+              Check your steps
+            </a>
+            <br>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>

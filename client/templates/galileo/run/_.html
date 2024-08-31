@@ -69,8 +69,8 @@
                             </div>
                             <div class="btns center">
                                 <button class="btn light-blue prev-step">Prev</button>
-                                <button class="btn light-blue next-step" id="duration-choice-submit"
-                                    class="{{#if durationDisabled}}disabled{{/if}}">Confirm Choice</button>
+                                <button class="btn light-blue next-step {{#if durationDisabled}}disabled{{/if}}" id="duration-choice-submit"
+                                    >Confirm Choice</button>
                             </div>
                         </div>
                     </div>
@@ -96,8 +96,8 @@
                                 {{#if notifyingParticipants}}
                                 <p>Notifying participants, please wait ...</p>
                                 {{else}}
-                                <button class="btn light-blue" id="date-choice-submit"
-                                    class="{{#if dateDisabled}}disabled{{/if}}">Confirm Choice</button>
+                                <button class="btn light-blue {{#if dateDisabled}}disabled{{/if}}" id="date-choice-submit"
+                                    >Confirm Choice</button>
                                 {{/if}}
                             </div>
                         </div>

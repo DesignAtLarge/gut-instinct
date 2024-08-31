@@ -1,0 +1,97 @@
+<template name="gaIntuition">
+    {{> gaNavbar}}
+    <main id="ga-main">
+        <center style="margin-top: 100px;">
+            <div id="galileo-intuition-outer">
+                <h4 class="board-header" align="left">
+                    <span class="light-blue-text text-darken-2">Step 1: </span>
+                    Share your intuitions
+                </h4>
+                <p align="left">
+                    <span id="ga-span-body">
+                        Your intuitions about your health can be anything that you’ve noticed about your health.
+                        These could be general wisdom as well as specific things you might have noticed about yourself.
+                        Here are some examples to help you form your own intuition regarding each topic.
+                    </span>
+                    <br>
+                </p>
+                <div class="card" id="galileo-topics-outer">
+                    <p class="card-header">Examples</p>
+                    <ul id="galileo-topics-list">
+                        {{#each sampleTopics}}
+                        <li class="galileo-topic card">
+                            <div class="img" style="background-image: url({{this.img}})"></div>
+                            <p class="title">{{this.topic}}</p>
+                            <ul class="intuition-list">
+                                {{#each this.intuitions}}
+                                <li>{{this}}</li>
+                                {{/each}}
+                            </ul>
+                        </li>
+                        {{/each}}
+                    </ul>
+                </div>
+                <div id="galileo-intuition-container">
+                    <form class="card" id="intuition-input-form">
+                        <p class="card-header">Add Your Intuition</p>
+                        <label style="font-size: 16px; font-weight: 400; color: black;">Intuition:</label>
+                        <input id="intuition-input" type="text" placeholder="Please Enter Your Intuition Here">
+                        <label style="font-size: 16px; font-weight: 400; color: black;">Tags:</label>
+                        <p>Please enter the categories for this intuition (Words started by # and Separated by spaces):
+                        </p>
+                        <input id="intuition-tags" type="text" placeholder="#sleep #diet ...">
+                        <label style="font-size: 16px; font-weight: 400; color: black;">Mechanism:
+                            <a data-target="mechanism-info-div" class="info-mark" href="#"> (?)</a>
+                        </label>
+                        <div id="mechanism-info-div" style="display: none; padding-left: 20px;">
+                            <p>Explaining how a phenomenon happens is called identifying the mechanism. Guessing
+                                possible mechanisms is a great way to apply what you know. As a Gut Scientist, you’ll
+                                need to guess mechanisms when adding your questions, or responding to others’ questions.
+                            </p>
+                            <p>For example, visiting a new place for a few days might temporarily alter the functioning
+                                of your gut. One possible mechanism for this: Having a different diet and being in a
+                                different environment exposes you to different microbes. These microbes can modify how
+                                your body digests your food or they can communicate with the brain to change how you
+                                feel.</p>
+                            <p>Scientists have discovered the following facts. How might they be related to the gut
+                                microbiome? Guess the mechanism!</p>
+                            <p>Don’t be afraid of being wrong. Your guesses might just prove to be valuable to
+                                researchers.</p>
+                            {{> exampleLayout}}
+                            <p>Example of Mechanisms!!!!!!</p>
+                            <textarea id="intuition-mechanism" required style="font-size: 15px"
+                                class="materialize-textarea" name="start_discussion"
+                                placeholder="Guess the mechanism(s) here."></textarea>
+                            <button class="btn blue" id="intuition-input-btn" type="submit"
+                                style="margin-bottom: 20px;">Add Your Intuition</button>
+                        </div>
+                    </form>
+                    <div class="card" id="galileo-my-intuitions">
+                        <p class="card-header">My intuitions: ({{amountRemaining}} remaining)</p>
+                        <ol id="my-intuition-list">
+                            {{#each intuitions}}
+                            <li>
+                                <p class="intuition">{{this.intuition}}</p>
+                                <p class="mechanism">
+                                    <label>Mechanism:</label>
+                                    <span>{{this.mechanism}}</span>
+                                </p>
+                                <p class="tags">
+                                    <label>Tags:</label>
+                                    {{#each this.tags}}
+                                    <span class="tag">#{{this}}</span>
+                                    {{/each}}
+                                </p>
+                            </li>
+                            {{/each}}
+                        </ol>
+                        <div class="next-outer">
+                            <a class="btn light-blue {{#if nextDisabled}}disabled{{/if}}" style="display: block"
+                                href="/galileo/intuition_board">Next Step</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </center>
+    </main>
+</template>

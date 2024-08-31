@@ -1,0 +1,125 @@
+<template name="gaRun">
+    {{> gaNavbar}}
+    <main id="ga-main">
+        <div class="wrapper">
+            <h4 class="board-header">
+                <a class="btn btn-sm light-blue darken-4" href="/galileo/me/experiment/{{expId}}">
+                    <i class="fa fa-angle-left"></i> BACK
+                </a>
+                Run Your Experiment!
+            </h4>
+            <ul id="ga-pilot-steps">
+                {{#each steps}}
+                <li class="pilot-step {{#if isCurrentStep 1}}active{{/if}} {{#if visited 1}}visited{{/if}}">
+                    <div class="pilot-step-header">
+                        <span class="pilot-step-number">1</span>
+                        <span class="pilot-step-header">Your responsibilities while running the experiment</span>
+                    </div>
+                    <div class="pilot-step-body">
+                        <div class="card">
+                            <p>Now that you think your experiment is ready to run</p>
+                            <ul id="intro-run">
+                                <li>
+                                    <strong>Step 1.</strong> Please ensure that your
+                                    <a href="/galileo/me/experiment/{{expId}}/design" target="_blank">Experiment
+                                        design</a>
+                                    is appropriate for the participants. Please ensure that you have made use of all the
+                                    feedback from the reviewers and pilot participants.
+                                </li>
+                                <li>
+                                    <strong>Step 2.</strong> Wait for enough users to join your experiment
+                                </li>
+                                <li>
+                                    <strong>Step 3.</strong> Choose a start date for the experiment (the experiment will
+                                    last 7 days by default)
+                                </li>
+                                <li>
+                                    <strong>Step 4.</strong> Wait for the experiment to start.
+                                </li>
+                                <li>
+                                    <strong>Step 5.</strong> Once the experiment begins, regularly check your
+                                    <a href="/galileo/me/experiment/{{expId}}/pilot_sheets" target="_blank">Experiment's
+                                        data</a>
+                                    to ensure participants are providing the responses.
+                                </li>
+                                <!-- <li>
+                      <strong>Step 6.</strong> Check on the result of your experiment
+                    </li> -->
+                            </ul>
+                            <div class="btns">
+                                <button class="btn light-blue next-step">Next</button>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+
+                <li class="pilot-step {{#if isCurrentStep 2}}active{{/if}} {{#if visited 2}}visited{{/if}}">
+                    <div class="pilot-step-header">
+                        <span class="pilot-step-number">2</span>
+                        <span class="pilot-step-header">Select the duration of the experiment</span>
+                    </div>
+                    <div class="pilot-step-body">
+                        <div class="card">
+                            <p>Please choose a duration</p>
+                            <div class="input-field col s12">
+                                <select id="duration-select">
+                                    <option value="" disabled selected>Choose your option</option>
+                                    <option value="7">7 days</option>
+                                </select>
+                            </div>
+                            <div class="btns center">
+                                <button class="btn light-blue prev-step">Prev</button>
+                                <button class="btn light-blue next-step" id="duration-choice-submit"
+                                    class="{{#if durationDisabled}}disabled{{/if}}">Confirm Choice</button>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+
+                <li class="pilot-step {{#if isCurrentStep 3}}active{{/if}} {{#if visited 3}}visited{{/if}}">
+                    <div class="pilot-step-header">
+                        <span class="pilot-step-number">3</span>
+                        <span class="pilot-step-header">Select the start date of the experiment</span>
+                    </div>
+                    <div class="pilot-step-body">
+                        <div class="card">
+                            <p>Please tell us when would you like to start the experiment</p>
+                            <input type="text" class="datepicker" id="start-date-input" />
+
+                            {{#unless dateDisabled}}
+                            <p>Experiment period: From <strong>{{startDate}}</strong> to <strong>{{endDate}}</strong>
+                            </p>
+                            {{/unless}}
+
+                            <div class="btns">
+                                <button class="btn light-blue prev-step">Prev</button>
+                                {{#if notifyingParticipants}}
+                                <p>Notifying participants, please wait ...</p>
+                                {{else}}
+                                <button class="btn light-blue" id="date-choice-submit"
+                                    class="{{#if dateDisabled}}disabled{{/if}}">Confirm Choice</button>
+                                {{/if}}
+                            </div>
+                        </div>
+                    </div>
+                </li>
+
+                <li class="pilot-step {{#if isCurrentStep 4}}active{{/if}} {{#if visited 4}}visited{{/if}}">
+                    <div class="pilot-step-header">
+                        <span class="pilot-step-number">4</span>
+                        <span class="pilot-step-header">Complete</span>
+                    </div>
+                    <div class="pilot-step-body">
+                        <div class="card">
+                            <p>Great! Now you have successfully started the experiment! Please
+                                <a href="/galileo/me/experiment/{{id}}">click here</a>
+                                to go to the experiment detail!
+                            </p>
+                        </div>
+                    </div>
+                </li>
+                {{/each}}
+            </ul>
+        </div>
+    </main>
+</template>

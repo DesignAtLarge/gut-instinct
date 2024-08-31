@@ -1,0 +1,22 @@
+<template name="gaIntro">
+    {{> gaNavbar}}
+    <main id="ga-main">
+        <center class="wrapper" style="margin-top: 60px;">
+            <h5 class="board-header">Introduction: How Galileo Works</h5>
+            <ul id="galileo-steps" align="left" style="margin: 0 auto; width: 600px;">
+                {{#each steps}}
+                <li class="step">
+                    <div class="step-header">
+                        <div class="step-number">{{this.id}}</div>
+                        <div class="step-title">{{this.title}}</div>
+                    </div>
+                    <div class="step-body">
+                        <p>{{this.body}}</p>
+                    </div>
+                </li>
+                {{/each}}
+            </ul>
+            <a class="btn blue" href="/galileo/intuition" style="margin-top: 20px;">Begin with your intuitions!</a>
+        </center>
+    </main>
+</template>

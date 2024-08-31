@@ -1,0 +1,47 @@
+<template name="gaPilot">
+    <div id="start-pilot-mask" class="mask" style="display: none;">
+        <p>Starting Pilot...</p>
+    </div>
+    {{> gaNavbar}}
+    <main id="ga-main">
+        <div class="wrapper">
+            <h4 class="board-header">
+                <a class="btn btn-sm light-blue darken-4" href="/galileo/browse">
+                    <i class="fa fa-angle-left"></i> BACK
+                </a>
+                Piloting an Experiment
+            </h4>
+            <ul id="ga-pilot-steps">
+                {{#each steps}}
+                <li
+                    class="pilot-step {{#if isCurrentStep this.stepIndex}}active{{/if}} {{#if visited this.stepIndex}}visited{{/if}}">
+                    <div class="pilot-step-header">
+                        <span class="pilot-step-number">{{this.stepIndex}}</span>
+                        <span class="pilot-step-header">{{this.header}}</span>
+                    </div>
+                    <div class="pilot-step-body">
+                        <div class="card">
+                            <p>{{this.bodyText}}</p>
+                            {{#if this.steps}}
+                            <ul id="intro-run">
+                                {{#each this.steps}}
+                                <li><strong>Step {{@index}}:</strong> {{this}}</li>
+                                {{/each}}
+                            </ul>
+                            {{/if}}
+                            <div class="btns">
+                                {{#if this.prev}}
+                                <button class="btn light-blue prev-step">Prev</button>
+                                {{/if}}
+                                {{#if this.next}}
+                                <button class="btn light-blue next-step">{{this.nextText}}</button>
+                                {{/if}}
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                {{/each}}
+            </ul>
+        </div>
+    </main>
+</template>

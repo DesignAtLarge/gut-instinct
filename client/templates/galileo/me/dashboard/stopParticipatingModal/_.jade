@@ -1,0 +1,20 @@
+template(name="gaStopParticipatingModal")
+    div.modal(id="stop-participating-modal")
+
+        div(style="color:rgba(0,0,0,.54);background:rgba(0,0,0,.03); padding:15px;")
+            h4.left-align
+                | Are you sure you want to stop participating in this experiment?
+
+        div.modal-content
+            div.card(style='margin-left: 18px; margin-top: 0px; padding: 20px') 
+                span(style="font-size: 20px") Please provide some detail about why you want to stop participating
+                br
+                br
+                form#submit-comment-form
+                    //input#comment-input(type="text" placeholder="Add overall review comments here...")
+                    textarea(id="stop-participating-input" required placeholder="Add detail here...")
+                    br
+                    button.btn.light-blue(style="margin-bottom: -10px;" exp-id="{{getExpId}}" id="stop-participating-btn" exp-creator-id="{{getExpCreatorId}}") Stop Participating
+
+        div.modal-footer
+            a.gray-text(class="modal-action modal-close btn-flat") Close

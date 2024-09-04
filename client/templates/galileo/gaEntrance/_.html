@@ -1,0 +1,77 @@
+<template name="gaEntrance">
+    <!-- .animateme -->
+    <!-- .bg-bubbles -->
+    <!--   li -->
+    <!--   li -->
+    <!--   li -->
+    <!--   li -->
+    <!--   li -->
+    <!--   li -->
+    <!--   li -->
+    <!--   li -->
+    <!--   li -->
+    <!--   li -->
+    <!--   li -->
+    <!--   li -->
+    <!--   li -->
+    <!-- //nav(style='display: none;') -->
+    <!-- .nav-wrapper.light-blue.darken-4 -->
+
+    <div class="container content gutboard" style="max-width: 960px; margin-top:50px;">
+        <!-- img(src='/images/galileo/galileo-logo.png' height='100') -->
+        <!-- br -->
+        <!-- br -->
+
+        {{#if isLoading}}
+        <h5 class="animated fadeIn light-blue-text text-darken-4" style="text-align: center;">Loading community boards
+            ...</h5>
+        {{else}}
+        <h5 class="animated fadeIn light-blue-text text-darken-4" style="text-align: left;">Select the appropriate
+            community below to design your own experiments and to view others' experiments</h5>
+        {{/if}}
+
+        <br>
+        <br>
+
+        <div class="row">
+            {{#each getBoard}}
+            <div class="col s6 m4">
+                <div class="card w3-highway-blue darken-1 a enterMendel" id="{{mendel_code}}" href="#"
+                    style="height: 320px;">
+                    <div class="card-content white-text" style="height: 270px;">
+                        <div class="row">
+                            <div class="col s12 m12">
+                                <span class="card-title"
+                                    style="font-weight: 600; text-align: left;">{{mendel_name}}</span>
+                                <!-- vineet - write getUserCounts -->
+                            </div>
+                            <div class="row">
+                                <div class="col s12 m12">
+                                    <span class="new badge light-blue darken-4" data-badge-caption=""
+                                        style="margin-left: 0px; float: left;">Experiments: {{exp_count}}</span>
+                                    <!-- <span class="new badge light-blue darken-4" data-badge-caption="" style="margin-top: 5px; margin-left: -1000px; margin-right: 90px">Users: {{user_count}}</span> -->
+                                </div>
+                            </div>
+                            {{#if img}}
+                            <img src="{{img}}" height="80" style="padding-top: 5px; max-width:80%;">
+                            {{else}}
+                            <img src="/images/galileo/galileo-flask-white.png" height="80" style="padding-top: 5px;">
+                            {{/if}}
+                            <p>
+                                {{note}}
+                                {{#if hint}}
+                                <a href="#" onclick="$('#{{boardInfo mendel_code}}').toggle()"
+                                    class="light-blue-text">(?)</a>
+                                <br>
+                                <br>
+                            <p id="{{boardInfo mendel_code}}" style="display: none;">{{hint}}</p>
+                            {{/if}}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {{/each}}
+        </div>
+    </div>
+</template>

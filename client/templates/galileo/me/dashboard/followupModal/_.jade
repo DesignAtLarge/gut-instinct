@@ -1,0 +1,17 @@
+template(name="gaFollowupModal")
+    div.modal.followupModal(id="followup-modal-{{exp_id}}")
+
+        div(style="color:rgba(0,0,0,.54);background:rgba(0,0,0,.03); padding:15px;")
+            h4.left-align
+                | {{followupMessage}} 
+
+        div.modal-content
+            textarea(id="followupMessageText-{{exp_id}}" style="height: 100px")
+
+        div.modal-footer
+            if mobile
+                a.gray-text(class="modal-action modal-close btn-flat") Close
+                button.btn.light-blue#submit-followup Save
+            else
+                a.gray-text(class="modal-action modal-close btn-flat") No Data to Add
+                button.btn.light-blue#submit-followup Save Followup

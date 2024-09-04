@@ -1,0 +1,83 @@
+<template name="phoneModal">
+	<div id="add-phone-modal" class="modal">
+	  <div class="modal-content">
+		<div class="card-content" style="margin-right: 30px;">
+		  <h5>Please add your phone number before continuing</h5>
+		  <br>
+		  <div class="row">
+			<div class="input-field">
+			  <div class="col m2">
+				<i class="material-icons prefix">perm_phone_msg</i>
+				<input id="add-phone-modal-country" type="text" placeholder="+1">
+			  </div>
+			  <div class="col m9">
+				<input id="add-phone-modal-input" type="text" placeholder="Add number without country code!">
+			  </div>
+			  <div class="col m1"></div>
+			</div>
+		  </div>
+		  <h6 class="animated fadeIn" style="margin-left: 3%; margin-top: 0px; text-align: left;">
+			Your phone number is needed for you to receive reminders from Gut Instinct, and to send your data to Gut Instinct.
+		  </h6>
+		  <p style="text-align: left; margin-bottom: 0px; margin-top: 10px; margin-left: 3%;">
+			<a class="grey-text skip" style="font-weight: 400; font-size: 18px;">Only accepting US numbers right now</a>
+		  </p>
+		  <p style="text-align: left; margin-top: 0px; margin-bottom: 10px; margin-left: 3%;">
+			<a class="grey-text skip" style="font-weight: 400; font-size: 18px;">If you're outside the U.S.
+			  <a class="grey-text skip" id="emailReminder" href="" style="text-align: center; font-weight: 100;">: u sign up for email reminders</a>
+			</a>
+		  </p>
+		  <div class="row">
+			<a class="btn light-blue text-darken-4" id="addphone" style="text-align: left; display: none; margin-left: 3%; margin-top: 10px;">Add Phone Number</a>
+		  </div>
+  
+		  {{#if incompleteUsername}}
+			<h5>Please add your username before continuing</h5>
+			<div class="row">
+			  <div class="input-field">
+				<div class="col m1">
+				  <i class="material-icons prefix" style="margin-top: 10px;">account_circle</i>
+				</div>
+				<div class="col m10" style="margin-left: -60px;">
+				  <input id="usernameText" class="" placeholder="Enter your username" required style="margin-left: 50px;">
+				</div>
+				<div class="col m1"></div>
+			  </div>
+			</div>
+			<h6 class="animated fadeIn" style="margin-left: 3%; margin-top: 0px; text-align: left;">
+			  Galileo identifies you in your Galileo activity using your username. Usernames can only be chosen once, so make it unique.
+			</h6>
+			<div class="row">
+			  <a class="btn light-blue text-darken-4" id="addusername" style="text-align: left; display: none; margin-left: 3%; margin-top: 10px;">Add Username</a>
+			</div>
+		  {{/if}}
+  
+		  {{#if incompleteEmail}}
+			<h5>Please add your email before continuing</h5>
+			<div class="row">
+			  <div class="input-field">
+				<div class="col m1">
+				  <i class="material-icons prefix" style="margin-top: 10px;">email</i>
+				</div>
+				<div class="col m10" style="margin-left: -60px;">
+				  <input id="userEmailText" class="" placeholder="Enter your email" required style="margin-left: 50px;">
+				</div>
+				<div class="col m1"></div>
+			  </div>
+			</div>
+			<h6 class="animated fadeIn" style="margin-left: 3%; margin-top: 0px; text-align: left;">
+			  E-mail updates include feedback from peers and experts! Gut Instinct will only send you e-mails that help you learn more about designing experiments.
+			</h6>
+			<div class="row">
+			  <a class="btn light-blue text-darken-4" id="addemail" style="text-align: left; display: none; margin-left: 3%; margin-top: 20px;">Add Email</a>
+			</div>
+		  {{/if}}
+		</div>
+  
+		<div class="modal-footer">
+		  <a class="gray-text btn-flat" id="cancel">Cancel</a>
+		</div>
+	  </div>
+	</div>
+  </template>
+  

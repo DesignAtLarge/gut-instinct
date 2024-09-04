@@ -81,14 +81,14 @@ Template.gaCreateMain.onCreated(function() {
     this.exp.effectMeasureTime = new ReactiveVar(undefined);
 
     this.exp.hasInclusionCriteria = new ReactiveVar(false);
-    this.exp.inclusionCriteria = new ReactiveArray();
+    this.exp.inclusionCriteria = new ReactiveVar([]);
     this.exp.hasExclusionCriteria = new ReactiveVar(false);
-    this.exp.exclusionCriteria = new ReactiveArray();
+    this.exp.exclusionCriteria = new ReactiveVar([]);
 
     this.exp.controlCondition = new ReactiveVar(undefined);
     this.exp.experimentalCondition = new ReactiveVar(undefined);
-    this.exp.controlSteps = new ReactiveArray();
-    this.exp.experimentalSteps = new ReactiveArray();
+    this.exp.controlSteps = new ReactiveVar([]);
+    this.exp.experimentalSteps = new ReactiveVar([]);
 
     // If there's intuition specified
     if (this.data && this.data.intuitionId) {

@@ -18,9 +18,9 @@ Template.gaParticipantsView.onCreated(function() {
     // console.log("rendering with expId... " + inst.data.expId)
 
     // Main data
-    inst.feedbacks = new ReactiveArray();
-    inst.checklist = new ReactiveArray();
-    inst.suggestions = new ReactiveArray();
+    inst.feedbacks = new ReactiveVar([]);
+    inst.checklist = new ReactiveVar([]);
+    inst.suggestions = new ReactiveVar([]);
 
     // Other informations
     inst.isOverallPanel = new ReactiveVar(inst.data.field == "overall");

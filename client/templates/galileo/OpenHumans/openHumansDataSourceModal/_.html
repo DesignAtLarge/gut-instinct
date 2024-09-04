@@ -1,0 +1,99 @@
+<template name="gaOpenHumansDataSourceModal">
+    <div class="modal modal-fixed-footer modal-fixed-header" id="openhumans-data-modal-{{idSuffix}}">
+        <div class="modal-header">
+            <h5 class="left-align">
+                Select the data sources that could be used to measure
+                <span class="blue-text text-darken-2" style="font-weight: bold;">{{measureVariable}}</span>
+            </h5>
+        </div>
+
+        <div class="modal-content">
+            <br>
+
+            {{#each ohGridRows}}
+            <div class="row">
+                <div class="col m4">
+                    {{#if row.row1}}
+                    <div id="oh-item-{{idSuffix}}-{{row.row1.id}}"
+                        class="oh-item {{#if row.row1.default}}default{{/if}}">
+                        <div class="selected-triangle hide">
+                            <i class="material-icons checkmark-icon">check</i>
+                        </div>
+                        <div style="display:flex;align-items:center;">
+                            <img src="/images/galileo/open-humans/data-source-logos/{{row.row1.imgName}}"
+                                style="height:30px; margin: 0 5px 5px 0;" onerror="this.style.display='none'">
+                            <span>{{row.row1.title}}</span>
+                        </div>
+                        <p>{{row.row1.description}}</p>
+                        {{#if row.row1.dataNeeded}}
+                        <p><b>Data needed:</b> {{row.row1.dataNeeded}}</p>
+                        {{/if}}
+                        {{#if row.row1.url}}
+                        <a class="oh-data-learn-more" href="{{row.row1.url}}" target="_blank">
+                            Learn more
+                            <span><i class="material-icons oh-data-learn-more-icon">open_in_new</i></span>
+                        </a>
+                        {{/if}}
+                    </div>
+                    {{/if}}
+                </div>
+
+                <div class="col m4">
+                    {{#if row.row2}}
+                    <div id="oh-item-{{idSuffix}}-{{row.row2.id}}" class="oh-item">
+                        <div class="selected-triangle hide">
+                            <i class="material-icons checkmark-icon">check</i>
+                        </div>
+                        <div style="display:flex;align-items:center;">
+                            <img src="/images/galileo/open-humans/data-source-logos/{{row.row2.imgName}}"
+                                style="height:30px; margin: 0 5px 5px 0;" onerror="this.style.display='none'">
+                            <span>{{row.row2.title}}</span>
+                        </div>
+                        <p>{{row.row2.description}}</p>
+                        {{#if row.row2.dataNeeded}}
+                        <p><b>Data needed:</b> {{row.row2.dataNeeded}}</p>
+                        {{/if}}
+                        {{#if row.row2.url}}
+                        <a class="oh-data-learn-more" href="{{row.row2.url}}" target="_blank">
+                            Learn more
+                            <span><i class="material-icons oh-data-learn-more-icon">open_in_new</i></span>
+                        </a>
+                        {{/if}}
+                    </div>
+                    {{/if}}
+                </div>
+
+                <div class="col m4">
+                    {{#if row.row3}}
+                    <div id="oh-item-{{idSuffix}}-{{row.row3.id}}" class="oh-item">
+                        <div class="selected-triangle hide">
+                            <i class="material-icons checkmark-icon">check</i>
+                        </div>
+                        <div style="display:flex;align-items:center;">
+                            <img src="/images/galileo/open-humans/data-source-logos/{{row.row3.imgName}}"
+                                style="height:30px; margin: 0 5px 5px 0;" onerror="this.style.display='none'">
+                            <span>{{row.row3.title}}</span>
+                        </div>
+                        <p>{{row.row3.description}}</p>
+                        {{#if row.row3.dataNeeded}}
+                        <p><b>Data needed:</b> {{row.row3.dataNeeded}}</p>
+                        {{/if}}
+                        {{#if row.row3.url}}
+                        <a class="oh-data-learn-more" href="{{row.row3.url}}" target="_blank">
+                            Learn more
+                            <span><i class="material-icons oh-data-learn-more-icon">open_in_new</i></span>
+                        </a>
+                        {{/if}}
+                    </div>
+                    {{/if}}
+                </div>
+            </div>
+            {{/each}}
+        </div>
+
+        <div class="modal-footer">
+            <a id="openHumansSubmit" class="blue-text modal-action modal-close btn-flat">Submit</a>
+            <a id="openHumansCancel" class="gray-text modal-action modal-close btn-flat">Cancel</a>
+        </div>
+    </div>
+</template>

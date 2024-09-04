@@ -1,0 +1,40 @@
+<template name="gaShareSocialModal">
+    <div class="modal" id="share-social-modal" style="height: 10%;">
+        <div style="color:rgba(0,0,0,.54);background:rgba(0,0,0,.03); padding:15px;">
+            <h4 class="left-align">
+                Copy the following text to share on Facebook
+            </h4>
+        </div>
+
+        <div class="modal-content reminder-stats" style="height: 50%; padding-bottom: 0px;">
+            <div class="card" style="height: 80%;">
+                <div style="padding:10px;">
+                    <div>
+                        <div id="social-reminder-text-box" contenteditable="false" style="padding:10px; margin-left:5px; overflow-x: scroll;">
+                            Hello,
+                            <br>
+                            <br>
+                            I have designed an experiment to test {{title}}.
+                            <br>
+                            <br>
+                            Please help me improve it using your reviews.
+                            <br>
+                            <br>
+                            Thank you
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal-footer">
+            <div id="fb-div">
+                <div id="fb-sharing-area" style="display: none;">
+                    <iframe src="https://www.facebook.com/plugins/share_button.php?href={{getReviewerIframeUrl}}&layout=button&size=large&mobile_iframe=true&width=73&height=28&appId" width="73" height="28" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowtransparency="true"></iframe>
+                </div>
+            </div>
+            <a class="blue-text modal-action btn-flat" id="copy-and-share-btn">Copy & Share</a>
+            <a class="gray-text modal-action modal-close btn-flat">Close</a>
+        </div>
+    </div>
+</template>

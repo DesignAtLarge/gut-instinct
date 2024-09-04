@@ -80,16 +80,16 @@ Template.gaEducationDemo.onCreated(function() {
     this.exp.effectMeasure = new ReactiveVar(undefined);
 
     this.exp.hasInclusionCriteria = new ReactiveVar(false);
-    this.exp.inclusionCriteria = new ReactiveArray();
+    this.exp.inclusionCriteria = new ReactiveVar([]);
     this.exp.hasExclusionCriteria = new ReactiveVar(false);
-    this.exp.exclusionCriteria = new ReactiveArray();
+    this.exp.exclusionCriteria = new ReactiveVar([]);
 
     this.exp.controlCondition = new ReactiveVar(undefined);
     this.exp.experimentalCondition = new ReactiveVar(undefined);
-    this.exp.controlSteps = new ReactiveArray();
-    this.exp.experimentalSteps = new ReactiveArray();
+    this.exp.controlSteps = new ReactiveVar([]);
+    this.exp.experimentalSteps = new ReactiveVar([]);
 
-    this.exp.instructions = new ReactiveArray();
+    this.exp.instructions = new ReactiveVar([]);
 
     this.examples = {};
     this.examples.rawData = new ReactiveVar(undefined);

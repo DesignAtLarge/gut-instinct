@@ -6,10 +6,10 @@ import { ReactiveVar } from 'meteor/reactive-var';
 Template.gaExperimentInstructions.rendered = function() {};
 
 Template.gaExperimentInstructions.onCreated(function() {
-    this.controlGroupInstructions = new ReactiveArray();
-    this.expGroupInstructions = new ReactiveArray();
-    this.expGroupPrepInstructions = new ReactiveArray();
-    this.controlGroupPrepInstructions = new ReactiveArray();
+    this.controlGroupInstructions = new ReactiveVar([]);
+    this.expGroupInstructions = new ReactiveVar([]);
+    this.expGroupPrepInstructions = new ReactiveVar([]);
+    this.controlGroupPrepInstructions = new ReactiveVar([]);
 
     this.nextDisabled = new ReactiveVar(true);
 

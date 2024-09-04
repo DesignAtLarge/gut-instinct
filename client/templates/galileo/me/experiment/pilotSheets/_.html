@@ -1,0 +1,61 @@
+<template name="gaMeExperimentPilotSheets">
+    {{> gaMeExperimentMaster id=id section=section}}
+    <h5 class="section-header">Pilot Tracking Sheets</h5>
+    <ul id="pilot-sheets-version-list">
+        {{#each versions}}
+            {{> gaMeExperimentPilotSheetVersion index=index designId=designId}}
+        {{/each}}
+    </ul>
+</template>
+
+<template name="gaMeExperimentPilotSheetVersion">
+    <li class="version card">
+        <h6 class="version-header light-blue-text text-darken-4">
+            Version {{index}}:
+        </h6>
+        <div class="sheets">
+            <div class="sheet-outer">
+                {{> gaMeExperimentPilotSheet designId=designId group=0}}
+            </div>
+            <div class="sheet-outer">
+                {{> gaMeExperimentPilotSheet designId=designId group=1}}
+            </div>
+        </div>
+    </li>
+</template>
+
+<template name="gaMeExperimentPilotSheet">
+    <div class="sheet">
+        <h6 class="sheet-header light-blue-text text-darken-4">
+            {{#if isControlGroup}}
+                Control
+            {{else}}
+                Experimental
+            {{/if}}
+            | Group {{dateTime}}
+        </h6>
+        {{#if hasPilot}}
+            <p>Tracking Sheet Table:</p>
+            <table class="sheet-table">
+                <thead>
+                    <tr>
+                        <td>Date</td>
+                        <td>Cause</td>
+                        <td>Effect</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each days}}
+                        <tr>
+                            <td>{{date}}</td>
+                            <td>{{cause}}</td>
+                            <td>{{effect}}</td>
+                        </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+        {{else}}
+            <p>No Ongoing Pilot right now</p>
+        {{/if}}
+    </div>
+</template>

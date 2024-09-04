@@ -1,0 +1,101 @@
+<template name="gaJoinConsent">
+    {{> gaNavbar}}
+    <main id="ga-main">
+      <div class="wrapper">
+        {{#if isLoading}}
+          <h4>Loading, please wait ...</h4>
+        {{else}}
+          <h4 class="board-header">
+            You've been invited to join an experiment that attempts to answer the question:
+            <br>
+            <br>
+            <span class="blue-text">{{experimentTitle}}</span>
+          </h4>
+  
+          <div id="sign-in-modal" class="modal">
+            <div class="modal-content">
+              <h4>Please sign in to continue</h4>
+            </div>
+            <div class="modal-footer">
+              <a class="blue-text modal-action modal-close btn-flat" href="#">Sign In</a>
+              <a class="gray-text modal-action modal-close btn-flat" href="#">Cancel</a>
+            </div>
+          </div>
+  
+          {{> phoneModal 
+            incompleteEmail=incompleteEmail 
+            incompleteUsername=incompleteUsername}}
+  
+          <div id="error-modal" class="modal" style="padding: 20px;">
+            <div class="modal-content">
+              <h4>Oops, something went wrong</h4>
+              <p id="error-message" style="font-size: 20px; font-weight: 100;">Text will be replaced by jQuery</p>
+            </div>
+            <div class="modal-footer">
+              <a class="blue-text modal-action modal-close btn-flat" href="/galileo/browse">View Other Experiments</a>
+              <a class="gray-text modal-action modal-close btn-flat" href="#">Cancel</a>
+            </div>
+          </div>
+  
+          <div class="body" style="font-size: 20px !important; padding: 10px 30px;">
+            <p>Please make sure that you agree with the following</p>
+  
+            {{#if isEnded}}
+              <h6 class="center-align red-text">Sorry, this experiment has concluded.</h6>
+            {{/if}}
+  
+            {{#if isRunning}}
+              <h6 class="center-align red-text">Sorry, this experiment has already begun.</h6>
+            {{/if}}
+  
+            <div class="card" style="padding: 5px 20px;">
+              <br>
+              <h6>As a Participant:</h6>
+              <ul>
+                <li>
+                  <i class="fa fa-check green-text"></i>
+                  <span>I will begin following the instructions when I receive a notification about the experiment's start date</span>
+                </li>
+                <li>
+                  <i class="fa fa-check green-text"></i>
+                  <span>I will follow the experiment instructions every day for the duration of the experiment</span>
+                </li>
+                <li>
+                  <i class="fa fa-check green-text"></i>
+                  <span>I will provide quick responses to text messages to collect experiment data</span>
+                </li>
+                <li>
+                  <i class="fa fa-check green-text"></i>
+                  <span>I consent to using my data towards analysis to answer the study's question</span>
+                </li>
+                <li>
+                  <i class="fa fa-times red-text"></i>
+                  <span>I cannot review this experiment's design because that might bias my responses during the experiment</span>
+                </li>
+                <li>
+                  <i class="fa fa-times red-text"></i>
+                  <span>I cannot participate in any other experiment on Galileo during the course of this experiment</span>
+                </li>
+              </ul>
+            </div>
+  
+            {{#if isEnded}}
+              <h6 class="center-align red-text">You may add yourself to a waitlist and we'll notify you when this experiment is ready to run again!</h6>
+              <br>
+              <a class="btn grey" href="/galileo/browse">BACK</a>
+              <a class="btn light-blue" id="join" href="#">Waitlist</a>
+            {{else if isRunning}}
+              <h6 class="center-align red-text">Sorry, this experiment isn't open for joining right now. You may add yourself to a waitlist.</h6>
+              <br>
+              <a class="btn grey" href="/galileo/browse">BACK</a>
+              <a class="btn light-blue" id="join" href="#">Waitlist</a>
+            {{else}}
+              <a class="btn grey" href="/galileo/browse">BACK</a>
+              <a class="btn light-blue" id="join" href="#">I AGREE</a>
+            {{/if}}
+          </div>
+        {{/if}}
+      </div>
+    </main>
+  </template>
+  

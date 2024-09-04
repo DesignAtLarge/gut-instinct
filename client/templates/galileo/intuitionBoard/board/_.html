@@ -1,0 +1,115 @@
+<template name="gaIntuitionBoard">
+    {{> gaNavbar}}
+    <main id="ga-main">
+      <div class="wrapper">
+        <h4 class="board-header">
+          {{#if showStep}}
+            <span class="light-blue-text text-darken-2">Step 2:</span>
+          {{/if}}
+          Intuition Board
+        </h4>
+  
+        {{#if showStep}}
+          <p style="font-size: 18px;">
+            Great work! You have an intuition to test...
+            Next steps will guide you with
+            identifying cause and effect variables,
+            creating a sheet to track the variables, and
+            creating an experiment plan.
+            (Remember, you can create experiments for as many intuitions as you like.)
+          </p>
+        {{/if}}
+  
+        <p style="font-size: 18px;">
+          Select an intuition to design an experiment. You can always create as many intuitions and experiment designs!
+        </p>
+  
+        <div class="add-intuition-frame">
+          <div class="add-intuition-btn">
+            <h6 class="blue-text">Add a new intuition
+              <i class="fa fa-angle-down" style="font-size: 20px; margin-left: 20px;"></i>
+            </h6>
+          </div>
+          <form class="add-intuition-form" id="intuition-form-1" style="display: none;">
+            <div class="row">
+              <div class="col s6">
+                <label style="font-size: 16px; font-weight: 400; color: black;">Intuition:</label>
+                <input id="intuition-input-1" type="text" placeholder="Please Enter Your Intuition Here" required>
+              </div>
+              <div class="col s6">
+                <label style="font-size: 16px; font-weight: 400; color: black;">Tags:</label>
+                <input id="intuition-tags-1" type="text" placeholder="#sleep #diet ..." required>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col s12">
+                <label style="font-size: 16px; font-weight: 400; color: black;">Mechanism:</label>
+                <textarea id="intuition-mechanism-1" required style="font-size: 15px;" class="materialize-textarea" name="start_discussion" placeholder="Guess the mechanism(s) here."></textarea>
+              </div>
+            </div>
+            <center>
+              <button class="btn blue" id="intuition-input-btn-1" type="submit">Add Your Intuition</button>
+            </center>
+          </form>
+        </div>
+  
+        {{#if hasIntuition}}
+          <div id="tag-filter" style="margin-top: 20px; line-height: 50px;">
+            <span style="font-size: 16px; margin-right: 20px;">
+              <i class="fa fa-filter" style="margin-right: 10px;"></i>
+              Click on Tags to filter intuitions:
+            </span>
+            {{#each tags}}
+              <span class="tag filter-tag">{{this}}</span>
+            {{/each}}
+          </div>
+  
+          <ul id="intuition-board">
+            {{#each intuitions}}
+              {{> gaIntuitionBoardItem 
+                id=this._id 
+                intuition=this.intuition 
+                username=this.username 
+                date=this.insert_date 
+                tags=this.tags 
+                mechanism=this.mechanism}}
+            {{/each}}
+          </ul>
+        {{else}}
+          <center>
+            <p>Empty Intuition Board</p>
+          </center>
+        {{/if}}
+  
+        <div class="add-intuition-frame">
+          <div class="add-intuition-btn">
+            <h6 class="blue-text">Add a new intuition
+              <i class="fa fa-angle-down" style="font-size: 20px; margin-left: 20px;"></i>
+            </h6>
+          </div>
+          <form class="add-intuition-form" id="intuition-form-2" style="display: none;">
+            <div class="row">
+              <div class="col s6">
+                <label style="font-size: 16px; font-weight: 400; color: black;">Intuition:</label>
+                <input id="intuition-input-2" type="text" placeholder="Please Enter Your Intuition Here" required>
+              </div>
+              <div class="col s6">
+                <label style="font-size: 16px; font-weight: 400; color: black;">Tags:</label>
+                <input id="intuition-tags-2" type="text" placeholder="#sleep #diet ..." required>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col s12">
+                <label style="font-size: 16px; font-weight: 400; color: black;">Mechanism:</label>
+                <textarea id="intuition-mechanism-2" required style="font-size: 15px;" class="materialize-textarea" name="start_discussion" placeholder="Guess the mechanism(s) here."></textarea>
+              </div>
+            </div>
+            <center>
+              <button class="btn blue" id="intuition-input-btn-2" type="submit">Add Your Intuition</button>
+            </center>
+          </form>
+        </div>
+      </div>
+    </main>
+  </template>
+  

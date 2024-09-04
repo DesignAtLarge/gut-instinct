@@ -1,0 +1,27 @@
+<template name="gaIntuitionBoardItem">
+    <li class="intuition-item" id="{{id}}">
+        <div class="card">
+            <div class="upper">
+                <p class="username light-blue-text">{{username}}
+                    <span class="date">{{livestamp date}}</span>
+                </p>
+                <p class="intuition">{{intuition}}</p>
+                {{#if hasMechanism}}
+                <p class="mechanism">
+                    <span class="label">Mechanism:</span>
+                    <span class="content">{{mechanism}}</span>
+                </p>
+                {{/if}}
+                {{#if hasTag}}
+                <p class="tags">
+                    <span class="label">Tags:</span>
+                    {{#each tags}}
+                    <span class="tag">{{this}}</span>
+                    {{/each}}
+                </p>
+                {{/if}}
+            </div>
+            <a class="design" href="#">Design an Experiment</a>
+        </div>
+    </li>
+</template>

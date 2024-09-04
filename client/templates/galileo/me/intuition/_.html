@@ -1,0 +1,25 @@
+<template name="gaMeIntuitions">
+    {{> gaNavbar}}
+    {{> gaMeSidebar}}
+    <main id="ga-me-main">
+        <h3>My Intuitions</h3>
+        {{#if hasIntuition}}
+        <ul id="intuition-board" style="margin-top: 30px;">
+            {{#each intuitions}}
+            {{> gaIntuitionBoardItem
+            id=this._id
+            intuition=this.intuition
+            username=this.username
+            date=this.insert_date
+            tags=this.tags
+            mechanism=this.mechanism
+            }}
+            {{/each}}
+        </ul>
+        {{else}}
+        <center>
+            <p>No Intuition Yet</p>
+        </center>
+        {{/if}}
+    </main>
+</template>

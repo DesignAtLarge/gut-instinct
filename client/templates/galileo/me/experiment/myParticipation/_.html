@@ -1,0 +1,103 @@
+<template name="gaMeExperimentMyParticipation">
+    {{> imageModal url='/images/galileo/exp_design/bristol_stool_chart.png'}}
+    {{> gaMeExperimentMaster id=id section=section}}
+
+    <section>
+        <h5 class="section-header">My Participation</h5>
+        <div class="section-body">
+            {{#unless hasStartDate}}
+                <blockquote class="warning">
+                    This experiment has not yet started! When the experiment creator decides the start
+                    date of the experiment, Galileo will send you text messages
+                    as well as emails. For now, please wait for a day or two 
+                    before this experiment begins.
+                </blockquote>
+            {{/unless}}
+
+            {{#if prepSteps}}
+                <p style="font-size: 20px;">You can prepare in advance for the experiment by following these steps:</p>
+                <ol class="browser-default light-blue-text text-darken-4">
+                    {{#each prepSteps}}
+                        <li class="light-blue-text text-darken-4">{{this}}</li>
+                    {{/each}}
+                </ol>
+            {{/if}}
+
+            <p style="font-size: 20px;">Once the experiment begins, you must follow these steps every day:</p>
+            <ol class="browser-default light-blue-text text-darken-4">
+                {{#each steps}}
+                    <li class="light-blue-text text-darken-4">{{this}}</li>
+                {{/each}}
+            </ol>
+
+            {{#if isBristol}}
+                <p style="margin-left:25px">{{relatedStep}}</p>
+                <button id="bristol" class="waves-effect waves-light btn light-blue" href="#" style="padding: 0px; height: 250px; width: 209px; margin-left:25px">
+                    <img id="bristol-stool" src="/images/galileo/exp_design/bristol_stool_chart.png" style="height:250px;">
+                </button>
+                <br>
+                <br>
+            {{/if}}
+
+            {{#if hasStartDate}}
+                <br>
+                <p style="font-size: 20px; color: #3a3839;">The start date of experiment is: &nbsp;{{getStartDate}}.</p>
+            {{else}}
+                <p style="font-size: 20px;">The creator of experiment has not decided the start date yet.</p>
+            {{/if}}
+        </div>
+    </section>
+
+    <section>
+        <h5 class="section-header">Participation Tracking Sheet</h5>
+        <div class="section-body">
+            {{#if hasStartDate}}
+                <table class="sheet-table">
+                    <thead>
+                        <tr>
+                            <td>Date</td>
+                            <td style="padding:10px">
+                                {{getCause}} (Cause)
+                                <br>
+                                <span class="light-blue-text text-darken-4">{{causeType}}</span>
+                            </td>
+                            <td style="padding:10px">
+                                {{getEffect}} (Effect)
+                                <br>
+                                <span class="light-blue-text text-darken-4">{{effectType}}</span>
+                            </td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each slots}}
+                            <tr>
+                                <td style="padding: 2px">
+                                    <p style="margin-top:1px; margin-bottom:1px">{{date}}</p>
+                                </td>
+                                {{#if editable}}
+                                    <td class="light-blue-text text-darken-4" style="padding: 2px">
+                                        <textarea class="materialize-textarea textarea-cause" style="margin:8px; min-height: 0rem !important; height: 2rem; padding: 0px" id="editCauseData-{{cause_rid}}" rid="{{cause_rid}}" exp-id="{{getExpId}}" required>{{cause}}</textarea>
+                                        <button class="btn light-blue saveCauseChange" id="submitCauseBtn-{{cause_rid}}" rid="{{cause_rid}}" index="{{index}}" exp-id="{{getExpId}}" type="submit" style="display: none; margin: 8px">save</button>
+                                    </td>
+                                    <td class="light-blue-text text-darken-4" style="padding: 2px">
+                                        <textarea class="materialize-textarea textarea-effect" style="margin:8px; min-height: 0rem !important; height: 2rem; padding: 0px" id="editEffectData-{{effect_rid}}" rid="{{effect_rid}}" exp-id="{{getExpId}}" required>{{effect}}</textarea>
+                                        <button class="btn light-blue saveEffectChange" id="submitEffectBtn-{{effect_rid}}" rid="{{effect_rid}}" index="{{index}}" exp-id="{{getExpId}}" type="submit" style="display: none; margin: 8px">save</button>
+                                    </td>
+                                {{else}}
+                                    <td class="light-blue-text text-darken-4" style="padding: 10px; padding-top: 15px; padding-bottom: 15px;">
+                                        <span>{{cause}}</span>
+                                    </td>
+                                    <td class="light-blue-text text-darken-4" style="padding: 10px; padding-top: 15px; padding-bottom: 15px;">
+                                        <span>{{effect}}</span>
+                                    </td>
+                                {{/if}}
+                            </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+            {{else}}
+                <p>The participation tracking sheet will be populated once the creator provides a start date for the experiment. Stay tuned!</p>
+            {{/if}}
+        </div>
+    </section>
+</template>

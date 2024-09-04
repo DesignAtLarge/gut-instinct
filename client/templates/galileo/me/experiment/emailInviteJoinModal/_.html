@@ -1,0 +1,35 @@
+<template name="gaShareEmailInviteJoinModal">
+  <div class="modal" id="share-email-join-modal" style="height: 10%;">
+    <div style="color:rgba(0,0,0,.54);background:rgba(0,0,0,.03); padding:15px;">
+      <h4 class="left-align">Copy and send the following text via email</h4>
+    </div>
+
+    <div class="modal-content reminder-stats" style="height: 50%; padding-bottom: 0px;">
+      <div class="card">
+        <div style="padding:10px;">
+          <div>
+            <div id="email-text-box" contenteditable="false" style="padding:10px; margin-left:5px; overflow-x: scroll;">
+              I have created an experiment on Galileo.
+              To start my experiment, I need at least two people to review my experiment.
+              Please join the experiment: {{link}}
+            </div>
+
+            <input type="text" readonly value="{{getMessage}}" id="getEmailContent" style="padding-left:10px; height:36px; margin-bottom:-15px; display: none;">
+          </div>
+          <br>
+          <i class="material-icons edit-design-btn" id="edit-content">mode_edit</i>
+          <p style="font-family:'Lato', sans-serif; font-size:15px; margin:5px; float:right; font-weight:600;">Edit message</p>
+          <i class="material-icons edit-design-btn accept hide" id="accept-edit-content">check</i>
+          <p style="font-family:'Lato', sans-serif; font-size:15px; margin:5px; float:right; font-weight:600;">Save</p>
+          <i class="material-icons edit-design-btn cancel hide" id="cancel-edit-content">clear</i>
+          <p style="font-family:'Lato', sans-serif; font-size:15px; margin:5px; float:right; font-weight:600;">Cancel</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-footer">
+      <a class="blue-text" id="copyEmailContent" class="modal-action modal-close btn-flat">Copy and Send Email</a>
+      <a class="gray-text modal-action modal-close btn-flat">Close</a>
+    </div>
+  </div>
+</template>

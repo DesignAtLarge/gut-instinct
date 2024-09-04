@@ -1,0 +1,21 @@
+<template name="gaMeNotification">
+    {{> gaNavbar}}
+    {{> gaMeSidebar}}
+    <main id="ga-me-main">
+        <h3>
+            Notifications ({{notifications.length}})
+            <a id="mark-all-read" href="#" style="font-size: 20px; float: right;">
+                Mark all as read
+            </a>
+        </h3>
+        <div id="ga-me-notification-list">
+            {{#if hasNotification}}
+                {{#each notifications}}
+                    {{> gaMeNotificationItem notification=this}}
+                {{/each}}
+            {{else}}
+                <p>No Notifications</p>
+            {{/if}}
+        </div>
+    </main>
+</template>

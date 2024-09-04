@@ -20,7 +20,7 @@ Template.gaRun.onRendered(function() {
 
 Template.gaRun.onCreated(function() {
     this.exp = new ReactiveVar(null);
-    this.visitedSteps = new ReactiveArray();
+    this.visitedSteps = new ReactiveVar([]);
     this.step = new ReactiveVar(1);
     this.duration = new ReactiveVar();
     this.durationDisabled = new ReactiveVar(true);

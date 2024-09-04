@@ -1,0 +1,67 @@
+<template name="gaJoinFailed">
+    {{> gaNavbar}}
+    <main id="ga-main">
+      <div class="wrapper">
+        <h4 class="board-header">Sorry, you cannot participate in this experiment because:</h4>
+        <div class="body" style="font-size: 20px !important; padding: 10px 30px;">
+  
+          <ul class="card" style="padding: 30px 30px 30px 60px;">
+  
+            {{#if failInclusion}}
+              <p>You <i>did not fulfill</i> the following
+                <a class="helpbtn" id="help-inclusion" href="#" style="border-width:0px 0px 1px 0px; border-style:solid">
+                  <i class="fa fa-question-circle" aria-hidden="true"></i>
+                </a>
+                inclusion criteria:
+              </p>
+              {{> helpLayout cardId="inclusion" title="The creator of the experiment wanted only to include participants who fulfilled the below criteria" learnLink=""}}
+  
+              <div class="body" style="margin-left: 30px;">
+                {{#each failInclusionList}}
+                  <li>
+                    <i class="fa fa-times red-text"></i>
+                    <label style="font-size: 1rem;">&nbsp; You are {{this}}</label>
+                  </li>
+                {{/each}}
+              </div>
+            {{/if}}
+  
+            {{#if failExclusion}}
+              <p>You <i>fulfilled</i> the following
+                <a class="helpbtn" id="help-exclusion" href="#" style="border-width:0px 0px 1px 0px; border-style:solid">
+                  <i class="fa fa-question-circle" aria-hidden="true"></i>
+                </a>
+                exclusion criteria:
+              </p>
+              {{> helpLayout cardId="exclusion" title="Participants are excluded from experiments for the following reasons:" learnLink=""}}
+              <ol>
+                <li>Participants might get hurt while following the experimental instructions. This could be a general safety principle (e.g. pregnant women) or specific to the task (e.g. a gluten intolerant person might hurt himself/herself in an experiment that involves consuming gluten)</li>
+                <br>
+                <li>Non-adults (participants under 18 years of age), prisoners, or potentially cognitively impaired people might not have the autonomy to make an informed decision while participating in experiments.</li>
+              </ol>
+              <div class="body" style="margin-left: 30px;">
+                {{#each failExclusionList}}
+                  <li>
+                    <i class="fa fa-check red-text"></i>
+                    <label style="font-size: 1rem;">&nbsp; You are {{this}}</label>
+                  </li>
+                {{/each}}
+              </div>
+            {{/if}}
+  
+            {{#if isReviewer}}
+              <p>You are reviewing this experiment. You cannot review and participate in the same experiment.</p>
+            {{/if}}
+  
+          </ul>
+  
+          <p>You may be eligible to join other experiments</p>
+  
+          <a class="btn light-blue" href="/galileo/browse">
+            <i class="fa fa-angle-left"></i> View Other Experiments
+          </a>
+        </div>
+      </div>
+    </main>
+  </template>
+  

@@ -1,0 +1,55 @@
+template(name="gaSendReminderModal")
+    div.modal(id="send-reminder-modal")
+
+        div(style="color:rgba(0,0,0,.54);background:rgba(0,0,0,.03); padding:15px;")
+            h4.left-align
+                | Send additional data reminder for
+                span.blue-text.text-darken-2 Day {{day}}/{{getTotalDay}}
+
+
+        div.modal-content.reminder-stats
+            div.card(style="height: calc(100% - 123px)")
+                div(style="padding:10px 10px 5px 10px;")
+                    //- b(style="float:left; margin:4px 10px 0 0;") To:
+                    div(style="display: none;")
+                        each name in whoNotReplied day
+                            div.chip {{name}}
+                    br
+                    +gaEmailDropdown(reminderEmail=reminderEmail id="reminder-email")
+
+                div.divider(style="margin-bottom:10px;")
+
+                div(style="padding:0px;")
+                    div
+                        p(style="margin-left: 16px;"): b Message:
+                        p#participantHolder(style="margin-left: 16px;") Hello participant,
+                        div#reminder-text-box(contenteditable="false" style="padding:10px; margin-left:5px; overflow-x: scroll; height: calc(100% - 123px)" )        
+                            | I noticed that you have not provided the data for cause #[b {{cause}}] and effect #[b {{effect}}]
+                            | for day {{day}} of the experiment.
+                            br
+                            br
+                            | Missing data could result in inaccurate results, or could even cause the experiment to fail!
+                            br
+                            | To help us run a successful experiment, please ensure all your data is up to date here:
+                            a(href="{{url}}") {{url}}
+                            if openHumans
+                                br
+                                | Please upload your data on {{getSources}}.
+                            br
+                            br
+                            | Thank you!
+                            br
+                            | {{username}}
+
+                div.divider(style="margin-bottom:10px;")
+                div(style="margin: 10px").row
+                    .col.s4
+                        i.material-icons.edit-design-btn#edit-reminder mode_edit
+                            p(style="font-family:'Lato', sans-serif; font-size:15px; margin:5px; float:right; font-weight:600") Edit email
+                        i.material-icons.edit-design-btn.accept.hide#accept-edit-reminder check
+                            p(style="font-family:'Lato', sans-serif; font-size:15px; margin:5px; float:right; font-weight:600") Save
+                        i.material-icons.edit-design-btn.cancel.hide#cancel-edit-reminder clear
+                            p(style="font-family:'Lato', sans-serif; font-size:15px; margin:5px; float:right; font-weight:600") Cancel
+                    .col.s8.right-align
+                        a.blue-text#sendReminder(class="modal-action modal-close btn-flat") Send Reminder
+                        a.gray-text(class="modal-action modal-close btn-flat") Close                

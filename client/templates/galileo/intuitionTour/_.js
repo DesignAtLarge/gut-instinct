@@ -15,8 +15,8 @@ Template.gaIntuition.onCreated(function() {
 
     var inst = this;
 
-    this.intuitions = new ReactiveArray();
-    this.sampleTopics = new ReactiveArray();
+    this.intuitions = new ReactiveVar([]);
+    this.sampleTopics = new ReactiveVar([]);
 
     this.startTime = new Date();
 

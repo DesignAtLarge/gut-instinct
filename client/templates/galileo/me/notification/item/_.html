@@ -1,0 +1,15 @@
+<template name="gaMeNotificationItem">
+    <div class="notification-item-outer">
+        <div class="badge-holder">
+            {{#unless notification.read}}
+                <div class="badge"></div>
+            {{/unless}}
+        </div>
+        <a class="notification-item" href="#" data-id="{{notification._id}}" data-url="{{notification.url}}">
+            <p>{{notification.message}}</p>
+            <p style="margin-top: -10px; color: rgba(150, 150, 150, 1)">
+                {{livestamp notification.post_time}}
+            </p>
+        </a>
+    </div>
+</template>

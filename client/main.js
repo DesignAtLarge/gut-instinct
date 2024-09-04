@@ -2,7 +2,7 @@ import { Template } from 'meteor/templating';
 import { Meteor } from 'meteor/meteor';
 import { Blaze } from 'meteor/blaze';
 import './main.html';
-import './routes.js'
+import './ga-routes.js'
 
 Meteor.startup(() => {
 });

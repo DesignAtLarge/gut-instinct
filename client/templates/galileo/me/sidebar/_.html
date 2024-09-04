@@ -1,0 +1,259 @@
+<template name="gaMeSidebar">
+    <button class="waves-effect waves-light btn light-blue hide" id="show" style="top: 85px; left: 30px;">Show Sidebar</button>
+    <div id="ga-sidebar">
+      <ul>
+        <button class="waves-effect waves-light btn light-blue" id="hide" style="left: 30px;">Hide Sidebar</button>
+        <li>
+          <p>
+            <i class="fa fa-flask"></i>
+            My Galileo
+          </p>
+          <ul>
+            <li>
+              <a href="/galileo/me/dashboard">
+                <i class="fa fa-tachometer"></i>
+                Dashboard
+              </a>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <p>
+            <i class="fa fa-cubes"></i>
+            My Experiments
+          </p>
+          <ul id="experiment-lists">
+            <!-- Commented out old code -->
+            <!--
+            <li>
+              <a class="more-info explist-a" id="all-exp-btn" href="#" data-href="/galileo/browse" data-target="fa-question-circle-1">
+                <i class="fa fa-list"></i>
+                <b>My Experiments</b>
+                <i class="help fa fa-question-circle tooltipped" id="fa-question-circle-1" data-target="all-exp-help" href="" style="display:none" data-position="right" data-tooltip="View all experiments designed by Galileo members"></i>
+              </a>
+              <div class="help-target hide" id="all-exp-help">
+                View all experiments designed by Galileo members
+              </div>
+              <hr>
+            </li>
+            -->
+            <li>
+              <a class="more-info explist-a" id="ongoing-exp-btn" href="#" data-target="fa-question-circle-10">
+                <i class="fa fa-hourglass-2"></i>
+                Ongoing Experiment
+                {{#if isLoaded}}
+                  {{#if showOngoingExps}}
+                    <span class="new badge blue navbarBadges" style="margin-left: 48px;" data-badge-caption="">{{ongoingExps}}</span>
+                  {{/if}}
+                {{/if}}
+                <i class="help fa fa-question-circle tooltipped" id="fa-question-circle-10" data-target="ongoing-exp-btn" href="" style="display:none" data-position="right" data-tooltip="View your current ongoing experiment"></i>
+              </a>
+            </li>
+            <li>
+              <a class="more-info explist-a" id="readyToRun-exp-btn" href="#" data-target="fa-question-circle-5">
+                <i class="fa fa-calendar-minus-o"></i>
+                Ready-to-run Experiments
+                {{#if isLoaded}}
+                  {{#if showReadyToRunExps}}
+                    <span class="new badge blue navbarBadges" style="margin-left: 8px;" data-badge-caption="">{{readyToRunExps}}</span>
+                  {{/if}}
+                {{/if}}
+                <i class="help fa fa-question-circle tooltipped" id="fa-question-circle-5" data-target="readyToRun-exp-btn" href="" style="display:none" data-position="right" data-tooltip="View experiments that are waiting for starting"></i>
+              </a>
+            </li>
+            <li>
+              <a class="more-info explist-a" id="underReview-exp-btn" href="#" data-target="fa-question-circle-6">
+                <i class="fa fa-commenting"></i>
+                Under-review Experiments
+                {{#if isLoaded}}
+                  {{#if showUnderReviewExps}}
+                    <span class="new badge blue navbarBadges" style="margin-left: 5px;" data-badge-caption="">{{underReviewExps}}</span>
+                  {{/if}}
+                {{/if}}
+                <i class="help fa fa-question-circle tooltipped" id="fa-question-circle-6" data-target="underReview-exp-btn" href="" style="display:none" data-position="right" data-tooltip="View experiments that are under reviewing"></i>
+              </a>
+            </li>
+            <li>
+              <a class="more-info explist-a" id="unfinished-exp-btn" href="#" data-href="/galileo/me/unfinished_experiments" data-target="fa-question-circle-2">
+                <i class="fa fa-clone"></i>
+                Incomplete Experiments
+                {{#if isLoaded}}
+                  {{#if showUnfinishedExps}}
+                    <span class="new badge blue navbarBadges" style="margin-left: 22px;" data-badge-caption="">{{unfinishedExps}}</span>
+                  {{/if}}
+                {{/if}}
+                <i class="help fa fa-question-circle tooltipped" id="fa-question-circle-2" data-target="unfinished-exp-help" href="" style="display:none" data-position="right" data-tooltip="View experiments that you've designed partially"></i>
+              </a>
+              <!-- Commented out old code -->
+              <!--
+              <div class="help-target hide" id="unfinished-exp-help">
+                View experiments that you've designed partially
+              </div>
+              -->
+            </li>
+            <li>
+              <a class="more-info explist-a" id="completed-exp-btn" href="#" data-target="fa-question-circle-11">
+                <i class="fa fa-check-square-o"></i>
+                Completed Experiments
+                {{#if isLoaded}}
+                  {{#if showCompletedExps}}
+                    <span class="new badge blue navbarBadges" style="margin-left: 22px;" data-badge-caption="">{{completedExps}}</span>
+                  {{/if}}
+                {{/if}}
+                <i class="help fa fa-question-circle tooltipped" id="fa-question-circle-11" data-target="completed-exp-help" href="" style="display:none" data-position="right" data-tooltip="View experiments that you've run completely"></i>
+              </a>
+              <!-- Commented out old code -->
+              <!--
+              <div class="help-target hide" id="created-exp-help">
+                View experiments that you've run completely
+              </div>
+              -->
+            </li>
+            <li>
+              <a class="more-info explist-a" id="created-exp-btn" href="#" data-href="/galileo/me/created_experiments" data-target="fa-question-circle-3">
+                <i class="fa fa-folder-open-o"></i>
+                All Experiments
+                {{#if isLoaded}}
+                  {{#if showCreatedExps}}
+                    <span class="new badge blue navbarBadges" style="margin-left: 80px;" data-badge-caption="">{{createdExps}}</span>
+                  {{/if}}
+                {{/if}}
+                <i class="help fa fa-question-circle tooltipped" id="fa-question-circle-3" data-target="created-exp-help" href="" style="display:none" data-position="right" data-tooltip="View experiments that you've designed completely"></i>
+              </a>
+              <!-- Commented out old code -->
+              <!--
+              <div class="help-target hide" id="created-exp-help">
+                View experiments that you've designed completely
+              </div>
+              -->
+            </li>
+          </ul>
+        </li>
+        <li>
+          <p>
+            <i class="fa fa-check-circle"></i>
+            My Contributions
+          </p>
+          <ul id="experiment-lists">
+            <!-- Commented out old code -->
+            <!--
+            <li>
+              <a class="more-info explist-a" id="contributions-btn" href="#" data-href="/galileo/browse" data-target="fa-question-circle-7" style="font-size:17px;">
+                <i class="fa fa-check-circle"></i>
+                <b>My Contributions</b>
+                <i class="help fa fa-question-circle tooltipped" id="fa-question-circle-7" data-target="contributions-btn" href="" style="display:none" data-position="right" data-tooltip="View all your contributions to other's experiments"></i>
+              </a>
+              <div class="help-target hide" id="all-exp-help">
+                View all your contributions to other's experiments
+              </div>
+            </li>
+            -->
+            <li>
+              <a class="more-info explist-a" id="reviewing-exp-btn" href="#" data-href="/galileo/me/reviewing_experiments" data-target="fa-question-circle-4">
+                <i class="fa fa-comments-o"></i>
+                Reviewing Experiments
+                {{#if isLoaded}}
+                  {{#if showReviewingExps}}
+                    <span class="new badge blue navbarBadges" style="margin-left: 30px;" data-badge-caption="">{{reviewingExps}}</span>
+                  {{/if}}
+                {{/if}}
+                <i class="help fa fa-question-circle tooltipped" id="fa-question-circle-4" data-target="reviewing-exp-help" href="" style="display:none" data-position="right" data-tooltip="View experiments that you are reviewing"></i>
+              </a>
+              <!-- Commented out old code -->
+              <!--
+              <div class="help-target hide" id="reviewing-exp-help">
+                View experiments that you are reviewing
+              </div>
+              -->
+            </li>
+            {{#if showPilot}}
+              <li>
+                <a class="more-info explist-a" id="piloting-exp-btn" href="#" data-href="/galileo/me/pilot_experiments" data-target="fa-question-circle-5">
+                  <i class="fa fa-paper-plane-o"></i>
+                  Piloting Experiments
+                  <i class="help fa fa-question-circle tooltipped" id="fa-question-circle-5" data-target="piloting-exp-help" href="" style="display:none" data-position="right" data-tooltip="View experiments that you are piloting"></i>
+                </a>
+                <!-- Commented out old code -->
+                <!--
+                <div class="help-target hide" id="piloting-exp-help">
+                  View experiments that you are piloting
+                </div>
+                -->
+              </li>
+            {{/if}}
+            <li>
+              <a class="more-info explist-a" id="participating-exp-btn" href="#" data-href="/galileo/me/participating_experiments" data-target="fa-question-circle-7">
+                <i class="fa fa-plane"></i>
+                Participating Experiments
+                {{#if isLoaded}}
+                  {{#if showParticipatingExps}}
+                    <span class="new badge blue navbarBadges" style="margin-left: 30px;" data-badge-caption="">{{participatingExps}}</span>
+                  {{/if}}
+                {{/if}}
+                <i class="help fa fa-question-circle tooltipped" id="fa-question-circle-7" data-target="participating-exp-help" href="" style="display:none" data-position="right" data-tooltip="View experiments that you are participating in"></i>
+              </a>
+              <!-- Commented out old code -->
+              <!--
+              <div class="help-target hide" id="participating-exp-help">
+                View experiments that you are participating in
+              </div>
+              -->
+            </li>
+          </ul>
+        </li>
+        <li>
+          <p>
+            <i class="fa fa-user"></i>
+            Account
+          </p>
+          <ul>
+            <li>
+              <a href="/galileo/me/notification">
+                <i class="fa fa-envelope"></i>
+                Notifications
+              </a>
+            </li>
+            <li>
+              <a href="/galileo/me/profile">
+                <i class="fa fa-id-card"></i>
+                Edit My Profile
+              </a>
+            </li>
+            <!-- Commented out old code -->
+            <!--
+            <li>
+              <a href="/galileo/me/password">
+                <i class="fa fa-unlock-alt"></i>
+                Change Password
+              </a>
+            </li>
+            -->
+            <li>
+              <a id="logout" href="#" style="color: rgba(228, 0, 0, 1) !important;">
+                <i class="fa fa-sign-out"></i>
+                Log out
+              </a>
+            </li>
+          </ul>
+        </li>
+        <!-- Commented out old code -->
+        <!--
+        <li>
+          <p>
+            <i class="fa fa-lightbulb-o"></i>
+            Intuitions
+          </p>
+          <ul>
+            <li>
+              <a href="/galileo/me/intuitions">
+                <i class="fa fa-file-o"></i>
+                My Intuitions
+              </a>
+            </li>
+          </ul>
+        </li>
+        -->
+      </ul>
+    </div>
+  </template>
+  

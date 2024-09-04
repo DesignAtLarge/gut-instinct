@@ -24,7 +24,7 @@ Template.gaExperimentFeedback.onCreated(function() {
     this.step = new ReactiveVar(1);
     this.focus = new ReactiveVar("hypothesis");
     this.showNext = new ReactiveVar(true);
-    this.reviewers = new ReactiveArray();
+    this.reviewers = new ReactiveVar([]);
 
     if (!Meteor.userId()) {
         this.guestMode.set(true);

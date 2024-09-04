@@ -1,0 +1,223 @@
+<template name="gaMeProfile">
+    {{> gaNavbar}}
+    {{> gaMeSidebar}}
+    <main id="ga-me-main">
+        <h3>Edit My Profile</h3>
+        <!-- <div class="card" id="ga-me-profile"> -->
+        <!--     <div class="card-content"> -->
+        <!--         <p> -->
+        <!--             Have a question about how we are using this information? Visit the Project info page at -->
+        <!--             <a href="http://gutinstinct.ucsd.edu/info">http://gutinstinct.ucsd.edu/info#section-data</a> -->
+        <!--         </p> -->
+        <!--     </div> -->
+        <!--     <div class="card-tabs"> -->
+        <!--         <ul class="tabs tabs-fixed-width"> -->
+        <!--             <li class="tab"> -->
+        
+        <div class="row">
+            <div class="card" id="ga-me-profile">
+                <div class="card-content">
+                    <p>
+                        Have a question about how we are using this information? Visit the Project info page at
+                        <a href="http://gutinstinct.ucsd.edu/info">http://gutinstinct.ucsd.edu/info#section-data</a>
+                    </p>
+                </div>
+                <div class="card-tabs">
+                    <ul class="tabs tabs-fixed-width">
+                        <li class="tab">
+                            <a class="active" href="#basic_setting">Basic</a>
+                        </li>
+                        <!-- <li class="tab"> -->
+                        <!--     <a href="#ethics_certificate">Ethics Certificate</a> -->
+                        <!-- </li> -->
+                        <li class="tab">
+                            <a href="#notification_setting">Notification Settings</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="card-content grey lighten-4" style="height: auto;">
+                    <div id="basic_setting" class="col s12" style="float: none;">
+                        <div class="row">
+                            <form id="galileo-basic-profile-form" class="col s12">
+                                <div class="row">
+                                    <div class="input-field col s6">
+                                        <i class="material-icons prefix">account_circle</i>
+                                        <input id="ga-profile-username-input" class="validate" type="text" disabled placeholder="{{getCurrentUserName}}">
+                                        <label for="ga-profile-username-input">Username (Cannot be changed)</label>
+                                    </div>
+                                    <div class="input-field col s6">
+                                        <i class="material-icons prefix">email</i>
+                                        <input id="ga-profile-email-input" class="validate" type="tel" value="{{getCurrentEmail}}">
+                                        <label for="ga-profile-email-input">Personal Email (Recommended)</label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="input-field col s6">
+                                        <i class="material-icons prefix">my_location</i>
+                                        <input id="ga-profile-location-input" class="validate" type="text" value="{{getCurrentLocation}}">
+                                        <label for="ga-profile-location-input">Your City</label>
+                                    </div>
+                                    <div class="input-field col s6">
+                                        <i class="material-icons prefix">flag</i>
+                                        <select id="ga-country" style="margin-left: 50px" value="{{getCountry}}">
+                                            <option value="0" selected disabled>Your Country</option>
+                                            <option value="AFG">Afghanistan</option>
+                                            <option value="ALA">Åland Islands</option>
+                                            <!-- Add other options here -->
+                                            <option value="ZMB">Zambia</option>
+                                            <option value="ZWE">Zimbabwe</option>
+                                        </select>
+                                        <label for="ga-country">Your Country</label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="input-field col s6">
+                                        <i class="material-icons prefix">perm_phone_msg</i>
+                                        <input id="ga-profile-phone-input" type="text" value="{{getPhone}}" placeholder="(Only accepting US numbers right now. Do not add country code)">
+                                        <label for="ga-profile-phone-input">Phone Number</label>
+                                    </div>
+                                    <div class="input-field col s6">
+                                        <i class="material-icons prefix">language</i>
+                                        <select id="ga-timezone" value="{{getTimezone}}">
+                                            <option value="" disabled selected>Choose your time zone</option>
+                                            <option timeZoneId="1" gmtAdjustment="GMT-12:00" useDaylightTime="0" value="-12">(GMT-12:00) International Date Line West</option>
+                                            <!-- Add other options here -->
+                                            <option timeZoneId="82" gmtAdjustment="GMT+13:00" useDaylightTime="0" value="13">(GMT+13:00) Nuku'alofa</option>
+                                        </select>
+                                        <label for="ga-timezone">Time Zone</label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="input-field col s6">
+                                        <i class="material-icons prefix">swap_vertical_circle</i>
+                                        <input id="ga-profile-agid-input" class="validate" type="tel" value="{{getCurrentAGID}}">
+                                        <label for="ga-profile-agid-input">American Gut ID (Recommended)</label>
+                                    </div>
+                                    <div class="input-field col s6">
+                                        <i class="material-icons prefix">access_time</i>
+                                        <select id="ga-dst" value="{{getDst}}">
+                                            <option value="" disabled selected>Choose your answer</option>
+                                            <option isDst="1" value="1">Yes</option>
+                                            <option isDst="0" value="0">No</option>
+                                        </select>
+                                        <label for="ga-dst">Are you in daylight savings time?</label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="input-field col s12">
+                                        <i class="material-icons prefix">textsms</i>
+                                        <input id="ga-profile-interest-input" type="text" value="{{getInterest}}">
+                                        <label for="ga-profile-interest-input">I'm interested in design and running experiments because...</label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <button class="btn waves-effect waves-light light-blue darken-4" type="submit" name="action">
+                                        Save
+                                        <i class="material-icons right">done</i>
+                                    </button>
+                                    <button class="btn waves-effect waves-light red darken-2" id="delete-account-btn" style="margin-left: 10px;">
+                                        Delete My Account
+                                        <i class="fa fa-trash" style="margin-left: 10px;"></i>
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div id="ethics_certificate" class="col s12" style="float: none;">
+                        <div class="row">
+                            {{#if finishedEthicsTraining}}
+                                <h6>Preview:</h6>
+                                <br>
+                                <center>
+                                    <img src="{{ethicsCertificate}}" style="height: 400px">
+                                </center>
+                                <br>
+                                <h6>Training Portal:</h6>
+                                <a href="https://phrp.nihtraining.com/users/login.php" target="_blank">National Institute of Health</a>
+                            {{else}}
+                                <p>Ethics Training hasn't finished yet.</p>
+                                <!-- <a class="btn light-blue darken-4" href="/galileo/ethics">Go to Ethics Training</a> -->
+                            {{/if}}
+                        </div>
+                    </div>
+                    <div id="notification_setting" class="col s12" style="float: none;">
+                        <div class="row">
+                            <form id="notification_div" class="col s12">
+                                <span style="font-size: 13pt; font-weight: 800;">Send me a notification when...</span>
+                                <div class="row" style="margin-top: 40px;">
+                                    <div class="col s2" style="height: 20px;"></div>
+                                    <div class="col s6" style="text-align: left;">
+                                        <span>... someone reviews my experiment design</span>
+                                    </div>
+                                    <div class="col s3">
+                                        <div class="switch">
+                                            <label>
+                                                Off
+                                                <input id="on-my-exp-checkbox" type="checkbox">
+                                                <span class="lever"></span>
+                                                On
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row" style="margin-top: 20px;">
+                                    <div class="col s2" style="height: 20px;"></div>
+                                    <div class="col s6" style="text-align: left;">
+                                        <span>... someone reviews an experiment I am following</span>
+                                    </div>
+                                    <div class="col s3">
+                                        <div class="switch">
+                                            <label>
+                                                Off
+                                                <input id="on-following-exp-checkbox" type="checkbox">
+                                                <span class="lever"></span>
+                                                On
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row" style="margin-top: 20px;">
+                                    <div class="col s2" style="height: 20px;"></div>
+                                    <div class="col s6" style="text-align: left;">
+                                        <span>... someone posts a new update to an experiment I am following</span>
+                                    </div>
+                                    <div class="col s3">
+                                        <div class="switch">
+                                            <label>
+                                                Off
+                                                <input id="on-updated-exp-checkbox" type="checkbox">
+                                                <span class="lever"></span>
+                                                On
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row" style="margin-top: 20px;">
+                                    <div class="col s2" style="height: 20px;"></div>
+                                    <div class="col s6" style="text-align: left;">
+                                        <span>... someone reviews a post I make</span>
+                                    </div>
+                                    <div class="col s3">
+                                        <div class="switch">
+                                            <label>
+                                                Off
+                                                <input id="on-my-post-review-checkbox" type="checkbox">
+                                                <span class="lever"></span>
+                                                On
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col s12">
+                                        <a id="save-notification-settings-btn" class="btn waves-effect waves-light light-blue darken-4">Save</a>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</template>

@@ -1,0 +1,1050 @@
+template(name="gaMeExperimentInfo")
+    +gaShareSocialModal(link=getInviteReviewerLink title=getExpTitleReg)
+    +gaShareEmailModal(link=getInviteReviewerLink title=getExpTitleReg)
+    +gaShareEmailInviteJoinModal(link=getParticipantInviteLink)
+    +gaCorrectnessModal(exp=exp)
+    +gaClarificationCreatorModal(title=title expId=expId)
+    +gaInformationModal
+    
+    div#fb-root
+    +gaMeExperimentMaster(id=id section=section)
+        span(style="display: none;" exp-data-id="{{expId}}" id="exp-id-placeholder") placeholder for data, user should not see this
+    
+        div#followup-modal.modal
+            div.modal-content
+                h5#followup-modal-title Title: User shouldn't see this. 
+                p#followup-modal-content User shouldn't see this. 
+            div.modal-footer
+                a.gray-text(class="modal-action modal-close btn-flat") Close
+
+        div#cause-modal.modal
+            div.modal-content
+                h5 Cause Daily Message sent at {{causeTime}}
+                div.container(style="position: relative; text-align: center; width: 368px")
+                    img(src='/images/galileo/exp_design/iPhone.png' style="height: 450px")
+                    p(style="top: 89px; left: 160px; position: absolute;font-size: 9px; font-weight: 800;color: #d2c8c1;") Today {{causeTime}}
+                    p(style="top: 111px; left: 106px; position: absolute; font-size: 10px; font-weight: 400;color: #000000;text-align: left;width: 110px") {{causeMessage}}
+            div.modal-footer
+                a.gray-text(class="modal-action modal-close btn-flat") Close
+
+        div#effect-modal.modal
+            div.modal-content
+                h5 Effect Daily Message sent at {{effectTime}}
+                div.container(style="position: relative; text-align: center; width: 368px")
+                    img(src='/images/galileo/exp_design/iPhone.png' style="height: 450px")
+                    p(style="top: 89px; left: 160px; position: absolute;font-size: 9px; font-weight: 800;color: #d2c8c1;") Today {{effectTime}}
+                    p(style="top: 111px; left: 106px; position: absolute; font-size: 10px; font-weight: 400;color: #000000;text-align: left;width: 110px") {{effectMessage}}
+            div.modal-footer
+                a.gray-text(class="modal-action modal-close btn-flat") Close
+
+
+        if isLoading
+            p Loading ...
+        else
+            section
+                h5.section-header Experiment Status
+                div#status-section
+                    ul#status-list
+                        each s in statusList
+                            li
+                                div.graph
+                                    div.left-bar
+                                        if s.notFirst
+                                            div.bar
+                                    div.middle-circle
+                                        if s.completed
+                                            div(class="completed-circle {{#if s.ongoing}}ongoing{{/if}}")
+                                    div.right-bar
+                                        if s.notLast
+                                            div.bar
+                                label {{s.label}}
+                                if isCreator
+                                    if s.isCurr
+                                        div.triangle
+                                else
+                                    div.placeholder(style="height: 20px")
+                    
+                        //div#status-description
+                    div
+                        //if statusIsCreated
+                        //    if isCreationIncomplete
+                        //        p Your experiment is almost ready!
+                        //        p Galileo's users can now review your design. You can hear their voice and
+                        //            a(href="../{{expId}}/design") improve your experiment!
+                        //
+                        //        p To move on the next step please complete the following tasks:
+                        //        ol
+                        //            if isEthicsIncomplete
+                        //                li: a#completeEthicsBtn(href="#") Complete Ethics training
+                        //            else
+                        //                li: strike
+                        //                    p Complete Ethics training
+                        //            if isCriteriaMissing
+                        //                li: a#addCriteriaBtn(href="#!") Decide who participates in the experiment
+                        //            else
+                        //                li: strike
+                        //                    p Decide who participates in the experiment
+                        //    else
+                        //        p Great work! You have now completely designed your experiment!
+                        //        p We recommend that you pilot your experiment with just 2 participants (i.e. a trial run). This will help you understand the potential logistical issues in your experiment.
+                        //        p: a.btn.blue(id="start-pilot") Start Pilot (recommended)
+                        //        p OR
+                        //        p: a.btn.blue(href="/galileo/run/{{expId}}") Skip pilot and run experiment
+                        //
+                        //        p You may continue to receive feedback and #[a(href="../{{expId}}/design") improve your experiment] in the meantime.
+                        //
+                        if statusIsCreated
+                            div#status-description-done
+                                p.blue-text What you've achieved so far:
+                                p Started designing your experiment
+                            
+                            div#status-description-todo
+                                p.blue-text What's next:
+                                p Complete designing your experiment. Click on the button below to continue designing your experiment.
+                                p: a.btn.light-blue(href="/galileo/createdemo?expid={{expId}}") Continue Designing your Experiment
+                        else if statusIsDesigned
+                            if isEthicsIncomplete
+                                div#status-description-done
+                                    p.blue-text What you've achieved so far:
+                                    p #[i.material-icons check] Congratulations! You've just designed your first experiment!
+                                    //p #[i.material-icons check] Experiment design is 60% complete
+
+                                //p.blue-text What's next:
+                                //p Complete a short one-time-only ethics training before moving further. Every scientist needs to understand the ethical implications of their experiment.
+                                //p: a.btn.blue#completeEthicsBtn(href="/galileo/ethics") Complete Ethics Training
+                        else if statusIsOpenForReview
+                                div#status-description-done
+                                    p.blue-text What you've achieved so far:
+                                    ul
+                                        li #[i.material-icons check] Designed your experiment
+                                        //li #[i.material-icons check] Completed ethics training
+                                        li #[i.material-icons check] Your experiment is now open for review
+
+                                div#status-description-todo                                  
+                                    p.blue-text What's next:
+                                    span(style="font-size: 24px; font-weight: 100;")       
+                                        | To move ahead, you need to get at least 2 people to
+                                        a.helpbtn(href="#" id="helpReviewBtn" style="border-width:0px 0px 1px 0px; border-style:solid") review
+                                            i.fa.fa-question-circle(aria-hidden="true")
+
+                                        | your experiment!
+                                    
+                                    +helpLayout(id=id helpId="1" title="Experiment Review")
+                                        p Reviewers don't need to be experts in experiments. Using Galileo's guided review interface, anyone can give meaningful feedback on your experiment.
+                                        p You can share this with friends, family, colleagues or even researchers!
+                                        br
+                                        p #[b Note:] Keep in mind that reviewers will not be able to participate in the experimen. Since the reviewers will know the goals and details of the experiment, they might be biased when they participate.
+
+                                    ol
+                                        li
+                                            p(style="margin-bottom: -10px; font-size: 18px;") #[b Invite people to review your experiment by sharing this link: ]
+                                            p
+                                                a(href="#" id="reviewerUrl" style="font-size: 18px;") {{getInviteReviewerLink}}&nbsp;
+                                            p(style="margin-bottom: -10px;")
+                                                
+                                                //a(id="copyInviteReviewLinkBtn") (Copy)
+                                                a.waves-effect.waves-light.btn.light-blue(style="padding-right:15px; padding-left:15px; font-size:9pt; height:27px; top: -10px" id="copyInviteReviewLinkBtn") Copy Link
+                                                    i.material-icons.prefix.left content_copy
+                                                //- iframe(src='https://www.facebook.com/plugins/share_button.php?href={{getReviewerIframeUrl}}&layout=button&size=large&mobile_iframe=true&width=73&height=28&appId', width='73', height='28', style='border:none;overflow:hidden', scrolling='no', frameborder='0', allowtransparency='true')
+                                                img(src="/images/fb_share_icon.png" style="height: 28px; width: auto;" id="facebook-share-icon-btn")
+                                                a.twitter-share-button(href="https://twitter.com/share?url={{getInviteReviewerLinkHTML}}&related=twitterapi%2Ctwitter&text=I%20have%20designed%20an%20experiment%20to%20test%20{{getExpTitle}}%2E%0APlease%20help%20me%20improve%20it%20using%20your%20reviews%2E&ref_src=twsrc%5Etfw&size=large") Tweet
+                                                script(async='', src='https://platform.twitter.com/widgets.js', charset='utf-8')
+                                                //- a.twitter-share-button(href='https://twitter.com/intent/tweet?text=Hello%20world')
+                                                //-   | Tweet
+                                                a.waves-effect.waves-light.btn.light-blue(style="padding-right:15px; padding-left:15px; font-size:9pt; height:27px; top: -10px" id="openEmailTemplateBtn") Email
+                                            input.text(readonly value="{{getInviteReviewerLink}}" id="inviteReviewLink" style="padding-left:10px; height:36px; margin-bottom:-15px; display: none;")
+                                            
+                                        li
+                                            //p: a.btn.blue#inviteFeedback Invite Reviewers
+                                            p #[b Use the reviews to improve your experiment design]
+                                            //p: a.btn.blue#addCriteriaBtn Decide Participation Criteria
+                                            p: a.btn.blue(href="../{{expId}}/design")#viewFeedback View Experiment Reviews
+                        else if statusIsReviewOngoing
+                            div#status-description-todo                                  
+                                p The review is in progress. Please wait for at least 2 reviews then you can #[a(href="../{{expId}}/design") improve your experiment] based on the feedback from your reviewers.
+                                //p Once your changes are approved you may start piloting the experiment.
+                                
+                                +helpLayout(id=id helpId="1" title="Experiment Review")
+                                    p Reviewers don't need to be experts in experiments. Using Galileo's guided review interface, anyone can give meaningful feedback on your experiment.
+                                    p You can share this with friends, family, colleagues or even researchers!
+                                    br
+                                    p #[b Note:] Keep in mind that reviewers will not be able to participate in the experimen. Since the reviewers will know the goals and details of the experiment, they might be biased when they participate.
+
+                                ol
+                                    li
+                                        p(style="margin-bottom: -10px; font-size: 18px;") #[b Invite people to review your experiment by sharing this link: ]
+                                        p
+                                            a(href="#" id="reviewerUrl" style="font-size: 18px;") {{getInviteReviewerLink}}&nbsp;
+                                        p(style="margin-bottom: -10px;")
+                                            
+                                            //a(id="copyInviteReviewLinkBtn") (Copy)
+                                            a.waves-effect.waves-light.btn.light-blue(style="padding-right:15px; padding-left:15px; font-size:9pt; height:27px; top: -10px" id="copyInviteReviewLinkBtn") Copy Link
+                                                i.material-icons.prefix.left content_copy
+                                            //- iframe(src='https://www.facebook.com/plugins/share_button.php?href={{getReviewerIframeUrl}}&layout=button&size=large&mobile_iframe=true&width=73&height=28&appId', width='73', height='28', style='border:none;overflow:hidden', scrolling='no', frameborder='0', allowtransparency='true')
+                                            img(src="/images/fb_share_icon.png" style="height: 28px; width: auto;" id="facebook-share-icon-btn")
+                                            a.twitter-share-button(href="https://twitter.com/share?url={{getInviteReviewerLinkHTML}}&related=twitterapi%2Ctwitter&text=I%20have%20designed%20an%20experiment%20to%20test%20{{getExpTitle}}%2E%0APlease%20help%20me%20improve%20it%20using%20your%20reviews%2E&ref_src=twsrc%5Etfw&size=large") Tweet
+                                            script(async='', src='https://platform.twitter.com/widgets.js', charset='utf-8')
+                                            //- a.twitter-share-button(href='https://twitter.com/intent/tweet?text=Hello%20world')
+                                            //-   | Tweet
+                                            a.waves-effect.waves-light.btn.light-blue(style="padding-right:15px; padding-left:15px; font-size:9pt; height:27px; top: -10px" id="openEmailTemplateBtn") Email
+                                        input.text(readonly value="{{getInviteReviewerLink}}" id="inviteReviewLink" style="padding-left:10px; height:36px; margin-bottom:-15px; display: none;")
+                                        
+                                    li
+                                        //p: a.btn.blue#inviteFeedback Invite Reviewers
+                                        p #[b Use the reviews to improve your experiment design]
+                                        //p: a.btn.blue#addCriteriaBtn Decide Participation Criteria
+                                        p: a.btn.blue(href="../{{expId}}/design")#viewFeedback View Experiment Reviews
+
+                        else if statusIsReviewed
+                            div#status-description-done
+                                p Your experiment has been reviewed by 2 people
+
+                            div#status-description-todo 
+                                p 
+                                    b Here's what to do next:
+                                ol
+                                    li   
+                                        p View your experiment and reviews together to improve your experiment:  
+                                        a.btn.blue(href="../{{expId}}/design") Edit Experiment
+                                        if showPilot
+                                            p: a.btn.blue#start-pilot I want to test run this experiment (pilot)
+                                    li
+                                        p Once you have finalized the experiment design, invite people to join:
+                                        a.btn.blue#skip-pilot-and-run Invite Now
+
+
+                        else if statusIsOpenForPilot
+                            div#status-description-done
+                                p.blue-text What you've achieved so far:
+                                ul
+                                    li #[i.material-icons check] Designed your experiment
+                                    //li #[i.material-icons check] Completed ethics training
+                                    li #[i.material-icons check] Received at least two reviews on your experiment
+                                    li #[i.material-icons check] Your experiment is now open for pilot
+                            div#status-description-todo
+                                div#todo-description
+                                    p.blue-text What's next:
+                                    p To move ahead, you need to get at least 2 people to #[b pilot] your experiment to provide feedback about how easy or difficult is it to participate in your experiment!
+
+                                    //p The following steps tells you how to run a useful pilot.
+                                    //ul#intro-run
+                                        li
+                                            strong Step 1.
+                                            | Sign up as a Pilot user
+                                        //    | Run pilot for all conditions (experimental
+                                            | as well as control conditions)
+                                        li
+                                            strong Step 2.
+                                            | Follow experimental steps as exactly provided by Galileo. (Remember a pilot user emulates an experiment participant)
+                                        li
+                                            strong Step 3.
+                                            | Record your experimental data by responding to the text messages or enter
+                                            | your data directly in Galileo for the pilot duration (usually two days)
+                                        li
+                                            strong Step 4.
+                                            | After the pilot ends, provide
+                                            b clear, actionable feedback
+                                            | about what worked well and what can be improved to run a successful experiment
+                                        //li
+                                            strong Step 4.
+                                            | Look at your data at the end of the pilot and either add
+                                            | nuance to your experiment design or provide review comments on how
+                                            | might the experiment design be improved.
+                                        //li
+                                            strong Step 5.
+                                            | Look at other's reviews, discuss your thoughts with their
+                                            | responses and make changes to the experiment.
+                                        //li
+                                            strong Step 6.
+                                            | Repeat on the other condition from Step 2 and run pilot
+                                            | for multiple times to finally make the experiment a well-designed
+                                            | experiment.
+
+                                    p(style="margin-bottom: -10px;") #[b Invite Users to Pilot]
+                                    p You can also share this link:
+                                    .row
+                                        .col.s9
+                                            input.text(readonly value="{{getInvitePilotLink}}" id="invitePilotLink" style="padding-left:10px; height:36px; margin-bottom:-15px" )
+                                        .col.s3(style="padding-left: 0px")
+                                            a.waves-effect.waves-light.btn.light-blue(style="padding-right:15px; padding-left:15px" id="copyInvitePilotLinkBtn") Copy Link
+                                                i.material-icons.prefix.left content_copy
+
+                                    iframe(src='https://www.facebook.com/plugins/share_button.php?href={{getPilotIframeUrl}}&layout=button&size=large&mobile_iframe=true&width=73&height=28&appId', width='73', height='28', style='border:none;overflow:hidden', scrolling='no', frameborder='0', allowtransparency='true')
+
+                                    br
+                                    p You may continue to invite reviews of your experiment and #[a(href="../{{expId}}/design") keep improving your experiment] in the meantime.
+
+                        else if statusIsPilotOngoing
+                            div#status-description
+                                p The pilot is in progress. Please wait for #{pilotDuration} for the pilot to finish and then you can #[a(href="../{{expId}}/design") improve your experiment] based on the feedback from your pilot participants.
+                                each pilot in reviewedPilots
+                                    a.btn.light-blue(href="/galileo/pilotFeedback/{{expId}}/{{pilot._id}}" style="{margin-bottom:10px;}")
+                                        if pilot.group
+                                            | Check Pilot feedback for Experimental condition
+                                        else
+                                            | Check Pilot feedback for Control condition
+                                //p Once your changes are approved you may start running the experiment.
+
+                        else if statusIsPilotComplete
+                            div#status-description
+                                p Pilot complete! Check the feedback provided by the pilot participants below. Once you've used their feedback to make appropriate changes to improve your experiment, you're ready to begin the real experiment!
+                                p Please be aware that you may not make changes to your experiment design once you start the experiment.
+                                each pilot in reviewedPilots
+                                    a.btn.light-blue(href="/galileo/pilotFeedback/{{expId}}/{{pilot._id}}" style="{margin-bottom:10px;}")
+                                        if pilot.group
+                                            | Check Pilot feedback for Experimental condition
+                                        else
+                                            | Check Pilot feedback for Control condition
+                                br
+                                p OR
+                                p: a.btn.blue(href="/galileo/run/{{expId}}") Start Experiment
+
+
+                        else if statusIsReadyToRun
+                            div#status-description-todo
+                                if canStartExp
+                                    p
+                                        span(style="color:green") 
+                                            strong {{currentParticipantCount}}
+                                        | participants have joined your experiment!
+                                    p You need at least 
+                                        span(style="color: red") 
+                                            strong {{neededParticipantCount}}
+                                        |  more to begin this experiment!
+                                    p Invite more people to join the experiment:
+
+                                        .row
+                                            .col.s8(style="max-width: 550px;")
+                                                input.text(readonly value="{{getParticipantInviteLink}}" id="inviteJoinLink" style="padding-left:10px; height:36px; margin-bottom:-15px")
+                                            .col.s4(style="padding-left: 0px")
+                                                a.waves-effect.waves-light.btn.light-blue(style="padding-right:15px; padding-left:15px; font-size:9pt; height:27px; top: 8px" id="copyInviteJoinLinkBtn") Copy Link
+                                                    i.material-icons.prefix.left content_copy
+                                                //- iframe(src='https://www.facebook.com/plugins/share_button.php?href={{getParticipantInviteLink}}&layout=button&size=large&mobile_iframe=true&width=73&height=28&appId', width='73', height='28', style='border:none;overflow:hidden; margin-bottom:-15px', scrolling='no', frameborder='0', allowtransparency='true')
+                                                a.waves-effect.waves-light.btn.light-blue(style="padding-right:15px; padding-left:15px; font-size:9pt; height:27px; top: 8px" id="openEmailInviteJoinBtn") Email
+
+                                    p: a.btn.blue.disabled(href="/galileo/run/{{expId}}") Start Experiment
+                                else
+                                    p {{currentParticipantCount}} participants have joined your experiment! You may now set a start date for your experiment
+                                    p: a.btn.blue(href="/galileo/run/{{expId}}") Start Experiment
+                                    br
+                                    br
+                                    p You may also continue inviting more people to join the experiment:
+
+                                    .row
+                                        .col.s9(style="max-width: 550px;")
+                                            input.text(readonly value="{{getParticipantInviteLink}}" id="inviteJoinLink" style="padding-left:10px; height:36px; margin-bottom:-15px")
+                                        .col.s3(style="padding-left: 0px")
+                                            a.waves-effect.waves-light.btn.light-blue(style="padding-right:15px; padding-left:15px" id="copyInviteJoinLinkBtn") Copy
+                                                i.material-icons.prefix.left content_copy
+
+
+
+
+                        else if statusIsPreparingToStart
+                            div#status-description-done
+                                p Your experiment will begin on #[b #{startDateTime}] and continue for #[b 7 days] till #[b #{endDate}].
+                            div#status-description-todo                                    
+                                p: a.btn.blue(href="../../dashboard") Manage experiment
+
+                        else if statusIsStarted
+                            div#status-description
+                                p Your experiment is being run!
+                                p: a.btn.blue(href="../../dashboard") Manage your experiment
+
+                                p When your experiment is over, you can request an analysis of the results of the experiment.
+
+                        else if statusIsFinished
+                            div#status-description
+                                if isCreator
+                                    p Congratulations, your experiment is complete!
+                                    p
+                                        a.btn.blue(id="requestAnalysisOnInfo") Request Data Analysis
+                                else 
+                                    p Congratulations, the experiment in which you were a participant is complete!
+                            section#ga-me-exp-participants
+                                h5.section-header Experiment Participants                            
+                                    if isCreator
+                                        div.table-holder
+                                            table(style="font-size: 16px;")
+                                                thead        
+                                                    tr.top
+                                                        td.end(colspan="4" id="hide-first-cell") 
+                                                            a.waves-effect.waves-light.btn.light-blue(style="padding-right:15px; padding-left:15px; font-size:9pt; height:30px; top: 0px" id="hide-show-rows") HIDE USER INFO
+                                                        each currentDay in getDays
+                                                            td.end.hideableDay.center-align(colspan="2" style="font-size: 30px") Day {{currentDay}}
+                                                    tr.top
+                                                        td.end#hide-second-cell(colspan="4")
+                                                            a.waves-effect.waves-light.btn.light-blue(style="padding-right:15px; padding-left:15px; font-size:9pt; height:30px; top: 0px" id="hide-show-details") MORE DETAILS
+                                                        each currentDay in getDays
+                                                            td.end(colspan="1" style="font-size: 25px").hide-cause Cause
+                                                                i.material-icons.blue-text#cause_msg phone_iphone
+                                                            td.end(colspan="1" style="font-size: 25px").hide-effect Effect
+                                                                i.material-icons.blue-text#effect_msg phone_iphone
+                                                    tr.top
+                                                        td(style="font-size: 20px") Ctry
+                                                        td(style="font-size: 20px") Participant
+                                                        //- td.hidableCol Survey
+                                                        //- td.hidableCol Gender
+                                                        td.hidableCol(style="font-size: 20px") Location
+                                                        td.hidableCol.end(style="font-size: 20px") Timezone
+                                                            br
+                                                            span (rel. to GMT)
+                                                        each currentDay in getDays
+                                                            td(style="font-size: 20px") Value
+                                                                span
+                                                                    a#valueInfo(href="#")
+                                                                                i.fa.fa-question-circle
+                                                            td.hide.hideableData(style="font-size: 20px") Adherance
+                                                                span
+                                                                    a#adheranceInfo(href="#")
+                                                                                i.fa.fa-question-circle
+                                                            td.hide.hideableData.end(style="font-size: 20px") Time 
+                                                                br 
+                                                                | Diff
+                                                                span
+                                                                    a#timeDiffInfo(href="#")
+                                                                                i.fa.fa-question-circle
+                                                            td(style="font-size: 20px") Value
+                                                                span
+                                                                    a#valueInfo(href="#")
+                                                                                i.fa.fa-question-circle
+                                                            td.hide.hideableData(style="font-size: 20px") Adherance
+                                                                span
+                                                                    a#adheranceInfo(href="#")
+                                                                                i.fa.fa-question-circle
+                                                            td.hide.hideableData.end(style="font-size: 20px") Time 
+                                                                br 
+                                                                | Diff
+                                                                span
+                                                                    a#timeDiffInfo(href="#")
+                                                                                i.fa.fa-question-circle
+                                                    tr.condition.light-blue-text.text-darken-4
+                                                        td(colspan="1000000") Control Condition
+                                                tbody
+                                                    each participant in getExperimentParticipantsControl
+                                                    
+                                                        tr
+                                                            td
+                                                                span.flag-icon(class="{{participant.flag}}")
+                                                            td {{participant.participantMap}}
+                                                            //- td.hidableCol Yes
+                                                            //- td.hidableCol Male
+                                                            td.hidableCol {{participant.galileo.city}}
+                                                            td.hidableCol.end {{participant.galileo.timezone}}
+                                                            
+                                                            each currentDay in getDays
+                                                                if hasCauseValueByDay currentDay participant.username
+                                                                    td.day.start
+                                                                        {{getCauseValueByDay currentDay participant.username}} &nbsp;&nbsp;
+                                                                        if hasCauseFollowupByDay currentDay participant.username
+                                                                            i.material-icons.blue-text.expandCauseFollowup(user="{{participant.participantMap}}" id="cause-followup-{{participant.username}}-{{currentDay}}" followup="{{getCauseFollowupByDay currentDay participant.username}}") message 
+                                                                else
+                                                                    td.day.start -
+                                                                td.day.hide.hideableData {{getCauseComplianceByDay currentDay participant.username}}
+                                                                td.day.end.hide.hideableData(style="color: {{getCauseTimeDiffByDayColor currentDay participant.username}}") {{getCauseTimeDiffByDay currentDay participant.username}}
+                                                                
+                                                                if hasEffectValueByDay currentDay participant.username
+                                                                    td.day.start
+                                                                        {{getEffectValueByDay currentDay participant.username}} &nbsp;&nbsp;
+                                                                        if hasEffectFollowupByDay currentDay participant.username
+                                                                            i.material-icons.blue-text.expandCauseFollowup(user="{{participant.participantMap}}" id="effect-followup-{{participant.username}}-{{currentDay}}" followup="{{getEffectFollowupByDay currentDay participant.username}}") message
+                                                                else    
+                                                                    td.day.start -
+                                                                td.day.hide.hideableData {{getEffectComplianceByDay currentDay participant.username}}
+                                                                td.day.end.hide.hideableData(style="color: {{getEffectTimeDiffByDayColor currentDay participant.username}}") {{getEffectTimeDiffByDay currentDay participant.username}}
+                                                tbody
+                                                    tr.condition.light-blue-text.text-darken-4
+                                                        td(colspan="1000000") Experimental Condition
+                                                tbody
+                                                    each participant in getExperimentParticipantsExperimental
+                                                    
+                                                        tr
+                                                            td
+                                                                span.flag-icon(class="{{participant.flag}}")
+                                                            td {{participant.participantMap}}
+                                                            //- td.hidableCol Yes
+                                                            //- td.hidableCol Male
+                                                            td.hidableCol {{participant.galileo.city}}
+                                                            td.hidableCol.end {{participant.galileo.timezone}}
+                                                            
+                                                            each currentDay in getDays
+                                                                if hasCauseValueByDay currentDay participant.username
+                                                                    td.day.start
+                                                                        {{getCauseValueByDay currentDay participant.username}} &nbsp;&nbsp;
+                                                                        if hasCauseFollowupByDay currentDay participant.username
+                                                                            i.material-icons.blue-text.expandCauseFollowup(user="{{participant.participantMap}}" id="cause-followup-{{participant.username}}-{{currentDay}}" followup="{{getCauseFollowupByDay currentDay participant.username}}") message 
+                                                                else
+                                                                    td.day.start -
+                                                                td.day.hide.hideableData {{getCauseComplianceByDay currentDay participant.username}}
+                                                                td.day.end.hide.hideableData(style="color: {{getCauseTimeDiffByDayColor currentDay participant.username}}") {{getCauseTimeDiffByDay currentDay participant.username}}
+                                                                
+                                                                if hasEffectValueByDay currentDay participant.username
+                                                                    td.day.start
+                                                                        {{getEffectValueByDay currentDay participant.username}} &nbsp;&nbsp;
+                                                                        if hasEffectFollowupByDay currentDay participant.username
+                                                                            i.material-icons.blue-text.expandCauseFollowup(user="{{participant.participantMap}}" id="effect-followup-{{participant.username}}-{{currentDay}}" followup="{{getEffectFollowupByDay currentDay participant.username}}") message
+                                                                else    
+                                                                    td.day.start -
+                                                                td.day.hide.hideableData {{getEffectComplianceByDay currentDay participant.username}}
+                                                                td.day.end.hide.hideableData(style="color: {{getEffectTimeDiffByDayColor currentDay participant.username}}") {{getEffectTimeDiffByDay currentDay participant.username}}
+                                    else 
+                                        div.table-holder
+                                            table(style="font-size: 16px;")
+                                                thead        
+                                                    tr.top
+                                                        td.end(colspan="4" id="hide-first-cell") 
+                                                            a.waves-effect.waves-light.btn.light-blue(style="padding-right:15px; padding-left:15px; font-size:9pt; height:30px; top: 0px" id="hide-show-rows") HIDE USER INFO
+                                                        each currentDay in getDays
+                                                            td.end.hideableDay.center-align(colspan="2" style="font-size: 30px") Day {{currentDay}}
+                                                    tr.top
+                                                        td.end#hide-second-cell(colspan="4")
+                                                            a.waves-effect.waves-light.btn.light-blue(style="padding-right:15px; padding-left:15px; font-size:9pt; height:30px; top: 0px" id="hide-show-details") MORE DETAILS
+                                                        each currentDay in getDays
+                                                            td.end(colspan="1" style="font-size: 25px").hide-cause Cause
+                                                                i.material-icons.blue-text#cause_msg phone_iphone
+                                                            td.end(colspan="1" style="font-size: 25px").hide-effect Effect
+                                                                i.material-icons.blue-text#effect_msg phone_iphone
+                                                    tr.top
+                                                        td(style="font-size: 20px") Ctry
+                                                        td(style="font-size: 20px") Participant
+                                                        //- td.hidableCol Survey
+                                                        //- td.hidableCol Gender
+                                                        td.hidableCol(style="font-size: 20px") Location
+                                                        td.hidableCol.end(style="font-size: 20px") Timezone
+                                                            br
+                                                            span (rel. to GMT)
+                                                        each currentDay in getDays
+                                                            td(style="font-size: 20px") Value
+                                                                span
+                                                                    a#valueInfo(href="#")
+                                                                                i.fa.fa-question-circle
+                                                            td.hide.hideableData(style="font-size: 20px") Adherance
+                                                                span
+                                                                    a#adheranceInfo(href="#")
+                                                                                i.fa.fa-question-circle
+                                                            td.hide.hideableData.end(style="font-size: 20px") Time 
+                                                                br 
+                                                                | Diff
+                                                                span
+                                                                    a#timeDiffInfo(href="#")
+                                                                                i.fa.fa-question-circle
+                                                            td(style="font-size: 20px") Value
+                                                                span
+                                                                    a#valueInfo(href="#")
+                                                                                i.fa.fa-question-circle
+                                                            td.hide.hideableData(style="font-size: 20px") Adherance
+                                                                span
+                                                                    a#adheranceInfo(href="#")
+                                                                                i.fa.fa-question-circle
+                                                            td.hide.hideableData.end(style="font-size: 20px") Time 
+                                                                br 
+                                                                | Diff
+                                                                span
+                                                                    a#timeDiffInfo(href="#")
+                                                                                i.fa.fa-question-circle
+                                                tbody
+                                                    each participant in getExperimentParticipants
+                                                    
+                                                        tr
+                                                            td
+                                                                span.flag-icon(class="{{participant.flag}}")
+                                                            td {{participant.username}}
+                                                            //- td.hidableCol Yes
+                                                            //- td.hidableCol Male
+                                                            td.hidableCol {{participant.galileo.city}}
+                                                            td.hidableCol.end {{participant.galileo.timezone}}
+                                                            
+                                                            each currentDay in getDays
+                                                                if hasCauseValueByDay currentDay participant.username
+                                                                    td.day.start
+                                                                        {{getCauseValueByDay currentDay participant.username}} &nbsp;&nbsp;
+                                                                        if hasCauseFollowupByDay currentDay participant.username
+                                                                            i.material-icons.blue-text.expandCauseFollowup(user="{{participant.username}}" id="cause-followup-{{participant.username}}-{{currentDay}}" followup="{{getCauseFollowupByDay currentDay participant.username}}") message 
+                                                                else
+                                                                    td.day.start -
+                                                                td.day.hide.hideableData {{getCauseComplianceByDay currentDay participant.username}}
+                                                                td.day.end.hide.hideableData(style="color: {{getCauseTimeDiffByDayColor currentDay participant.username}}") {{getCauseTimeDiffByDay currentDay participant.username}}
+                                                                
+                                                                if hasEffectValueByDay currentDay participant.username
+                                                                    td.day.start
+                                                                        {{getEffectValueByDay currentDay participant.username}} &nbsp;&nbsp;
+                                                                        if hasEffectFollowupByDay currentDay participant.username
+                                                                            i.material-icons.blue-text.expandCauseFollowup(user="{{participant.username}}" id="effect-followup-{{participant.username}}-{{currentDay}}" followup="{{getEffectFollowupByDay currentDay participant.username}}") message
+                                                                else    
+                                                                    td.day.start -
+                                                                td.day.hide.hideableData {{getEffectComplianceByDay currentDay participant.username}}
+                                                                td.day.end.hide.hideableData(style="color: {{getEffectTimeDiffByDayColor currentDay participant.username}}") {{getEffectTimeDiffByDay currentDay participant.username}}                        
+                        else if statusRequestAnalysis
+                            div#status-description
+                                if isCreator
+                                    p Congratulations, your experiment is under analysis!
+                                else
+                                    p Congratulations, the experiment in which you were a participant is under analysis!
+                            section#ga-me-exp-participants
+                                h5.section-header Experiment Participants                            
+                                    if isCreator
+                                        div.table-holder
+                                            table(style="font-size: 16px;")
+                                                thead        
+                                                    tr.top
+                                                        td.end(colspan="4" id="hide-first-cell") 
+                                                            a.waves-effect.waves-light.btn.light-blue(style="padding-right:15px; padding-left:15px; font-size:9pt; height:30px; top: 0px" id="hide-show-rows") HIDE USER INFO
+                                                        each currentDay in getDays
+                                                            td.end.hideableDay.center-align(colspan="2" style="font-size: 30px") Day {{currentDay}}
+                                                    tr.top
+                                                        td.end#hide-second-cell(colspan="4")
+                                                            a.waves-effect.waves-light.btn.light-blue(style="padding-right:15px; padding-left:15px; font-size:9pt; height:30px; top: 0px" id="hide-show-details") MORE DETAILS
+                                                        each currentDay in getDays
+                                                            td.end(colspan="1" style="font-size: 25px").hide-cause Cause
+                                                                i.material-icons.blue-text#cause_msg phone_iphone
+                                                            td.end(colspan="1" style="font-size: 25px").hide-effect Effect
+                                                                i.material-icons.blue-text#effect_msg phone_iphone
+                                                    tr.top
+                                                        td(style="font-size: 20px") Ctry
+                                                        td(style="font-size: 20px") Participant
+                                                        //- td.hidableCol Survey
+                                                        //- td.hidableCol Gender
+                                                        td.hidableCol(style="font-size: 20px") Location
+                                                        td.hidableCol.end(style="font-size: 20px") Timezone
+                                                            br
+                                                            span (rel. to GMT)
+                                                        each currentDay in getDays
+                                                            td(style="font-size: 20px") Value
+                                                                span
+                                                                    a#valueInfo(href="#")
+                                                                                i.fa.fa-question-circle
+                                                            td.hide.hideableData(style="font-size: 20px") Adherance
+                                                                span
+                                                                    a#adheranceInfo(href="#")
+                                                                                i.fa.fa-question-circle
+                                                            td.hide.hideableData.end(style="font-size: 20px") Time 
+                                                                br 
+                                                                | Diff
+                                                                span
+                                                                    a#timeDiffInfo(href="#")
+                                                                                i.fa.fa-question-circle
+                                                            td(style="font-size: 20px") Value
+                                                                span
+                                                                    a#valueInfo(href="#")
+                                                                                i.fa.fa-question-circle
+                                                            td.hide.hideableData(style="font-size: 20px") Adherance
+                                                                span
+                                                                    a#adheranceInfo(href="#")
+                                                                                i.fa.fa-question-circle
+                                                            td.hide.hideableData.end(style="font-size: 20px") Time 
+                                                                br 
+                                                                | Diff
+                                                                span
+                                                                    a#timeDiffInfo(href="#")
+                                                                                i.fa.fa-question-circle
+                                                    tr.condition.light-blue-text.text-darken-4
+                                                        td(colspan="1000000") Control Condition
+                                                tbody
+                                                    each participant in getExperimentParticipantsControl
+                                                    
+                                                        tr
+                                                            td
+                                                                span.flag-icon(class="{{participant.flag}}")
+                                                            td {{participant.participantMap}}
+                                                            //- td.hidableCol Yes
+                                                            //- td.hidableCol Male
+                                                            td.hidableCol {{participant.galileo.city}}
+                                                            td.hidableCol.end {{participant.galileo.timezone}}
+                                                            
+                                                            each currentDay in getDays
+                                                                if hasCauseValueByDay currentDay participant.username
+                                                                    td.day.start
+                                                                        {{getCauseValueByDay currentDay participant.username}} &nbsp;&nbsp;
+                                                                        if hasCauseFollowupByDay currentDay participant.username
+                                                                            i.material-icons.blue-text.expandCauseFollowup(user="{{participant.participantMap}}" id="cause-followup-{{participant.username}}-{{currentDay}}" followup="{{getCauseFollowupByDay currentDay participant.username}}") message 
+                                                                else
+                                                                    td.day.start -
+                                                                td.day.hide.hideableData {{getCauseComplianceByDay currentDay participant.username}}
+                                                                td.day.end.hide.hideableData(style="color: {{getCauseTimeDiffByDayColor currentDay participant.username}}") {{getCauseTimeDiffByDay currentDay participant.username}}
+                                                                
+                                                                if hasEffectValueByDay currentDay participant.username
+                                                                    td.day.start
+                                                                        {{getEffectValueByDay currentDay participant.username}} &nbsp;&nbsp;
+                                                                        if hasEffectFollowupByDay currentDay participant.username
+                                                                            i.material-icons.blue-text.expandCauseFollowup(user="{{participant.participantMap}}" id="effect-followup-{{participant.username}}-{{currentDay}}" followup="{{getEffectFollowupByDay currentDay participant.username}}") message
+                                                                else    
+                                                                    td.day.start -
+                                                                td.day.hide.hideableData {{getEffectComplianceByDay currentDay participant.username}}
+                                                                td.day.end.hide.hideableData(style="color: {{getEffectTimeDiffByDayColor currentDay participant.username}}") {{getEffectTimeDiffByDay currentDay participant.username}}
+                                                tbody
+                                                    tr.condition.light-blue-text.text-darken-4
+                                                        td(colspan="1000000") Experimental Condition
+                                                tbody
+                                                    each participant in getExperimentParticipantsExperimental
+                                                    
+                                                        tr
+                                                            td
+                                                                span.flag-icon(class="{{participant.flag}}")
+                                                            td {{participant.participantMap}}
+                                                            //- td.hidableCol Yes
+                                                            //- td.hidableCol Male
+                                                            td.hidableCol {{participant.galileo.city}}
+                                                            td.hidableCol.end {{participant.galileo.timezone}}
+                                                            
+                                                            each currentDay in getDays
+                                                                if hasCauseValueByDay currentDay participant.username
+                                                                    td.day.start
+                                                                        {{getCauseValueByDay currentDay participant.username}} &nbsp;&nbsp;
+                                                                        if hasCauseFollowupByDay currentDay participant.username
+                                                                            i.material-icons.blue-text.expandCauseFollowup(user="{{participant.participantMap}}" id="cause-followup-{{participant.username}}-{{currentDay}}" followup="{{getCauseFollowupByDay currentDay participant.username}}") message 
+                                                                else
+                                                                    td.day.start -
+                                                                td.day.hide.hideableData {{getCauseComplianceByDay currentDay participant.username}}
+                                                                td.day.end.hide.hideableData(style="color: {{getCauseTimeDiffByDayColor currentDay participant.username}}") {{getCauseTimeDiffByDay currentDay participant.username}}
+                                                                
+                                                                if hasEffectValueByDay currentDay participant.username
+                                                                    td.day.start
+                                                                        {{getEffectValueByDay currentDay participant.username}} &nbsp;&nbsp;
+                                                                        if hasEffectFollowupByDay currentDay participant.username
+                                                                            i.material-icons.blue-text.expandCauseFollowup(user="{{participant.participantMap}}" id="effect-followup-{{participant.username}}-{{currentDay}}" followup="{{getEffectFollowupByDay currentDay participant.username}}") message
+                                                                else    
+                                                                    td.day.start -
+                                                                td.day.hide.hideableData {{getEffectComplianceByDay currentDay participant.username}}
+                                                                td.day.end.hide.hideableData(style="color: {{getEffectTimeDiffByDayColor currentDay participant.username}}") {{getEffectTimeDiffByDay currentDay participant.username}}
+                                    else 
+                                        div.table-holder
+                                            table(style="font-size: 16px;")
+                                                thead        
+                                                    tr.top
+                                                        td.end(colspan="4" id="hide-first-cell") 
+                                                            a.waves-effect.waves-light.btn.light-blue(style="padding-right:15px; padding-left:15px; font-size:9pt; height:30px; top: 0px" id="hide-show-rows") HIDE USER INFO
+                                                        each currentDay in getDays
+                                                            td.end.hideableDay.center-align(colspan="2" style="font-size: 30px") Day {{currentDay}}
+                                                    tr.top
+                                                        td.end#hide-second-cell(colspan="4")
+                                                            a.waves-effect.waves-light.btn.light-blue(style="padding-right:15px; padding-left:15px; font-size:9pt; height:30px; top: 0px" id="hide-show-details") MORE DETAILS
+                                                        each currentDay in getDays
+                                                            td.end(colspan="1" style="font-size: 25px").hide-cause Cause
+                                                                i.material-icons.blue-text#cause_msg phone_iphone
+                                                            td.end(colspan="1" style="font-size: 25px").hide-effect Effect
+                                                                i.material-icons.blue-text#effect_msg phone_iphone
+                                                    tr.top
+                                                        td(style="font-size: 20px") Ctry
+                                                        td(style="font-size: 20px") Participant
+                                                        //- td.hidableCol Survey
+                                                        //- td.hidableCol Gender
+                                                        td.hidableCol(style="font-size: 20px") Location
+                                                        td.hidableCol.end(style="font-size: 20px") Timezone
+                                                            br
+                                                            span (rel. to GMT)
+                                                        each currentDay in getDays
+                                                            td(style="font-size: 20px") Value
+                                                                span
+                                                                    a#valueInfo(href="#")
+                                                                                i.fa.fa-question-circle
+                                                            td.hide.hideableData(style="font-size: 20px") Adherance
+                                                                span
+                                                                    a#adheranceInfo(href="#")
+                                                                                i.fa.fa-question-circle
+                                                            td.hide.hideableData.end(style="font-size: 20px") Time 
+                                                                br 
+                                                                | Diff
+                                                                span
+                                                                    a#timeDiffInfo(href="#")
+                                                                                i.fa.fa-question-circle
+                                                            td(style="font-size: 20px") Value
+                                                                span
+                                                                    a#valueInfo(href="#")
+                                                                                i.fa.fa-question-circle
+                                                            td.hide.hideableData(style="font-size: 20px") Adherance
+                                                                span
+                                                                    a#adheranceInfo(href="#")
+                                                                                i.fa.fa-question-circle
+                                                            td.hide.hideableData.end(style="font-size: 20px") Time 
+                                                                br 
+                                                                | Diff
+                                                                span
+                                                                    a#timeDiffInfo(href="#")
+                                                                                i.fa.fa-question-circle
+                                                tbody
+                                                    each participant in getExperimentParticipants
+                                                    
+                                                        tr
+                                                            td
+                                                                span.flag-icon(class="{{participant.flag}}")
+                                                            td {{participant.username}}
+                                                            //- td.hidableCol Yes
+                                                            //- td.hidableCol Male
+                                                            td.hidableCol {{participant.galileo.city}}
+                                                            td.hidableCol.end {{participant.galileo.timezone}}
+                                                            
+                                                            each currentDay in getDays
+                                                                if hasCauseValueByDay currentDay participant.username
+                                                                    td.day.start
+                                                                        {{getCauseValueByDay currentDay participant.username}} &nbsp;&nbsp;
+                                                                        if hasCauseFollowupByDay currentDay participant.username
+                                                                            i.material-icons.blue-text.expandCauseFollowup(user="{{participant.username}}" id="cause-followup-{{participant.username}}-{{currentDay}}" followup="{{getCauseFollowupByDay currentDay participant.username}}") message 
+                                                                else
+                                                                    td.day.start -
+                                                                td.day.hide.hideableData {{getCauseComplianceByDay currentDay participant.username}}
+                                                                td.day.end.hide.hideableData(style="color: {{getCauseTimeDiffByDayColor currentDay participant.username}}") {{getCauseTimeDiffByDay currentDay participant.username}}
+                                                                
+                                                                if hasEffectValueByDay currentDay participant.username
+                                                                    td.day.start
+                                                                        {{getEffectValueByDay currentDay participant.username}} &nbsp;&nbsp;
+                                                                        if hasEffectFollowupByDay currentDay participant.username
+                                                                            i.material-icons.blue-text.expandCauseFollowup(user="{{participant.username}}" id="effect-followup-{{participant.username}}-{{currentDay}}" followup="{{getEffectFollowupByDay currentDay participant.username}}") message
+                                                                else    
+                                                                    td.day.start -
+                                                                td.day.hide.hideableData {{getEffectComplianceByDay currentDay participant.username}}
+                                                                td.day.end.hide.hideableData(style="color: {{getEffectTimeDiffByDayColor currentDay participant.username}}") {{getEffectTimeDiffByDay currentDay participant.username}}
+                                                                    
+                        else if statusAnalysisFinished
+                            if isCreator
+                                div#status-description
+                                    p Here is the analysis of your experiment!
+                                    p {{getAnalysis.results.title}}
+                                    p
+                                        img(src="{{getAnalysis.results.graph}}" style="height: auto; width: 50%;")
+                                        
+                            else if notCreator
+                                div#status-description
+                                    p Here is the analysis of your experiment!
+                                    p {{getAnalysis.results.title}}
+                                    p
+                                        img(src="{{getAnalysis.results.graph}}" style="height: auto; width: 50%;")
+                            
+            //section
+                h5.section-header Overall Information
+                ul
+                    li Creator: #{username}
+                    li Created on: #{createDate}
+                    li Current Version: #{version}
+                    li Current Status: #{statusStr}
+                    li Feedback User Amount: #{feedbackUserAmount}
+                    li Pilot Amount: #{pilotAmount}
+                    
+            if experimentRunStageGuard
+                br
+            else
+                section#ga-me-exp-participants
+                    if experimentParticipantsGuard
+                        h6 Your experiment does not have any participants. Invite your friends now!
+
+                    else 
+                        if isCreator
+                            if hasNewClarification
+                                div.row
+                                    span You have unanswered clarification questions
+                                div.row
+                                    button.clarificationCreatorModal(class='waves-effect waves-light btn light-blue') Respond Now
+                        h5.section-header Experiment Participants                            
+                            if isCreator
+                                div.table-holder
+                                    table(style="font-size: 16px;")
+                                        thead        
+                                            tr.top
+                                                td.end(colspan="4" id="hide-first-cell") 
+                                                    a.waves-effect.waves-light.btn.light-blue(style="padding-right:15px; padding-left:15px; font-size:9pt; height:30px; top: 0px" id="hide-show-rows") HIDE USER INFO
+                                                each currentDay in getDays
+                                                    td.end.hideableDay.center-align(colspan="2" style="font-size: 30px") Day {{currentDay}}
+                                            tr.top
+                                                td.end#hide-second-cell(colspan="4")
+                                                    a.waves-effect.waves-light.btn.light-blue(style="padding-right:15px; padding-left:15px; font-size:9pt; height:30px; top: 0px" id="hide-show-details") MORE DETAILS
+                                                each currentDay in getDays
+                                                    td.end(colspan="1" style="font-size: 25px").hide-cause Cause
+                                                        i.material-icons.blue-text#cause_msg phone_iphone
+                                                    td.end(colspan="1" style="font-size: 25px").hide-effect Effect
+                                                        i.material-icons.blue-text#effect_msg phone_iphone
+                                            tr.top
+                                                td(style="font-size: 20px") Ctry
+                                                td(style="font-size: 20px") Participant
+                                                //- td.hidableCol Survey
+                                                //- td.hidableCol Gender
+                                                td.hidableCol(style="font-size: 20px") Location
+                                                td.hidableCol.end(style="font-size: 20px") Timezone
+                                                    br
+                                                    span (rel. to GMT)
+                                                each currentDay in getDays
+                                                    td(style="font-size: 20px") Value
+                                                        span
+                                                            a#valueInfo(href="#")
+                                                                        i.fa.fa-question-circle
+                                                    td.hide.hideableData(style="font-size: 20px") Adherance
+                                                        span
+                                                            a#adheranceInfo(href="#")
+                                                                        i.fa.fa-question-circle
+                                                    td.hide.hideableData.end(style="font-size: 20px") Time 
+                                                        br 
+                                                        | Diff
+                                                        span
+                                                            a#timeDiffInfo(href="#")
+                                                                        i.fa.fa-question-circle
+                                                    td(style="font-size: 20px") Value
+                                                        span
+                                                            a#valueInfo(href="#")
+                                                                        i.fa.fa-question-circle
+                                                    td.hide.hideableData.end(style="font-size: 20px") Time 
+                                                        br 
+                                                        | Diff
+                                                        span
+                                                            a#timeDiffInfo(href="#")
+                                                                        i.fa.fa-question-circle
+                                            tr.condition.light-blue-text.text-darken-4
+                                                td(colspan="1000000") Control Condition
+                                        tbody
+                                            each participant in getExperimentParticipantsControl
+                                            
+                                                tr
+                                                    td
+                                                        span.flag-icon(class="{{participant.flag}}")
+                                                    td {{participant.participantMap}}
+                                                    //- td.hidableCol Yes
+                                                    //- td.hidableCol Male
+                                                    td.hidableCol {{participant.galileo.city}}
+                                                    td.hidableCol.end {{participant.galileo.timezone}}
+                                                    
+                                                    each currentDay in getDays
+                                                        if hasCauseValueByDay currentDay participant.username
+                                                            td.day.start
+                                                                {{getCauseValueByDay currentDay participant.username}} &nbsp;&nbsp;
+                                                                if hasCauseFollowupByDay currentDay participant.username
+                                                                    i.material-icons.blue-text.expandCauseFollowup(user="{{participant.participantMap}}" id="cause-followup-{{participant.username}}-{{currentDay}}" followup="{{getCauseFollowupByDay currentDay participant.username}}") message 
+                                                        else if notRespondCause currentDay participant.username
+                                                            td.day.start(style="color: red") -
+                                                        else
+                                                            td.day.start -
+                                                        td.day.hide.hideableData {{getCauseComplianceByDay currentDay participant.username}}
+                                                        td.day.end.hide.hideableData(style="color: {{getCauseTimeDiffByDayColor currentDay participant.username}}") {{getCauseTimeDiffByDay currentDay participant.username}}
+                                                        
+                                                        if hasEffectValueByDay currentDay participant.username
+                                                            td.day.start
+                                                                {{getEffectValueByDay currentDay participant.username}} &nbsp;&nbsp;
+                                                                if hasEffectFollowupByDay currentDay participant.username
+                                                                    i.material-icons.blue-text.expandCauseFollowup(user="{{participant.participantMap}}" id="effect-followup-{{participant.username}}-{{currentDay}}" followup="{{getEffectFollowupByDay currentDay participant.username}}") message
+                                                        else if notRespondEffect currentDay participant.username
+                                                            td.day.start(style="color: red") -
+                                                        else if notRespondEffect currentDay participant.username
+                                                            td.day.start(style="color: red") -
+                                                        else    
+                                                            td.day.start -
+                                                        td.day.end.hide.hideableData(style="color: {{getEffectTimeDiffByDayColor currentDay participant.username}}") {{getEffectTimeDiffByDay currentDay participant.username}}
+                                        tbody
+                                            tr.condition.light-blue-text.text-darken-4
+                                                td(colspan="1000000") Experimental Condition
+                                        tbody
+                                            each participant in getExperimentParticipantsExperimental
+                                            
+                                                tr
+                                                    td
+                                                        span.flag-icon(class="{{participant.flag}}")
+                                                    td {{participant.participantMap}}
+                                                    //- td.hidableCol Yes
+                                                    //- td.hidableCol Male
+                                                    td.hidableCol {{participant.galileo.city}}
+                                                    td.hidableCol.end {{participant.galileo.timezone}}
+                                                    
+                                                    each currentDay in getDays
+                                                        if hasCauseValueByDay currentDay participant.username
+                                                            td.day.start
+                                                                {{getCauseValueByDay currentDay participant.username}} &nbsp;&nbsp;
+                                                                if hasCauseFollowupByDay currentDay participant.username
+                                                                    i.material-icons.blue-text.expandCauseFollowup(user="{{participant.participantMap}}" id="cause-followup-{{participant.username}}-{{currentDay}}" followup="{{getCauseFollowupByDay currentDay participant.username}}") message 
+                                                        else if notRespondCause currentDay participant.username
+                                                            td.day.start(style="color: red") -
+                                                        else
+                                                            td.day.start -
+                                                        td.day.hide.hideableData {{getCauseComplianceByDay currentDay participant.username}}
+                                                        td.day.end.hide.hideableData(style="color: {{getCauseTimeDiffByDayColor currentDay participant.username}}") {{getCauseTimeDiffByDay currentDay participant.username}}
+                                                        
+                                                        if hasEffectValueByDay currentDay participant.username
+                                                            td.day.start
+                                                                {{getEffectValueByDay currentDay participant.username}} &nbsp;&nbsp;
+                                                                if hasEffectFollowupByDay currentDay participant.username
+                                                                    i.material-icons.blue-text.expandCauseFollowup(user="{{participant.participantMap}}" id="effect-followup-{{participant.username}}-{{currentDay}}" followup="{{getEffectFollowupByDay currentDay participant.username}}") message
+                                                        else if notRespondEffect currentDay participant.username
+                                                            td.day.start(style="color: red") -
+                                                        else    
+                                                            td.day.start -
+                                                        td.day.end.hide.hideableData(style="color: {{getEffectTimeDiffByDayColor currentDay participant.username}}") {{getEffectTimeDiffByDay currentDay participant.username}}
+                            else 
+                                div.table-holder
+                                    table(style="font-size: 16px;")
+                                        thead        
+                                            tr.top
+                                                td.end(colspan="4" id="hide-first-cell") 
+                                                    a.waves-effect.waves-light.btn.light-blue(style="padding-right:15px; padding-left:15px; font-size:9pt; height:30px; top: 0px" id="hide-show-rows") HIDE USER INFO
+                                                each currentDay in getDays
+                                                    td.end.hideableDay.center-align(colspan="2" style="font-size: 30px") Day {{currentDay}}
+                                            tr.top
+                                                td.end#hide-second-cell(colspan="4")
+                                                    a.waves-effect.waves-light.btn.light-blue(style="padding-right:15px; padding-left:15px; font-size:9pt; height:30px; top: 0px" id="hide-show-details") MORE DETAILS
+                                                each currentDay in getDays
+                                                    td.end(colspan="1" style="font-size: 25px").hide-cause Cause
+                                                        i.material-icons.blue-text#cause_msg phone_iphone
+                                                    td.end(colspan="1" style="font-size: 25px").hide-effect Effect
+                                                        i.material-icons.blue-text#effect_msg phone_iphone
+                                            tr.top
+                                                td(style="font-size: 20px") Ctry
+                                                td(style="font-size: 20px") Participant
+                                                //- td.hidableCol Survey
+                                                //- td.hidableCol Gender
+                                                td.hidableCol(style="font-size: 20px") Location
+                                                td.hidableCol.end(style="font-size: 20px") Timezone
+                                                    br
+                                                    span (rel. to GMT)
+                                                each currentDay in getDays
+                                                    td(style="font-size: 20px") Value
+                                                        span
+                                                            a#valueInfo(href="#")
+                                                                        i.fa.fa-question-circle
+                                                    td.hide.hideableData(style="font-size: 20px") Adherance
+                                                        span
+                                                            a#adheranceInfo(href="#")
+                                                                        i.fa.fa-question-circle
+                                                    td.hide.hideableData.end(style="font-size: 20px") Time 
+                                                        br 
+                                                        | Diff
+                                                        span
+                                                            a#timeDiffInfo(href="#")
+                                                                        i.fa.fa-question-circle
+                                                    td(style="font-size: 20px") Value
+                                                        span
+                                                            a#valueInfo(href="#")
+                                                                        i.fa.fa-question-circle
+                                                    td.hide.hideableData.end(style="font-size: 20px") Time 
+                                                        br 
+                                                        | Diff
+                                                        span
+                                                            a#timeDiffInfo(href="#")
+                                                                        i.fa.fa-question-circle
+                                        tbody
+                                            each participant in getExperimentParticipants
+                                            
+                                                tr
+                                                    td
+                                                        span.flag-icon(class="{{participant.flag}}")
+                                                    td {{participant.username}}
+                                                    //- td.hidableCol Yes
+                                                    //- td.hidableCol Male
+                                                    td.hidableCol {{participant.galileo.city}}
+                                                    td.hidableCol.end {{participant.galileo.timezone}}
+                                                    
+                                                    each currentDay in getDays
+                                                        if hasCauseValueByDay currentDay participant.username
+                                                            td.day.start
+                                                                {{getCauseValueByDay currentDay participant.username}} &nbsp;&nbsp;
+                                                                if hasCauseFollowupByDay currentDay participant.username
+                                                                    i.material-icons.blue-text.expandCauseFollowup(user="{{participant.username}}" id="cause-followup-{{participant.username}}-{{currentDay}}" followup="{{getCauseFollowupByDay currentDay participant.username}}") message 
+                                                        else if notRespondCause currentDay participant.username
+                                                            td.day.start(style="color: red") -
+                                                        else
+                                                            td.day.start -
+                                                        td.day.hide.hideableData {{getCauseComplianceByDay currentDay participant.username}}
+                                                        td.day.end.hide.hideableData(style="color: {{getCauseTimeDiffByDayColor currentDay participant.username}}") {{getCauseTimeDiffByDay currentDay participant.username}}
+                                                        
+                                                        if hasEffectValueByDay currentDay participant.username
+                                                            td.day.start
+                                                                {{getEffectValueByDay currentDay participant.username}} &nbsp;&nbsp;
+                                                                if hasEffectFollowupByDay currentDay participant.username
+                                                                    i.material-icons.blue-text.expandCauseFollowup(user="{{participant.username}}" id="effect-followup-{{participant.username}}-{{currentDay}}" followup="{{getEffectFollowupByDay currentDay participant.username}}") message
+                                                        else if notRespondEffect currentDay participant.username
+                                                            td.day.start(style="color: red") -
+                                                        else    
+                                                            td.day.start -
+                                                        td.day.end.hide.hideableData(style="color: {{getEffectTimeDiffByDayColor currentDay participant.username}}") {{getEffectTimeDiffByDay currentDay participant.username}}

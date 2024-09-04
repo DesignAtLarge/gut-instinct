@@ -1,0 +1,29 @@
+template(name="gaCountParticipantModal")
+    div.modal(id="count-participant-modal")
+        div(style="color:rgba(0,0,0,.54);background:rgba(0,0,0,.03); padding:15px;")
+            h4.left-align
+                | How Many Participants Do I Need?
+
+        div.modal-content
+            
+            div.row
+                h5 This is called "Power Analysis". Power analysis is an important aspect of experimental design. It allows us to determine the sample size required to detect an effect of a given size with a given degree of confidence.
+                
+                div Enter the probability of finding an effect that is not there: 
+                    .input-field.inline
+                        input#input_item_1(type='number' class="input_calculate")
+                        label(for='input_item_1') (range: 0 to 1.0)
+                        
+                div Enter the probability of finding an effect that is there: 
+                    .input-field.inline
+                        input#input_item_2(type='number' class="input_calculate")
+                        label(for='input_item_2') (range: 0 to 1.0)
+                
+                div Enter the effect size
+                    .input-field.inline
+                        input#input_item_3(type='number' class="input_calculate")
+                        label(for='input_item_3') 
+
+                a.btn.light-blue.darken-4#calculate-sample-btn(href="#" class="disabled") Calculate Sample Size
+        div.modal-footer        
+            a.gray-text(class="modal-action modal-close btn-flat") Cancel

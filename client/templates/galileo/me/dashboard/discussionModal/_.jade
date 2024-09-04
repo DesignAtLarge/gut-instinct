@@ -1,0 +1,42 @@
+template(name="gaDiscussionModal")
+    div.modal.discussModal(id="discussion-modal")
+
+        div(style="color:rgba(0,0,0,.54);background:rgba(0,0,0,.03); padding:15px;")
+            h4.left-align
+                | Discussion of the end of the experiment
+                br
+                span.blue-text.text-darken-2#title-discussion(style="font-size: 25px")
+
+        div.modal-content
+            div.card(style='padding: 15px') 
+                span(style="font-size: 20px")
+                    |  Discuss your experience participating in the experiment: How can we improve this experiment? What did you find useful? What was difficult? How can the creator improve?
+
+            each c in getDiscussion
+                    div
+                        div.card(style='padding:15px; margin: 2px 2px 2px 2px')
+                            a {{c.author_name}}: &nbsp;
+                            span {{c.post}}
+                            p(style="margin: 0px;") {{c.create_time}}
+
+                        each r in c.responses
+                            div.card(style="padding:15px; margin: 2px 2px 2px 30px")
+                                a {{r.author_name}}: &nbsp;
+                                span {{r.post}}
+                                p(style="margin: 0px;") {{r.create_time}}
+
+                    div(class='card-content layer-1' style="margin: 10px 0px 0px 30px;")
+                        textarea(id="textarea-discussion-{{c.index}}" placeholder="Add comment")
+                        button.btn.light-blue.comment(style="margin-bottom: -100px," exp-id="{{expId}}" index="{{c.index}}") Add Comment
+
+                    div.divider(style="margin: 20px;")
+            
+            span(style="font-size: 16px") #[b Start a new thread]
+            br
+            br
+            div(class='card-content layer-1')
+                textarea(id="textarea-new-thread" placeholder="How can we improve this experiment? What did you find useful? What was difficult? How can the creator improve?")
+                button.btn.light-blue#newThread( style="margin-bottom: -100px," exp-id="{{expId}}" exp-creator-id="{{getExpCreatorId}}") Start a New Discussion
+
+        div.modal-footer
+            a.gray-text(class="modal-action modal-close btn-flat") Close

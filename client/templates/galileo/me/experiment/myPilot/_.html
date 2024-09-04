@@ -1,0 +1,52 @@
+<template name="gaMeExperimentMyPilot">
+    {{> gaMeExperimentMaster id=id section=section}}
+
+    {{#if isLoaded}}
+        <h5 class="section-header">My Pilot Data Tracking</h5>
+        <p class="light-blue-text text-darken-4">{{startDate}} - {{endDate}}</p>
+        <p>
+            {{group}}:
+            <span class="light-blue-text text-darken-4">{{condition}}</span>
+        </p>
+        <p>You need to perform these steps every day:</p>
+        <ol>
+            {{#each steps}}
+                <li class="light-blue-text text-darken-4">{{this}}</li>
+            {{/each}}
+        </ol>
+
+        {{#if canGivePilotFeedeback}}
+            <a class="btn light-blue" href="{{feedbackPilotLink}}">Give Pilot Feedback</a>
+        {{/if}}
+
+        <h5 class="section-header">Pilot Tracking Sheet</h5>
+        <table class="tracking-sheet" style="font-weight: 100">
+            <thead>
+                <tr>
+                    <td>Date</td>
+                    <td>
+                        Cause
+                        <br>
+                        <span class="light-blue-text text-darken-4">{{causeType}}</span>
+                    </td>
+                    <td>
+                        Effect
+                        <br>
+                        <span class="light-blue-text text-darken-4">{{effectType}}</span>
+                    </td>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each slots}}
+                    <tr>
+                        <td>{{date}}</td>
+                        <td class="light-blue-text text-darken-4">{{{cause}}}</td>
+                        <td class="light-blue-text text-darken-4">{{{effect}}}</td>
+                    </tr>
+                {{/each}}
+            </tbody>
+        </table>
+    {{else}}
+        <p>Loading ...</p>
+    {{/if}}
+</template>

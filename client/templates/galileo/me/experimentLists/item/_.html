@@ -1,0 +1,19 @@
+<template name="gaExperimentItem">
+    <a class="experiment" id="{{id}}" href="">
+        <div class="left">
+            <div class="title">
+                {{experimentObjective}}
+                {{#if isCompleted}}
+                    <span class="completed">Completed</span>
+                {{/if}}
+            </div>
+            <div class="info">
+                <span>Created by
+                    <a class="username" href="">{{username}}</a>
+                    <span class="date">{{livestamp date}}</span>
+                </span>
+            </div>
+        </div>
+        <div class="right"></div>
+    </a>
+</template>

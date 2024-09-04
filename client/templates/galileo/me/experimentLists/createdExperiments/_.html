@@ -1,0 +1,22 @@
+<template name="gaMeCreatedExperiments">
+    {{> gaNavbar}}
+    {{> gaMeSidebar}}
+    <main id="ga-me-main">
+        <h3>Created Experiments
+            <a class="btn light-blue" href="/galileo/createdemo" style="float: right;">Design an Experiment</a>
+        </h3>
+        <div id="experiment-list" style="margin-top: 30px;">
+            {{#if isLoaded}}
+            {{#if exps.length}}
+            {{#each exps}}
+            {{> gaExperimentItem exp=this}}
+            {{/each}}
+            {{else}}
+            <p>No Experiments</p>
+            {{/if}}
+            {{else}}
+            <p>Loading ...</p>
+            {{/if}}
+        </div>
+    </main>
+</template>

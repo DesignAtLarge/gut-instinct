@@ -1,0 +1,33 @@
+template(name="gaRequestAnalysisModal")
+    div.modal(id="request-analysis-modal")
+        div(style="color:rgba(0,0,0,.54);background:rgba(0,0,0,.03); padding:15px;")
+            h4.left-align
+                | Send Data Analysis Request To Galileo
+        div.modal-content.reminder-stats(style="margin-right: -200px; width: 100%")
+            div.card(style="height: calc(100% - 123px);")
+                div(style="padding:10px 10px 5px 10px;")
+                    p(style='font-size: 20px; font-weight: 400;') Send a data analysis request to Galileo
+                        
+                div.divider(style="margin-bottom:10px;")
+                    
+                div(style="padding:0px; margin-right: 0px;")
+                    div
+                        p(style="margin-left: 16px;"): b Message:
+                        div#request-text-box(contenteditable="false" style="padding:10px; margin-left:5px; overflow-x: scroll; height: calc(100% - 123px)" )
+                            | Placeholder
+                            br
+                            br
+                            
+
+                div.divider(style="margin-bottom:10px;")
+                div(style="margin: 10px").row
+                    .col.s4
+                        i.material-icons.edit-design-btn#edit-request mode_edit
+                            p(style="font-family:'Lato', sans-serif; font-size:15px; margin:5px; float:right; font-weight:600") Edit message
+                        i.material-icons.edit-design-btn.accept.hide#accept-edit-request check
+                            p(style="font-family:'Lato', sans-serif; font-size:15px; margin:5px; float:right; font-weight:600") Save
+                        i.material-icons.edit-design-btn.cancel.hide#cancel-edit-request clear
+                            p(style="font-family:'Lato', sans-serif; font-size:15px; margin:5px; float:right; font-weight:600") Cancel
+                    .col.s8.right-align
+                        a.blue-text#sendRequest(class="modal-action modal-close btn-flat") Request Data Analysis
+                        a.gray-text(class="modal-action modal-close btn-flat") Close                

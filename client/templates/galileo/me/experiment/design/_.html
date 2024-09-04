@@ -1,0 +1,9 @@
+<template name="gaMeExperimentDesign">
+  {{> gaMeExperimentMaster id=this.id section=this.section}}
+  <h5 class="section-header">Experiment Design</h5>
+  {{> gaExperimentDesign allowFeedback=true designId=this.designId allowEdits=true}}
+
+  <br>
+  <h5 class="section-header">Overall Review of Experiment</h5>
+  {{> gaExperimentFeedbackList expId=this.id}}
+</template>

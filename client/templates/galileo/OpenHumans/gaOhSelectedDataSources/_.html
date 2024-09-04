@@ -1,0 +1,24 @@
+<template name="gaOhSelectedDataSources">
+  {{#if ohDataSources}}
+  <br>
+  <div id="ohDataSourceNames-{{idSuffix}}" class="ohDataSourceNames">
+    {{#if hasDataSources}}
+    {{#each ohDataSources}}
+    <div class="oh-item selected" style="display:flex;align-items:center;float:left; margin-left:5px;">
+      <img src="/images/galileo/open-humans/data-source-logos/{{imgName}}" style="height:30px; margin: 0 5px 5px 0;"
+        onerror="this.style.display='none'">
+      <span>{{title}}</span>
+    </div>
+    {{/each}}
+    {{else}}
+    <div class="oh-item selected" style="display:flex;align-items:center;float:left; margin-left:5px;">
+      <span>no Open Humans data selected</span>
+    </div>
+    {{/if}}
+
+    {{#unless viewOnly}}
+    <i class="material-icons edit-design-btn" style="margin-top:10px;float:left;">mode_edit</i>
+    {{/unless}}
+  </div>
+  {{/if}}
+</template>

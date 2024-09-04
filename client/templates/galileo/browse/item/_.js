@@ -14,8 +14,8 @@ Template.gaExperimentBoardItem.onCreated(function () {
 
     this.exp = new ReactiveVar(inst.data.exp);
     this.userflag = new ReactiveVar();
-    this.reviewerFlags = new ReactiveArray();
-    this.participantsInfo = new ReactiveArray();
+    this.reviewerFlags = new ReactiveVar([]);
+    this.participantsInfo = new ReactiveVar([]);
     this.isPilot = new ReactiveVar(false);
     this.isFeedbacking = new ReactiveVar(false);
     this.isParticipant = new ReactiveVar(false);

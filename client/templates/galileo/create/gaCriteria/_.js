@@ -8,8 +8,8 @@ import {
 Template.gaCriteria.rendered = function() {};
 
 Template.gaCriteria.onCreated(function() {
-    this.inclusionCriteria = new ReactiveArray();
-    this.exclusionCriteria = new ReactiveArray();
+    this.inclusionCriteria = new ReactiveVar([]);
+    this.exclusionCriteria = new ReactiveVar([]);
 
 });
 

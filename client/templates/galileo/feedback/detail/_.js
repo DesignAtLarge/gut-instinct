@@ -18,9 +18,9 @@ Template.gaExperimentFeedbackDetail.onCreated(function() {
     // console.log("rendering with expId... " + inst.data.expId)
 
     // Main data
-    inst.feedbacks = new ReactiveArray();
-    inst.checklist = new ReactiveArray();
-    inst.suggestions = new ReactiveArray();
+    inst.feedbacks = new ReactiveVar([]);
+    inst.checklist = new ReactiveVar([]);
+    inst.suggestions = new ReactiveVar([]);
     inst.exp = new ReactiveVar();
     inst.canReviewAdmin = new ReactiveVar(undefined);
     inst.hasRelatedWork = new ReactiveVar(true);

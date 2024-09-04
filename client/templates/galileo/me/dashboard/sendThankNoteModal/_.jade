@@ -1,0 +1,86 @@
+template(name="gaSendThankNoteModal")
+    div.modal(id="send-thank-note-modal")
+        div(style="color:rgba(0,0,0,.54);background:rgba(0,0,0,.03); padding:15px;")
+            h4.left-align
+                | Send thank-you-note to all participants
+        div.modal-content.reminder-stats(style="margin-right: -200px; width: 100%")
+            div.card(style="height: calc(100% - 123px);")
+                div(style="padding:10px 10px 5px 10px;")
+                    +gaEmailDropdown(id="thank-email")
+                        
+                div.divider(style="margin-bottom:10px;")
+                    
+                div(style="padding:0px; margin-right: 0px;")
+                    div
+                        p(style="margin-left: 16px;"): #[b Hello Participant] (username of participant will be here when sending actual email):
+                
+                        div#thank-text-box(contenteditable="false" style="padding:10px; margin-left:5px; overflow-x: scroll; height: calc(100% - 123px)" )
+                            | Thank you for participating in my experiment! I appreciate your help toward answering the question 
+                            span "{{title}}"
+                            br
+                        
+                        p(style="margin-left: 16px;")
+                            table(style='width: 50%;')
+                                tbody
+                                    tr
+                                        td(style='padding-right: 10px;')
+                                            p(style='width: 48px; line-height: 40px; border-radius: 100%; text-align: center; font-size: 32px; border: 4px solid #2196f3; margin: auto;')
+                                              | 1
+                                        td
+                                            br
+                                            span(style='color:#000000; font-size:16px; text-align:left; font-family: Verdana, Geneva, sans-serif; line-height:22px ')  Review your participants data here
+                                            br
+                                            table(border='0', align='left', cellpadding='0', cellspacing='0', style='Margin:0 auto;')
+                                                tbody
+                                                    tr
+                                                        td(align='center')
+                                                            table(border='0', cellpadding='0', cellspacing='0', style='Margin:0 auto;')
+                                                                tbody
+                                                                    tr
+                                                                        td(width='100', height='30', align='center', bgcolor='#1f3ca6', style='-moz-border-radius: 30px; -webkit-border-radius: 30px; border-radius: 30px;')
+                                                                            a.button_link(style='width:100; display:block; text-decoration:none; border:0; text-align:center; font-weight:bold;font-size:16px; font-family: Arial, sans-serif; color: #ffffff')
+                                                                                | Review your data 
+                                                                                img(src='https://gallery.mailchimp.com/fdcaf86ecc5056741eb5cbc18/images/582dc751-b0fc-4769-ad74-35932c7594dd.png', width='32', height='17', style='padding-top:5px', alt='', border='0')
+                                    tr(style="margin-top: -30px")
+                                        td(style='padding-right: 10px;')
+                                            p(style='width: 48px; line-height: 40px; border-radius: 100%; text-align: center; font-size: 32px; border: 4px solid #2196f3; margin: auto;')
+                                              | 2
+                                        td
+                                            br
+                                            span(style='color:#000000; font-size:16px; text-align:left; font-family: Verdana, Geneva, sans-serif; line-height:22px ')  Share your experience with me and other participants
+                                            br
+                                            table(border='0', align='left', cellpadding='0', cellspacing='0', style='Margin:0 auto;')
+                                                tbody
+                                                    tr
+                                                        td(align='center')
+                                                            table(border='0', cellpadding='0', cellspacing='0', style='Margin:0 auto;')
+                                                                tbody
+                                                                    tr
+                                                                    tr(style='margin:10px')
+                                                                        td(width='100', height='30', align='center', bgcolor='#1f3ca6', style='-moz-border-radius: 30px; -webkit-border-radius: 30px; border-radius: 30px;')
+                                                                            a.button_link(style='width:10; display:block; text-decoration:none; border:0; text-align:center; font-weight:bold;font-size:16px; font-family: Arial, sans-serif; color: #ffffff')
+                                                                                | Discuss your experience 
+                                                                                img(src='https://gallery.mailchimp.com/fdcaf86ecc5056741eb5cbc18/images/582dc751-b0fc-4769-ad74-35932c7594dd.png', width='32', height='17', style='padding-top:5px', alt='', border='0')                    
+                                
+                                    //- tr
+                                    //-     td
+                                    //-         p(style="width: 100px;"): b Best Regards,
+                                    //-             br
+                                    //-             | {{username}}
+                        div#name-box(contenteditable="false" style="padding:10px; margin-left:5px; overflow-x: scroll; height: calc(100% - 123px)" )
+                            | #[b Best Regards,]
+                            br
+                            | {{username}}
+                            
+                div.divider(style="margin-bottom:10px;")
+                div(style="margin: 10px").row
+                    .col.s4
+                        i.material-icons.edit-design-btn#edit-thank mode_edit
+                            p(style="font-family:'Lato', sans-serif; font-size:15px; margin:5px; float:right; font-weight:600") Edit message
+                        i.material-icons.edit-design-btn.accept.hide#accept-edit-thank check
+                            p(style="font-family:'Lato', sans-serif; font-size:15px; margin:5px; float:right; font-weight:600") Save
+                        i.material-icons.edit-design-btn.cancel.hide#cancel-edit-thank clear
+                            p(style="font-family:'Lato', sans-serif; font-size:15px; margin:5px; float:right; font-weight:600") Cancel
+                    .col.s8.right-align
+                        a.blue-text#sendThank(class="modal-action modal-close btn-flat") Send Thank You Note
+                        a.gray-text(class="modal-action modal-close btn-flat") Close                

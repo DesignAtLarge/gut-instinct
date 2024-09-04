@@ -1,0 +1,83 @@
+<template name="gaJoinCriteria">
+    {{> gaNavbar}}
+    <main id="ga-main">
+      <div id="sign-in-modal" class="modal">
+        <div class="modal-content">
+          <h4>Please sign in to continue</h4>
+        </div>
+        <div class="modal-footer">
+          <a id="sign-in" class="blue-text modal-action modal-close btn-flat" href="#">Sign In</a>
+          <a class="gray-text modal-action modal-close btn-flat" href="#">Cancel</a>
+        </div>
+      </div>
+  
+      {{> phoneModal 
+        incompleteEmail=incompleteEmail 
+        incompleteUsername=incompleteUsername}}
+  
+      <div id="error-modal" class="modal" style="padding: 20px;">
+        <div class="modal-content">
+          <h4>Oops, something went wrong</h4>
+          <p id="error-message" style="font-size: 20px; font-weight: 100;">Text will be replaced by jQuery</p>
+        </div>
+        <div class="modal-footer">
+          <a class="blue-text modal-action modal-close btn-flat" href="/galileo/browse">View Other Experiments</a>
+          <a class="gray-text modal-action modal-close btn-flat" href="#">Cancel</a>
+        </div>
+      </div>
+  
+      <div class="wrapper">
+        <h4 class="board-header">
+          You've been invited to join an experiment that attempts to answer the question:
+          <br>
+          <br>
+          <span class="blue-text">{{experimentTitle}}</span>
+        </h4>
+  
+        <div class="body" style="font-size: 20px !important; padding: 10px 30px;">
+          <ul class="card" style="padding: 30px 30px 30px 60px;">
+            <h5>Find out if you meet the criteria to join this experiment</h5>
+            <br>
+            <div>
+              <b>Please select all the items that apply to you.</b>
+              <span>These criteria give a sense of what may occur in the experiment.</span>
+            </div>
+  
+            {{#if isCriteriaLoading}}
+              <p>Loading ...</p>
+            {{else}}
+              <p>You:</p>
+              {{#each inclusion}}
+                <li>
+                  <input class="filled-in criteria-item checkbox-blue" type="checkbox" id="inc-criteria-{{index}}">
+                  <label for="inc-criteria-{{index}}">{{content}}</label>
+                </li>
+              {{/each}}
+  
+              <br>
+              {{#each exclusion}}
+                <li>
+                  <input class="filled-in criteria-item checkbox-blue" type="checkbox" id="exc-criteria-{{index}}">
+                  <label for="exc-criteria-{{index}}">{{content}}</label>
+                </li>
+              {{/each}}
+            {{/if}}
+  
+            <p>If you pass the eligibility criteria to participate in this experiment, then you will be automatically assigned to one of the conditions. Click next to know!</p>
+  
+            {{#if isSubmitLoading}}
+              <center>
+                <p>Submitting Criteria ...</p>
+              </center>
+            {{else}}
+              <center>
+                <a class="btn light-blue" id="back" href="#">Back</a>
+                <a class="btn light-blue" id="submit" href="#">Next</a>
+              </center>
+            {{/if}}
+          </ul>
+        </div>
+      </div>
+    </main>
+  </template>
+  

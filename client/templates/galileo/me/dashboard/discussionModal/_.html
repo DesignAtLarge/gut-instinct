@@ -1,0 +1,53 @@
+<template name="gaDiscussionModal">
+    <div class="modal discussModal" id="discussion-modal">
+        <div style="color:rgba(0,0,0,.54);background:rgba(0,0,0,.03); padding:15px;">
+            <h4 class="left-align">Discussion of the end of the experiment</h4>
+            <br>
+            <span class="blue-text text-darken-2" id="title-discussion" style="font-size: 25px;"></span>
+        </div>
+
+        <div class="modal-content">
+            <div class="card" style="padding: 15px;">
+                <span style="font-size: 20px;">
+                    Discuss your experience participating in the experiment: How can we improve this experiment? What did you find useful? What was difficult? How can the creator improve?
+                </span>
+            </div>
+
+            {{#each getDiscussion}}
+                <div>
+                    <div class="card" style="padding:15px; margin: 2px;">
+                        <a>{{author_name}}: &nbsp;</a>
+                        <span>{{post}}</span>
+                        <p style="margin: 0px;">{{create_time}}</p>
+                    </div>
+
+                    {{#each responses}}
+                        <div class="card" style="padding:15px; margin: 2px 2px 2px 30px;">
+                            <a>{{author_name}}: &nbsp;</a>
+                            <span>{{post}}</span>
+                            <p style="margin: 0px;">{{create_time}}</p>
+                        </div>
+                    {{/each}}
+
+                    <div class="card-content layer-1" style="margin: 10px 0px 0px 30px;">
+                        <textarea id="textarea-discussion-{{index}}" placeholder="Add comment"></textarea>
+                        <button class="btn light-blue comment" style="margin-bottom: -100px;" exp-id="{{expId}}" index="{{index}}">Add Comment</button>
+                    </div>
+
+                    <div class="divider" style="margin: 20px;"></div>
+                </div>
+            {{/each}}
+
+            <span style="font-size: 16px;"><b>Start a new thread</b></span>
+            <br><br>
+            <div class="card-content layer-1">
+                <textarea id="textarea-new-thread" placeholder="How can we improve this experiment? What did you find useful? What was difficult? How can the creator improve?"></textarea>
+                <button class="btn light-blue" id="newThread" style="margin-bottom: -100px;" exp-id="{{expId}}" exp-creator-id="{{getExpCreatorId}}">Start a New Discussion</button>
+            </div>
+        </div>
+
+        <div class="modal-footer">
+            <a class="gray-text modal-action modal-close btn-flat">Close</a>
+        </div>
+    </div>
+</template>

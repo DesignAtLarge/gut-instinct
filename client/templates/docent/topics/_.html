@@ -1,0 +1,248 @@
+<template name="topics">
+    <div class="animateme">
+      <ul class="bg-bubbles">
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+      </ul>
+      {{> header}}
+      <div class="container content topics" style="max-width: 700px;">
+        <div data-step="1" data-intro="This page lists all the topics/tags that exist in this application. By clicking the box, you can learn more about the topic you clicked. You can click 'next' or press right arrow key to move on.">
+          <h3 class="light-blue-text text-darken-4">
+            <i class="fa fa-book" aria-hidden="true" style="font-size: 1em;"></i> Learn about your gut
+          </h3>
+          <h5 class="light-blue-text text-darken-4">Develop your gut instincts by learning what affects the gut</h5>
+          <br>
+        </div>
+        <div class="tiles">
+          <ul class="collapsible popout" data-collapsible="accordion">
+            <li class="blue-text text-darken-2">
+              <div class="collapsible-header active" style="text-align: left; font-weight: 800;">
+                <span style="font-size: 25px;">
+                  <i class="material-icons">new_releases</i>
+                  Basics
+                </span>
+              </div>
+              <div class="collapsible-body white">
+                {{#each getBasicTopics as |topic|}}
+                  <a href="#" onclick="window.location.replace('/t/{{topic.name}}');">
+                    {{#if topic.firstOfTopics}}
+                      <div class="card" data-step="7" data-intro="Learn more about a topic (tag) by clicking these cards.">
+                        <div class="card-image">
+                          {{#if topic.photo_url}}
+                            <img src="{{topic.photo_url}}" alt="{{topic.name}}">
+                          {{else}}
+                            <img src="/images/topics/placeholder.jpg" alt="{{topic.name}}">
+                          {{/if}}
+                          <span class="card-title">
+                            {{#if topic.visited}}
+                              <img src="/images/topics/icons/checkmark.png" class="visited_topic">
+                            {{/if}}
+                          </span>
+                        </div>
+                        <div class="card-action">
+                          <a href="/t/{{topic.name}}">
+                            <span class="light-blue-text" style="text-transform:capitalize; font-size:14pt;">{{topic.name}}</span>
+                          </a>
+                        </div>
+                      </div>
+                    {{else}}
+                      <div class="card">
+                        <div class="card-image">
+                          {{#if topic.photo_url}}
+                            <img src="{{topic.photo_url}}" alt="{{topic.name}}">
+                          {{else}}
+                            <img src="/images/topics/placeholder.jpg" alt="{{topic.name}}">
+                          {{/if}}
+                          <span class="card-title">
+                            {{#if topic.visited}}
+                              <img src="/images/topics/icons/checkmark.png" class="visited_topic">
+                            {{/if}}
+                          </span>
+                        </div>
+                        <div class="card-action">
+                          <span class="light-blue-text" style="text-transform:capitalize; font-size:14pt;">{{topic.name}}</span>
+                        </div>
+                      </div>
+                    {{/if}}
+                  </a>
+                {{/each}}
+              </div>
+            </li>
+  
+            <li class="blue-text text-darken-2">
+              <div class="collapsible-header" style="text-align: left; font-weight: 800;">
+                <span style="font-size: 25px;">
+                  <i class="material-icons">new_releases</i>
+                  Autoimmune Diseases
+                </span>
+              </div>
+              <div class="collapsible-body white">
+                {{#each getAutoimmuneTopics as |topic|}}
+                  <a href="#" onclick="window.location.replace('/t/{{topic.name}}');">
+                    {{#if topic.firstOfTopics}}
+                      <div class="card" data-step="7" data-intro="Each box represents a topic/tag">
+                        <div class="card-image">
+                          {{#if topic.photo_url}}
+                            <img src="{{topic.photo_url}}" alt="{{topic.name}}">
+                          {{else}}
+                            <img src="/images/topics/placeholder.jpg" alt="{{topic.name}}">
+                          {{/if}}
+                          <span class="card-title">
+                            {{#if topic.visited}}
+                              <img src="/images/topics/icons/checkmark.png" class="visited_topic">
+                            {{/if}}
+                          </span>
+                        </div>
+                        <div class="card-action">
+                          <a href="/t/{{topic.name}}">
+                            <span class="light-blue-text" style="font-size:14pt;">{{topic.name}}</span>
+                          </a>
+                        </div>
+                      </div>
+                    {{else}}
+                      <div class="card">
+                        <div class="card-image">
+                          {{#if topic.photo_url}}
+                            <img src="{{topic.photo_url}}" alt="{{topic.name}}">
+                          {{else}}
+                            <img src="/images/topics/placeholder.jpg" alt="{{topic.name}}">
+                          {{/if}}
+                          <span class="card-title">
+                            {{#if topic.visited}}
+                              <img src="/images/topics/icons/checkmark.png" class="visited_topic">
+                            {{/if}}
+                          </span>
+                        </div>
+                        <div class="card-action">
+                          <span class="light-blue-text" style="font-size:14pt;">{{topic.name}}</span>
+                        </div>
+                      </div>
+                    {{/if}}
+                  </a>
+                {{/each}}
+              </div>
+            </li>
+  
+            <li class="blue-text text-darken-2">
+              <div class="collapsible-header" style="text-align: left; font-weight: 800;">
+                <span style="font-size: 25px;">
+                  <i class="material-icons">new_releases</i>
+                  Gut Brain Axis
+                </span>
+              </div>
+              <div class="collapsible-body white">
+                {{#each getGutBrainAxisTopics as |topic|}}
+                  <a href="#" onclick="window.location.replace('/t/{{topic.name}}');">
+                    {{#if topic.firstOfTopics}}
+                      <div class="card" data-step="7" data-intro="Each box represents a topic/tag">
+                        <div class="card-image">
+                          {{#if topic.photo_url}}
+                            <img src="{{topic.photo_url}}" alt="{{topic.name}}">
+                          {{else}}
+                            <img src="/images/topics/placeholder.jpg" alt="{{topic.name}}">
+                          {{/if}}
+                          <span class="card-title">
+                            {{#if topic.visited}}
+                              <img src="/images/topics/icons/checkmark.png" class="visited_topic">
+                            {{/if}}
+                          </span>
+                        </div>
+                        <div class="card-action">
+                          <a href="/t/{{topic.name}}">
+                            <span class="light-blue-text" style="font-size:14pt;">{{topic.name}}</span>
+                          </a>
+                        </div>
+                      </div>
+                    {{else}}
+                      <div class="card">
+                        <div class="card-image">
+                          {{#if topic.photo_url}}
+                            <img src="{{topic.photo_url}}" alt="{{topic.name}}">
+                          {{else}}
+                            <img src="/images/topics/placeholder.jpg" alt="{{topic.name}}">
+                          {{/if}}
+                          <span class="card-title">
+                            {{#if topic.visited}}
+                              <img src="/images/topics/icons/checkmark.png" class="visited_topic">
+                            {{/if}}
+                          </span>
+                        </div>
+                        <div class="card-action">
+                          <span class="light-blue-text" style="font-size:14pt;">{{topic.name}}</span>
+                        </div>
+                      </div>
+                    {{/if}}
+                  </a>
+                {{/each}}
+              </div>
+            </li>
+  
+            <li class="blue-text text-darken-2">
+              <div class="collapsible-header" style="text-align: left; font-weight: 800;">
+                <span style="font-size: 25px;">
+                  <i class="material-icons">new_releases</i>
+                  Gut Diseases
+                </span>
+              </div>
+              <div class="collapsible-body white">
+                {{#each getGutDiseasesTopics as |topic|}}
+                  <a href="#" onclick="window.location.replace('/t/{{topic.name}}');">
+                    {{#if topic.firstOfTopics}}
+                      <div class="card" data-step="7" data-intro="Each box represents a topic/tag">
+                        <div class="card-image">
+                          {{#if topic.photo_url}}
+                            <img src="{{topic.photo_url}}" alt="{{topic.name}}">
+                          {{else}}
+                            <img src="/images/topics/placeholder.jpg" alt="{{topic.name}}">
+                          {{/if}}
+                          <span class="card-title">
+                            {{#if topic.visited}}
+                              <img src="/images/topics/icons/checkmark.png" class="visited_topic">
+                            {{/if}}
+                          </span>
+                        </div>
+                        <div class="card-action">
+                          <a href="/t/{{topic.name}}">
+                            <span class="light-blue-text" style="font-size:14pt;">{{topic.name}}</span>
+                          </a>
+                        </div>
+                      </div>
+                    {{else}}
+                      <div class="card">
+                        <div class="card-image">
+                          {{#if topic.photo_url}}
+                            <img src="{{topic.photo_url}}" alt="{{topic.name}}">
+                          {{else}}
+                            <img src="/images/topics/placeholder.jpg" alt="{{topic.name}}">
+                          {{/if}}
+                          <span class="card-title">
+                            {{#if topic.visited}}
+                              <img src="/images/topics/icons/checkmark.png" class="visited_topic">
+                            {{/if}}
+                          </span>
+                        </div>
+                        <div class="card-action">
+                          <span class="light-blue-text" style="font-size:14pt;">{{topic.name}}</span>
+                        </div>
+                      </div>
+                    {{/if}}
+                  </a>
+                {{/each}}
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </template>
+  

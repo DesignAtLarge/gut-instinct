@@ -1,0 +1,50 @@
+<template name="gaLearnInviteModal">
+    {{> gaShareInfoModal expId=expId}}
+    {{> gaWhyCareModal expId=expId}}
+    {{> gaCompensatePeopleModal expId=expId}}
+    
+    <div class="modal" id="learn-invite-modal">
+        <div style="color:rgba(0,0,0,.54);background:rgba(0,0,0,.03); padding:15px;">
+            <h4 class="left-align">How to invite participants</h4>
+        </div>
+
+        <div class="modal-content">
+            <ol>
+                <div class="row">
+                    <div class="col col-num">
+                        <li class="li-dash"></li>
+                    </div>
+                    <div class="col col-right">
+                        <p style="margin-top: 0px;">
+                            <button id="shareInfoBtn" class="waves-effect waves-light btn light-blue" style="font-size: 20px; font-weight: 500; margin-bottom: -20px;">Share information about experiment</button>
+                        </p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col col-num">
+                        <li class="li-dash"></li>
+                    </div>
+                    <div class="col col-right">
+                        <p style="margin-top: -3px;">
+                            <button id="whyCareBtn" class="waves-effect waves-light btn light-blue" style="font-size: 20px; font-weight: 500; margin-bottom: -20px;">Why would people care</button>
+                        </p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col col-num">
+                        <li class="li-dash"></li>
+                    </div>
+                    <div class="col col-right">
+                        <p style="margin-top: -3px;">
+                            <button id="compensatePplBtn" class="waves-effect waves-light btn light-blue" style="font-size: 20px; font-weight: 500; margin-bottom: -20px;">Compensate people</button>
+                        </p>
+                    </div>
+                </div>
+            </ol>
+        </div>
+
+        <div class="modal-footer">
+            <a class="gray-text modal-action modal-close btn-flat">Close</a>
+        </div>
+    </div>
+</template>

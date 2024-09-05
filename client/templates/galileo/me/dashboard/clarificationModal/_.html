@@ -1,0 +1,71 @@
+<template name="gaClarificationModal">
+    <div class="modal" id="clarification-modal">
+        <div style="color:rgba(0,0,0,.54);background:rgba(0,0,0,.03); padding:15px;">
+            <h4 class="left-align">Send the creator an anonymous inquiry for <span class="blue-text text-darken-2">{{title}}</span></h4>
+        </div>
+
+        <div class="modal-content reminder-stats">
+            <div class="card" style="padding: 15px">
+                <span style="font-size: 20px">
+                    <u>Example of Clarifying Question</u>
+                </span>
+                <br>
+                <div style="padding:15px">
+                    <a>Participant:</a>
+                    <span>How long is the period of the experiment, and, I suppose there's no way to do 9pm-11pm instead?</span>
+                    <p style="margin: 0px;">July 3, 2018</p>
+                </div>
+                <div class="divider" style="margin-bottom:10px; width: 90%; margin: auto"></div>
+                <div style="padding:15px">
+                    <a>Participant:</a>
+                    <span>(instead of 6-8pm, which is when I go to the gym)</span>
+                    <p style="margin: 0px;">July 3, 2018</p>
+                </div>
+                <div class="divider" style="margin-bottom:10px; width: 90%; margin: auto"></div>
+                <div style="padding:15px">
+                    <a>Creator:</a>
+                    <span>The experiment is set to last 7 days. Please try to stick to the times as much as possible. Thank you.</span>
+                    <p style="margin: 0px;">July 4, 2018</p>
+                </div>
+            </div>
+
+            {{#each getClarifications}}
+                <div class="card">
+                    <br>
+                    <span style="font-size: 16px">&nbsp;&nbsp;&nbsp;&nbsp;<b>Question</b></span>
+                    <br>
+                    <div style="padding:15px">
+                        <a>{{author_name}}: &nbsp;</a>
+                        <span>{{question}}</span>
+                        <p style="margin: 0px;">{{create_time}}</p>
+                    </div>
+                    <div class="divider" style="margin-bottom:10px; width: 90%; margin: auto"></div>
+                    {{#if resolved}}
+                        <div style="padding:15px">
+                            <a>{{creator}}: &nbsp;</a>
+                            <span>{{answer}}</span>
+                            <p style="margin: 0px; font-size: 12px;">{{resolve_time}}</p>
+                        </div>
+                        <div class="divider" style="margin-bottom:10px; width: 90%; margin: auto"></div>
+                    {{else}}
+                        <div style="padding:15px">
+                            <span style="color: #f48942;">This question is waiting to be answered.</span>
+                        </div>
+                        <div class="divider" style="margin-bottom:10px; width: 90%; margin: auto"></div>
+                    {{/if}}
+                </div>
+            {{/each}}
+
+            <div class="card-content layer-1">
+                <form id="submit-comment-form">
+                    <textarea id="mypart-clarification-input" required placeholder="Note clarification here..."></textarea>
+                    <button class="btn light-blue" style="margin-bottom: -100px;" exp-id="{{expId}}" id="mypart-clarification-submit-btn" exp-creator-id="{{getExpCreatorId}}">Add Clarification</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="modal-footer">
+            <a class="gray-text modal-action modal-close btn-flat">Close</a>
+        </div>
+    </div>
+</template>

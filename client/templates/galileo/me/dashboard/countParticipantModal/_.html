@@ -1,0 +1,40 @@
+<template name="gaCountParticipantModal">
+    <div class="modal" id="count-participant-modal">
+        <div style="color:rgba(0,0,0,.54);background:rgba(0,0,0,.03); padding:15px;">
+            <h4 class="left-align">How Many Participants Do I Need?</h4>
+        </div>
+
+        <div class="modal-content">
+            <div class="row">
+                <h5>This is called "Power Analysis". Power analysis is an important aspect of experimental design. It allows us to determine the sample size required to detect an effect of a given size with a given degree of confidence.</h5>
+                
+                <div>Enter the probability of finding an effect that is not there: 
+                    <div class="input-field inline">
+                        <input type="number" id="input_item_1" class="input_calculate">
+                        <label for="input_item_1">(range: 0 to 1.0)</label>
+                    </div>
+                </div>
+
+                <div>Enter the probability of finding an effect that is there: 
+                    <div class="input-field inline">
+                        <input type="number" id="input_item_2" class="input_calculate">
+                        <label for="input_item_2">(range: 0 to 1.0)</label>
+                    </div>
+                </div>
+
+                <div>Enter the effect size
+                    <div class="input-field inline">
+                        <input type="number" id="input_item_3" class="input_calculate">
+                        <label for="input_item_3"></label>
+                    </div>
+                </div>
+
+                <a class="btn light-blue darken-4" id="calculate-sample-btn" href="#" class="disabled">Calculate Sample Size</a>
+            </div>
+        </div>
+
+        <div class="modal-footer">
+            <a class="gray-text modal-action modal-close btn-flat">Cancel</a>
+        </div>
+    </div>
+</template>

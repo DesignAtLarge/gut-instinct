@@ -1,0 +1,154 @@
+<template name="header_gray">
+    <nav>
+        <div id="header-grey" class="nav-wrapper grey lighten-1">
+            <a href="#" id="mobileMenuSwitch" data-activates="mobile-demo" class="button-collapse">
+                <i class="material-icons">menu</i>
+                <!-- <img class="col" style="margin-left: 0px; margin-top: 15px;" src="/images/logos/gi_basic_dark_bg.png" height="35px"> -->
+            </a>
+            
+            <a class="brand-logo" style="margin-top: -6px;">
+                <a id="header-grey-progress pull-left" href="javascript:void(0);" style="font-weight: 100; font-size: 14pt; margin-left: 50px;">
+                    Docent Guide is 
+                    <a style="color: #f4511e;">&nbsp;{{getProgress}}% &nbsp;</a> complete!
+                    {{#if checkComplete}}
+                        (Final Step)
+                    {{/if}}
+                </a>
+                <!-- <a href="#" onClick="alert('To access the complete Gut Instinct system, please complete the Docent Guide!')" style="color:white"></a> -->
+            </a>
+
+            <ul class="right hide-on-med-and-down pull-right">
+                <li>
+                    <a href="javascript:void(0);" class="glasspane" style="color:white">
+                        <i class="fa fa-question-circle-o" aria-hidden="true"></i> Confused?
+                    </a>
+                </li>
+                <li class="headerdivider"></li>
+                {{#unless isCondition7}}
+                    <li>
+                        <a href="#" onClick="alert('To access the complete Gut Instinct system, please complete the Docent Guide!')" style="color:white">
+                            <i class="fa fa-plus-circle" style="vertical-align: middle; color: #f4511e"></i>
+                            {{#unless isCondition4or6or11}}
+                                Add more questions!
+                            {{else}}
+                                Add ques!
+                            {{/unless}}
+                        </a>
+                    </li>
+                {{/unless}}
+                {{#unless isCondition1or3or5or8or10}}
+                    <li>
+                        <a href="#" onClick="alert('To access the complete Gut Instinct system, please complete the Docent Guide!')" style="color:white">
+                            <i class="fa fa-book" aria-hidden="true"></i> Topics
+                        </a>
+                    </li>
+                {{/unless}}
+                {{#unless isCondition1or2or7or8or9}}
+                    <li>
+                        <a href="#" onClick="alert('To access the complete Gut Instinct system, please complete the Docent Guide!')" style="color:white">
+                            <i class="fa fa-list-ul" aria-hidden="true"></i> Guide
+                        </a>
+                    </li>
+                {{/unless}}
+                {{#unless isCondition7}}
+                    <li>
+                        <a href="#" onClick="alert('To access the complete Gut Instinct system, please complete the Docent Guide!')" style="color:white">
+                            <i class="fa fa-comments-o" aria-hidden="true"></i> GutBoard
+                        </a>
+                    </li>
+                {{/unless}}
+                <li>
+                    {{#unless isCondition7}}
+                        <a href="#" onClick="alert('To access the complete Gut Instinct system, please complete the Docent Guide!')" style="color:white">
+                            <i class="fa fa-bell-o" aria-hidden="true"></i> Notifications
+                        </a>
+                    {{/unless}}
+                </li>
+                <li class="logout">
+                    <a href="#" style="color:white">
+                        <i class="fa fa-sign-out" aria-hidden="true"></i> Sign Out
+                        {{#unless isCondition4}}
+                            {{user.username}}
+                        {{/unless}}
+                    </a>
+                </li>
+            </ul>
+
+            <ul class="side-nav grey lighten-1" id="mobile-demo" style="width:225px; height:500px">
+                <li>
+                    <div class="userView">
+                        <span class="name" style="margin-bottom: 20px; font-size: 14pt">Welcome, {{user.username}}!</span>
+                    </div>
+                </li>
+                <li>
+                    <a href="#" class="closeMobileMenuSwitch" onclick='$("#mobile-demo").css("transform", "translateX(-105%)")'>
+                        <span class="light-blue-text text-darken-4">
+                            <strong><i class="fa fa-close" aria-hidden="true"></i> Close Menu</strong>
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="javascript:void(0);" class="glasspane">
+                        <span class="light-blue-text text-darken-4">
+                            <strong><i class="fa fa-question-circle-o" aria-hidden="true"></i> Confused?</strong>
+                        </span>
+                    </a>
+                </li>
+                <li class="divider"></li>
+                {{#unless isCondition7}}
+                    <li>
+                        <a href="#" onClick="alert('To access the complete Gut Instinct system, please complete the Docent Guide!')" style="color:white">
+                            <span class="white-text">
+                                <strong><i class="fa fa-plus-circle" style="vertical-align: middle; color: #f4511e"></i> Add more questions!</strong>
+                            </span>
+                        </a>
+                    </li>
+                {{/unless}}
+                {{#unless isCondition1or3or5or8or10}}
+                    <li>
+                        <a href="#" onClick="alert('To access the complete Gut Instinct system, please complete the Docent Guide!')">
+                            <span class="white-text">
+                                <strong><i class="fa fa-book" aria-hidden="true"></i> Topics</strong>
+                            </span>
+                        </a>
+                    </li>
+                {{/unless}}
+                {{#unless isCondition1or2or7or8or9}}
+                    <li>
+                        <a href="#" onClick="alert('To access the complete Gut Instinct system, please complete the Docent Guide!')">
+                            {{#unless isCondition1}}
+                                <span class="white-text">
+                                    <strong><i class="fa fa-list-ul" aria-hidden="true"></i> Guide</strong>
+                                </span>
+                            {{/unless}}
+                        </a>
+                    </li>
+                {{/unless}}
+                {{#unless isCondition7}}
+                    <li>
+                        <a href="#" onClick="alert('To access the complete Gut Instinct system, please complete the Docent Guide!')">
+                            <span class="white-text">
+                                <strong><i class="fa fa-comments-o" aria-hidden="true"></i> GutBoard</strong>
+                            </span>
+                        </a>
+                    </li>
+                {{/unless}}
+                <li class="divider"></li>
+                <li class="logout">
+                    <a href="#">
+                        <span class="light-blue-text text-darken-4">
+                            <strong><i class="fa fa-sign-out" aria-hidden="true"></i> Sign Out</strong>
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="closeMobileMenuSwitch" onclick='$("#mobile-demo").css("transform", "translateX(-105%)")'>
+                        <span class="light-blue-text text-darken-4">
+                            <strong><i class="fa fa-close" aria-hidden="true"></i> Close Menu</strong>
+                        </span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</template>

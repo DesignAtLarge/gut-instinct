@@ -1,0 +1,21 @@
+<template name="gaFollowupModal">
+    <div class="modal followupModal" id="followup-modal-{{exp_id}}">
+        <div style="color:rgba(0,0,0,.54);background:rgba(0,0,0,.03); padding:15px;">
+            <h4 class="left-align">{{followupMessage}}</h4>
+        </div>
+
+        <div class="modal-content">
+            <textarea id="followupMessageText-{{exp_id}}" style="height: 100px;"></textarea>
+        </div>
+
+        <div class="modal-footer">
+            {{#if mobile}}
+                <a class="gray-text modal-action modal-close btn-flat">Close</a>
+                <button class="btn light-blue" id="submit-followup">Save</button>
+            {{else}}
+                <a class="gray-text modal-action modal-close btn-flat">No Data to Add</a>
+                <button class="btn light-blue" id="submit-followup">Save Followup</button>
+            {{/if}}
+        </div>
+    </div>
+</template>

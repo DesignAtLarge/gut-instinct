@@ -1,0 +1,96 @@
+<template name="question">
+    {{> header}}
+    {{> init hashcode}}
+  
+    <div class="container content">
+      {{#if fromTopics}}
+        <div class="to-back">
+          <a href="#" onclick="window.location.replace(document.referrer);">
+            <span class="oi" data-glyph="chevron-left"></span> &nbsp; Back to <i class="fa fa-book" aria-hidden="true"></i> {{{getTopic}}}
+          </a>
+        </div>
+      {{else}}
+        <div class="to-back" id="back-top">
+          <a href="#" onclick="window.location.replace('/gutboard/{{getMendelCode}}');">
+            <span class="oi" data-glyph="chevron-left"></span> &nbsp; Back to <i class="fa fa-comments-o" aria-hidden="true"></i> GutBoard
+          </a>
+        </div>
+      {{/if}}
+  
+      {{#each data}}
+        <div>
+          <div class="question-content">
+            {{> qmodule}}
+            <br>
+            <div class="card-content">
+              <form class="comment-form">
+                <textarea type="text" name="comment" class="comment materialize-textarea" placeholder="Add to this discussion with your insights/questions; how does this topic relate to your life!" required></textarea>
+                <input type="submit" value="Submit" class="btn light-blue">
+              </form>
+              <div class="divider"></div>
+  
+              {{#each comments}}
+                <div class="{{divClass}}">
+                  <div class="card-content">
+                    <span class="timestamp">{{livestamp created_at}}</span>
+                    {{#if isUserExpert}}
+                      {{#if isExpertComment}}
+                        <span class="light-blue"> &nbsp; written by {{this.owner.username}}</span>
+                      {{else}}
+                        <span> &nbsp; written by {{this.owner.username}}</span>
+                      {{/if}}
+                    {{else}}
+                      <span> &nbsp; written by {{{owner.username}}}</span>
+                    {{/if}}
+                    <br>
+                    {{{text}}}
+                    <br>
+                    <span class="timestamp" style="font-size: 12pt">{{pluralize 'Upvote' (upvote_count hashcode)}} &nbsp; | &nbsp; {{pluralize 'Downvote' (downvote_count hashcode)}}</span>
+                    <br>
+                    <div>
+                      {{#if attached_file}}
+                        <a class="targetFile" href="{{{attached_file}}}" target="_blank" style="display: none;">
+                          <button class="waves-effect waves-light btn light-blue" style="display: inline">View File</button>
+                        </a>
+                      {{/if}}
+                      {{#if attached_url}}
+                        <a class="targetURL" href="{{{attached_url}}}" target="_blank" style="display: none;">
+                          <button class="waves-effect waves-light btn light-blue" style="display: inline">Open URL</button>
+                        </a>
+                      {{/if}}
+                      {{#if upvoted hashcode}}
+                        <button class="waves-effect waves-light btn light-blue vote upvote">Upvote</button>
+                      {{else}}
+                        <button class="waves-effect waves-light btn grey light-blue vote upvote">Upvote</button>
+                      {{/if}}
+                      {{#if downvoted hashcode}}
+                        <button class="waves-effect waves-light btn red vote downvote">Downvote</button>
+                      {{else}}
+                        <button class="waves-effect waves-light btn grey red vote downvote">Downvote</button>
+                      {{/if}}
+                    </div>
+                  </div>
+                  <div class="divider"></div>
+                </div>
+              {{/each}}
+            </div>
+          </div>
+        </div>
+      {{/each}}
+  
+      {{#if fromTopics}}
+        <div class="to-back">
+          <a href="#" onclick="window.location.replace(document.referrer);">
+            <span class="oi" data-glyph="chevron-left"></span> &nbsp; Back to <i class="fa fa-book" aria-hidden="true"></i> {{{getTopic}}}
+          </a>
+        </div>
+      {{else}}
+        <div class="to-back" id="back-bottom">
+          <a href="#" onclick="window.location.replace('/gutboard/{{getMendelCode}}');">
+            <span class="oi" data-glyph="chevron-left"></span> &nbsp; Back to <i class="fa fa-comments-o" aria-hidden="true"></i> GutBoard
+          </a>
+        </div>
+      {{/if}}
+    </div>
+  </template>
+  

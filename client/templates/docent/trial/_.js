@@ -1,9 +1,12 @@
 import './_.html';
 import { Template } from 'meteor/templating';
+import { ReactiveDict } from 'meteor/reactive-dict';
+import { ReactiveVar } from 'meteor/reactive-var';
 
-Template.trial.rendered = function () {
+
+Template.trial.rendered = function() {
     let inst = this;
-    Meteor.call("test.getResponses", inst.data.type, function (err, responses) {
+    Meteor.call("test.getResponses", inst.data.type, function(err, responses) {
         if (!responses || responses.length == 0) {
             try {
                 if (Meteor.user()) {
@@ -20,7 +23,7 @@ Template.trial.rendered = function () {
                     }
                     return;
                 }
-            } catch (e) { }
+            } catch (e) {}
         }
         if (responses && responses.length == 3) {
             $("#trialProgress").html("Gut Check 40% Complete");
@@ -45,12 +48,12 @@ Template.trial.rendered = function () {
     });
 };
 
-Template.trial.onCreated(function () {
+Template.trial.onCreated(function() {
     var inst = this;
     this.testQuestionsQuickBites = new ReactiveVar(null);
     this.testQuestionsMechanism = new ReactiveVar(null);
     this.testQuestionsScenarios = new ReactiveVar(null);
-    Meteor.call("test.getQuestions", Template.instance().data.type, function (err, questions) {
+    Meteor.call("test.getQuestions", Template.instance().data.type, function(err, questions) {
         if (err) {
             alert("Server Connection Error");
         } else {
@@ -77,7 +80,7 @@ Template.trial.onCreated(function () {
 });
 
 Template.trial.helpers({
-    isTaken: function (test) {
+    isTaken: function(test) {
         try {
             if (Meteor.user()) {
                 if (test == "pre") {
@@ -90,27 +93,27 @@ Template.trial.helpers({
                     else return true;
                 }
             }
-        } catch (e) { }
+        } catch (e) {}
     },
-    isPre: function (test) {
+    isPre: function(test) {
         return test == 'pre';
     },
-    isOpenResponse: function (question) {
+    isOpenResponse: function(question) {
         return question.response_type == 'open';
     },
-    getTestQuickBites: function () {
+    getTestQuickBites: function() {
         return Template.instance().testQuestionsQuickBites.get();
     },
-    getTestMechanisms: function () {
+    getTestMechanisms: function() {
         return Template.instance().testQuestionsMechanism.get();
     },
-    getTestScenarios: function () {
+    getTestScenarios: function() {
         return Template.instance().testQuestionsScenarios.get();
     },
-    getOptions: function (question) {
+    getOptions: function(question) {
         return question.options;
     },
-    isCondition5: function () {
+    isCondition5: function() {
         try {
             if (Meteor.user()) {
                 var condition = Meteor.user().profile.condition;
@@ -121,7 +124,7 @@ Template.trial.helpers({
             return false;
         }
     },
-    getHours: function () {
+    getHours: function() {
         date1 = new Date("September 9, 2017 23:59:00");
         date2 = new Date()
         return (Math.abs(date1 - date2) / 36e5).toFixed(0);
@@ -129,7 +132,7 @@ Template.trial.helpers({
 });
 
 Template.trial.events({
-    'click #save-quickbites': function (event) {
+    'click #save-quickbites': function(event) {
         event.preventDefault();
 
         let questions = Template.instance().testQuestionsQuickBites.get();
@@ -222,12 +225,12 @@ Template.trial.events({
         $("#next-quickbites").attr("disabled", false);
         Meteor.call('test.setResponses', Template.instance().data.type, userRes);
     },
-    'click #next-quickbites': function () {
+    'click #next-quickbites': function() {
         $("#trialProgress").html("Gut Check 40% Complete");
         $(".quickbites").hide();
         $(".mechanisms").show();
     },
-    'click #save-mechanisms': function (event) {
+    'click #save-mechanisms': function(event) {
         event.preventDefault();
 
         let mcQuestions = Template.instance().testQuestionsMechanism.get();
@@ -301,12 +304,12 @@ Template.trial.events({
 
         Meteor.call('test.setResponses', Template.instance().data.type, userRes);
     },
-    'click #next-mechanisms': function () {
+    'click #next-mechanisms': function() {
         $("#trialProgress").html("Gut Check 70% Complete (Final questions)");
         $(".mechanisms").hide();
         $(".scenarios").show();
     },
-    'click #scenarios-finish': function (event) {
+    'click #scenarios-finish': function(event) {
         event.preventDefault();
 
         let questions = Template.instance().testQuestionsScenarios.get();
@@ -345,7 +348,7 @@ Template.trial.events({
 
         let inst = Template.instance();
 
-        setTimeout(function () {
+        setTimeout(function() {
             if (inst.data.type == "pre") {
                 Meteor.call('user.updatePretestStatus');
                 window.location.replace('/guide');

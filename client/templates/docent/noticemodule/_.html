@@ -1,0 +1,15 @@
+<template name="noticemodule">
+    <li class="collection-item avatar">
+        <i class="material-icons circle blue">question_answer</i>
+        {{#unless checkStar this}}
+            <span class="title">New {{type}} has been added to your question</span>
+        {{else}}
+            <span class="title">Your question has been starred by an expert!</span>
+        {{/unless}}
+        <p style="font-weight:800;">{{typestring}}</p>
+        <a href="/q/{{typeid}}" noticeid-data="{{_id}}" target="_blank" class="readNotificationLink">Click here to view</a>
+        <a href="#" noticeid-data="{{_id}}" class="readNotificationLink" style="position: absolute; right: 100px; bottom: 32px;">
+            <i class="fa fa-times" aria-hidden="true"></i> &nbsp;close
+        </a>
+    </li>
+</template>

@@ -1,0 +1,36 @@
+<template name="articles">
+    {{> header}}
+    <div class="container content articles">
+      <h4>Gut Articles</h4>
+      {{#each articles}}
+        {{#if isFirst}}
+          <a href="{{url}}" target="_blank" class="article" data-step="6" data-intro="Each box represents an article. Click them to find out more about what each article entails" data-position="right">
+            <div class="card">
+              <div class="card-image">
+                <img src="{{image}}">
+              </div>
+              <div class="card-content">
+                <span class="card-title">{{title}}</span>
+                <p>{{snippet}}</p>
+                <p class="article-link">{{by}}</p>
+              </div>
+            </div>
+          </a>
+        {{else}}
+          <a href="{{url}}" target="_blank" class="article">
+            <div class="card">
+              <div class="card-image">
+                <img src="{{image}}">
+              </div>
+              <div class="card-content">
+                <span class="card-title">{{title}}</span>
+                <p>{{snippet}}</p>
+                <p class="article-link">{{by}}</p>
+              </div>
+            </div>
+          </a>
+        {{/if}}
+      {{/each}}
+    </div>
+  </template>
+  

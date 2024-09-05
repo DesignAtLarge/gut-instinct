@@ -1,0 +1,188 @@
+<template name="tag">
+    {{#if isIntroCompleted}}
+      {{> header}}
+    {{else}}
+      {{> header_gray}}
+      {{> getProgressData}}
+    {{/if}}
+  
+    {{> init name}}
+  
+    <div class="container content tag-page">
+      {{#if isIntroCompleted}}
+        {{#unless isCondition2or4or7or0or6or9or11}}
+          <div class="to-back">
+            <a href="/gutboard/{{getMendelCode}}">
+              <span class="oi" data-glyph="chevron-left"></span> &nbsp; Back to <i class="fa fa-comments-o" aria-hidden="true"></i> GutBoard
+            </a>
+          </div>
+        {{else}}
+          <div class="to-back">
+            <a href="/topics">
+              <span class="oi" data-glyph="chevron-left"></span> &nbsp; Back to <i class="fa fa-book" aria-hidden="true"></i> Topics
+            </a>
+          </div>
+        {{/unless}}
+      {{/if}}
+  
+      <div class="tag-content">
+        {{#if isIntroCompleted}}
+          {{#if data._id}}
+            <h4 style="display: inline" class="light-blue-text text-darken-4" data-step="1" data-intro="This is a tag specific page where you can investigate about this topic: {{name}}. The page provides a quick learning nugget delivered via video, collaboratively maintained learning notes, a chance to add question to the gutboard, and GutBoard questions associated with this tag. You can click 'next' or press right arrow key to move on.">
+              {{name}}&nbsp;&nbsp;&nbsp;
+            </h4>
+            {{#unless isCondition1or3or5or8or10}}
+              <a href="https://www.coursera.org/learn/microbiome" style="margin-left: 30px;" target="_blank">
+                <img src="/images/provided-by-coursera.png" style="width: 20%;" />
+              </a>
+            {{/unless}}
+          {{else}}
+            <h4 data-step="1" data-intro="This is a tag specific page where you can investigate about this topic: {{name}}. However, there are no information about this page yet.">
+              {{name}}
+            </h4>
+          {{/if}}
+        {{#unless isWorkCondition}}
+          {{#if isIntroCompleted}}
+            <div style="margin-top: 10px" class="card" data-step="2" data-intro="We recommended that you explore other topics.">
+              <div class="card-content">
+                {{#if isCondition1or3or5or8or10}}
+                  <p>{{name}} is one of many topics. Explore more topics by clicking on a question's tag.</p>
+                {{/if}}
+                {{#if isCondition2or4or0or6or9or11}}
+                  <p>How does this lecture's content relate to your lifestyle? Think about how your lifestyle might affect your microbiome and ask questions in the GutBoard</p>
+                  <br />
+                {{/if}}
+                {{#if isCondition7}}
+                  <p>How does this lecture's content relate to your lifestyle? Think about how your lifestyle might affect your microbiome.</p>
+                  <br />
+                {{/if}}
+                {{#unless isCondition1or3or5or8or10}}
+                  <div class="tag-video">
+                    {{#if data.video_url}}
+                      <iframe width="100%" height="350" src="{{data.video_url}}?rel=0&showinfo=0&modestbranding=1" frameborder="0" allowfullscreen></iframe>
+                    {{/if}}
+                  </div>
+                {{/unless}}
+              </div>
+            </div>
+          {{else}}
+            <div data-step="" data-intro="The Gut Guide will help guide you into creating great gut questions!" style="text-align: center;">
+              <h3 class="light-blue-text text-darken-4">
+                <i class="fa fa-list-ul" aria-hidden="true" style="font-size: 1em;"></i> Docent Guide
+              </h3>
+              {{#unless isCondition1or2or7or8or9}}
+                <h5 class="light-blue-text text-darken-4">Learn how to ask expert-like questions</h5>
+              {{else}}
+                <h5 class="light-blue-text text-darken-4">Sharpen your gut instincts</h5>
+              {{/unless}}
+              <br />
+              <div style="margin-top: 10px" class="card">
+                <nav class="light-blue darken-4" style="position: absolute;">
+                  <div class="nav-wrapper light-blue darken-4" style="margin-left: 20px;">
+                    <div class="col s12">
+                      <a class="breadcrumb" href="/guide">Welcome, {{user}}!</a>
+                      <a class="breadcrumb" href="/t/introduction">Introduction video</a>
+                    </div>
+                  </div>
+                </nav>
+                <div class="card-content" data-step="2" data-intro="Watch this video to gain some introductory knowledge on the gut microbiome!">
+                  <span class="card-title" style="font-size: 30px; font-weight: 100; margin-top: 60px;">How does the gut microbiome affect you?</span>
+                  <p>The human gut microbiome is the community of microbes (and their gene products) interacting in the human gut. Learn about the gut microbiome from noted human microbiome expert <b>Professor Rob Knight</b> at <a href="http://jacobsschool.ucsd.edu/microbiome/" target="_blank">Center of Microbiome Innovation</a>, UC San Diego</p>
+                  <br />
+                  <div class="tag-video">
+                    {{#if data.video_url}}
+                      <iframe width="100%" height="350" src="https://www.youtube.com/embed/yQ4yvVRaKmI?rel=0&showinfo=0&modestbranding=1" frameborder="0" allowfullscreen></iframe>
+                      <ul class="collapsible" data-collapsible="expandable">
+                        <li onclick="$('#arrow-down').toggle(); $('#arrow-right').toggle();">
+                          <div id="transcriptHeader" class="collapsible-header" style="font-size: 14pt; height: 35px;">
+                            <i id="arrow-down" class="fa fa-caret-down" aria-hidden="true" style="display: none;"></i>
+                            <i id="arrow-right" class="fa fa-chevron-right" aria-hidden="true"></i>
+                            <b>Read the transcript from Coursera</b>
+                          </div>
+                          <div class="collapsible-body" style="max-height: 350px; overflow-y: scroll;">
+                            <span id="transcribed" style="font-size: 13pt;">{{{getTranscript}}}</span>
+                          </div>
+                        </li>
+                      </ul>
+                    {{/if}}
+                  </div>
+                  <div style="text-align: left; margin-bottom: 15px;">
+                    <br />
+                    <span style="font-weight: 100;">You can help microbiome experts like Professor Knight make important discoveries by sharing your insights.</span>
+                    {{#unless isCondition7}}
+                      <p>Let's get started by adding a question at the next step!</p>
+                      <a href="/gutboard_slider_addq" onclick="">
+                        <button class="waves-effect waves-light btn light-blue add-topic-bookmark" style="margin-left: 460px;" id="go-to-guide-btn">Next</button>
+                      </a>
+                    {{#if isCondition7}}
+                      <p>Do so by learning from our topics page</p>
+                      <a href="/topics" onclick="">
+                        <button class="waves-effect waves-light btn light-blue add-topic-bookmark" style="margin-left: 460px;" id="go-to-guide-btn">Next</button>
+                      </a>
+                    {{/if}}
+                  </div>
+                </div>
+              </div>
+            </div>
+          {{/if}}
+        {{/unless}}
+  
+        {{#unless isLearnCondition}}
+          {{#if isIntroCompleted}}
+            <ul class="collapsible" data-collapsible="expandable">
+              {{#unless isCondition1or3or5or8or10}}
+                <li>
+                  <div id="transcriptHeader" class="collapsible-header" style="font-size: 14pt; height: 35px;" data-step="5">
+                    <i class="fa fa-plus" aria-hidden="true"></i>
+                    <b>Read the transcript from Coursera</b>
+                  </div>
+                  <div class="collapsible-body" style="max-height: 350px; overflow-y: scroll;">
+                    <span id="transcribed" style="font-size: 13pt;">{{{getTranscript}}}</span>
+                  </div>
+                </li>
+              {{/unless}}
+  
+              {{#unless isCondition1or3or7or5or8or10}}
+                <li onclick="$('#arrow-down').toggle(); $('#arrow-right').toggle();">
+                  <div id="transcriptHeader" class="collapsible-header" style="font-size: 14pt; height: 35px;">
+                    <i id="arrow-down" class="fa fa-caret-down" aria-hidden="true" style="display: none;"></i>
+                    <i id="arrow-right" class="fa fa-chevron-right" aria-hidden="true"></i>
+                    <b>Discussion Questions</b>
+                  </div>
+                  <div class="collapsible-body" style="max-height: 350px; overflow-y: scroll;">
+                    <ul class="collection">
+                      {{#each data.questions}}
+                        <li class="collection-item avatar">
+                          <i class="fa fa-question-circle" aria-hidden="true"></i>
+                          <span class="title">{{question}}</span>
+                          <p>Asked by {{user.username}}</p>
+                          <a href="/gutboard/{{getMendelCode}}">Add your answer <i class="fa fa-arrow-right"></i></a>
+                        </li>
+                      {{/each}}
+                    </ul>
+                  </div>
+                </li>
+              {{/unless}}
+            </ul>
+          {{/if}}
+        {{/unless}}
+      </div>
+    </div>
+  
+    {{#if isLearnCondition}}
+      {{> learned}}
+    {{/if}}
+  
+    {{#if isWorkCondition}}
+      {{> working}}
+    {{/if}}
+  
+    {{#if isBookCondition}}
+      {{> book}}
+    {{/if}}
+  
+    {{#if isTagCondition}}
+      {{> tag}}
+    {{/if}}
+  </template>
+  

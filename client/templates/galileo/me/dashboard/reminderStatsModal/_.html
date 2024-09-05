@@ -1,0 +1,72 @@
+<template name="gaReminderStatsModal">
+    <div class="modal modal-fixed-footer" id="reminder-stats-modal">
+        <div style="color:rgba(0,0,0,.54);background:rgba(0,0,0,.03); padding:15px;">
+            <h4 class="left-align">Statistics for
+                <span class="blue-text text-darken-2">Day {{day}}/7</span>
+                of your experiment
+            </h4>
+        </div>
+        <div class="modal-content reminder-stats">
+            <div class="row">
+                <div class="col s12">
+                    <ul class="tabs" style="background-color:transparent; border-bottom:1px solid gainsboro; color:gray;">
+                        <li class="tab"><a class="active" href="#cause-stats">Stats for Cause Reminder</a></li>
+                        <li class="tab"><a href="#effect-stats">Stats for Effect Reminder</a></li>
+                    </ul>
+                </div>
+                <div id="cause-stats" class="col s12">
+                    <div>
+                        <p>
+                            <span class="big reminder-responded">21/30</span> participants have
+                            <span class="reminder-responded">replied</span> to
+                            <strong>Cause [{{cause}}]</strong> reminder and provided their data
+                        </p>
+                        <p>
+                            <span class="big reminder-not-received">6/30</span> participants
+                            <span class="reminder-not-received">will soon receive</span> the
+                            <strong>Cause [{{cause}}]</strong> reminder based on their time zones
+                        </p>
+                        <p>
+                            <span class="big reminder-not-responded">3/30</span> participants have
+                            <span class="reminder-not-responded">not yet replied</span> to
+                            <strong>Cause [{{cause}}]</strong> reminder
+                        </p>
+                    </div>
+                </div>
+                <div id="effect-stats" class="col s12">
+                    <div>
+                        <p>
+                            <span class="big reminder-responded">20/30</span> participants have
+                            <span class="reminder-responded">replied</span> to
+                            <strong>Effect [{{effect}}]</strong> reminder and provided their data
+                        </p>
+                        <p>
+                            <span class="big reminder-not-received">5/30</span> participants
+                            <span class="reminder-not-received">will soon receive</span> the
+                            <strong>Effect [{{effect}}]</strong> reminder based on their time zones
+                        </p>
+                        <p>
+                            <span class="big reminder-not-responded">5/30</span> participants have
+                            <span class="reminder-not-responded">not yet replied</span> to
+                            <strong>Effect [{{effect}}]</strong> reminder
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <blockquote class="warning">
+                <div>
+                    Great work!
+                    <span class="accent">70%</span> of your participants have collected their data! Remind the remaining participants to respond to the reminders they missed and provide their data.
+                    <br><br>
+                    Remember, to run a successful experiment, at least 90% of the participants should provide their data on time.
+                </div>
+                <br>
+                <a class="btn send-reminder-btn">REMIND PARTICIPANTS</a>
+            </blockquote>
+            <div style="height:80px;color:transparent;width: 100%;"></div>
+        </div>
+        <div class="modal-footer">
+            <a class="gray-text modal-action modal-close btn-flat">Close</a>
+        </div>
+    </div>
+</template>

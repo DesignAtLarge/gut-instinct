@@ -1,0 +1,925 @@
+template(name='gutboard_slider_addq')
+    .animateme
+      ul.bg-bubbles
+        li
+        li
+        li
+        li
+        li
+        li
+        li
+        li
+        li
+        li
+        li
+        li
+        li
+    if isIntroCompleted
+        +header 
+    else
+        +header_gray getProgressData
+    //+header
+    |{{init}}
+    div(class='container content gutboard' style='max-width: 700px;')
+        //if isGuideCompleted
+            div()
+                h3(class='light-blue-text text-darken-4') <i class="fa fa-comments-o" aria-hidden="true" style="font-size: 1em;"></i> GutBoard <br> 
+                h4(class='light-blue-text text-darken-4') Asking straight from the Gut 
+                //h6(class='light-blue-text text-darken-4') Add your Gut Instinct!
+                br
+                //span (To see all questions in one list, click
+                //    a(href='/gutboard?s=4', class='tab-link', id='all-questions') here
+                //    |)
+                //br
+                //span(style='font-size: 18pt; color: #8bc34a; font-weight: 300; margin-bottom: 0') The most popular questions every week receive feedback from experts!
+        //else
+            //div()
+                br
+                h3(class='light-blue-text text-darken-4') <i class="fa fa-list-ul" aria-hidden="true" style="font-size: 1em;"></i> Docent Guide 
+                h4(id="guide-progress" class='light-blue-text text-darken-4') You are almost done!
+                br
+                unless isCondition1or2
+                    nav(class='light-blue darken-4' style='position: static;')
+                        .nav-wrapper(class='light-blue darken-4' style='margin-left: 20px;')
+                            u
+                            .col.s12
+                                //a.breadcrumb(href='/guide') Welcome
+                                a.breadcrumb(href='/guide_question') Step 1: Learn 
+                                a.breadcrumb(href='/guide_result') Step 2: Critique 
+                                a.breadcrumb(href='#!') Step 3: Lastly, add your question
+                //h5(class='light-blue-text text-darken-4' data-step='2' data-intro='First, let\'s understand what makes a question useful in Gut Instinct') Step 3: Adding your question
+                //h6(class='light-blue-text text-darken-4') Final step before you access all Gut Instinct questions and learning materials!
+
+        #examples.modal.modal-fixed-footer
+          .modal-content
+            h4(class='light-blue-text text-darken-4') Example Questions
+            each exampleQuestions
+                +qmodule_example
+          .modal-footer
+            a.modal-action.modal-close.btn-flat(href='#!' class="light-blue-text") Close
+
+        //div(class='questions' id ='addQuestionDiv' style='display:none')
+        div(class='questions' id ='addQuestionDiv' style="position: absolute; left: calc(50% - 395px); width: 790px;")
+            //div(class='card qmodule', style='background: #fff8e1')
+            //div(class='card qmodule')
+            div(class='qmodule lighten-5 card' style=" background: rgb(250,250,250); border-width: 2px; border-style: solid; border-color: rgba(25, 118, 210, .1); border-radius: 2px;")
+
+                div(class='card-content layer-1')
+                    div(class='row')                        
+                        div(class='col s12 l12')
+                            form(id='addQuestionForm' autocomplete='off' novalidate)
+                                //span(style='font-size: 20pt; color: #8bc34a; font-weight: 300; margin-bottom: 0') Most popular questions every week receive feedback from experts!
+                                //br
+                                //button(id='goBack' type='button' class=' waves-light btn grey darken-2' value="Back" onclick="history.go(-1);") Return to previous page
+                                //a(href='/gutboard_slider' class='returnActiveQuestion')
+                                    span(class='oi', data-glyph="chevron-left") &nbsp; Back to <i class="fa fa-comments-o" aria-hidden="true"></i> GutBoard
+                                if isGuideCompleted
+                                    if hasAddedMoreThanOneQuestion
+                                        h1(class="blue-text text-darken-2" style='font-size: 18pt; font-weight: 300; margin-bottom: 0; text-align: center;', data-step='1', data-intro='Welcome! Here you can add your Gut Instincts as questions! Just follow the steps to add your question. You can always restart this tour by clicking on "Confused" button.') Share your Gut Instinct!
+                                        if isCondition0or10or11
+                                            div(style="position: absolute; right: 50px; top: 15px; text-align: center;")
+                                                a.modal-trigger(id="exampleQs" href='#examples' title="Look at helpful examples" style='text-align: center; color: #f4511e')
+                                                    i(class='fa fa-question fa-2x', aria-hidden="true", style='vertical-align: middle; color: #f4511e') 
+                                                    h1(style="font-size: 10pt;") Show me examples
+                                    else
+                                        h1(class="blue-text text-darken-2" style='font-size: 18pt; font-weight: 300; margin-bottom: 0; text-align: center;', data-step='1', data-intro='Welcome! Here you can add your Gut Instincts as questions! Just follow the steps to add your question. You can always restart this tour by clicking on "Confused" button.') Share your Gut Instinct!
+                                        br
+                                        h6(class="timestamp" style='font-size: 13pt; margin-bottom: 0; text-align: center; color: #f4511e') Please contribute at least one other question to access the entire Gut Instinct website
+                                else
+                                    h1(class="blue-text text-darken-2" style='font-size: 18pt; font-weight: 300; margin-bottom: 0; text-align: center;', data-step='1', data-intro='Welcome! Here you can add your Gut Instincts as questions! Just follow the steps to add your question. You can always restart this tour by clicking on "Confused" button.') Share your Gut Instinct!
+
+                                    br
+                                    h6(class="timestamp" style='font-size: 13pt; margin-bottom: 0; text-align: left;') This is the last step of the Docent guide. Add your question to unlock entire Gut Instinct website. Not adding a question now will provide very limited access to the questions and learning materials.
+
+
+                                br
+                                ul(class='collapsible popout' data-collapsible='expandable' style="width: 740px;")
+                                    //li
+                                        unless isCondition1or2
+                                            div(id='layer1Adder' class="blue-text text-darken-4" class='collapsible-header active' style='font-size: 13pt; font-weight: 400;', data-step='2', data-intro='First, take a look at your question and analyze it by identifing the cause(s) and effect(s).') How to get most useful information from other participants<i id="check-step-0" class="fa fa-check" style="display: none;" aria-hidden="true"></i>
+                                            .collapsible-body.white
+                                                //span Let's make sure the question you have in mind is one that researchers can build upon. Identify the cause and the effect(s) of your question and try to pinpoint the top-level and secondary questions that may come with it. Take the following question,
+                                                span Suppose your 
+                                                b Gut Instinct 
+                                                | is that your bowel movements are quicker/more frequent when you run daily. Pro-tip: Your Gut Instinct should include a cause and effect.
+                                                br
+                                                br 
+                                                ol(class="addq" style="margin-left: -20px;")
+                                                    li
+                                                        b(style="color: grey;") 1.
+                                                        b Convert your Gut Instinct into a question you might ask a friend 
+                                                        br
+                                                        i(style="margin-left: 15px;") Are your bowel movements quicker/more frequent when you run daily?
+                                                        br
+                                                        br
+                                                        //hr(style="border-top:1px dotted #000;")
+
+                                                    li
+                                                        b(style="color: grey;") 2.
+                                                        b Identify the cause and effect in your Gut Instinct
+                                                        br
+                                                        span(style="margin-left: 15px;") Note how this question has clear cause and effects.
+                                                        br
+                                                        span(style="margin-left: 15px;") Cause    :
+                                                        span(class="blue-text text-darken-4" style="margin-left: 15px; font-weight: 400;") Running Daily
+                                                        span(style="margin-left: 15px;") Effects:
+                                                        span(class="blue-text text-darken-4" style="margin-left: 15px; font-weight: 400;") Quicker/More frequent bowel movements.
+                                                        br
+                                                        //span
+                                                            ol(type='1')
+                                                                li Note how the question has clear cause and effects. Your questions should include those too.
+                                                                li Cause    :
+                                                                    span(class="blue-text text-darken-4" style="margin-left: 15px; font-weight: 400;") Running Daily
+                                                                li Effects:
+                                                                    span(class="blue-text text-darken-4" style="margin-left: 15px; font-weight: 400;") Quicker/More frequent bowel movements.
+                                                                    //p(class="blue-text text-darken-4" style="margin-left: 15px; font-weight: 400;") 2. More frequent bowel movements.
+                                                                    br
+                                                                    br
+
+                                                        //hr(style="border-top:1px dotted #000;")
+                                                        br
+                                                    li
+                                                        b(style="color: grey;") 3.
+                                                        b Convert the cause into a Top Level question
+                                                        br
+                                                        div(style="margin-left: 15px;")
+                                                            span Use a question that elicits specific, personal information from people
+                                                            span(class="blue-text text-darken-4" style="font-weight: 400;") How often do you run? (daily/3 times per week/ weekly/fortnightly)
+                                                            span is better than 
+                                                            b Do you run daily? (yes/no)
+                                                        span   
+                                                        br
+                                                        
+                                                        //img(src="/images/addq/addq_top.png" style="border: 2px solid #DEF0FD; border-radius: 3px; margin-left:15px;" height="415px" width="75%")
+                                                        //hr(style="border-top:1px dotted #000;")
+
+                                                    li
+                                                        b(style="color: grey;") 4.
+                                                        b Select short, specific options
+                                                        br
+                                                        div(style="margin-left: 15px;")
+                                                            span Use very short options relevant to the question. Pro-tip: Do not write an essay in option box. A long option has a lot of informatin and deserves its own follow-up question.
+                                                        br
+                                                        //hr(style="border-top:1px dotted #000;") 
+
+                                                    li
+                                                        b(style="color: grey;") 5.
+                                                        b Convert the effects to follow-up questions
+                                                        br
+                                                        span(class="blue-text text-darken-4" style="margin-left: 15px; font-weight: 400;") Are your bowel movements quicker on the days you run?
+                                                        br
+                                                        span(class="blue-text text-darken-4" style="margin-left: 15px; font-weight: 400;") Are your bowel movements more frequent on the days you run?
+                                                        br
+                                                        br
+                                                    //img(src="/images/addq/addq_f1.png" style="border: 2px solid #DEF0FD; border-radius: 3px; margin-left:15px;" height="320px" width="75%")
+                                                    //img(src="/images/addq/addq_f2.png" style=" border: 2px solid #DEF0FD; border-radius: 3px; margin-left:12.5%;" height="290px" width="75%")
+                                                    //br
+                                                    //br
+                                                button(id="step-0" type='button' class=' waves-light btn light-blue addq-nextstep') Next
+                                    li  
+                                        if isGuideCompleted
+                                            unless isCondition1or2or8or9
+                                                div(id='layer1Adder' class="blue-text text-darken-4" class='collapsible-header active' style='font-size: 13pt; font-weight: 400;', data-step='3', data-intro='Add a high-level question that identifies your topic of inquiry such as your habits.') 1. Add a top-level question for others to answer: <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Something that you do (<span style="font-style: italic; font-size: 13pt;">a cause</span>)<i id="check-step-1" class="fa fa-check" style="display: none;" aria-hidden="true"></i>
+                                            else
+                                                div(id='layer1Adder' class="blue-text text-darken-4" class='collapsible-header active' style='font-size: 13pt; font-weight: 400;', data-step='3', data-intro='Add a high-level question that identifies your topic of inquiry such as your habits.') 1. Add a question and options for others to answer <i id="check-step-1" class="fa fa-check" style="display: none;" aria-hidden="true"></i>
+                                        else
+                                            div(id='layer1Adder' class="blue-text text-darken-4" class='collapsible-header active' style='font-size: 13pt; font-weight: 400;', data-step='3', data-intro='Add a high-level question that identifies your topic of inquiry such as your habits.') 1. Add a question and options for others to answer<i id="check-step-1" class="fa fa-check" style="display: none;" aria-hidden="true"></i>
+
+                                        div(class='collapsible-body white')
+                                            //h6(class="blue-text text-darken-4") 1.1 Add your question
+                                            if isGuideCompleted
+                                                unless isCondition1or2or8or9
+                                                    span Great Questions
+                                                        a(href="#" onclick="$('#top-ex-great').toggle()") (?)
+                                           
+                                            div(id="top-ex-great" style="display: none;" )
+                                                br
+                                                //hr(style="border-top:1px dotted #000;")
+                                                h6 A good top-level question
+                                                p Which fruit juices do you drink?
+                                                ul
+                                                    li
+                                                        input(disabled="true" type="checkbox" id="sample-1" )
+                                                        label(for="sample-1")
+                                                            | Orange
+                                                    li 
+                                                        input(disabled="true" type="checkbox" id="sample-2")
+                                                        label(for="sample-2") 
+                                                            | Apple
+                                                    li 
+                                                        input(disabled="true" type="checkbox" id="sample-3")
+                                                        label(for="sample-3") 
+                                                            | (People can add their own options)
+                                                hr(style="border-top:1px dotted #000;")
+
+                                            if isGuideCompleted
+                                                unless isCondition1or2or8or9
+                                                    br
+                                                    span Poor Questions
+                                                        a(href="#" onclick="$('#top-ex-poor').toggle()") (?)
+
+                                            div(id="top-ex-poor" style="display: none;" )
+                                                br
+                                                //hr(style="border-top:1px dotted #000;")
+                                                h6 Bad top-level questions
+                                                p Why does it hurt my tummy after a night of heavy drinking?
+                                                ul
+                                                    li
+                                                        input(disabled="true" type="checkbox" id="sample-1" )
+                                                        label(for="sample-1")
+                                                            | I think too much drinking is hard for my stomach
+                                                    li 
+                                                        input(disabled="true" type="checkbox" id="sample-2")
+                                                        label(for="sample-2") 
+                                                            | It's possible dehydration is a factor
+                                                    li 
+                                                        input(disabled="true" type="checkbox" id="sample-3")
+                                                        label(for="sample-3") 
+                                                            | (People add own options)
+                                                span This question does not ask about people's habits or lifestyle but asks them to explain a fact. It's a poor fit since it's meant for scientists, not for citizens using Gut Instinct. Sharing what happens after a night of heavy drinking and asking others about it is much better!
+
+                                                br
+                                                br
+                                                p Do I notice a difference in my health if I eat yogurt every day?
+                                                ul
+                                                    li
+                                                        input(disabled="true" type="checkbox" id="sample-1" )
+                                                        label(for="sample-1")
+                                                            | Yes
+                                                    li 
+                                                        input(disabled="true" type="checkbox" id="sample-2")
+                                                        label(for="sample-2") 
+                                                            | No
+                                                span This question does not share any insights. A better question will share a specific difference noticed in health upon eating yogurt and ask others to share theirs!
+                                                 
+                                                hr(style="border-top:1px dotted #000;")
+                                            
+                                            if isGuideCompleted
+                                                unless isCondition1or2or8or9      
+                                                    br
+                                                    span More Poor Questions
+                                                        a(href="#" onclick="$('#top-ex-poor-more').toggle()") (?)
+                                            div(id="top-ex-poor-more" style="display: none;" )
+                                                br
+                                                h6 Here are some more questions that citizens simply cannot answer!
+                                                ol(style="margin-left: -20px;")
+                                                    li
+                                                        b(style="color: grey;") 1.
+                                                        | How has antibiotic use affected my gut health within months?
+                                                        br
+
+                                                    li
+                                                        b(style="color: grey;") 2.
+                                                        | Does my gut microbiome change if I eat yogurt every day?
+                                                      
+                                                        br
+                                                    li
+                                                        b(style="color: grey;") 3.
+                                                        | Does tuberculosis treatment influence the human microbiome? 
+                                                        br
+                                                    li
+                                                        b(style="color: grey;") 4.
+                                                        | Does the functioning of the pancreas, liver and spleen affect your gut microbiome?
+                                                        br
+                                                //span Gut Instinct is a community website where people discuss personal insights with each other. Scientists can only use your questions if they link a cause (eating yogurt) with an effect (e.g. sleeping better). Remember that your questions are only useful if they are based on your intuitions and if they are specific enough for others to share their insights. Asking broad scientific questions is not helpful to you, your peers or scientists :-(
+                                                span Remember, your questions are only useful if they are based on your intuitions and if they are specific enough for other citizens to answer. Broad scientific questions (like the ones above) are impossible to answer currently
+                                                hr(style="border-top:1px dotted #000;")
+                                            if isGuideCompleted
+                                                unless isCondition1or2or8or9
+                                                    br
+                                                    br
+                                            input(type='text', id='primary_question', name='primary_question', placeholder='sample: How frequently do you eat probiotic yogurt?', required, style="border-width: 2px; border-style: solid; border-color: rgba(25, 118, 210, .1); border-radius: 2px; padding-top: 5px; padding-bottom: 5px; padding-left: 10px; width: calc(100% - 10px);")
+                                            //div(class='bubble bubble-down hint-layer1') Think of interesting questions that are personally relevant to you! Many crazy ideas have led to amazing discoveries, esp for gut microbiome - so don't shy away!
+                                            span Share questions based on your personal insights about your health. Remember, many crazy ideas have led to amazing discoveries, especially for the human microbiome - so don't shy away!
+
+
+                                            br
+                                            br
+                                            
+                                            div.options-container
+                                                p(style="display: inline;")
+                                                    h6(class="blue-text text-darken-4" style="display: inline;") Add your options
+                                                    | with one click! You can edit them after adding them.
+                                                ul(style="float: left; margin-right: 20px;")
+                                                    li
+                                                        a.options-mul(href="#") Multiple Options
+                                                    li
+                                                    
+                                                        a.options-yesno(href="#") Yes/No 
+                                                            
+                                                            //img(src='/images/yesNoTemplate.png')
+                                                    li
+                                                        a.options-time-quantity(href="#") Frequency (how many times)
+                                                            
+                                                            //img(src='/images/yesNoTemplate.png')
+                                                ul
+                                                    li
+                                                        a.options-volume-quantity(href="#") Volume 
+                                                            
+                                                            //img(src='/images/yesNoTemplate.png')
+                                                    li
+                                                        a.options-weight-quantity(href="#") Weight 
+                                                            //img(src='/images/yesNoTemplate.png')
+                                                    li
+                                                        a.options-brand(href="#") Brand Option
+                                                            
+                                                            //img(src='/images/yesNoTemplate.png')
+                                                br
+                                                p Or create your own options below. 
+                                                p Great options are specific to the question. Poor options are too long and vague. 
+                                                br
+                                                each optionData in options
+                                                    +option(data=optionData)
+
+                                                a#option-add.option-add(href="#")
+                                                    i.fa.fa-plus.blue-text.darken-4(style="font-size:20px;")
+
+                                                br
+                                                br
+                                            br
+                                            button(id='step-1' type='button' class=' waves-light btn light-blue addq-nextstep') Save & Next
+
+
+                                    li
+                                        if isGuideCompleted
+                                            unless isCondition1or2or8or9
+                                                div(id='layer2Adder' class='collapsible-header' class="blue-text text-darken-4" style='font-size: 13pt; font-weight: 400;', data-step='4' data-intro='Let\'s get specific! Refine your top-level question by adding specific details. Does performing an activity X lead to a result Y for you? Share that! Share as many follow-up questions as you want!') 2. Add a follow-up question: <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Something that happens (<span style="font-style: italic; font-size: 13pt;">an effect</span>) due to the cause above <i id="check-step-2" class="fa fa-check" style="display: none;" aria-hidden="true"></i>
+                                            else
+                                                div(id='layer1Adder' class="blue-text text-darken-4" class='collapsible-header' style='font-size: 13pt; font-weight: 400;', data-step='4', data-intro='Let\'s get specific! Refine your top-level question by adding specific details. Does performing an activity X lead to a result Y for you? Share that! Share as many follow-up questions as you want!') 2. Add a follow-up question <i id="check-step-2" class="fa fa-check" style="display: none;" aria-hidden="true"></i>
+                                        else
+                                            div(id='layer1Adder' class="blue-text text-darken-4" class='collapsible-header' style='font-size: 13pt; font-weight: 400;', data-step='4', data-intro='Let\'s get specific! Refine your top-level question by adding specific details. Does performing an activity X lead to a result Y for you? Share that! Share as many follow-up questions as you want!') 2. Add a follow-up question <i id="check-step-2" class="fa fa-check" style="display: none;" aria-hidden="true"></i>
+
+                                        
+
+                                        div(class='collapsible-body white')
+                                                                                            
+                                            input(type='text' id='followup_question' name='followup_question' placeholder='sample: Do you run faster on days you eat probiotic yogurt?', required, style="border-width: 2px; border-style: solid; border-color: rgba(25, 118, 210, .1); border-radius: 2px; padding-top: 5px; padding-bottom: 5px; padding-left: 10px; width: calc(100% - 10px);")
+                                            //div(class='bubble bubble-left hint-layer2')
+                                            if isGuideCompleted
+                                                unless isCondition1or2or8or9
+                                                    span Be specific! Link your cause in top-level question with one effect. Use multiple follow-up questions for multiple effects. Share more to learn more from others! 
+                                                else
+                                                    span Be specific! Use this question to link your first question with how you feel (or something you experience).
+                                            else
+                                                span Be specific! Use this question to link your first question with how you feel (or something you experience).
+                                    
+                                            if isGuideCompleted
+                                                unless isCondition1or2or8or9
+                                                    br
+                                                    br
+                                                    span Great example                                   
+                                                        a(href="#" onclick="$('#followup-ex').toggle()") (?)
+                                                    div(id="followup-ex" style="display: none;" )
+                                
+                                                        p How much sleep do you get on the days you drink juice?
+                                                        ul
+                                                            li
+                                                                input(disabled="true" type="checkbox" id="sample-1" )
+                                                                label(for="sample-1")
+                                                                    | More than usual
+                                                            li 
+                                                                input(disabled="true" type="checkbox" id="sample-2")
+                                                                label(for="sample-2") 
+                                                                    | Same as other nights 
+                                                            li 
+                                                                input(disabled="true" type="checkbox" id="sample-2")
+                                                                label(for="sample-2") 
+                                                                    | Less than usual
+                                                        hr(style="border-top:1px dotted #000;")
+                                            br
+                                            br
+
+                                            div(class='followup-option' option-number='1')
+                                                div(class='question-each-option option-1'  style="margin-left: 20px;")
+                                                    span Option 1:
+                                                    input(num="0" id='layer2Adder-input-1' class='addOptionInput' type='text' placeholder='Use very short options relevant to the question')
+
+                                                div(class='question-each-option option-2' style='margin-left: 20px; display: none;')
+                                                    span Option 2:
+                                                    input(num="1" class='addOptionInput' type='text' placeholder='Use very short options relevant to the question')
+
+                                                div(class='question-each-option option-3' style='margin-left: 20px; display: none;')
+                                                    span Option 3:
+                                                    input(num="2" class='addOptionInput' type='text' placeholder='Use very short options relevant to the question')
+
+                                                div(class='question-each-option option-4' style='margin-left: 20px; display: none;')
+                                                    span Option 4:
+                                                    input(num="3" class='addOptionInput' type='text' placeholder='Use very short options relevant to the question')
+
+                                                div(class='question-each-option option-5' style='margin-left: 20px; display: none;')
+                                                    span Option 5:
+                                                    input(num="4" class='addOptionInput' type='text' placeholder='Use very short options relevant to the question')
+
+
+                                            //button(id='addOptionFollowupBtn' type='button' class=' waves-light btn grey darken-2 addOptionFollowup')
+                                            a(id='addOptionFollowupBtn' class="addOptionFollowup" href="#")
+                                                i.fa.fa-plus.blue-text.darken-4(style="font-size:20px;")
+                                            br
+                                            br
+                                            button(id="step-2" type='button' class=' waves-light btn light-blue addq-nextstep') Save & Next
+
+
+                                    li
+                                        if isGuideCompleted
+                                            unless isCondition1or2or8or9
+                                                div(class='collapsible-header' class="blue-text text-darken-4" style='font-size: 13pt; font-weight: 400;', data-step='5' data-intro='More ideas, more questions, more science!') 3. Add more follow-up questions: More effects <i id="check-step-3" class="fa fa-check" style="display: none;" aria-hidden="true"></i>
+                                            else
+                                                div(class='collapsible-header' class="blue-text text-darken-4" style='font-size: 13pt; font-weight: 400;', data-step='5' data-intro='More ideas, more questions, more science!') 3. Add more follow-up questions <i id="check-step-3" class="fa fa-check" style="display: none;" aria-hidden="true"></i>
+                                        else
+                                            div(class='collapsible-header' class="blue-text text-darken-4" style='font-size: 13pt; font-weight: 400;', data-step='5' data-intro='More ideas, more questions, more science!') 3. Add more follow-up questions <i id="check-step-3" class="fa fa-check" style="display: none;" aria-hidden="true"></i>
+                                        
+
+                                        div(class='collapsible-body white')
+                                            //span Share more effects here
+                                            //span Remember, you're a scientist! Get specific! Link cause with effects. Think of personal experience or folk theories. Someone else might have the same experience - who knows!
+                                            //br
+
+                                            div(id='extra-followup-1' class='extra-followup' style='display: none;')
+                                                b Second follow-up question
+                                                    input(type='text' id='extra-followup-1-question' class='extra-followup-question' name='followup_question' placeholder='sample: If so, does it help your digestion?', required style="font-weight: 100; border-width: 2px; border-style: solid; border-color: rgba(25, 118, 210, .1); border-radius: 2px; padding-top: 5px; padding-bottom: 5px; padding-left: 10px; width: calc(100% - 10px);")
+                                                    //div(class='bubble bubble-left hint-layer2') Remember, you're a scientist! Get specific! Link cause with effects. Think of personal experience or folk theories. Someone else might have the same experience - who knows!
+
+                                                    div(class='extra-followup-1-option' option-number='10' style="font-weight: 100; margin-left: 20px;")
+                                                        div(class='question-each-option option-1')
+                                                            span Option 1:
+                                                            input(class='addOptionInputExtra' type='text' placeholder='enter your option here')
+
+                                                        div(class='question-each-option option-2' style='display: none;')
+                                                            span Option 2:
+                                                            input(class='addOptionInputExtra' type='text' placeholder='enter your option here')
+
+                                                        div(class='question-each-option option-3' style='display: none;')
+                                                            span Option 3:
+                                                            input(class='addOptionInputExtra' type='text' placeholder='enter your option here')
+
+                                                        div(class='question-each-option option-4' style='display: none;')
+                                                            span Option 4:
+                                                            input(class='addOptionInputExtra' type='text' placeholder='enter your option here')
+
+                                                        div(class='question-each-option option-5' style='display: none;')
+                                                            span Option 5:
+                                                            input(class='addOptionInputExtra' type='text' placeholder='enter your option here')
+
+
+
+                                                        div(class='addExtraL2QuestionOptionsDiv')
+                                                            a(class="addExtraL2QuestionOptions" href="#")
+                                                                i.fa.fa-plus.blue-text.darken-4(style="font-size:20px;")
+                                                            //button(type='button', class='addExtraL2QuestionOptions', class=' waves-light btn grey darken-2') Add More Options
+
+
+                                            div(id='extra-followup-2' class='extra-followup' style='display: none;')
+                                                br
+                                                div(class='divider')
+                                                br
+                                                b Third follow-up question
+                                                    input(type='text' id='extra-followup-2-question' class='extra-followup-question' name='followup_question' placeholder='sample: If so, does it help your digestion?', required style="font-weight: 100; border-width: 2px; border-style: solid; border-color: rgba(25, 118, 210, .1); border-radius: 2px; padding-top: 5px; padding-bottom: 5px; padding-left: 10px; width: calc(100% - 10px);")
+                                                    //div(class='bubble bubble-left hint-layer2') Remember, you're a scientist! Get specific! Link cause with effects. Think of personal experience or folk theories. Someone else might have the same experience - who knows!
+
+                                                    div(class='extra-followup-2-option' option-number='11' style="font-weight: 100; margin-left: 20px;")
+                                                        div(class='question-each-option option-1')
+                                                            span Option 1:
+                                                            input(class='addOptionInputExtra' type='text' placeholder='enter your option here')
+
+                                                        div(class='question-each-option option-2' style='display: none;')
+                                                            span Option 2:
+                                                            input(class='addOptionInputExtra' type='text' placeholder='enter your option here')
+
+                                                        div(class='question-each-option option-3' style='display: none;')
+                                                            span Option 3:
+                                                            input(class='addOptionInputExtra' type='text' placeholder='enter your option here')
+
+                                                        div(class='question-each-option option-4' style='display: none;')
+                                                            span Option 4:
+                                                            input(class='addOptionInputExtra' type='text' placeholder='enter your option here')
+
+                                                        div(class='question-each-option option-5' style='display: none;')
+                                                            span Option 5:
+                                                            input(class='addOptionInputExtra' type='text' placeholder='enter your option here')
+
+                                                        div(class='addExtraL2QuestionOptionsDiv')
+                                                            a(class="addExtraL2QuestionOptions" href="#")
+                                                                i.fa.fa-plus.blue-text.darken-4(style="font-size:20px;")
+                                                            //button(type='button', class='addExtraL2QuestionOptions', class=' waves-light btn grey darken-2') Add More Options
+
+
+                                            div(id='extra-followup-3' class='extra-followup' style='display: none;')
+                                                br
+                                                div(class='divider')
+                                                br
+                                                b Fourth follow-up question
+                                                    input(type='text' id='extra-followup-3-question' class='extra-followup-question' name='followup_question' placeholder='sample: If so, does it help your digestion?', required style="font-weight: 100; border-width: 2px; border-style: solid; border-color: rgba(25, 118, 210, .1); border-radius: 2px; padding-top: 5px; padding-bottom: 5px; padding-left: 10px; width: calc(100% - 10px);")
+                                                    //div(class='bubble bubble-left hint-layer2') Remember, you're a scientist! Get specific! Link cause with effects. Think of personal experience or folk theories. Someone else might have the same experience - who knows!
+
+                                                    div(class='extra-followup-3-option' option-number='12' style="font-weight: 100; margin-left: 20px;")
+                                                        div(class='question-each-option option-1')
+                                                            span Option 1:
+                                                            input(class='addOptionInputExtra' type='text' placeholder='enter your option here')
+
+                                                        div(class='question-each-option option-2' style='display: none;')
+                                                            span Option 2:
+                                                            input(class='addOptionInputExtra' type='text' placeholder='enter your option here')
+
+                                                        div(class='question-each-option option-3' style='display: none;')
+                                                            span Option 3:
+                                                            input(class='addOptionInputExtra' type='text' placeholder='enter your option here')
+
+                                                        div(class='question-each-option option-4' style='display: none;')
+                                                            span Option 4:
+                                                            input(class='addOptionInputExtra' type='text' placeholder='enter your option here')
+
+                                                        div(class='question-each-option option-5' style='display: none;')
+                                                            span Option 5:
+                                                            input(class='addOptionInputExtra' type='text' placeholder='enter your option here')
+
+                                                        div(class='addExtraL2QuestionOptionsDiv')
+                                                            a(class="addExtraL2QuestionOptions" href="#")
+                                                                i.fa.fa-plus.blue-text.darken-4(style="font-size:20px;")
+                                                            //button(type='button', class='addExtraL2QuestionOptions', class=' waves-light btn grey darken-2') Add More Options
+
+                                            div(id='extra-followup-4' class='extra-followup' style='display: none;')
+                                                br
+                                                div(class='divider')
+                                                br
+                                                b Fifth follow-up question
+                                                    input(type='text' id='extra-followup-4-question' class='extra-followup-question' name='followup_question' placeholder='sample: If so, does it help your digestion?', required style="font-weight: 100;border-width: 2px; border-style: solid; border-color: rgba(25, 118, 210, .1); border-radius: 2px; padding-top: 5px; padding-bottom: 5px; padding-left: 10px; width: calc(100% - 10px);")
+                                                    //div(class='bubble bubble-left hint-layer2') Remember, you're a scientist! Get specific! Link cause with effects. Think of personal experience or folk theories. Someone else might have the same experience - who knows!
+
+                                                    div(class='extra-followup-3-option' option-number='12' style="font-weight: 100; margin-left: 20px;")
+                                                        div(class='question-each-option option-1')
+                                                            span Option 1:
+                                                            input(class='addOptionInputExtra' type='text' placeholder='enter your option here')
+
+                                                        div(class='question-each-option option-2' style='display: none;')
+                                                            span Option 2:
+                                                            input(class='addOptionInputExtra' type='text' placeholder='enter your option here')
+
+                                                        div(class='question-each-option option-3' style='display: none;')
+                                                            span Option 3:
+                                                            input(class='addOptionInputExtra' type='text' placeholder='enter your option here')
+
+                                                        div(class='question-each-option option-4' style='display: none;')
+                                                            span Option 4:
+                                                            input(class='addOptionInputExtra' type='text' placeholder='enter your option here')
+
+                                                        div(class='question-each-option option-5' style='display: none;')
+                                                            span Option 5:
+                                                            input(class='addOptionInputExtra' type='text' placeholder='enter your option here')
+
+                                                        div(class='addExtraL2QuestionOptionsDiv')
+                                                            a(class="addExtraL2QuestionOptions" href="#")
+                                                                i.fa.fa-plus.blue-text.darken-4(style="font-size:20px;")
+                                                            //button(type='button', class='addExtraL2QuestionOptions', class=' waves-light btn grey darken-2') Add More Options
+
+                                            div(id='extra-followup-5' class='extra-followup' style='display: none;')
+                                                br
+                                                div(class='divider')
+                                                br
+                                                b Sixth follow-up question
+                                                    input(type='text' id='extra-followup-5-question' class='extra-followup-question' name='followup_question' placeholder='sample: If so, does it help your digestion?', required style="font-weight: 100; border-width: 2px; border-style: solid; border-color: rgba(25, 118, 210, .1); border-radius: 2px; padding-top: 5px; padding-bottom: 5px; padding-left: 10px; width: calc(100% - 10px);")
+                                                    //div(class='bubble bubble-left hint-layer2') Remember, you're a scientist! Get specific! Link cause with effects. Think of personal experience or folk theories. Someone else might have the same experience - who knows!
+
+                                                    div(class='extra-followup-3-option' option-number='12' style="font-weight: 100; margin-left: 20px;")
+                                                        div(class='question-each-option option-1')
+                                                            span Option 1:
+                                                            input(class='addOptionInputExtra' type='text' placeholder='enter your option here')
+
+                                                        div(class='question-each-option option-2' style='display: none;')
+                                                            span Option 2:
+                                                            input(class='addOptionInputExtra' type='text' placeholder='enter your option here')
+
+                                                        div(class='question-each-option option-3' style='display: none;')
+                                                            span Option 3:
+                                                            input(class='addOptionInputExtra' type='text' placeholder='enter your option here')
+
+                                                        div(class='question-each-option option-4' style='display: none;')
+                                                            span Option 4:
+                                                            input(class='addOptionInputExtra' type='text' placeholder='enter your option here')
+
+                                                        div(class='question-each-option option-5' style='display: none;')
+                                                            span Option 5:
+                                                            input(class='addOptionInputExtra' type='text' placeholder='enter your option here')
+
+                                                        div(class='addExtraL2QuestionOptionsDiv')
+                                                            a(class="addExtraL2QuestionOptions" href="#")
+                                                                i.fa.fa-plus.blue-text.darken-4(style="font-size:20px;")
+                                                            //button(type='button', class='addExtraL2QuestionOptions', class=' waves-light btn grey darken-2') Add More Options
+
+                                            br
+                                            button(type='button', id='addExtraL2Question', class=' waves-light btn grey darken-2') Add more
+                                            br
+                                            br
+                                            button(id="step-3" type='button', class=' waves-light btn light-blue addq-nextstep') Save & Next
+                                    li
+                                        if isGuideCompleted
+                                            if isIntroCompleted
+                                                if isCondition2or4or0or6or9or11
+                                                    div(class='collapsible-header' class="blue-text text-darken-4" style='font-size: 13pt; font-weight: 400;', data-step='6' data-intro='Take a crack at explaining your question by providing a mechanism behind it!') 4. Guess the mechanism for your Gut Instinct <i id="check-step-4" class="fa fa-check" style="display: none;" aria-hidden="true"></i>
+                                                else
+                                                    div(class='collapsible-header' class="blue-text text-darken-4" style='font-size: 13pt; font-weight: 400;', data-step='6' data-intro='Start off your own discussion here about your question') 4. Start a discussion <i id="check-step-4" class="fa fa-check" style="display: none;" aria-hidden="true"></i>
+                                            else
+                                                div(class='collapsible-header' class="blue-text text-darken-4" style='font-size: 13pt; font-weight: 400;', data-step='6' data-intro='Start off your own discussion here about your question') 4. Start a discussion <i id="check-step-4" class="fa fa-check" style="display: none;" aria-hidden="true"></i>
+                                        else
+                                            div(class='collapsible-header' class="blue-text text-darken-4" style='font-size: 13pt; font-weight: 400;', data-step='6' data-intro='Start off your own discussion here about your question') 4. Start a discussion <i id="check-step-4" class="fa fa-check" style="display: none;" aria-hidden="true"></i>
+
+                                        div(class='collapsible-body white')
+                                            //h6(class="blue-text text-darken-4") Start a discussion
+                                            if isGuideCompleted
+                                                if isIntroCompleted
+                                                    if isCondition2or4or0or6or9or11
+                                                        span Take a guess about how your Gut Instinct (your top-level and follow-up questions) might actually be related to the microbes in your gut. The gut microbiome is known to mediate a wide range of actions affecting our digestive, mental and overall health. <br> <br> <b>Don’t be afraid of being wrong </b>. Your guesses might just prove to be valuable to researchers. <br>
+                                                        //span Think about how this question affects you or your friends or family. Sharing details will also allow others to respond with useful, detailed replies! Don't shy away from providing links to articles/blogs/scienctific articles/papers - you can add/upload them below!
+                                                        span Example
+                                                            a(href="#" onclick="$('#dis-ex').toggle()") (?)
+                                                        div(id="dis-ex" style="display: none;" )
+                                                            p "I think drinking juice reduces the pH of the stomach, due to which some microbes might thrive better than others - maybe these microbes digest food faster and make me sleep better." 
+                                                            //hr(style="border-top:1px dotted #000;")
+                                                            br
+                                                    else 
+                                                        span Think about how this question affects you or your friends or family. Sharing details will also allow others to respond with useful, detailed replies! Don't shy away from providing links to articles/blogs/scientific articles/papers
+                                                else
+                                                    span Think about how this question affects you or your friends or family. Sharing details will also allow others to respond with useful, detailed replies! Don't shy away from providing links to articles/blogs/scientific articles/papers
+                                            else
+                                                span Think about how this question affects you or your friends or family. Sharing details will also allow others to respond with useful, detailed replies! Don't shy away from providing links to articles/blogs/scientific articles/papers
+
+                                            if isGuideCompleted
+                                                if isIntroCompleted
+                                                    if isCondition2or4or0or6or9or11
+                                                        textarea(id='start_discussion', required, style='font-size: 15px', class='materialize-textarea', name='start_discussion', placeholder='Guess the mechanism(s) here')
+                                                        //div(class='bubble bubble-left hint-layer3') Think about how this question affects you or your friends or family. Sharing details will also allow others to respond with useful, detailed replies! Don't shy away from providing links to articles/blogs/scienctific articles/papers - you can add/upload them below!
+                                                    else
+                                                        textarea(id='start_discussion', required, style='font-size: 15px', class='materialize-textarea', name='start_discussion', placeholder='Start discussion here')
+                                                else
+                                                    textarea(id='start_discussion', required, style='font-size: 15px', class='materialize-textarea', name='start_discussion', placeholder='Start discussion here')
+                                            else
+                                                textarea(id='start_discussion', required, style='font-size: 15px', class='materialize-textarea', name='start_discussion', placeholder='Start discussion here')
+
+                                            br
+                                            br
+                                            if isGuideCompleted
+                                                if isIntroCompleted
+                                                    if isCondition2or4or0or6or9or11
+                                                        h6(class="blue-text text-darken-4") Learning Material
+                                                        span To make guesses like scientists, don't forget to check Gut Instinct's 
+                                                        a(href="/topics" target="_blank") topics page
+                                                        br
+                                                        br
+                                            h6(class="blue-text text-darken-4") Attach scientific material
+                                            span Support your questions/ideas with external resources - it can be any article over the internet, a scientific paper, or even your own work on a crushed napkin - Everything's welcome!
+                                            br
+                                            input(type='text', id='url_attach', name='url_attach', placeholder='1. Add a URL (Optional)')
+                                            div(class='fileUpload  waves-light btn light-blue')
+                                                span(id='upload-selection-status-span') 2. Attach file (optional)
+                                                input(id='question-file-upload-btn' type="file" style='position: absolute; top: 0; right: 0; margin: 0; padding: 0; cursor: pointer;opacity: 0; filter: alpha(opacity=0);')
+
+                                            br
+                                            br
+                                            br
+                                            button(id="step-4" type='button', class=' waves-light btn light-blue addq-nextstep') Save & Next
+                                    if isGuideCompleted
+                                        unless isCondition1or2or8or9
+                                            li
+                                            
+                                                div(class='collapsible-header' class="blue-text text-darken-4" style='font-size: 13pt; font-weight: 400;', data-step='7' data-intro='Check that your questions meet the 5 requirements for a great gut question and tag your question before finally submitting') 5. Check the criteria <i id="check-step-5" class="fa fa-check" style="display: none;" aria-hidden="true"></i>
+
+                                                div(class='collapsible-body white')
+                                                    h6 Make sure that the combination of your top-level and follow-up questions meets the Gut Instinct criteria!
+                                                    br
+                                                    ul(id="addq-checklist")
+                                                        li
+                                                            input(class="criteria-check" type="checkbox" id="answerable")
+                                                            label(for="answerable")
+                                                                h6(style="color: black") Answerable? 
+                                                                | Others should be able to answer your question
+                                                        br
+                                                        li 
+                                                            input(class="criteria-check" type="checkbox" id="definite")
+                                                            label(for="definite")
+                                                                h6(style="color: black")  Definite? 
+                                                                | A good question includes a clear timeframe
+                                                        br
+                                                        li 
+                                                            input(class="criteria-check" type="checkbox" id="link")
+                                                            label(for="link")
+                                                                h6(style="color: black")  Links a cause with an effect? 
+                                                                | Your question should attempt to link an activity with a specific result, allowing others to agree/disagree and share their insights
+                                                        br
+                                                        li 
+                                                            input(class="criteria-check" type="checkbox" id="operational")
+                                                            label(for="operational")
+                                                                h6(style="color: black")  Operational? 
+                                                                | Your question should avoid ambiguous terms that might be difficult to understand for most people
+                                                        br
+                                                        li 
+                                                            input(class="criteria-check" type="checkbox" id="simple")
+                                                            label(for="simple")
+                                                                h6(style="color: black") Simple? 
+                                                                | A good question is simple to read, to understand, and to answer
+                                                        br
+                                                    //div(class='collapsible-body white')
+                                                    h6(class="blue-text text-darken-4") Add relevant tags
+                                                    input(type='text', id='tags_entry', name='tags_entry', placeholder='sample: #diet #probiotics', required)
+
+                                                    button(type='submit', class=' waves-light btn light-blue' id="finalsubmit") Save & Submit
+                                        else
+                                            li
+                                                div(class='collapsible-header' class="blue-text text-darken-4" style='font-size: 13pt; font-weight: 400;', data-step='8' data-intro='Tag your question before finally submitting') 5. Submit to GutBoard! 
+                                                div(class='collapsible-body white')
+                                                    h6(class="blue-text text-darken-4") Add relevant tags
+                                                    input(type='text', id='tags_entry', name='tags_entry', placeholder='sample: #diet #probiotics', required)
+
+                                                    button(type='submit', class=' waves-light btn light-blue' id="finalsubmit") Save & Submit 
+
+                                    else
+                                        li
+                                            div(class='collapsible-header' class="blue-text text-darken-4" style='font-size: 13pt; font-weight: 400;', data-step='8' data-intro='Tag your question before finally submitting') 5. Submit to GutBoard! 
+                                            div(class='collapsible-body white')
+                                                h6(class="blue-text text-darken-4") Add relevant tags
+                                                input(type='text', id='tags_entry', name='tags_entry', placeholder='sample: #diet #probiotics', required)
+
+                                                button(type='submit', class=' waves-light btn light-blue' id="finalsubmit") Save & Submit 
+
+                                    //li
+                                        unless isCondition1or2
+                                            div(class='collapsible-header' class="blue-text text-darken-4" style='font-size: 13pt; font-weight: 400;', data-step='8' data-intro='Start a discussion that will get citizen scientists and researchers interested. Share something personal and useful. Tag your question and attach outside content before submitting.') 6. Submit to GutBoard!
+                                        else
+                                            div(class='collapsible-header' class="blue-text text-darken-4" style='font-size: 13pt; font-weight: 400;', data-step='8' data-intro='Start a discussion that will get citizen scientists and researchers interested. Share something personal and useful. Tag your question and attach outside content before submitting.') 5. Submit to GutBoard!
+
+                                        div(class='collapsible-body white')
+                                            //h6(class="blue-text text-darken-4") Start a discussion
+                                                span How might the gut microbiome play a role?
+                                                //span Think about how this question affects you or your friends or family. Sharing details will also allow others to respond with useful, detailed replies! Don't shy away from providing links to articles/blogs/scienctific articles/papers - you can add/upload them below!
+                                                a(href="#" onclick="$('#dis-ex').toggle()") Example
+                                                div(id="dis-ex" style="display: none;" )
+                                                    br
+                                                    hr(style="border-top:1px dotted #000;")
+                                                    h6 Example 
+                                                    p I think eating spicy food reduces the pH of the stomach, due to which some microbes might thrive better than others. Gut microbes can mediate a wide variety of activities. Make a guess about how that might be possible! Don’t be afraid of being wrong, you never know!
+                                                    hr(style="border-top:1px dotted #000;")
+                                                    br
+                                                textarea(id='start_discussion', required, style='font-size: 15px', class='materialize-textarea', name='start_discussion', placeholder='Start your discussion here.')
+                                                //div(class='bubble bubble-left hint-layer3') Think about how this question affects you or your friends or family. Sharing details will also allow others to respond with useful, detailed replies! Don't shy away from providing links to articles/blogs/scienctific articles/papers - you can add/upload them below!
+
+                                                br
+                                                br
+                                                br
+                                            //button(type='button', class=' waves-light btn light-blue addq-nextstep') Save&Next
+
+
+                                            //li
+                                            //div(class='collapsible-header blue-text text-darken-4' style='font-size: 13pt;',  data-step='6' data-intro='Add tags that identify your questions. Clicking on a tag will allow everyone to see similar questions! Tags are separated by a spacebar.') Step 5: Add tags                                            
+
+                                            //button(type='button', class=' waves-light btn light-blue addq-nextstep') Save&Next
+
+                                            // li
+                                            //div(class='collapsible-header blue-text text-darken-4' style='font-size: 13pt;' data-step='7' data-intro='Did something on the interwebz spark your curiosity? It could be a link to an article, a paper, an image or any discussion! Share it with peers and experts!') Step 6: Add a URL/ Attach a file!
+
+                                            //button(type='button', class=' waves-light btn light-blue addq-nextstep') Save&Next
+
+                                            //li
+                                            //div(class='collapsible-header blue-text text-darken-4' style='font-size: 13pt;', data-step='9' data-intro='When you are done, review your inputs and submit your question for everyone to see!') Step 7: Review and submit
+                                                br
+
+                                            //div(class='collapsible-body white')
+
+
+                                    //li
+                                        div(class='collapsible-header' style='font-size: 13pt;' data-step='8' data-intro='Do you have an image or a pdf or any other file that inspired your question or supports your ideas. Add it for everyone to learn and discuss!') Step 7: Attach a supplementary file to your discussion (Optional)
+
+                                        div(class='collapsible-body')
+                                            div(class='fileUpload  waves-light btn light-blue')
+                                                span(id='upload-selection-status-span') Attach File (Optional)
+                                                input(id='question-file-upload-btn' type="file" style='position: absolute; top: 0; right: 0; margin: 0; padding: 0; cursor: pointer;opacity: 0; filter: alpha(opacity=0);')
+                                            br
+                                            br
+                                            button(type='button', class=' waves-light btn light-blue addq-nextstep') Save&Next
+
+                                            
+
+                                        //div(class='collapsible-body white')
+                                            span(class="blue-text text-darken-2" style='font-size: 14pt; font-weight: 700; margin-bottom: 0') Check if your questions meet these criteria!
+                                            br
+                                            ol(type='1' style='font-size: 11pt; line-height: 130%;')
+                                                li
+                                                    b Answerable: Others can answer it
+                                                li
+                                                    b Definite: Has a clear timeframe
+                                                li
+                                                    b Links cause with effect: An activity with a specific result 
+                                                li
+                                                    b Operational: Terms are specific and unambiguous
+                                                li
+                                                    b Simple: Does not have multiple items wrapped in
+                                            br
+                                            input(type='submit', class=' waves-light btn light-blue')
+                                            //button(type='button', class=' waves-light btn red addq-clear') Clear
+
+
+                        //div(class='col s12 l12')
+                            br
+                            span(class="blue-text text-darken-2" style='font-size: 14pt; font-weight: 700; margin-bottom: 0') Check if your questions meet these criteria!
+                            br
+                            ol(type='1' style='font-size: 11pt; line-height: 130%;')
+                                li
+                                    b Answerable: Others can answer it
+                                li
+                                    b Definite: Has a clear timeframe
+                                li
+                                    b Links cause with effect: An activity with a specific result 
+                                li
+                                    b Operational: Terms are specific and unambiguous
+                                li
+                                    b Simple: Does not have multiple items wrapped in
+
+
+
+                            //span For every question that you add, 
+                            //ol(type='1' style='font-size: 11pt; line-height: 130%;')
+                                li
+                                    b Is it answerable?
+                                    span Will it evoke interest from many people?
+
+                                li 
+                                    b Is it definite?
+                                    span Does it include a timeframe?
+                                li 
+                                    b Does it links a cause with an effect?
+                                    span Does it link one activity with a specific result?
+                                li
+                                    b Operational
+                                    ol(type='a' style='font-size: 11pt; padding-left: 20px;')
+                                        li Do check if it uses vague terms that others might find difficult to understand
+                                        li If you have multiple factors with multiple results, then make separate questions!
+
+                                li 
+                                    b No negations!
+                                    span Make sure your question is straightforward, and not confusing to others
+
+                                li 
+                                    b Weird questions are welcome!
+                            //button(id='goBack' type='button' class=' waves-light btn grey darken-2' value="Back" onclick="history.go(-1);") Return to previous page
+                            unless isGuideCompleted
+                                a(href='#' value="Back" onclick="history.go(-1);") 
+                                    span(class='oi grey-text', data-glyph="chevron-left"  style="font-size: 12pt") Return to previous page
+                            
+                            //div(align="right")
+                                a(href='/gutboard_slider' class='returnActiveQuestion' id='returnBoardBottom')
+                                    span(class='oi' style="font-size: 12pt") &nbsp; Answer other questions at <i class="fa fa-comments-o" aria-hidden="true"></i> GutBoard!
+                                    span(class='oi' data-glyph="chevron-right")
+                            //if isGuideCompleted
+                                    div(style='text-align: right; margin-bottom: 15px;')
+                                            div(style='text-align: center')
+                                                a(href="/gutboard")
+                                                    button(class=' waves-light btn light-blue add-topic-bookmark') Explore Gut Instinct!
+
+
+
+
+
+        //div(class='questions' id='activeQuestionDiv')
+            each questions
+                if qaccept hash
+                    +qmodule
+
+        //div(class='questions' id='sliderControlDiv' style='')
+            //a(href='#', id='sliderCotrol', class=' waves-light btn blue-grey darken-2 guttest-button', style='margin-top: 25px; font-size:20px') Skip This Question
+            //a(href='#', id='backSliderControl', class='guttest-button', style='margin-top: 25px; margin-right: 50px;', data-step='30', data-intro='Click on this question to go to the previous question')
+                i(class='fa fa-chevron-circle-left fa-4x  waves-light', aria-hidden="true", style='vertical-align: middle; color: #455a64')
+
+            //a(href='#', id='addQuestionControl', class='guttest-button', style='margin-top: 25px;', data-step='32', data-intro='Click on this question to add a new question. Click on this add button to see remaining part of the tour')
+                i(class='fa fa-plus-circle fa-4x  waves-light', aria-hidden="true", style='vertical-align: middle; color: #f4511e')
+
+
+        div(class='modal', id='q-moved', style='width: 500px')
+            div(class='modal-content')
+                p Your question has been added to the
+                    a(href='#', class='tab-link light-blue-text') Answered tab
+            div(class='modal-footer')
+                a(href='#', class=" modal-action modal-close  waves-light-blue btn-flat") Close
+        div(class='modal', id='confirm-add', style='width: 500px')
+            div(class='modal-content')
+                p Your question has been added to the
+                    a(href='#', class='tab-link light-blue-text') Written tab
+            div(class='modal-footer')
+                a(href='#', class=" modal-action modal-close  waves-light-blue btn-flat") Got It!
+
+
+
+template(name="option")
+    div.option-container
+        if data.checked
+            if data.yesno
+                input.option-checkbox(id="option-checkbox-#{data.id}" class="checkbox-blue" type="radio" class="with-gap")
+            else
+                input.option-checkbox(id="option-checkbox-#{data.id}" class="checkbox-blue" type="checkbox" class="filled-in" checked="checked")
+        else
+            if data.yesno
+                input.option-checkbox(id="option-checkbox-#{data.id}" class="checkbox-blue with-gap" type="radio")
+            else
+                input.option-checkbox(id="option-checkbox-#{data.id}" class="checkbox-blue" type="checkbox" class="filled-in")
+
+        label(for="option-checkbox-#{data.id}" style="width:65%; height:100%")
+            input.option-input(id="option-input-#{data.id}" type='text' value="#{data.text}" placeholder=" A short, specific option" style="width:100%; height:100%; padding-bottom:5px")
+
+        a.option-delete(href="#" id="delete-option-#{data.id}")
+            i.fa.fa-times.grey-text(style="font-size:14px; margin-left:15px")

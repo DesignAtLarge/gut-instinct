@@ -1,0 +1,39 @@
+<template name="gaRequestAnalysisModal">
+    <div class="modal" id="request-analysis-modal">
+        <div style="color:rgba(0,0,0,.54);background:rgba(0,0,0,.03); padding:15px;">
+            <h4 class="left-align">Send Data Analysis Request To Galileo</h4>
+        </div>
+        <div class="modal-content reminder-stats" style="margin-right: -200px; width: 100%;">
+            <div class="card" style="height: calc(100% - 123px);">
+                <div style="padding:10px 10px 5px 10px;">
+                    <p style="font-size: 20px; font-weight: 400;">Send a data analysis request to Galileo</p>
+                </div>
+                <div class="divider" style="margin-bottom:10px;"></div>
+                <div style="padding:0px; margin-right: 0px;">
+                    <div>
+                        <p style="margin-left: 16px;"><b>Message:</b></p>
+                        <div id="request-text-box" contenteditable="false" style="padding:10px; margin-left:5px; overflow-x: scroll; height: calc(100% - 123px);">
+                            Placeholder
+                            <br><br>
+                        </div>
+                    </div>
+                </div>
+                <div class="divider" style="margin-bottom:10px;"></div>
+                <div class="row" style="margin: 10px;">
+                    <div class="col s4">
+                        <i class="material-icons edit-design-btn" id="edit-request">mode_edit</i>
+                        <p style="font-family:'Lato', sans-serif; font-size:15px; margin:5px; float:right; font-weight:600">Edit message</p>
+                        <i class="material-icons edit-design-btn accept hide" id="accept-edit-request">check</i>
+                        <p style="font-family:'Lato', sans-serif; font-size:15px; margin:5px; float:right; font-weight:600">Save</p>
+                        <i class="material-icons edit-design-btn cancel hide" id="cancel-edit-request">clear</i>
+                        <p style="font-family:'Lato', sans-serif; font-size:15px; margin:5px; float:right; font-weight:600">Cancel</p>
+                    </div>
+                    <div class="col s8 right-align">
+                        <a class="blue-text modal-action modal-close btn-flat" id="sendRequest">Request Data Analysis</a>
+                        <a class="gray-text modal-action modal-close btn-flat">Close</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>

@@ -1,0 +1,205 @@
+<template name="header">
+    {{> init}}
+    <ul id="dropdown1" class="dropdown-content" style="margin-top: 65px;">
+        <li>
+            {{#unless hasEmail}}
+                <a href="/profile" style="color: #f4511e;">Profile <i class="fa fa-user" aria-hidden="true" style="margin-right: 0px"></i></a>
+            {{else}}
+                <a href="/profile" style="color: #01579b;">Profile <i class="fa fa-user" aria-hidden="true" style="margin-right: 0px"></i></a>
+            {{/unless}}
+        </li>
+        <li class="divider"></li>
+        <li>
+            <a class="logout" style="color: #01579b;">Logout <i class="fa fa-sign-out" aria-hidden="true" style="margin-right: 0px"></i></a>
+            <!-- #{user.username} -->
+        </li>
+    </ul>
+
+    <nav>
+        <div class="nav-wrapper light-blue darken-4" data-step="100" data-intro="Navigate Gut Instinct's menu bar in order to explore further options and features!">
+            <a href="#" id="mobileMenuSwitch" data-activates="mobile-demo" class="button-collapse">
+                <div class="row">
+                    <i class="material-icons col">menu</i>
+                    <!-- <img class="col" style="margin-left: 0px; margin-top: 15px;" src="/images/logos/gi_basic_dark_bg.png" height="35px"> -->
+                </div>
+            </a>
+
+            <a href="/entrance" class="brand-logo" title="Choose another platform" id="mendelCodeHeader"></a>
+            <!-- <img id="header-logo" style="margin-left: 120px; margin-top: 15px; display: none;" src="/images/logos/gi_basic_dark_bg.png" height="35px"> -->
+
+            <ul class="right hide-on-med-and-down">
+                <!-- <li>
+                    <form id="gutsearch">
+                        <input id="searchQuery" type="search" placeholder="Search">
+                    </form>
+                </li> -->
+                <li>
+                    <a href="javascript:void(0);" title="Get a little introductory help" class="glasspane" style="color:white">
+                        <i class="fa fa-question-circle-o" aria-hidden="true"></i> Confused?
+                    </a>
+                </li>
+                <li class="headerdivider"></li>
+                {{#unless isCondition7}}
+                    <li id="addq" data-step="101" data-intro="Need to add a question that just came to mind. Go here!">
+                        <a onclick="window.location.replace('/gutboard_slider_addq')" href="#" id="addQuestionControlHeader" title="Add a question." class="guttest-button" style="margin-top: 0px; color:white;">
+                            <i class="fa fa-plus-circle" style="color: #f4511e"></i> Add more questions!
+                        </a>
+                    </li>
+                {{/unless}}
+                {{#unless isCondition1or3or5or8or10}}
+                    {{#if visitedTopics}}
+                        <li id="topics" data-step="102" data-intro="Check out further learning material by exploring the topics page!">
+                            <a href="/topics" title="View topics page" style="color:white">
+                                <i class="fa fa-book" aria-hidden="true"></i> Topics
+                            </a>
+                        </li>
+                    {{else}}
+                        <li data-step="102" data-intro="Check out further learning material by exploring the topics page!" style="background-color: #f54032">
+                            <a href="/topics" title="View topics page" style="color:white">
+                                <i class="fa fa-book" aria-hidden="true"></i> Topics
+                            </a>
+                        </li>
+                    {{/if}}
+                {{/unless}}
+                {{#unless isCondition1or2or7or8or9}}
+                    <li id="guide" data-step="103" data-intro="Need pointers to asking great questions. We've got you covered here.">
+                        <!-- docent-exp - should not be visible for cond1 -->
+                        <a href="/guide" title="View guide" style="color:white">
+                            <i class="fa fa-list-ul" aria-hidden="true"></i> Guide
+                        </a>
+                    </li>
+                {{/unless}}
+                {{#unless isCondition7}}
+                    <li id="gutboard" data-step="104" data-intro="Review all questions that have been posted to this community board">
+                        <a id="gutboardMendelLink" title="View gut board" href="/gutboard/{{getMendelCode}}" style="color:white">
+                            <i class="fa fa-comments-o" aria-hidden="true"></i> GutBoard
+                        </a>
+                    </li>
+                {{/unless}}
+                {{#unless isCondition7}}
+                    <li id="notifications" data-step="105" data-intro="Check out notifications to see what's been added to your questions!">
+                        {{#if isUnreadNotification}}
+                            <a id="notification-button" title="Check notifications">
+                                <i class="fa fa-bell-o" aria-hidden="true"></i> Notifications
+                                <span class="new badge">{{getNotificationCount}}</span>
+                            </a>
+                        {{else}}
+                            <a id="notification-button" title="Check notifications">
+                                <i class="fa fa-bell-o" aria-hidden="true"></i> Notifications
+                            </a>
+                        {{/if}}
+                    </li>
+                {{/unless}}
+                <li data-step="106" data-intro="Make sure to also update your profile to enable some of these awesome features like notifications.">
+                    <a class="dropdown-button" id="userDrop" href="#!" data-activates="dropdown1">
+                        {{user}}
+                        {{#unless hasEmail}}
+                            <i class="fa fa-exclamation-circle" aria-hidden="true" style="color: #f4511e;"></i>
+                        {{/unless}}
+                        <i class="material-icons right">arrow_drop_down</i>
+                    </a>
+                </li>
+            </ul>
+
+            <ul class="side-nav light-blue darken-4" id="mobile-demo" style="width:225px; height:500px">
+                <li>
+                    <div class="userView">
+                        <span class="name" style="margin-bottom: 20px; font-size: 14pt">Welcome, {{user}}!</span>
+                    </div>
+                </li>
+                <li>
+                    <a href="#" class="closeMobileMenuSwitch" onclick='$("#mobile-demo").css("transform", "translateX(-105%)")'>
+                        <span class="white-text">
+                            <strong><i class="fa fa-close" aria-hidden="true"></i> Close Menu</strong>
+                        </span>
+                    </a>
+                </li>
+                <li class="divider"></li>
+                <li>
+                    <a href="javascript:void(0);" class="glasspane">
+                        <span class="white-text">
+                            <strong><i class="fa fa-question-circle-o" aria-hidden="true"></i> Confused</strong>
+                        </span>
+                    </a>
+                </li>
+                {{#unless isCondition7}}
+                    <li>
+                        <a onclick="window.location.replace('/gutboard_slider_addq')" href="#" id="addQuestionControlHeaderMobile" class="guttest-button" style="margin-top: 0px;">
+                            <span class="white-text">
+                                <strong><i class="fa fa-plus-circle" style="vertical-align: middle; color: #f4511e"></i> Add more questions!</strong>
+                            </span>
+                        </a>
+                    </li>
+                {{/unless}}
+                {{#unless isCondition1or3or5or8or10}}
+                    <li>
+                        <a href="/topics">
+                            <span class="white-text">
+                                <strong><i class="fa fa-book" aria-hidden="true"></i> Topics</strong>
+                            </span>
+                        </a>
+                    </li>
+                {{/unless}}
+                {{#unless isCondition1or2or7or8or9}}
+                    <li>
+                        <a href="/guide">
+                            <span class="white-text">
+                                <strong><i class="fa fa-list-ul" aria-hidden="true"></i> Guide</strong>
+                            </span>
+                        </a>
+                    </li>
+                {{/unless}}
+                {{#unless isCondition7}}
+                    <li>
+                        <a href="/gutboard/{{getMendelCode}}">
+                            <span class="white-text">
+                                <strong><i class="fa fa-comments-o" aria-hidden="true"></i> GutBoard</strong>
+                            </span>
+                        </a>
+                    </li>
+                {{/unless}}
+                <li class="divider"></li>
+                <li>
+                    <a href="#" class="closeMobileMenuSwitch" onclick='$("#mobile-demo").css("transform", "translateX(-105%)")'>
+                        <span class="white-text">
+                            <strong><i class="fa fa-close" aria-hidden="true"></i> Close Menu</strong>
+                        </span>
+                    </a>
+                </li>
+                <li class="logout">
+                    <a href="#">
+                        <span class="white-text">
+                            <strong><i class="fa fa-sign-out" aria-hidden="true"></i> Sign Out</strong>
+                        </span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div id="notification-modal" class="modal bottom-sheet">
+        <div class="modal-content">
+            <h4>Notification Center</h4>
+            {{#if isUnreadNotification}}
+                <ul class="collection">
+                    {{#each renderNotification}}
+                        {{> noticemodule}}
+                    {{/each}}
+                </ul>
+            {{else}}
+                <br>
+                <h5>You don't have any unread notifications. Great!</h5>
+            {{/if}}
+        </div>
+    </div>
+
+    <div id="logout-modal" class="modal" style="width: 25% !important; margin-top: 20% !important;">
+        <div class="modal-content">
+            <h6>Are you sure you want to log out? You can just close the tab and open it later without having to log back in.</h6>
+        </div>
+        <div class="modal-footer">
+            <a id="logout" class="modal-action modal-close waves-effect waves-red btn-flat" style="color: red;">Yes</a>
+            <a class="modal-action modal-close waves-effect waves-blue btn-flat" style="color: #03A9F4;">No</a>
+        </div>
+    </div>
+</template>

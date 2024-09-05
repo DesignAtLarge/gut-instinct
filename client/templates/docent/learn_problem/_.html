@@ -1,0 +1,73 @@
+<template name="learn_problem">
+    {{> header}}
+    {{init hashcode}}
+    <div class="container content learn_problem">
+        <div class="to-back" id="back-top" style="margin-left:0">
+            <a href="/problems">
+                <span class="oi" data-glyph="chevron-left">&nbsp; Back to Gut Problems</span>
+            </a>
+        </div>
+        <div class="card" data-step="6" data-intro="Here, you can see the question for this problem along with your answer and the correctness of your answer">
+            <div class="card-content">
+                <span class="card-title problem-title">{{question.question}}</span>
+                {{#each answered}}
+                    {{#if is_correct}}
+                        <p id="{{hashcode}}-feedback" class="problem-feedback" style="color: #4CAF50">Your answer is correct! Discuss about this question below to learn why.</p>
+                    {{else}}
+                        <p id="{{hashcode}}-feedback" class="problem-feedback" style="color: #F44336">Your answer is incorrect! Discuss about this question below to learn why.</p>
+                    {{/if}}
+                {{/each}}
+                {{#each question.choices}}
+                    {{#if chose index}}
+                        <input class="with-gap" name="{{hashcode}}" type="radio" id="{{hashcode}}-{{index}}" disabled checked>
+                    {{else}}
+                        <input class="with-gap" name="{{hashcode}}" type="radio" id="{{hashcode}}-{{index}}" disabled>
+                    {{/if}}
+                    <label for="{{hashcode}}-{{index}}">{{text}}</label>
+                    <br>
+                {{/each}}
+            </div>
+        </div>
+        <br>
+        <h5>Discussions</h5>
+        <div class="card" data-step="7" data-intro="If you are curious about the explanation of correct answer or want to learn more about this question, discuss with others here">
+            <div class="card-content">
+                <form class="comment-form">
+                    <input type="text" name="comment" class="comment" placeholder="Add to your discussion here." required>
+                    <input type="submit" class="btn light-green">
+                </form>
+                <div class="divider"></div>
+                {{#each discussions}}
+                    <div class="card-content">
+                        <span class="timestamp">{{livestamp created_at}}</span>
+                        <!-- if isUserExpert -->
+                        <span>&nbsp;written by {{this.owner.username}}</span>
+                        <br>
+                        {{{text}}}
+                        <br>
+                        <!--
+                        <span class="timestamp" style="font-size: 12pt">{{pluralize 'Upvote' (upvote_count hashcode)}} &nbsp; | &nbsp; {{pluralize 'Downvote' (downvote_count hashcode)}}</span>
+                        <br>
+                        {{#if upvoted hashcode}}
+                            <button class="waves-effect waves-light btn light-green vote upvote">Upvote</button>
+                        {{else}}
+                            <button class="waves-effect waves-light btn grey light-green vote upvote">Upvote</button>
+                        {{/if}}
+                        {{#if downvoted hashcode}}
+                            <button class="waves-effect waves-light btn red vote downvote">Downvote</button>
+                        {{else}}
+                            <button class="waves-effect waves-light btn grey red vote downvote">Downvote</button>
+                        {{/if}}
+                        -->
+                    </div>
+                    <div class="divider"></div>
+                {{/each}}
+            </div>
+        </div>
+        <div class="to-back" id="back-bottom" style="display:none; margin-left:0">
+            <a href="/problems">
+                <span class="oi" data-glyph="chevron-left">&nbsp; Back to Gut Problems</span>
+            </a>
+        </div>
+    </div>
+</template>

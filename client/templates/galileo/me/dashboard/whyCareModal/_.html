@@ -1,0 +1,25 @@
+<template name="gaWhyCareModal">
+    <div class="modal" id="why-care-modal">
+        <div style="color:rgba(0,0,0,.54);background:rgba(0,0,0,.03); padding:15px;">
+            <h4 class="left-align">Share the information with your potential participants</h4>
+        </div>
+        <div class="modal-content">
+            <p style="font-size: 18px; font-weight: 500;">1. Who are you? (e.g. I am a Kombucha community member in San
+                Diego...)</p>
+            <textarea id="why-care-first-question" class="materialize-textarea textarea-comment why-care-questions"
+                name="feedback" placeholder="{{hasFirstShareInfo}}" required></textarea>
+            <p style="font-size: 18px; font-weight: 500;">2. What would the world learn? (e.g. The world will learn the
+                benefits of drinking Kombucha, for example, it is a rich source of probiotics...)</p>
+            <textarea id="why-care-second-question" class="materialize-textarea textarea-comment why-care-questions"
+                name="feedback" placeholder="{{hasSecondShareInfo}}" required></textarea>
+            <p style="font-size: 18px; font-weight: 500;">3. Expected time taken for participant? (e.g. 10 minutes per
+                day.)</p>
+            <textarea id="why-care-third-question" class="materialize-textarea textarea-comment why-care-questions"
+                name="feedback" placeholder="{{hasThirdShareInfo}}" required></textarea>
+            <a class="btn light-blue darken-4" id="save-whyCare-btn" href="#" class="disabled">Save your answers</a>
+        </div>
+        <div class="modal-footer">
+            <a class="gray-text modal-action modal-close btn-flat">Close</a>
+        </div>
+    </div>
+</template>

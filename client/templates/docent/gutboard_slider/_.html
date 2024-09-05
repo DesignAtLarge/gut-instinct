@@ -1,0 +1,208 @@
+<template name="gutboard_slider">
+    <div class="animateme">
+        <ul class="bg-bubbles">
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+    </div>
+
+    {{> header}}
+    {{> init mendelcode}}
+
+    <div class="container content gutboard">
+        <div data-step="1" data-intro="Welcome to GutBoard! To navigate tours like this one, you can use the left or right arrow keys or the buttons below. Don't forget to check out all the links in the blue bar above - we have a lot in store for you!">
+            <h3 class="light-blue-text text-darken-4">
+                <i class="fa fa-comments-o" aria-hidden="true"></i> GutBoard
+                {{#if isCondition0or10or11}}
+                    <a id="exampleQs" class="modal-trigger" href="#examples" title="Look at helpful examples" style="font-size: 20px; color: #f4511e; margin-bottom: -50px;">
+                        (<i class="fa fa-question" aria-hidden="true" style="vertical-align: middle; color: #f4511e; font-size: 25px;"></i>)
+                    </a>
+                {{/if}}
+            </h3>
+            {{#if isCondition2or4or9or11}}
+                <h5 class="light-blue-text text-darken-4" style="text-align: left">Share your gut instincts by asking questions, answering others' questions and guessing the mechanism</h5>
+            {{else}}
+                <h5 class="light-blue-text text-darken-4" style="text-align: left">Share your gut instincts by asking questions, and answering others' questions</h5>
+            {{/if}}
+            <br>
+        </div>
+
+        <ul id="questionStatusTabs" class="tabs" data-step="2" data-intro="Gut Instinct questions added by researchers and citizen scientists (like you!) show up here!" style="overflow-x: hidden; width: 100%; margin-left: 0px; display: none; box-shadow: 0 2px 4px 0 rgba(0,0,0,0.2); transition: 0.3s;">
+            <li class="tab col s3">
+                <a id="contribute" class="tab-link light-blue-text" href="#" title="View every question" style="font-weight: 275;">
+                    All questions
+                    <span class="new badge light-blue darken-4" data-badge-caption="" style="margin-top: 5px;">{{getPosition}}/{{getNewQuestionCountsbyCondition}}</span>
+                </a>
+            </li>
+            <li class="tab col s3">
+                <a id="answered" class="tab-link light-blue-text" href="#" title="View your bookmarked questions" style="font-weight: 275;">
+                    <i class="fa fa-bookmark" aria-hidden="true"></i> Bookmarked
+                    <span class="new badge light-blue darken-4" data-badge-caption="" style="margin-top: 5px;">{{getBookmarkQuestionCounts}}</span>
+                </a>
+            </li>
+            <li class="tab col s3">
+                <a id="mine" class="tab-link light-blue-text" href="#" title="View your own questions" style="font-weight: 275;">
+                    <i class="fa fa-pencil" aria-hidden="true"></i> Written
+                    <span class="new badge light-blue darken-4" data-badge-caption="" style="margin-top: 5px;">{{getWrittenQuestionCounts}}</span>
+                </a>
+            </li>
+            <li class="tab col s3">
+                <a id="star" class="tab-link light-blue-text" href="#" title="View starred questions" style="font-weight: 275;">
+                    <i class="fa fa-star" aria-hidden="true"></i> Starred
+                    <span class="new badge light-blue darken-4" data-badge-caption="" style="margin-top: 5px;">{{getStarQuestionCountsbyCondition}}</span>
+                </a>
+            </li>
+            {{#if isUserExpert}}
+                <li class="tab col s3">
+                    <a id="flag" class="tab-link light-blue-text" href="#" title="View Flagged questions" style="font-weight: 275;">
+                        <i class="fa fa-flag" aria-hidden="true"></i> Flagged
+                        <span class="new badge light-blue darken-4" data-badge-caption="" style="margin-top: 5px;">{{getFlaggedQuestionCounts}}</span>
+                    </a>
+                </li>
+            {{/if}}
+            <div class="indicator light-blue" style="z-index:1"></div>
+        </ul>
+
+        <div class="questions" id="activeQuestionLoader">
+            <br><br><br>
+            <div class="preloader-wrapper big active">
+                <div class="spinner-layer spinner-blue-only">
+                    <div class="circle-clipper left">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="gap-patch">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="circle-clipper right">
+                        <div class="circle"></div>
+                    </div>
+                </div>
+            </div>
+            <br><br>
+            <h6 class="light-blue-text text-darken-4">Crunching the latest data, just for you. Hang tight…</h6>
+            <br><br><br>
+        </div>
+
+        <div class="questions animated fadeIn" id="activeQuestionDiv" style="display: none" data-step="7" data-intro="Every question begins with a top-level question. Once you answer it, you can explore follow-up questions within it, and even add your own follow-up questions to someone else's question!">
+            {{#each questions}}
+                {{> qmodule}}
+            {{/each}}
+
+            {{#if isGutBoardEmpty}}
+                <div class="card">
+                    <div class="card-content">
+                        <h2 class="timestamp" style="padding-right: 30px; padding-left: 30px; padding-bottom: 150px; padding-top: 150px; font-size: 30px;">There are currently no questions on the gutboard. Why don't you add one now? 😃</h2>
+                    </div>
+                </div>
+            {{/if}}
+        </div>
+
+        <div class="bookmarkedquestion animated fadeIn" id="bookmarkQuestionDiv" style="display: none">
+            {{#each bookmardedquestions}}
+                {{> qmodule_min}}
+            {{/each}}
+        </div>
+
+        <div class="minequestion animated fadeIn" id="mineQuestionDiv" style="display: none">
+            {{#each getMineQuestions}}
+                {{> qmodule_min}}
+            {{/each}}
+        </div>
+
+        <div class="starquestion animated fadeIn" id="starQuestionDiv" style="display: none">
+            {{#each getStarQuestionsbyCondition}}
+                {{> qmodule_min}}
+            {{/each}}
+        </div>
+
+        {{#if isUserExpert}}
+            <div class="flaggedquestion animated fadeIn" id="flaggedQuestionDiv" style="display: none">
+                {{#each getFlaggedQuestions}}
+                    {{> qmodule_min}}
+                {{/each}}
+            </div>
+        {{/if}}
+
+        <div class="questions" id="sliderControlDiv" style="display: none; margin-bottom: 50px;" data-step="11" data-intro="Add your own question! Or see previous or next question">
+            {{#if isCondition0or10or11}}
+                <a id="exampleQs" class="modal-trigger" href="#examples" title="Look at helpful examples" style="position: absolute; margin-top: 5px; margin-left: -210px; color: #f4511e">
+                    <i class="fa fa-question fa-3x" aria-hidden="true" style="vertical-align: middle; color: #f4511e"></i>
+                    <h1 style="font-size: 10pt;">Show me examples</h1>
+                </a>
+            {{/if}}
+
+            <a id="backSliderControl" class="guttest-button" href="#" title="Go to previous question" style="margin-top: 25px; margin-right: 50px;">
+                <i class="fa fa-chevron-circle-left fa-4x" aria-hidden="true" style="vertical-align: middle; color: #455a64"></i>
+            </a>
+
+            <a id="addQuestionControl" class="guttest-button" href="/gutboard_slider_addq" title="Add your question" style="margin-top: 25px;">
+                <i class="fa fa-plus-circle fa-5x waves-light" aria-hidden="true" style="vertical-align: middle; color: #f4511e"></i>
+            </a>
+
+            <a id="randomShow" class="guttest-button" href="#" title="Show a random question" style="margin-top: 25px; margin-left: 25px;">
+                <i class="fa fa-random fa-5x" aria-hidden="true" style="vertical-align: middle; color: #455a64"></i>
+            </a>
+
+            <a id="sliderControl" class="guttest-button" href="#" title="Go to next question" style="margin-top: 25px; margin-left: 50px;">
+                <i class="fa fa-chevron-circle-right fa-4x waves-light" aria-hidden="true" style="vertical-align: middle; color: #455a64"></i>
+            </a>
+        </div>
+
+        <div style="position: relative; z-index: 10;">
+            <form class="signature">
+                <!-- <div style="bottom: 60px; width: 100%; height: 50px; background-color: rgba(255,255,255,.75); -webkit-filter: blur(4px); -moz-filter: blur(4px); -ms-filter: blur(4px); -o-filter: blur(4px); filter: blur(4px); position: relative;  z-index: -1;"></div> -->
+                <!-- <p class="consent-warning" style="margin-top: -40px;"> -->
+                <!--     <b>Warning</b> : Please do not share personally identifiable information, including but not limited to name, email, phone number, address, Social Security number, credit card details, deeply personal details. -->
+                <!-- </p> -->
+                <!-- <p> -->
+                <!--     All the data on Gut Instinct will be made public using the same license as -->
+                <!--     <b>Wikipedia</b> (Creative Commons Attribution-ShareAlike 3.0 Unported License (CC BY-SA)). -->
+                <!--     Further details here: https://creativecommons.org/licenses/by-sa/3.0/legalcode -->
+                <!-- </p> -->
+            </form>
+        </div>
+
+        <div id="examples" class="modal modal-fixed-footer">
+            <div class="modal-content">
+                <h4 class="light-blue-text text-darken-4">Example Questions</h4>
+                {{#each exampleQuestions}}
+                    {{> qmodule_example}}
+                {{/each}}
+            </div>
+            <div class="modal-footer">
+                <a href="#!" class="modal-action modal-close btn-flat light-blue-text">Close</a>
+            </div>
+        </div>
+
+        <div id="q-moved" class="modal" style="width: 500px">
+            <div class="modal-content">
+                <p>Your question has been added to the
+                    <a href="#" class="tab-link light-blue-text">Answered tab</a>
+                </p>
+            </div>
+            <div class="modal-footer">
+                <a href="#" class="modal-action modal-close waves-effect waves-light-blue btn-flat">Close</a>
+            </div>
+        </div>
+
+        <div id="confirm-add" class="modal" style="width: 500px">
+            <div class="modal-content">
+                <p>Your question has been added to the
+                    <a href="#" class="tab-link light-blue-text">Written tab</a>
+                </p>
+            </div>
+            <div class="modal-footer">
+                <a href="#" class="modal-action modal-close waves-effect waves-light-blue btn-flat">Got It!</a>
+            </div>
+        </div>
+    </div>
+</template>

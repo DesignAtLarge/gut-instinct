@@ -1,0 +1,82 @@
+<template name="qmodule_min">
+    <div class="card qmodule cardquestion" question-hash="{{hash}}" question-id="{{_id}}">
+      <div class="card-content layer-1">
+        <span class="timestamp">{{livestamp created_at}} &bull;</span>
+        <span class="mark" style="text-transform:none;background-color: white;">Added by:
+          {{#if expert_question}}
+            <span class="expert-mark mark expertQuestion" style="background-color: #ffebee;">Researchers</span>
+          {{else}}
+            <span class="blue-text crowd-mark mark nonExpertQuestion">Citizen Scientists</span>
+            {{#unless isUserExpert}}
+              <span style="color:#757575"> &nbsp;&nbsp;[{{this.owner.username}}]</span>
+            {{/unless}}
+          {{/if}}
+        </span>
+        <br>
+        <div class="card-title">{{layer_1.text}}</div>
+  
+        {{#if isUserExpert}}
+          {{#if isStarQuestion}}
+            <div class="removeStarQuestion animated bounceIn" style="bottom: 31px; left: 74%; position: absolute; color: #f44336;">
+              <i class="fa fa-star fa-4x" aria-hidden="true"></i>
+            </div>
+          {{else}}
+            <div class="addStarQuestion" style="bottom: 31px; left: 74%; position: absolute; color: #f44336;">
+              <i class="fa fa-star-o fa-4x" aria-hidden="true"></i>
+            </div>
+          {{/if}}
+        {{else}}
+          {{#if isStarQuestion}}
+            <div class="animated bounceIn" style="bottom: 31px; left: 74%; position: absolute; color: #f44336;">
+              <i class="fa fa-star fa-4x" aria-hidden="true"></i>
+            </div>
+          {{/if}}
+        {{/if}}
+  
+        <br>
+        <a href="/q/{{hash}}">
+          <button type="button" class="viewQuestionMin waves-effect waves-light btn light-blue darken-3" style="margin-bottom: 5px; text-transform:none;">View Question</button>
+        </a>
+  
+        <br>
+        <br>
+        <br>
+  
+        <div class="_options" style="position: absolute; margin-top: 6px; left: 0px;">
+          <a href="/q/{{hash}}" style="margin-left: 10px;">
+            <i class="fa fa-comments-o fa-2x light-blue-text text-darken-4" aria-hidden="true"></i>
+            {{#if isCondition2or4or0or6or9or11}}
+              <span style="font-weight:300 light-blue-text text-darken-4">({{pluralize 'mechanism' comments.length}})</span>
+            {{else}}
+              <span style="font-weight:300 light-blue-text text-darken-4">({{pluralize 'comment' comments.length}})</span>
+            {{/if}}
+          </a>
+  
+          {{#if isInBKDB}}
+            <a class="questionBookMark questionRemoveBK animated bounce" id="{{_id}}" style="left: 85%; position: absolute;">
+              <i class="fa fa-bookmark fa-4x" aria-hidden="true"></i>
+            </a>
+          {{else}}
+            <a class="questionBookMark questionAddBK" id="{{_id}}" style="left: 85%; position: absolute;">
+              <i class="fa fa-bookmark-o fa-4x" aria-hidden="true"></i>
+            </a>
+          {{/if}}
+        </div>
+  
+        <br>
+        <br>
+        <br>
+  
+        <div class="modal confirm-delete" style="width: 500px">
+          <div class="modal-content">
+            <p>Are you sure about deleting this question?</p>
+          </div>
+          <div class="modal-footer">
+            <a href="#" class="modal-action modal-close waves-effect waves-light-blue btn-flat confirm-delete-yes">Yes</a>
+            <a href="#" class="modal-action modal-close waves-effect waves-red btn-flat">No</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </template>
+  

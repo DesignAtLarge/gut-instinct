@@ -1,0 +1,21 @@
+<template name="gaStopParticipatingModal">
+    <div class="modal" id="stop-participating-modal">
+        <div style="color:rgba(0,0,0,.54);background:rgba(0,0,0,.03); padding:15px;">
+            <h4 class="left-align">Are you sure you want to stop participating in this experiment?</h4>
+        </div>
+        <div class="modal-content">
+            <div class="card" style="margin-left: 18px; margin-top: 0px; padding: 20px;">
+                <span style="font-size: 20px;">Please provide some detail about why you want to stop participating</span>
+                <br><br>
+                <form id="submit-comment-form">
+                    <textarea id="stop-participating-input" required placeholder="Add detail here..."></textarea>
+                    <br>
+                    <button class="btn light-blue" style="margin-bottom: -10px;" exp-id="{{getExpId}}" id="stop-participating-btn" exp-creator-id="{{getExpCreatorId}}">Stop Participating</button>
+                </form>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <a class="gray-text modal-action modal-close btn-flat">Close</a>
+        </div>
+    </div>
+</template>

@@ -41,6 +41,17 @@ import './templates/galileo/pilot/_.js';
 import './templates/galileo/pretest/_.js';
 import './templates/galileo/run/_.js';
 
+import './templates/galileo/intuitionBoard/board/_.js';
+import './templates/galileo/intuitionBoard/item/_.js';
+
+import './templates/galileo/join/consent/_.js';
+import './templates/galileo/join/criteria/_.js';
+import './templates/galileo/join/failed/_.js';
+import './templates/galileo/join/failedEnded/_.js';
+import './templates/galileo/join/passed/_.js';
+import './templates/galileo/join/phoneModal/_.js';
+
+
 import './templates/galileo/feedback/consent/_.js';
 import './templates/galileo/feedback/detail/_.js';
 import './templates/galileo/feedback/feedbackList/_.js';
@@ -115,8 +126,16 @@ import './templates/galileo/create/gaSurvey/_.js';
 import './templates/galileo/create/gaWelcomeCard/_.js';
 import './templates/galileo/create/orderedList/_.js';
 
+
+
+import './templates/galileo/OpenHumans/gaOhAuth/_.js';
+import './templates/galileo/OpenHumans/gaOhSelectedDataSources/_.js';
+import './templates/galileo/OpenHumans/openHumansDataSourceModal/_.js';
+
+import './templates/docent/z_tutorial/_.js';
 import './templates/docent/loading_wheel/_.js';
 import './templates/docent/trial/_.js';
+import './templates/docent/header/_.js';
 
 
 

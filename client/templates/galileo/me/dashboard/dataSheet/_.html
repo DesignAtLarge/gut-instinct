@@ -28,23 +28,23 @@
                             <td class="light-blue-text text-darken-4" style="padding: 2px"></td>
                             {{#if editable}}
                                 {{#if noData cause}}
-                                    <td class="light-blue-text text-darken-4" style="padding: 2px" class="{{today}}">
+                                    <td class="light-blue-text text-darken-4 {{today}}" style="padding: 2px">
                                         <textarea class="materialize-textarea textarea-cause" id="editCauseData-{{cause_rid}}" rid="{{cause_rid}}" exp-id="{{getExpId}}" placeholder="{{cause}}" required style="margin:8px; min-height: 0rem !important; height: 2rem; padding: 0px;width: calc(100% - 16px);"></textarea>
                                         <button class="btn light-blue saveCauseChange" id="submitCauseBtn-{{cause_rid}}" rid="{{cause_rid}}" index="{{index}}" exp-id="{{getExpId}}" type="submit" style="display: none; margin: 8px;">save</button>
                                     </td>
                                 {{else}}
-                                    <td class="light-blue-text text-darken-4" style="padding: 2px" class="{{today}}">
+                                    <td class="light-blue-text text-darken-4 {{today}}" style="padding: 2px">
                                         <textarea class="materialize-textarea textarea-cause" id="editCauseData-{{cause_rid}}" rid="{{cause_rid}}" exp-id="{{getExpId}}" required style="margin:8px; min-height: 0rem !important; height: 2rem; padding: 0px;width: calc(100% - 16px);">{{cause}}</textarea>
                                         <button class="btn light-blue saveCauseChange" id="submitCauseBtn-{{cause_rid}}" rid="{{cause_rid}}" index="{{index}}" exp-id="{{getExpId}}" type="submit" style="display: none; margin: 8px;">save</button>
                                     </td>
                                 {{/if}}
                                 {{#if noData effect}}
-                                    <td class="light-blue-text text-darken-4" style="padding: 2px" class="{{today}}">
+                                    <td class="light-blue-text text-darken-4 {{today}}" style="padding: 2px">
                                         <textarea class="materialize-textarea textarea-effect" id="editEffectData-{{effect_rid}}" rid="{{effect_rid}}" exp-id="{{getExpId}}" placeholder="{{effect}}" required style="margin:8px; min-height: 0rem !important; height: 2rem; padding: 0px;width: calc(100% - 16px);"></textarea>
                                         <button class="btn light-blue saveEffectChange" id="submitEffectBtn-{{effect_rid}}" rid="{{effect_rid}}" index="{{index}}" exp-id="{{getExpId}}" type="submit" style="display: none; margin: 8px;">save</button>
                                     </td>
                                 {{else}}
-                                    <td class="light-blue-text text-darken-4" style="padding: 2px" class="{{today}}">
+                                    <td class="light-blue-text text-darken-4 {{today}}" style="padding: 2px">
                                         <textarea class="materialize-textarea textarea-effect" id="editEffectData-{{effect_rid}}" rid="{{effect_rid}}" exp-id="{{getExpId}}" required style="margin:8px; min-height: 0rem !important; height: 2rem; padding: 0px;width: calc(100% - 16px);">{{effect}}</textarea>
                                         <button class="btn light-blue saveEffectChange" id="submitEffectBtn-{{effect_rid}}" rid="{{effect_rid}}" index="{{index}}" exp-id="{{getExpId}}" type="submit" style="display: none; margin: 8px;">save</button>
                                     </td>

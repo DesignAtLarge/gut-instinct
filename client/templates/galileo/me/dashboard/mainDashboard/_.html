@@ -1,0 +1,117 @@
+<template name="gaMeDashboard">
+    {{> gaNavbar}}
+    {{> gaMeSidebar}}
+
+    {{> gaReminderStatsModal day="3" cause=ongoingExpCause effect=ongoingExpEffect}}
+    {{> gaSendReminderModal day=getOngoingExperimentCurrentDay cause=ongoingExpCause effect=ongoingExpEffect}}
+    {{> gaClarificationModal title=getExpTitleForParticipant expId=getExpId}}
+    {{> gaClarificationCreatorModal title=getExpTitle expId=ongoingExpId}}
+    {{> gaSendThankNoteModal}}
+    {{> gaRequestAnalysisModal}}
+    {{> gaDiscussionModal}}
+    {{> imageModal url='/images/galileo/exp_design/bristol_stool_chart.png'}}
+
+    {{#each getReadyToRunExp}}
+    {{> gaShareEmailInviteJoinModal link=this.joinLink}}
+    {{/each}}
+
+    <main id="ga-me-main">
+        <div id="edit-data-modal" class="modal" style="background: #FAFAFA">
+            <div class="modal-content">
+                <h5 id="edit-data-modal-title">Your Data for the Experiment</h5>
+                <div class="section-body">
+                    <table class="sheet-table">
+                        <tr>
+                            <td style="width: 10%;">Date</td>
+                            <td style="padding:2px"></td>
+                            <td style="padding:10px; width: 40%;">
+                                {{getCause}} (Cause)
+                                <br>
+                                <span class="light-blue-text text-darken-4">{{causeType}}</span>
+                                <span> at ({{getCauseTime}})</span>
+                            </td>
+                            <td style="padding:2px"></td>
+                            <td style="padding:10px; width: 40%;">
+                                {{getEffect}} (Effect)
+                                <br>
+                                <span class="light-blue-text text-darken-4">{{effectType}}</span>
+                                <span> at ({{getEffectTime}})</span>
+                            </td>
+                        </tr>
+                        {{#each slots}}
+                        <tr>
+                            <td style="padding: 2px" class="{{this.today}}">
+                                <p style="margin-top:1px; margin-bottom:1px">{{this.date}}</p>
+                            </td>
+                            <td class="light-blue-text text-darken-4" style="padding: 2px">
+                                {{#if this.editable}}
+                                {{#if noData this.cause}}
+                                <textarea id="editCauseData-{{this.cause_rid}}" rid="{{this.cause_rid}}"
+                                    exp-id="{{getExpId}}" class="textarea-cause materialize-textarea"
+                                    style="margin:8px; min-height: 0rem !important; height: 2rem; padding: 0px;width: calc(100% - 16px);"
+                                    placeholder="{{this.cause}}" required></textarea>
+                                <button id="submitCauseBtn-{{this.cause_rid}}" rid="{{this.cause_rid}}"
+                                    index="{{this.index}}" exp-id="{{getExpId}}" type="submit"
+                                    class="btn light-blue saveCauseChange"
+                                    style="display: none; margin: 8px;">save</button>
+                                {{else}}
+                                <textarea id="editCauseData-{{this.cause_rid}}" rid="{{this.cause_rid}}"
+                                    exp-id="{{getExpId}}" class="textarea-cause materialize-textarea"
+                                    style="margin:8px; min-height: 0rem !important; height: 2rem; padding: 0px;width: calc(100% - 16px);"
+                                    required>{{this.cause}}</textarea>
+                                <button id="submitCauseBtn-{{this.cause_rid}}" rid="{{this.cause_rid}}"
+                                    index="{{this.index}}" exp-id="{{getExpId}}" type="submit"
+                                    class="btn light-blue saveCauseChange"
+                                    style="display: none; margin: 8px;">save</button>
+                                {{/if}}
+                                {{else}}
+                                <span>{{this.cause}}</span>
+                                {{/if}}
+                            </td>
+                            <td class="light-blue-text text-darken-4" style="padding: 2px">
+                                {{#if this.editable}}
+                                {{#if noData this.effect}}
+                                <textarea id="editEffectData-{{this.effect_rid}}" rid="{{this.effect_rid}}"
+                                    exp-id="{{getExpId}}" class="textarea-effect materialize-textarea"
+                                    style="margin:8px; min-height: 0rem !important; height: 2rem; padding: 0px;width: calc(100% - 16px);"
+                                    placeholder="{{this.effect}}" required></textarea>
+                                <button id="submitEffectBtn-{{this.effect_rid}}" rid="{{this.effect_rid}}"
+                                    index="{{this.index}}" exp-id="{{getExpId}}" type="submit"
+                                    class="btn light-blue saveEffectChange"
+                                    style="display: none; margin: 8px;">save</button>
+                                {{else}}
+                                <textarea id="editEffectData-{{this.effect_rid}}" rid="{{this.effect_rid}}"
+                                    exp-id="{{getExpId}}" class="textarea-effect materialize-textarea"
+                                    style="margin:8px; min-height: 0rem !important; height: 2rem; padding: 0px;width: calc(100% - 16px);"
+                                    required>{{this.effect}}</textarea>
+                                <button id="submitEffectBtn-{{this.effect_rid}}" rid="{{this.effect_rid}}"
+                                    index="{{this.index}}" exp-id="{{getExpId}}" type="submit"
+                                    class="btn light-blue saveEffectChange"
+                                    style="display: none; margin: 8px;">save</button>
+                                {{/if}}
+                                {{else}}
+                                <span>{{this.effect}}</span>
+                                {{/if}}
+                            </td>
+                        </tr>
+                        {{/each}}
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a href="#!" class="modal-action modal-close btn-flat gray-text">Close</a>
+            </div>
+        </div>
+        {{> gaFollowupModal exp_id=getExpId user_id=userId}}
+        {{#if notifyFinish}}
+        <div class="card" style="padding: 20px;">
+            <p>Congratulations! You have completed your tour of Galileo. Feel free to design your experiment or review
+                others!</p>
+        </div>
+        {{/if}}
+
+        <h4>My Contributions</h4>
+
+        <h4>My Experiments</h4>
+    </main>
+</template>

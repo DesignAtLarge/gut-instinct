@@ -1,6 +1,5 @@
 <template name="problems">
     {{> header}}
-    {{init}}
     <div class="container content tag">
         <div class="problem-score">
             <div class="card">
@@ -18,107 +17,125 @@
         </div>
         <div class="tag-content">
             {{#each questions}}
-                {{#if isFirstElement}}
-                    <div class="card" data-step="6" data-intro="Each of these boxes represent a problem. You can submit your answer multiple times, but you get maximum 4 attempts per question (except true-and-false, you will get 2 attempts for that question). This is true for all questions on this page. You can attempt all." data-position="right">
-                        <div class="card-content">
-                            <span class="card-title problem-title">{{question}}</span>
-                            |{{saveHashcode}}
-                            {{#if answered_tag_question hashcode}}
-                                {{#each answered_tag_question hashcode}}
-                                    {{#if is_correct}}
-                                        <p id="{{hashcode}}-feedback" class="problem-feedback" style="color: #4CAF50">Correct. Attempted {{attempts hashcode}} times.</p>
-                                    {{else}}
-                                        <p id="{{hashcode}}-feedback" class="problem-feedback" style="color: #F44336">Incorrect. Attempted {{attempts hashcode}} times.</p>
-                                    {{/if}}
-                                {{/each}}
-                            {{else}}
-                                <p class="{{hashcode}}-feedback"></p>
-                            {{/if}}
-                            {{#if usedAllAttempts hashcode}}
-                                {{#each choices}}
-                                    {{#if chose hashcode index}}
-                                        <input class="with-gap" name="{{hashcode}}" type="radio" id="{{hashcode}}-{{index}}" checked disabled>
-                                    {{else}}
-                                        <input class="with-gap" name="{{hashcode}}" type="radio" id="{{hashcode}}-{{index}}" disabled>
-                                    {{/if}}
-                                    <label for="{{hashcode}}-{{index}}">{{text}}</label>
-                                    <br>
-                                {{/each}}
-                            {{else}}
-                                {{#each choices}}
-                                    {{#if chose hashcode index}}
-                                        <input class="with-gap" name="{{hashcode}}" type="radio" id="{{hashcode}}-{{index}}" checked>
-                                    {{else}}
-                                        <input class="with-gap" name="{{hashcode}}" type="radio" id="{{hashcode}}-{{index}}">
-                                    {{/if}}
-                                    <label for="{{hashcode}}-{{index}}">{{text}}</label>
-                                    <br>
-                                {{/each}}
-                            {{/if}}
-                            <br>
-                            {{#if usedAllAttempts hashcode}}
-                                <button class="waves-effect waves-light btn light-green answer-learn-question disabled" disabled>Submit</button>
-                            {{else}}
-                                <button class="waves-effect waves-light btn light-green answer-learn-question">Submit</button>
-                            {{/if}}
-                        </div>
-                        {{#if usedAllAttempts hashcode}}
-                            <div class="divider"></div>
-                            <div class="card-action" data-step="7" data-intro="Once you answered this question correctly or have used all attempts, you will see the link that will lead you to discussion page for this question." data-position="right">
-                                <a href="/p/{{hashcode}}" class="light-blue-text card-title" style="font-weight: 300; color: #2196F3; text-transform: initial">Click here to discuss about this question</a>
-                            </div>
-                        {{/if}}
-                {{else}}
-                    <div class="card">
-                        <div class="card-content">
-                            <span class="card-title problem-title">{{question}}</span>
-                            |{{saveHashcode}}
-                            {{#if answered_tag_question hashcode}}
-                                {{#each answered_tag_question hashcode}}
-                                    {{#if is_correct}}
-                                        <p id="{{hashcode}}-feedback" class="problem-feedback" style="color: #4CAF50">Correct. Attempted {{attempts hashcode}} times.</p>
-                                    {{else}}
-                                        <p id="{{hashcode}}-feedback" class="problem-feedback" style="color: #F44336">Incorrect. Attempted {{attempts hashcode}} times.</p>
-                                    {{/if}}
-                                {{/each}}
-                            {{else}}
-                                <p class="{{hashcode}}-feedback"></p>
-                            {{/if}}
-                            {{#if usedAllAttempts hashcode}}
-                                {{#each choices}}
-                                    {{#if chose hashcode index}}
-                                        <input class="with-gap" name="{{hashcode}}" type="radio" id="{{hashcode}}-{{index}}" checked disabled>
-                                    {{else}}
-                                        <input class="with-gap" name="{{hashcode}}" type="radio" id="{{hashcode}}-{{index}}" disabled>
-                                    {{/if}}
-                                    <label for="{{hashcode}}-{{index}}">{{text}}</label>
-                                    <br>
-                                {{/each}}
-                            {{else}}
-                                {{#each choices}}
-                                    {{#if chose hashcode index}}
-                                        <input class="with-gap" name="{{hashcode}}" type="radio" id="{{hashcode}}-{{index}}" checked>
-                                    {{else}}
-                                        <input class="with-gap" name="{{hashcode}}" type="radio" id="{{hashcode}}-{{index}}">
-                                    {{/if}}
-                                    <label for="{{hashcode}}-{{index}}">{{text}}</label>
-                                    <br>
-                                {{/each}}
-                            {{/if}}
-                            <br>
-                            {{#if usedAllAttempts hashcode}}
-                                <button class="waves-effect waves-light btn light-green answer-learn-question disabled" disabled>Submit</button>
-                            {{else}}
-                                <button class="waves-effect waves-light btn light-green answer-learn-question">Submit</button>
-                            {{/if}}
-                        </div>
-                        {{#if usedAllAttempts hashcode}}
-                            <div class="divider"></div>
-                            <div class="card-action">
-                                <a href="/p/{{hashcode}}" class="light-blue-text card-title" style="font-weight: 300; color: #2196F3; text-transform: initial">Click here to discuss about this question</a>
-                            </div>
-                        {{/if}}
+            {{#if isFirstElement}}
+            <div class="card" data-step="6"
+                data-intro="Each of these boxes represent a problem. You can submit your answer multiple times, but you get maximum 4 attempts per question (except true-and-false, you will get 2 attempts for that question). This is true for all questions on this page. You can attempt all."
+                data-position="right">
+                <div class="card-content">
+                    <span class="card-title problem-title">{{question}}</span>
+                    {{saveHashcode}}
+                    {{#if answered_tag_question hashcode}}
+                    {{#each answered_tag_question hashcode}}
+                    {{#if is_correct}}
+                    <p id="{{hashcode}}-feedback" class="problem-feedback" style="color: #4CAF50">Correct. Attempted
+                        {{attempts hashcode}} times.</p>
+                    {{else}}
+                    <p id="{{hashcode}}-feedback" class="problem-feedback" style="color: #F44336">Incorrect. Attempted
+                        {{attempts hashcode}} times.</p>
+                    {{/if}}
+                    {{/each}}
+                    {{else}}
+                    <p class="{{hashcode}}-feedback"></p>
+                    {{/if}}
+                    {{#if usedAllAttempts hashcode}}
+                    {{#each choices}}
+                    {{#if chose hashcode index}}
+                    <input class="with-gap" name="{{hashcode}}" type="radio" id="{{hashcode}}-{{index}}" checked
+                        disabled>
+                    {{else}}
+                    <input class="with-gap" name="{{hashcode}}" type="radio" id="{{hashcode}}-{{index}}" disabled>
+                    {{/if}}
+                    <label for="{{hashcode}}-{{index}}">{{text}}</label>
+                    <br>
+                    {{/each}}
+                    {{else}}
+                    {{#each choices}}
+                    {{#if chose hashcode index}}
+                    <input class="with-gap" name="{{hashcode}}" type="radio" id="{{hashcode}}-{{index}}" checked>
+                    {{else}}
+                    <input class="with-gap" name="{{hashcode}}" type="radio" id="{{hashcode}}-{{index}}">
+                    {{/if}}
+                    <label for="{{hashcode}}-{{index}}">{{text}}</label>
+                    <br>
+                    {{/each}}
+                    {{/if}}
+                    <br>
+                    {{#if usedAllAttempts hashcode}}
+                    <button class="waves-effect waves-light btn light-green answer-learn-question disabled"
+                        disabled>Submit</button>
+                    {{else}}
+                    <button class="waves-effect waves-light btn light-green answer-learn-question">Submit</button>
+                    {{/if}}
+                </div>
+                {{#if usedAllAttempts hashcode}}
+                <div class="divider"></div>
+                <div class="card-action" data-step="7"
+                    data-intro="Once you answered this question correctly or have used all attempts, you will see the link that will lead you to discussion page for this question."
+                    data-position="right">
+                    <a href="/p/{{hashcode}}" class="light-blue-text card-title"
+                        style="font-weight: 300; color: #2196F3; text-transform: initial">Click here to discuss about
+                        this question</a>
+                </div>
                 {{/if}}
+            </div>
+            {{else}}
+            <div class="card">
+                <div class="card-content">
+                    <span class="card-title problem-title">{{question}}</span>
+                    {{saveHashcode}}
+                    {{#if answered_tag_question hashcode}}
+                    {{#each answered_tag_question hashcode}}
+                    {{#if is_correct}}
+                    <p id="{{hashcode}}-feedback" class="problem-feedback" style="color: #4CAF50">Correct. Attempted
+                        {{attempts hashcode}} times.</p>
+                    {{else}}
+                    <p id="{{hashcode}}-feedback" class="problem-feedback" style="color: #F44336">Incorrect. Attempted
+                        {{attempts hashcode}} times.</p>
+                    {{/if}}
+                    {{/each}}
+                    {{else}}
+                    <p class="{{hashcode}}-feedback"></p>
+                    {{/if}}
+                    {{#if usedAllAttempts hashcode}}
+                    {{#each choices}}
+                    {{#if chose hashcode index}}
+                    <input class="with-gap" name="{{hashcode}}" type="radio" id="{{hashcode}}-{{index}}" checked
+                        disabled>
+                    {{else}}
+                    <input class="with-gap" name="{{hashcode}}" type="radio" id="{{hashcode}}-{{index}}" disabled>
+                    {{/if}}
+                    <label for="{{hashcode}}-{{index}}">{{text}}</label>
+                    <br>
+                    {{/each}}
+                    {{else}}
+                    {{#each choices}}
+                    {{#if chose hashcode index}}
+                    <input class="with-gap" name="{{hashcode}}" type="radio" id="{{hashcode}}-{{index}}" checked>
+                    {{else}}
+                    <input class="with-gap" name="{{hashcode}}" type="radio" id="{{hashcode}}-{{index}}">
+                    {{/if}}
+                    <label for="{{hashcode}}-{{index}}">{{text}}</label>
+                    <br>
+                    {{/each}}
+                    {{/if}}
+                    <br>
+                    {{#if usedAllAttempts hashcode}}
+                    <button class="waves-effect waves-light btn light-green answer-learn-question disabled"
+                        disabled>Submit</button>
+                    {{else}}
+                    <button class="waves-effect waves-light btn light-green answer-learn-question">Submit</button>
+                    {{/if}}
+                </div>
+                {{#if usedAllAttempts hashcode}}
+                <div class="divider"></div>
+                <div class="card-action">
+                    <a href="/p/{{hashcode}}" class="light-blue-text card-title"
+                        style="font-weight: 300; color: #2196F3; text-transform: initial">Click here to discuss about
+                        this question</a>
+                </div>
+                {{/if}}
+            </div>
+            {{/if}}
             {{/each}}
             <a href="/topics" class="waves-effect waves-light btn light-green">I'm done! Let's go to topics page</a>
         </div>

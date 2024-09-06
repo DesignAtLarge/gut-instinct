@@ -13,7 +13,7 @@ function checkPath() {
     var path = window.location.pathname;
 
     if (path === '/') {
-        Blaze.render(Template.gaCreateMain, document.body);
+        Blaze.render(Template.gaIntro, document.body);
         //redirect('/galileo');
     }
     else if (path === '/galileo') {

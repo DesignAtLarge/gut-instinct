@@ -33,7 +33,7 @@
                 </span>
               </div>
               <div class="collapsible-body white">
-                {{#each getBasicTopics as |topic|}}
+                {{#each getBasicTopics as topic}}
                   <a href="#" onclick="window.location.replace('/t/{{topic.name}}');">
                     {{#if topic.firstOfTopics}}
                       <div class="card" data-step="7" data-intro="Learn more about a topic (tag) by clicking these cards.">
@@ -87,7 +87,7 @@
                 </span>
               </div>
               <div class="collapsible-body white">
-                {{#each getAutoimmuneTopics as |topic|}}
+                {{#each getAutoimmuneTopics as topic}}
                   <a href="#" onclick="window.location.replace('/t/{{topic.name}}');">
                     {{#if topic.firstOfTopics}}
                       <div class="card" data-step="7" data-intro="Each box represents a topic/tag">
@@ -141,7 +141,7 @@
                 </span>
               </div>
               <div class="collapsible-body white">
-                {{#each getGutBrainAxisTopics as |topic|}}
+                {{#each getGutBrainAxisTopics as topic}}
                   <a href="#" onclick="window.location.replace('/t/{{topic.name}}');">
                     {{#if topic.firstOfTopics}}
                       <div class="card" data-step="7" data-intro="Each box represents a topic/tag">
@@ -195,7 +195,7 @@
                 </span>
               </div>
               <div class="collapsible-body white">
-                {{#each getGutDiseasesTopics as |topic|}}
+                {{#each getGutDiseasesTopics as topic}}
                   <a href="#" onclick="window.location.replace('/t/{{topic.name}}');">
                     {{#if topic.firstOfTopics}}
                       <div class="card" data-step="7" data-intro="Each box represents a topic/tag">

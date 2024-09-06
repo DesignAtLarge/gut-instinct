@@ -1,0 +1,44 @@
+<template name="gaMeExperimentInfo">
+    {{> gaShareSocialModal link=getInviteReviewerLink title=getExpTitleReg}}
+    {{> gaShareEmailModal link=getInviteReviewerLink title=getExpTitleReg}}
+    {{> gaShareEmailInviteJoinModal link=getParticipantInviteLink}}
+    {{> gaCorrectnessModal exp=exp}}
+    {{> gaClarificationCreatorModal title=title expId=expId}}
+    {{> gaInformationModal}}
+
+    <div id="fb-root"></div>
+
+    {{> gaMeExperimentMaster id=id section=section}}
+    <span style="display: none;" exp-data-id="{{expId}}" id="exp-id-placeholder">placeholder for data, user should not
+        see this</span>
+
+    <div id="followup-modal" class="modal">
+        <div class="modal-content">
+            <h5 id="followup-modal-title">Title: User shouldn't see this.</h5>
+            <p id="followup-modal-content">User shouldn't see this.</p>
+        </div>
+        <div class="modal-footer">
+            <a class="gray-text modal-action modal-close btn-flat">Close</a>
+        </div>
+    </div>
+
+    <div id="cause-modal" class="modal">
+        <div class="modal-content">
+            <h5>Cause Daily Message sent at {{causeTime}}</h5>
+            <div class="container" style="position: relative; text-align: center; width: 368px;">
+                <img src="/images/galileo/exp_design/iPhone.png" style="height: 450px;">
+                <p
+                    style="top: 89px; left: 160px; position: absolute; font-size: 9px; font-weight: 800; color: #d2c8c1;">
+                    Today {{causeTime}}</p>
+                <p
+                    style="top: 111px; left: 106px; position: absolute; font-size: 10px; font-weight: 400; color: #000000; text-align: left; width: 110px;">
+                    {{causeMessage}}</p>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <a class="gray-text modal-action modal-close btn-flat">Close</a>
+        </div>
+    </div>
+
+
+</template>

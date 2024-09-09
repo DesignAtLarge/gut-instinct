@@ -2,7 +2,7 @@ import { Template } from 'meteor/templating';
 import { Meteor } from 'meteor/meteor';
 import { Blaze } from 'meteor/blaze';
 import './main.html';
-import './ga-routes.js'
+import '../imports/api/ga-routes.js'
 
 Meteor.startup(() => {
 });
@@ -33,6 +33,7 @@ import './templates/galileo/browse/item/_.js';
 
 import './templates/galileo/gaHome/_.js';
 import './templates/galileo/gaLanding/_.js';
+import './templates/galileo/gaEntrance/_.js';
 import './templates/galileo/console/_.js';
 import './templates/galileo/error/_.js';
 import './templates/galileo/intro/_.js';

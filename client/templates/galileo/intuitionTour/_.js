@@ -21,6 +21,7 @@ Template.gaIntuition.onCreated(function() {
     this.startTime = new Date();
 
     Meteor.call("galileo.intuition.getFirstThreeIntuitions", function(err, ints) {
+        console.log(ints);
         inst.intuitions.set(ints);
     });
 

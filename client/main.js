@@ -3,6 +3,7 @@ import { Meteor } from 'meteor/meteor';
 import { Blaze } from 'meteor/blaze';
 import './main.html';
 import '../imports/api/ga-routes.js'
+//import '../imports/api/gen-routes.js'
 
 Meteor.startup(() => {
 });
@@ -129,14 +130,14 @@ import './templates/galileo/create/orderedList/_.js';
 
 
 
-import './templates/galileo/OpenHumans/gaOhAuth/_.js';
-import './templates/galileo/OpenHumans/gaOhSelectedDataSources/_.js';
-import './templates/galileo/OpenHumans/openHumansDataSourceModal/_.js';
+import './templates/galileo/openHumans/gaOhAuth/_.js';
+import './templates/galileo/openHumans/gaOhSelectedDataSources/_.js';
+import './templates/galileo/openHumans/openHumansDataSourceModal/_.js';
 
-import './templates/docent/z_tutorial/_.js';
-import './templates/docent/loading_wheel/_.js';
-import './templates/docent/trial/_.js';
-import './templates/docent/header/_.js';
+import './templates/docent/master.js';
+import './templates/galileo/me/master.js';
+
+
 
 
 

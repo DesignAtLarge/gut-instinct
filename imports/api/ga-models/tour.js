@@ -212,7 +212,7 @@ function getUser() {
     if (!Meteor.userId()) {
         throw new Meteor.Error("not-authorized");
     }
-    var user = Meteor.users.findOne({
+    var user = Meteor.users.findOneAsync({
         _id: Meteor.userId()
     });
     if (!user) {

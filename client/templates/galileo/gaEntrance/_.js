@@ -45,7 +45,7 @@ Template.gaEntrance.events({
     'click .enterMendel': function(event) {
         let mendelID = event.currentTarget.id;
         localStorage.setItem("mendelcode_ga", mendelID);
-        window.location.href = "/galileo/browse/" + mendelID;
+        window.location.href = "/galileo/browse?mendelcode=" + mendelID;
         // $("title").html("Galileo | " + resp.mendel_code);
     }
 });

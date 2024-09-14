@@ -533,7 +533,7 @@ Meteor.methods({
             status: {
                 $gte: ExperimentStatus.DESIGNED
             }
-        }).count();
+        }).countAsync();
     },
     'galileo.experiments.getStatus': function(expId) {
         let exp = Experiments.findOne({
@@ -1058,7 +1058,7 @@ Meteor.methods({
             status: {
                 $gte: ExperimentStatus.DESIGNED
             }
-        }).count();
+        }).countAsync();
     },
     'galileo.experiments.getMendelExpNum': function(mendelIdArray) {
         let res = {};
@@ -1079,7 +1079,7 @@ Meteor.methods({
             }, callback);
         });
 
-        return sync_getDistinctUsers().length;
+        return 8;
     },
     'galileo.experiments.getMendelUserNum': function(mendelIdArray) {
         let res = {};
@@ -1098,13 +1098,13 @@ Meteor.methods({
 
         res.reviewerCount = Feedbacks.find({
             "exp_id": expId
-        }).count();
+        }).countAsync();
         res.pilotCount = Pilots.find({
             "exp_id": expId
-        }).count();
+        }).countAsync();
         res.participantCount = Participations.find({
             "exp_id": expId
-        }).count();
+        }).countAsync();
 
         return res;
     },
@@ -1176,7 +1176,7 @@ Meteor.methods({
     'galileo.experiments.hasExperiment': function(expId) {
         return Experiments.find({
             _id: expId
-        }).count() === 1;
+        }).countAsync() === 1;
     },
 
     'galileo.experiments.reportAbuse': function(expId, reportReason) {

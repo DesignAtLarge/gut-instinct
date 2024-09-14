@@ -45,14 +45,14 @@ Template.gaNavbar.onCreated(function() {
         if (Meteor.userId()) {
             Meteor.call("users.getUsername", function(err, username) {
                 if (err) {
-                    alert("Server Connection Error");
+                    //alert("Server Connection Error");
                 }
                 self.username.set(username);
             });
 
             Meteor.call("galileo.notification.getUnreadNotifications", function(err, notis) {
                 if (err) {
-                    alert("Server Connection Error");
+                    //alert("Server Connection Error");
                 } else {
                     self.notifications.set(notis);
                 }

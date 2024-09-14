@@ -88,7 +88,7 @@ Template.gutboard_slider_addq.onCreated(function() {
     // const query = Router.current().params.query;
     this.qstatus = new ReactiveVar(sessionStorage.getItem('state'));
 
-    this.options = new ReactiveArray();
+    this.options = new ReactiveVar([]);
     this.options.push(optionDict(1));
 
 

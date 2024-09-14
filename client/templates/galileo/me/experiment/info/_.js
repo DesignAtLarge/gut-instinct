@@ -103,7 +103,7 @@ Template.gaMeExperimentInfo.onCreated(function() {
 
     let inst = this;
     inst.exp = new ReactiveVar(undefined);
-    inst.statusList = new ReactiveArray(statusList);
+    inst.statusList = new ReactiveVar([statusList]);
     inst.reviewedPilots = new ReactiveVar(null);
     inst.isLoading = new ReactiveVar(true);
     inst.showPilot = new ReactiveVar(false);

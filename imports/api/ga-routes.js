@@ -23,6 +23,28 @@ function checkPath() {
     var params = new URLSearchParams(url.search);
     let currentUser = Meteor.userId();
     switch (path) {
+        case '/trial':
+            Blaze.renderWithData(Template.trial, function () {
+                return { type: "pre" };
+            }, document.body);
+            break;
+        case '/survey':
+            Blaze.renderWithData(Template.post_survey, function () {
+                return {
+                    type: "post"
+                };
+            }, document.body);
+            break;
+        case '/':
+            redirect('/galileo');
+            break;
+        case '/login-admin':
+            if (!Meteor.user()) {
+                Blaze.render(Template.login, document.body);
+            } else {
+                redirect('consent');
+            }
+            break;
         case '/galileo':
             Meteor.call('galileo.profile.getRelativeExperiments', currentUser, function (err, result) {
                 console.log("relative");
@@ -116,7 +138,7 @@ function checkPath() {
             }
             break;
         case '/galileo/ethics':
-            Blaze.render(Template.gaEthicsDemo, document.body);
+            Blaze.render(Template.gaEducationDemo, document.body);
             break;
         case '/galileo/createedu':
             if (Meteor.user()) {
@@ -259,11 +281,12 @@ function checkPath() {
             break;
         case '/galileo/intuition':
             Meteor.call("galileo.tour.canIntuition", function (err, can) {
+                Blaze.render(Template.gaIntuition, document.body);
                 if (can) {
-                    Blaze.render(Template.gaIntuition, document.body);
+                    // Blaze.render(Template.gaIntuition, document.body);
                 } else {
-                    Materialize.toast("You haven't finished pre-test yet", 10000, 'toast rounded');
-                    redirect("/galileo/pretest");
+                    // Materialize.toast("You haven't finished pre-test yet", 10000, 'toast rounded');
+                    //redirect("/galileo/pretest");
                 }
             });
             break;
@@ -272,8 +295,8 @@ function checkPath() {
                 if (can) {
                     Blaze.render(Template.gaIntuitionBoard, document.body);
                 } else {
-                    Materialize.toast("You haven't entered three intuitions yet", 10000, 'toast rounded');
                     redirect("/galileo/intuition");
+                    Materialize.toast("You haven't entered three intuitions yet", 10000, 'toast rounded');
                 }
             });
             break;
@@ -412,14 +435,14 @@ function checkPath() {
                 }
             });
             break;
-        case "/galileo/run/:exp_id":
+        case "/galileo/run":
             Blaze.renderWithData(Template.gaRun, function () {
                 return {
                     id: params.get('exp_id'),
                 }
             }, document.body);
             break;
-        case "/galileo/share/review/:exp_id":
+        case "/galileo/share/review":
             Blaze.render(Template.loading_wheel, document.body);
             if (!Meteor.userId()) {
                 Blaze.renderWithData(Template.gaFeedbackConsent, function () {
@@ -486,7 +509,7 @@ function checkPath() {
         case '/galileo/me/participating_experiments':
             Blaze.render(Template.gaMeParticipatingExperiments, document.body);
             break;
-        case '/galileo/me/experiment/:exp_id':
+        case '/galileo/me/experiment':
             Meteor.call('galileo.run.isFailedCriteria', params.get('exp_id'), function (err, isFailedCriteria) {
                 if (isFailedCriteria) {
                     redirect("/galileo/join/failed?exp_id=" + params.get('exp_id'));
@@ -495,7 +518,7 @@ function checkPath() {
                 }
             })
             break;
-        case '/galileo/me/experiment/:exp_id/:section':
+        case '/galileo/me/experiment':
             let creatorID = "";
             Meteor.call("galileo.experiments.getExperiment", params.get('exp_id'), function (err, exp) {
                 if (err) {
@@ -533,7 +556,11 @@ function checkPath() {
             });
             break;
         case '/galileo/browse':
-            if (canGoToBrowse(this)) {
+            if (params.has('mendelcode') && params.get('mendelcode').length > 0) {
+                Blaze.render(Template.gaExperimentBoard, document.body);
+                localStorage.setItem("mendelcode_ga", params.get('mendelcode'));
+            }
+            else if (canGoToBrowse(this)) {
                 Blaze.render(Template.gaExperimentBoard, document.body);
             }
             break;
@@ -541,14 +568,6 @@ function checkPath() {
             Blaze.renderWithData(Template.gaExperimentBoard, {
                 flag: true
             }, document.body);
-            break;
-        case '/galileo/browse':
-            if (canGoToBrowse(this)) {
-                Blaze.render(Template.gaExperimentBoard, document.body);
-                if (params.get('mendelcode').length > 0) {
-                    localStorage.setItem("mendelcode_ga", params.get('mendelcode'));
-                }
-            }
             break;
         case '/galileo/experiment':
             if (params.has('exp_id')) {
@@ -564,7 +583,7 @@ function checkPath() {
                 }, document.body);
             }
             break;
-        case '/galileo/join/:exp_id':
+        case '/galileo/join':
             Meteor.call("galileo.run.canParticipate", params.get('exp_id'), function (err, can) {
                 if (params.has('exp_id')) {
                     if (!err && can) {

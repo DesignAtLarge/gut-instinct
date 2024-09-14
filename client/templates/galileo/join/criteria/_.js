@@ -11,7 +11,7 @@ import {
 Template.gaJoinCriteria.onCreated(function() {
     let inst = this;
     this.isSubmitLoading = new ReactiveVar(false);
-    // this.criteria = new ReactiveArray();
+    // this.criteria = new ReactiveVar([]);
     this.criteria_inclusion = new ReactiveVar([]);
     this.criteria_exclusion = new ReactiveVar([]);
     this.isCriteriaLoading = new ReactiveVar(true);

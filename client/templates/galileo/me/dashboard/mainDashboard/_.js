@@ -54,20 +54,20 @@ Template.gaMeDashboard.onCreated(function() {
     this.notifyFinish = new ReactiveVar(false);
 
     // all exp data
-    this.allMyExperiments = new ReactiveArray();
-    this.myOngoingExp = new ReactiveArray();
+    this.allMyExperiments = new ReactiveVar([]);
+    this.myOngoingExp = new ReactiveVar([]);
     this.participation = new ReactiveVar();
-    this.myUnderReviewExp = new ReactiveArray();
-    this.myReadyToRunExp = new ReactiveArray();
-    this.myIncompeleteExp = new ReactiveArray();
-    this.myCompletedExp = new ReactiveArray();
+    this.myUnderReviewExp = new ReactiveVar([]);
+    this.myReadyToRunExp = new ReactiveVar([]);
+    this.myIncompeleteExp = new ReactiveVar([]);
+    this.myCompletedExp = new ReactiveVar([]);
     this.myParticipateExp = new ReactiveVar(undefined);
     this.participateExpUnderReview = new ReactiveVar(undefined);
     this.exp = new ReactiveVar(undefined);
     this.isLoaded = new ReactiveVar(false);
     this.currUser = new ReactiveVar();
     this.userId = new ReactiveVar();
-    this.myCompleteParticipatingExps = new ReactiveArray();
+    this.myCompleteParticipatingExps = new ReactiveVar([]);
 
     Meteor.call('galileo.profile.isAdmin', function(err, res) {
         if (window.location.pathname.split("/")[4] !== undefined && window.location.pathname.split("/")[4].length > 0 && res) {

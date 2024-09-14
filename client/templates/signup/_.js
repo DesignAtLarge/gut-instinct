@@ -419,8 +419,10 @@ function handleBasicError(err, instance) {
 function handleLogin(username, password, instance) {
     Meteor.loginWithPassword(username, password, function (err) {
         if (err) {
+            console.log("Login Error"+err);
             handleBasicError(err, instance);
         } else {
+            console.log("Logged iN");
             instance.error.set("");
             const user_metric = UserMetrics.find({
                 user_id: Meteor.userId()

@@ -93,7 +93,7 @@ Template.post_survey.rendered = function() {
             if (questions) {
                 for (var i = 0; i < questions.length; i++) {
                     if (questions[i].index >= 7) {
-                        $("#" + questions[i].index).hide();
+                        //$("#" + questions[i].index).hide();
                     }
                 }
             }
@@ -211,9 +211,9 @@ Template.post_survey.events({
             $("#20-open").hide();
         }
     },
-    'change .with-gap': _.debounce(function(event) {
+    /*'change .with-gap': debounce(function(event) {
         $("#save").trigger("click");
-    }, 1000),
+    }, 1000),*/
 
     'click #save': function(event) {
         event.preventDefault();

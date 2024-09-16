@@ -25,8 +25,8 @@ Template.guide_question_result.rendered = function() {
     var numberQuestion = $('.guide-option-reason').length; //$('input:text').length;
 
     try {
-        if (Meteor.user()) {
-            var targetUser = Meteor.user().username;
+        if (Meteor.userAsync()) {
+            var targetUser = Meteor.userAsync().username;
 
             for (var i = 0; i < numberQuestion; i++) {
                 //console.log("user res arr loop i is" + i);
@@ -98,10 +98,10 @@ Template.guide_question_result.rendered = function() {
     } catch (e) {}
 
     try {
-        const toured = Meteor.user().profile.toured.guide_question_result;
+        const toured = Meteor.userAsync().profile.toured.guide_question_result;
         if (!toured) {
             introJs().setOption('showProgress', true).onchange(function(target) {
-                Meteor.users.update(Meteor.userId(), {
+                Meteor.users.updateAsync(Meteor.userId(), {
                     $set: {
                         'profile.toured.guide_question_result': true
                     }
@@ -133,9 +133,9 @@ Template.guide_question_result.helpers({
     init: function() {},
     training_questions: function() {
         try {
-            if (Meteor.user()) {
+            if (Meteor.userAsync()) {
                 var fetchResult = TrainingQuestions.find({}).fetch();
-                var targetUser = Meteor.user().username;
+                var targetUser = Meteor.userAsync().username;
                 return fetchResult;
             }
         } catch (e) {}
@@ -321,10 +321,10 @@ Template.guide_question_result.events({
 
 
         // if (typeof UserGuideResponse.findOne({
-        //         username: Meteor.user().username
+        //         username: Meteor.userAsync().username
         //     }) === 'undefined') {
         //     UserGuideResponse.insert({
-        //         username: Meteor.user().username,
+        //         username: Meteor.userAsync().username,
         //         check_response: checkResponse,
         //         reason_response: currentDBReasonResponse
         //     });
@@ -333,21 +333,21 @@ Template.guide_question_result.events({
 
         setTimeout(function() {
             try {
-                // Meteor.users.update(Meteor.userId(), {
+                // Meteor.users.updateAsync(Meteor.userId(), {
                 //     $set: {
                 //         'profile.intro_completed': true
                 //     }
                 // });
-                //console.log("guide_completed before is "+ Meteor.user().profile.guide_completed);
+                //console.log("guide_completed before is "+ Meteor.userAsync().profile.guide_completed);
                 //console.log("updating guide_completed bit");
                 Meteor.call('user.updateGuideCompleted');
-                // Meteor.users.update(Meteor.userId(), {
+                // Meteor.users.updateAsync(Meteor.userId(), {
                 //     $set: {
                 //         'profile.guide_completed': true
                 //     }
                 // });
                 //console.log("updated guide_completed bit");
-                //console.log("guide_completed after is "+ Meteor.user().profile.guide_completed);
+                //console.log("guide_completed after is "+ Meteor.userAsync().profile.guide_completed);
                 //alert("just hanging in");
                 window.location.replace("/gutboard_slider_addq");
             } catch (e) {}
@@ -393,8 +393,8 @@ Template.guide_question_result.events({
 Template.guide_question_result.helpers({
     isIntroCompleted: function() {
         try {
-            if (Meteor.user()) {
-                const intro_completed = Meteor.user().profile.intro_completed;
+            if (Meteor.userAsync()) {
+                const intro_completed = Meteor.userAsync().profile.intro_completed;
                 //console.log("intro_completed check in isintrocompleted is " + intro_completed);
                 //alert("hanging in");
                 return intro_completed;
@@ -403,8 +403,8 @@ Template.guide_question_result.helpers({
     },
     isGuideCompleted: function() {
         try {
-            if (Meteor.user()) {
-                const guide_completed = Meteor.user().profile.guide_completed;
+            if (Meteor.userAsync()) {
+                const guide_completed = Meteor.userAsync().profile.guide_completed;
                 //console.log("intro_completed check in isintrocompleted is " + intro_completed);
                 //alert("hanging in");
                 return guide_completed;

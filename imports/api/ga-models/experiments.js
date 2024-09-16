@@ -28,7 +28,7 @@ export const ExperimentDesigns = new Mongo.Collection('ga_experiment_designs');
 
 Meteor.methods({
     //TODO: this is not the best place to put this email and notification handlers
-    'galileo.experiments.sendEmail': function(expId, type, msg, url, arg_temp) {
+    'galileo.experiments.sendEmail': function (expId, type, msg, url, arg_temp) {
         // get the things related to the experiments
         console.log('in send email type = ' + type + ' msg = ' + msg + ' url = ' + url);
         let exp = Meteor.call("galileo.experiments.getExperiment", expId);
@@ -36,7 +36,7 @@ Meteor.methods({
             let creatorName = exp.username;
 
             if (creatorName) {
-                let otherUser = Meteor.call('galileo.run.getParticipantMap', expId, Meteor.user());
+                let otherUser = Meteor.call('galileo.run.getParticipantMap', expId, Meteor.userAsync());
                 let expTitle = "Does " + exp.design.cause + " affect " + exp.design.effect + "?";
 
                 let args = {
@@ -61,7 +61,7 @@ Meteor.methods({
         }
     },
 
-    "galileo.experiments.addDiscusionComment": function(expId, user, index, message) {
+    "galileo.experiments.addDiscusionComment": function (expId, user, index, message) {
         let map = Meteor.call('galileo.run.getParticipantMap', expId, user);
         let num = parseInt(index);
         let exp = Meteor.call('galileo.experiments.getExperiment', expId)
@@ -85,7 +85,7 @@ Meteor.methods({
         })
     },
 
-    "galileo.experiments.addDiscusionThread": function(expId, user, message) {
+    "galileo.experiments.addDiscusionThread": function (expId, user, message) {
         let map = Meteor.call('galileo.run.getParticipantMap', expId, user);
         let exp = Meteor.call('galileo.experiments.getExperiment', expId)
 
@@ -117,7 +117,7 @@ Meteor.methods({
         })
     },
 
-    'galileo.experiments.sendMorningNewEmail': function() {
+    'galileo.experiments.sendMorningNewEmail': function () {
         console.log('~~~~~~~~~~~~~~~~~sendMorningNewEmail for exp');
         let now = Time.getNowInGmt().getDate().getHours() - 7;
         let user = Meteor.users.find({
@@ -254,7 +254,7 @@ Meteor.methods({
             return true;
         }
     },
-    'galileo.experiments.sendWeeklyNewsEmail': function(skipcheck, debug_target) {
+    'galileo.experiments.sendWeeklyNewsEmail': function (skipcheck, debug_target) {
         if (skipcheck === undefined) {
             skipcheck = "0"
         }
@@ -328,7 +328,7 @@ Meteor.methods({
                     args.username = " 😂 Åland";
                     Meteor.call('galileo.console.emailNotify', debug_target, type, args);
                 } else {
-                    allUsers.forEach(function(user) {
+                    allUsers.forEach(function (user) {
                         if (user.emails[0].address && user.emails[0].address != "") {
                             if (user.username && user.username != "") {
                                 args.username = " " + user.username;
@@ -343,7 +343,7 @@ Meteor.methods({
             }
         }
     },
-    'galileo.experiments.changeStatus': function(expId, newStatus) {
+    'galileo.experiments.changeStatus': function (expId, newStatus) {
         Experiments.update({
             _id: expId
         }, {
@@ -359,13 +359,13 @@ Meteor.methods({
      * User owned experiment getter
      */
 
-    'galileo.experiments.getExperimentsByUser': function(targetUserID) {
+    'galileo.experiments.getExperimentsByUser': function (targetUserID) {
         console.log("in server side galileo.experiments.getExperimentsByUser");
         return getExperimentsByUserHelper(targetUserID);
     },
 
-    'galileo.experiments.getExperimentByExpId': function(exp_id) {
-        let exp = Experiments.findOne({_id:exp_id});
+    'galileo.experiments.getExperimentByExpId': function (exp_id) {
+        let exp = Experiments.findOne({ _id: exp_id });
         if (exp) {
             return exp;
         } else {
@@ -375,69 +375,65 @@ Meteor.methods({
     /**
      * Overall experiment getter
      */
-    'galileo.experiments.getExperiments': function(mendel) {
+    'galileo.experiments.getExperiments': function (mendel) {
+        let pipeline;
+
         if (!mendel) {
-            let syncfunc = Meteor.wrapAsync(function(callback) {
-                Experiments.rawCollection().aggregate([ // Raw Collection returns the original mongo db collection so that we can do aggregate on it
-                    {
-                        $match: { // First matching all the experiments that has status greater than merely created.
-                            status: {
-                                $gte: ExperimentStatus.DESIGNED
-                            },
-                            mendel_ga_id: {
-                                $in: ["KOMBUCHA", "KEFIR", "AMERICANGUT", "DIET", "OPENHUMANS", "SOYLENT", "ATHLETES"]
-                            }
-                        }
-                    },
-                    {
-                        $lookup: { // Then look up the current experiment design in the "ga_experiment_designs" collection and put it in the local field as "design"
-                            from: "ga_experiment_designs",
-                            localField: "curr_design_id",
-                            foreignField: "_id",
-                            as: "design"
-                        }
-                    },
-                    {
-                        $unwind: "$design" // Follow up stage after look up. Since there will be only one experiment design, unwind stage will simply unwind { design: [{ /* design */ }] } to { design: {/* design */} }
+            pipeline = [
+                {
+                    $match: {
+                        status: { $gte: ExperimentStatus.DESIGNED },
+                        mendel_ga_id: { $in: ["KOMBUCHA", "KEFIR", "AMERICANGUT", "DIET", "OPENHUMANS", "SOYLENT", "ATHLETES"] }
                     }
-                ], callback);
-            });
-            return syncfunc();
+                },
+                {
+                    $lookup: {
+                        from: "ga_experiment_designs",
+                        localField: "curr_design_id",
+                        foreignField: "_id",
+                        as: "design"
+                    }
+                },
+                {
+                    $unwind: "$design"
+                }
+            ];
         } else {
-            let syncfunc = Meteor.wrapAsync(function(callback) {
-                Experiments.rawCollection().aggregate([ // Raw Collection returns the original mongo db collection so that we can do aggregate on it
-                    {
-                        $match: { // First matching all the experiments that has status greater than merely created.
-                            status: {
-                                $gte: ExperimentStatus.DESIGNED
-                            },
-                            mendel_ga_id: {
-                                $in: [mendel]
-                            }
-                        }
-                    },
-                    {
-                        $lookup: { // Then look up the current experiment design in the "ga_experiment_designs" collection and put it in the local field as "design"
-                            from: "ga_experiment_designs",
-                            localField: "curr_design_id",
-                            foreignField: "_id",
-                            as: "design"
-                        }
-                    },
-                    {
-                        $unwind: "$design" // Follow up stage after look up. Since there will be only one experiment design, unwind stage will simply unwind { design: [{ /* design */ }] } to { design: {/* design */} }
+            pipeline = [
+                {
+                    $match: {
+                        status: { $gte: ExperimentStatus.DESIGNED },
+                        mendel_ga_id: { $in: [mendel] }
                     }
-                ], callback);
-            });
-            return syncfunc();
+                },
+                {
+                    $lookup: {
+                        from: "ga_experiment_designs",
+                        localField: "curr_design_id",
+                        foreignField: "_id",
+                        as: "design"
+                    }
+                },
+                {
+                    $unwind: "$design"
+                }
+            ];
         }
+
+        // Use Meteor.wrapAsync to handle asynchronous operation
+        const syncfunc = Meteor.wrapAsync(function (callback) {
+            Experiments.rawCollection().aggregate(pipeline).toArray(callback); // Convert cursor to array
+        });
+
+        return syncfunc();
     },
-    'galileo.experiments.copyExperimentByExpId': function(expId, userId) {
-        let user = Meteor.users.find({_id: userId}, { fields: {username: 1} }).fetch()[0];
-        let exp = Experiments.findOne({_id:expId});
+
+    'galileo.experiments.copyExperimentByExpId': function (expId, userId) {
+        let user = Meteor.users.find({ _id: userId }, { fields: { username: 1 } }).fetch()[0];
+        let exp = Experiments.findOne({ _id: expId });
         let designId = "";
         if (exp) {
-            let design = ExperimentDesigns.findOne({_id: exp.curr_design_id});
+            let design = ExperimentDesigns.findOne({ _id: exp.curr_design_id });
             let new_design_obj = {
                 "create_date_time": new Date(),
                 "username": user.username,
@@ -514,7 +510,7 @@ Meteor.methods({
             "designId": designId
         };
     },
-    'galileo.experiments.getPilotingExperiments': function() {
+    'galileo.experiments.getPilotingExperiments': function () {
         return Experiments.find({
             status: {
                 $gte: ExperimentStatus.DESIGNED,
@@ -528,14 +524,14 @@ Meteor.methods({
             return Meteor.call("galileo.experiments.getExperiment", obj._id);
         });
     },
-    'galileo.experiments.getExperimentAmount': function() {
+    'galileo.experiments.getExperimentAmount': function () {
         return Experiments.find({
             status: {
                 $gte: ExperimentStatus.DESIGNED
             }
         }).countAsync();
     },
-    'galileo.experiments.getStatus': function(expId) {
+    'galileo.experiments.getStatus': function (expId) {
         let exp = Experiments.findOne({
             _id: expId
         });
@@ -545,7 +541,7 @@ Meteor.methods({
             return undefined;
         }
     },
-    'galileo.experiments.setSentThankYou': function(expId) {
+    'galileo.experiments.setSentThankYou': function (expId) {
         Experiments.update({
             _id: expId
         }, {
@@ -554,7 +550,7 @@ Meteor.methods({
             }
         })
     },
-    'galileo.experiments.requestDataAnalysis': function(expId) {
+    'galileo.experiments.requestDataAnalysis': function (expId) {
         let status = ExperimentStatus.ANALYSIS_REQUESTED;
         Experiments.update({
             _id: expId
@@ -564,53 +560,53 @@ Meteor.methods({
             }
         })
     },
-    'galileo.experiments.getMulExperimentWithParticipantData': function(userId) {
+    'galileo.experiments.getMulExperimentWithParticipantData': function (userId) {
         let exps = [],
             ongoingExps = [];
         exps = getExperimentsByUserHelper(userId);
-        exps.forEach(function(element) {
+        exps.forEach(function (element) {
             if (element.status === ExperimentStatus.PREPARING_TO_START || element.status === ExperimentStatus.STARTED) {
                 ongoingExps.push(element);
             }
         });
         let result = [];
-        ongoingExps.forEach(function(exp) {
+        ongoingExps.forEach(function (exp) {
             result.push(getExperimentWithParticipantDataHelper(exp._id));
         });
         return result;
     },
-    'galileo.experiments.getExperimentsWithReviewData': function(userId) {
+    'galileo.experiments.getExperimentsWithReviewData': function (userId) {
         let exps = [],
             underReviewExps = [];
         exps = getExperimentsByUserHelper(userId);
-        exps.forEach(function(element) {
+        exps.forEach(function (element) {
             if (element.status >= ExperimentStatus.OPEN_FOR_REVIEW &&
                 element.status <= ExperimentStatus.REVIEWED) {
                 underReviewExps.push(element);
             }
         });
         let result = [];
-        underReviewExps.forEach(function(exp) {
+        underReviewExps.forEach(function (exp) {
             result.push(getExperimentWithCommentDataHelper(exp._id));
         });
         return result;
     },
-    'galileo.experiments.getReadyToRunExperiment': function(userId) {
+    'galileo.experiments.getReadyToRunExperiment': function (userId) {
         let exps = [],
             readyToRunExps = [],
             result = undefined;
         exps = getExperimentsByUserHelper(userId);
-        exps.forEach(function(element) {
+        exps.forEach(function (element) {
             if (element.status == ExperimentStatus.READY_TO_RUN) {
                 readyToRunExps.push(element);
             }
         });
         return readyToRunExps;
     },
-    'galileo.experiments.getExperimentWithParticipantData': function(expId) {
+    'galileo.experiments.getExperimentWithParticipantData': function (expId) {
         return getExperimentWithParticipantDataHelper(expId);
     },
-    'galileo.experiments.getParticipatingExpUnderReviewing': function(userId) {
+    'galileo.experiments.getParticipatingExpUnderReviewing': function (userId) {
         let results = Participations.find({
             user_id: userId,
             status: {
@@ -621,7 +617,7 @@ Meteor.methods({
         // console.log("the result fot part: " + JSON.stringify(results));
         if (results) {
             var returnResult = undefined;
-            results.forEach(function(result) {
+            results.forEach(function (result) {
                 let exp = Experiments.findOne({
                     _id: result.exp_id
                 });
@@ -656,8 +652,8 @@ Meteor.methods({
             return undefined;
         }
     },
-    'galileo.experiments.updateShareInfo': function(exp_id, first, second, third) {
-        let exp = Experiments.findOne({_id:exp_id});
+    'galileo.experiments.updateShareInfo': function (exp_id, first, second, third) {
+        let exp = Experiments.findOne({ _id: exp_id });
         let shareInfoObj = {
             "who are you": first,
             "what world would learn": second,
@@ -665,10 +661,10 @@ Meteor.methods({
         };
         if (exp) {
             exp.shareInfo = shareInfoObj;
-            Experiments.update({_id: exp._id}, {$set: exp});
+            Experiments.update({ _id: exp._id }, { $set: exp });
         }
     },
-    'galileo.experiments.getParticipatingExpByUser': function(userId) {
+    'galileo.experiments.getParticipatingExpByUser': function (userId) {
         let results = Participations.find({
             user_id: userId,
             status: {
@@ -680,7 +676,7 @@ Meteor.methods({
         // console.log("the result fot part: " + JSON.stringify(results));
         if (results) {
             var returnResult = undefined;
-            results.forEach(function(result) {
+            results.forEach(function (result) {
                 let exp = Experiments.findOne({
                     _id: result.exp_id
                 });
@@ -737,7 +733,7 @@ Meteor.methods({
             return undefined;
         }
     },
-    'galileo.experiments.getParticipatingExpByUserComplete': function(userId) {
+    'galileo.experiments.getParticipatingExpByUserComplete': function (userId) {
         let results = Participations.find({
             user_id: userId,
             status: 5
@@ -746,7 +742,7 @@ Meteor.methods({
         // console.log("the result fot part: " + JSON.stringify(results));
         if (results) {
             var returnResult = [];
-            results.forEach(function(result) {
+            results.forEach(function (result) {
                 let exp = Experiments.findOne({
                     _id: result.exp_id
                 });
@@ -802,7 +798,7 @@ Meteor.methods({
             return undefined;
         }
     },
-    'galileo.experiments.getParticipatingExpByUserExp': function(userId, expId) {
+    'galileo.experiments.getParticipatingExpByUserExp': function (userId, expId) {
         let results = Participations.find({
             user_id: userId,
             exp_id: expId
@@ -812,7 +808,7 @@ Meteor.methods({
         if (results) {
 
             var returnResult = undefined;
-            results.forEach(function(result) {
+            results.forEach(function (result) {
                 let exp = Experiments.findOne({
                     _id: result.exp_id
                 });
@@ -868,7 +864,7 @@ Meteor.methods({
             return undefined;
         }
     },
-    'galileo.experiments.stopParticipating': function(userId, expId, content) {
+    'galileo.experiments.stopParticipating': function (userId, expId, content) {
         console.log("in galileo.experiments.stopParticipating~~~");
         let result = Participations.findOne({
             user_id: userId,
@@ -877,17 +873,17 @@ Meteor.methods({
         let partMap = result.participantMap;
         result.stop_reason = content;
         result.status = ParticipationStatus.DROPPED;
-        Participations.update({_id: result._id}, {$set: result});
+        Participations.update({ _id: result._id }, { $set: result });
 
-        let exp = Experiments.find({_id: expId}, { fields: {run_users: 1} }).fetch()[0];
+        let exp = Experiments.find({ _id: expId }, { fields: { run_users: 1 } }).fetch()[0];
         let index = exp.run_users.indexOf(partMap);
         if (index > -1) {
             exp.run_users.splice(index, 1);
             console.log("removed " + userId + " from exp " + expId);
         }
-        Experiments.update({_id: exp._id}, {$set: exp});
+        Experiments.update({ _id: exp._id }, { $set: exp });
     },
-    'galileo.experiments.addCauseData': function(userId, expId, currentDay, content) {
+    'galileo.experiments.addCauseData': function (userId, expId, currentDay, content) {
         let result = Participations.findOne({
             user_id: userId,
             exp_id: expId
@@ -905,7 +901,7 @@ Meteor.methods({
             $set: result
         });
     },
-    'galileo.experiments.addEffectData': function(userId, expId, currentDay, content) {
+    'galileo.experiments.addEffectData': function (userId, expId, currentDay, content) {
         let result = Participations.findOne({
             user_id: userId,
             exp_id: expId
@@ -923,7 +919,7 @@ Meteor.methods({
             $set: result
         });
     },
-    'galileo.experiments.addClarification': function(userId, expId, content, index) {
+    'galileo.experiments.addClarification': function (userId, expId, content, index) {
         let obj = {};
         let part = Participations.find({
             user_id: userId
@@ -971,7 +967,7 @@ Meteor.methods({
             });
         }
     },
-    'galileo.experiments.getExperimentsByDate': function(start, end) {
+    'galileo.experiments.getExperimentsByDate': function (start, end) {
         let exps = Experiments.find({
             start_date_time: {
                 $gte: start,
@@ -987,7 +983,7 @@ Meteor.methods({
         }
         return exps;
     },
-    'galileo.experiments.getExperimentsPreparingToStart': function() {
+    'galileo.experiments.getExperimentsPreparingToStart': function () {
         let exps = Experiments.find({
             status: ExperimentStatus.PREPARING_TO_START
         }).fetch();
@@ -1006,12 +1002,12 @@ Meteor.methods({
         }
         return exps;
     },
-    'galileo.experiments.getExperiment': function(expId) {
-        let exp = Experiments.findOne({
+    'galileo.experiments.getExperiment': function (expId) {
+        let exp = Experiments.findOneAsync({
             _id: expId
         });
         if (exp) {
-            let expDesign = ExperimentDesigns.findOne({
+            let expDesign = ExperimentDesigns.findOneAsync({
                 _id: exp.curr_design_id
             });
             if (expDesign) {
@@ -1037,8 +1033,8 @@ Meteor.methods({
             return undefined;
         }
     },
-    'galileo.experiments.setMinParticipantCount': function(expId, newCount) {
-        let exp = Experiments.findOne({
+    'galileo.experiments.setMinParticipantCount': function (expId, newCount) {
+        let exp = Experiments.findOneAsync({
             _id: expId
         });
         if (exp) {
@@ -1052,7 +1048,7 @@ Meteor.methods({
             return undefined;
         }
     },
-    'galileo.experiments.getSingleMendelExpNum': function(mendel) {
+    'galileo.experiments.getSingleMendelExpNum': function (mendel) {
         return Experiments.find({
             mendel_ga_id: mendel,
             status: {
@@ -1060,7 +1056,7 @@ Meteor.methods({
             }
         }).countAsync();
     },
-    'galileo.experiments.getMendelExpNum': function(mendelIdArray) {
+    'galileo.experiments.getMendelExpNum': function (mendelIdArray) {
         let res = {};
 
         mendelIdArray.map((id) => {
@@ -1069,8 +1065,8 @@ Meteor.methods({
 
         return res;
     },
-    'galileo.experiments.getSingleMendelUserNum': function(mendel) {
-        let sync_getDistinctUsers = Meteor.wrapAsync(function(callback) {
+    'galileo.experiments.getSingleMendelUserNum': function (mendel) {
+        let sync_getDistinctUsers = Meteor.wrapAsync(function (callback) {
             Experiments.rawCollection().distinct("user_id", {
                 mendel_ga_id: mendel,
                 status: {
@@ -1081,7 +1077,7 @@ Meteor.methods({
 
         return 8;
     },
-    'galileo.experiments.getMendelUserNum': function(mendelIdArray) {
+    'galileo.experiments.getMendelUserNum': function (mendelIdArray) {
         let res = {};
 
         mendelIdArray.map((id) => {
@@ -1090,7 +1086,7 @@ Meteor.methods({
 
         return res;
     },
-    'galileo.experiments.getExperimentStats': function(expId) {
+    'galileo.experiments.getExperimentStats': function (expId) {
         let res = {};
         res.reviewerCount = -1;
         res.pilotCount = -1;
@@ -1108,7 +1104,7 @@ Meteor.methods({
 
         return res;
     },
-    'galileo.experiments.getMeasures': function(expId) {
+    'galileo.experiments.getMeasures': function (expId) {
         let result = ExperimentDesigns.find({
             exp_id: expId
         }, {
@@ -1125,7 +1121,7 @@ Meteor.methods({
             return Meteor.error("Experiment with id - " + expId + " not found");
         }
     },
-    'galileo.experiments.getMendelId': function(expId) {
+    'galileo.experiments.getMendelId': function (expId) {
         let result = Experiments.find({
             _id: expId
         }, {
@@ -1140,8 +1136,8 @@ Meteor.methods({
             return "";
         }
     },
-    'galileo.experiments.getOpenHumansSources': function(expId) {
-        let designId = Experiments.findOne({
+    'galileo.experiments.getOpenHumansSources': function (expId) {
+        let designId = Experiments.findOneAsync({
             _id: expId
         })["curr_design_id"];
         let result = ExperimentDesigns.find({
@@ -1173,21 +1169,21 @@ Meteor.methods({
     /**
      *   EXPERIMENT LOGIC HELPERS
      **/
-    'galileo.experiments.hasExperiment': function(expId) {
+    'galileo.experiments.hasExperiment': function (expId) {
         return Experiments.find({
             _id: expId
         }).countAsync() === 1;
     },
 
-    'galileo.experiments.reportAbuse': function(expId, reportReason) {
-        let exp = Experiments.findOne({
+    'galileo.experiments.reportAbuse': function (expId, reportReason) {
+        let exp = Experiments.findOneAsync({
             _id: expId
         });
         if (exp) {
             Experiments.update(expId, {
                 $set: {
                     flag_status: true,
-                    flag_user: Meteor.user().username,
+                    flag_user: Meteor.userAsync().username,
                     flag_reason: reportReason
                 }
             });
@@ -1196,8 +1192,8 @@ Meteor.methods({
             return undefined;
         }
     },
-    'galileo.experiments.unreportAbuse': function(expId) {
-        let exp = Experiments.findOne({
+    'galileo.experiments.unreportAbuse': function (expId) {
+        let exp = Experiments.findOneAsync({
             _id: expId
         });
         if (exp) {
@@ -1213,12 +1209,12 @@ Meteor.methods({
         }
     },
 
-    'galileo.experiments.getHypothesis': function(expId) {
-        let exp = Experiments.findOne({
+    'galileo.experiments.getHypothesis': function (expId) {
+        let exp = Experiments.findOneAsync({
             _id: expId
         });
         if (exp) {
-            let d = ExperimentDesigns.findOne({
+            let d = ExperimentDesigns.findOneAsync({
                 _id: exp.curr_design_id
             });
             if (d) {
@@ -1228,7 +1224,7 @@ Meteor.methods({
             }
         }
     },
-    'galileo.experiments.isCreator': function(expId) {
+    'galileo.experiments.isCreator': function (expId) {
         let exp = Experiments.find({
             _id: expId
         }, {
@@ -1242,7 +1238,7 @@ Meteor.methods({
         }
         return exp.user_id === Meteor.userId();
     },
-    'galileo.experiments.isOpenForRun': function(expId) {
+    'galileo.experiments.isOpenForRun': function (expId) {
         let exp = Experiments.find({
             _id: expId
         }, {
@@ -1252,7 +1248,7 @@ Meteor.methods({
         }).fetch()[0];
         return exp.status < ExperimentStatus.STARTED;
     },
-    'galileo.experiments.canRun': function(expId) {
+    'galileo.experiments.canRun': function (expId) {
         let exp = Experiments.findOne({
             _id: expId
         });
@@ -1268,13 +1264,13 @@ Meteor.methods({
                 return true;
         }
     },
-    'galileo.experiments.hasEnded': function(expId) {
-        let exp = Experiments.findOne({
+    'galileo.experiments.hasEnded': function (expId) {
+        let exp = Experiments.findOneAsync({
             _id: expId
         });
         return (exp.status === ExperimentStatus.FINISHED);
     },
-    'galileo.experiments.getCurrentUserRole': function(expId) {
+    'galileo.experiments.getCurrentUserRole': function (expId) {
         let role = {
             isCreator: false,
             isReviewer: false,
@@ -1316,7 +1312,7 @@ Meteor.methods({
             return role;
         }
 
-        feedback_exps.forEach(function(exp) {
+        feedback_exps.forEach(function (exp) {
             if (exp === expId) {
                 role.isReviewer = true;
                 return role;
@@ -1344,7 +1340,7 @@ Meteor.methods({
     /**
      * Experiment creation and logistics
      */
-    'galileo.experiments.create': function(intuition, username, mendel) {
+    'galileo.experiments.create': function (intuition, username, mendel) {
 
         // First create the design and then insert the design to database
         let design = generateDesignObject(intuition, username);
@@ -1370,12 +1366,12 @@ Meteor.methods({
             "designId": designId
         };
     },
-    'galileo.experiments.getDesignProgress': function(expId) {
+    'galileo.experiments.getDesignProgress': function (expId) {
         return Experiments.findOne({
             _id: expId
         })["design_progress"];
     },
-    'galileo.experiments.setDesignProgress': function(expId, progress) {
+    'galileo.experiments.setDesignProgress': function (expId, progress) {
         Experiments.update({
             _id: expId
         }, {
@@ -1384,11 +1380,11 @@ Meteor.methods({
             }
         });
     },
-    'galileo.experiments.getShuffledCriteria': function(expId) {
-        let designId = Experiments.findOne({
+    'galileo.experiments.getShuffledCriteria': function (expId) {
+        let designId = Experiments.findOneAsync({
             _id: expId
         })["curr_design_id"];
-        let design = ExperimentDesigns.findOne({
+        let design = ExperimentDesigns.findOneAsync({
             _id: designId
         });
         let criteria = design.criteria;
@@ -1406,7 +1402,7 @@ Meteor.methods({
         return arr;
 
     },
-    'galileo.experiments.getUnshuffledInclusionCriteria': function(expId) {
+    'galileo.experiments.getUnshuffledInclusionCriteria': function (expId) {
         let designId = Experiments.findOne({
             _id: expId
         })["curr_design_id"];
@@ -1427,11 +1423,11 @@ Meteor.methods({
         return arr;
 
     },
-    'galileo.experiments.getUnshuffledExclusionCriteria': function(expId) {
-        let designId = Experiments.findOne({
+    'galileo.experiments.getUnshuffledExclusionCriteria': function (expId) {
+        let designId = Experiments.findOneAsync({
             _id: expId
         })["curr_design_id"];
-        let design = ExperimentDesigns.findOne({
+        let design = ExperimentDesigns.findOneAsync({
             _id: designId
         });
         let criteria = design.criteria;
@@ -1448,9 +1444,9 @@ Meteor.methods({
         return arr;
 
     },
-    'galileo.experiments.setDesignedOrOpenForReview': function(expId) {
+    'galileo.experiments.setDesignedOrOpenForReview': function (expId) {
         //If user has completed ethics training, mark the experiment open for review, else mark it designed
-        Meteor.call("galileo.profile.hasFinishedEthics", function(err, finished) {
+        Meteor.call("galileo.profile.hasFinishedEthics", function (err, finished) {
             if (err) {
                 throw new Meteor.Error("err");
             } else {
@@ -1471,7 +1467,7 @@ Meteor.methods({
         });
     },
 
-    'galileo.experiments.setDesigned': function(expId) {
+    'galileo.experiments.setDesigned': function (expId) {
         Experiments.update({
             _id: expId
         }, {
@@ -1482,7 +1478,7 @@ Meteor.methods({
             }
         });
     },
-    'galileo.experiments.setOpenForPilot': function(expId) {
+    'galileo.experiments.setOpenForPilot': function (expId) {
         if (Meteor.call("galileo.experiments.isCreator", expId)) {
             Experiments.update({
                 _id: expId
@@ -1496,7 +1492,7 @@ Meteor.methods({
             throw new Meteor.Error("you are not creator of the experiment");
         }
     },
-    'galileo.experiments.setPiloting': function(expId) {
+    'galileo.experiments.setPiloting': function (expId) {
         Experiments.update({
             _id: expId
         }, {
@@ -1512,7 +1508,7 @@ Meteor.methods({
     /**
      * Experiment Versioning
      */
-    'galileo.experiments.version.updateVersionIfNeeded': function(expId) {
+    'galileo.experiments.version.updateVersionIfNeeded': function (expId) {
 
         // First cache the experiment
         let exp = Experiments.findOne({
@@ -1568,13 +1564,13 @@ Meteor.methods({
         return newDesignId;
     },
 
-    'galileo.experiments.edit.updateHypothesis': function(expId, cause, relation, effect, mechanism, related_works) {
+    'galileo.experiments.edit.updateHypothesis': function (expId, cause, relation, effect, mechanism, related_works) {
         let designId = Meteor.call('galileo.experiments.version.updateVersionIfNeeded', expId);
         let exp_design =
-        Meteor.call('galileo.experiments.design.setHypothesis', designId, cause, relation, effect, mechanism, related_works);
+            Meteor.call('galileo.experiments.design.setHypothesis', designId, cause, relation, effect, mechanism, related_works);
     },
 
-    'galileo.experiments.edit.updateCauseMeasure': function(expId, reminderTime, reminderText, type, unit) {
+    'galileo.experiments.edit.updateCauseMeasure': function (expId, reminderTime, reminderText, type, unit) {
         let designId = Meteor.call('galileo.experiments.version.updateVersionIfNeeded', expId);
 
         ExperimentDesigns.update({
@@ -1590,7 +1586,7 @@ Meteor.methods({
         });
     },
 
-    'galileo.experiments.edit.updateEffectMeasure': function(expId, reminderTime, reminderText, type, unit, minRating, maxRating) {
+    'galileo.experiments.edit.updateEffectMeasure': function (expId, reminderTime, reminderText, type, unit, minRating, maxRating) {
         let designId = Meteor.call('galileo.experiments.version.updateVersionIfNeeded', expId);
 
 
@@ -1609,7 +1605,7 @@ Meteor.methods({
         });
     },
 
-    'galileo.experiments.edit.updateOpenHumansDataSources': function(expId, causeOhIds, effectOhIds) {
+    'galileo.experiments.edit.updateOpenHumansDataSources': function (expId, causeOhIds, effectOhIds) {
         let designId = Meteor.call('galileo.experiments.version.updateVersionIfNeeded', expId);
 
         ExperimentDesigns.update({
@@ -1623,17 +1619,17 @@ Meteor.methods({
         });
     },
 
-    'galileo.experiments.edit.updateExclusionCriteria': function(expId, ec) {
+    'galileo.experiments.edit.updateExclusionCriteria': function (expId, ec) {
         let designId = Meteor.call('galileo.experiments.version.updateVersionIfNeeded', expId);
         Meteor.call('galileo.experiments.design.setExclusionCriteria', designId, ec);
     },
 
-    'galileo.experiments.edit.updateInclusionCriteria': function(expId, ic) {
+    'galileo.experiments.edit.updateInclusionCriteria': function (expId, ic) {
         let designId = Meteor.call('galileo.experiments.version.updateVersionIfNeeded', expId);
         Meteor.call('galileo.experiments.design.setInclusionCriteria', designId, ic);
     },
 
-    'galileo.experiments.edit.updateConditionInstructions': function(expId, design) {
+    'galileo.experiments.edit.updateConditionInstructions': function (expId, design) {
         let designId = Meteor.call('galileo.experiments.version.updateVersionIfNeeded', expId);
         let controlDesc = design.condition.control.description;
         let controlSteps = design.condition.control.steps;
@@ -1644,7 +1640,7 @@ Meteor.methods({
         Meteor.call('galileo.experiments.design.setConditionInstructions', designId, controlDesc, controlSteps, expDesc, expSteps, expPrepSteps, controlPrepSteps);
     },
 
-    'galileo.experiments.checkIncompleteExp': function() {
+    'galileo.experiments.checkIncompleteExp': function () {
         console.log('~~~~~~~~~~~~~~~~~checkIncompleteExp');
 
         let userMap = {};
@@ -1700,7 +1696,7 @@ Meteor.methods({
      * ********************************************************
      */
 
-    'galileo.experiments.getFeedbackUsers': function(expId) {
+    'galileo.experiments.getFeedbackUsers': function (expId) {
         let exp = Experiments.find({
             _id: expId
         }, {
@@ -1711,7 +1707,7 @@ Meteor.methods({
         let reviewers = [];
         if (exp && exp.length > 0) {
             let result = exp[0].feedback_users;
-            result.forEach(function(element) {
+            result.forEach(function (element) {
                 let user = Meteor.users.find({
                     _id: element
                 }, {
@@ -1724,12 +1720,12 @@ Meteor.methods({
         }
         return reviewers;
     },
-    'galileo.experiments.design.get': function(designId) {
+    'galileo.experiments.design.get': function (designId) {
         return ExperimentDesigns.findOne({
             _id: designId
         });
     },
-    'galileo.experiments.design.setTimeStamp': function(designId, type) {
+    'galileo.experiments.design.setTimeStamp': function (designId, type) {
         if (type === "finishIntuition") {
             ExperimentDesigns.update({
                 _id: designId
@@ -1789,7 +1785,7 @@ Meteor.methods({
         }
 
     },
-    'galileo.experiments.design.setIntuition': function(designId, intuition) {
+    'galileo.experiments.design.setIntuition': function (designId, intuition) {
         ExperimentDesigns.update({
             _id: designId
         }, {
@@ -1798,7 +1794,7 @@ Meteor.methods({
             }
         });
     },
-    'galileo.experiments.design.setHypothesis': function(designId, cause, relation, effect, mechanism = null, related_works = null) {
+    'galileo.experiments.design.setHypothesis': function (designId, cause, relation, effect, mechanism = null, related_works = null) {
         let data = {
             "update_date_time": new Date(),
             "cause": cause,
@@ -1820,7 +1816,7 @@ Meteor.methods({
             $set: data
         });
     },
-    'galileo.experiments.design.setCause': function(designId, cause) {
+    'galileo.experiments.design.setCause': function (designId, cause) {
         ExperimentDesigns.update({
             _id: designId
         }, {
@@ -1829,7 +1825,7 @@ Meteor.methods({
             }
         });
     },
-    'galileo.experiments.design.setRelation': function(designId, relation) {
+    'galileo.experiments.design.setRelation': function (designId, relation) {
         ExperimentDesigns.update({
             _id: designId
         }, {
@@ -1838,7 +1834,7 @@ Meteor.methods({
             }
         });
     },
-    'galileo.experiments.design.setEffect': function(designId, effect) {
+    'galileo.experiments.design.setEffect': function (designId, effect) {
         ExperimentDesigns.update({
             _id: designId
         }, {
@@ -1847,7 +1843,7 @@ Meteor.methods({
             }
         });
     },
-    'galileo.experiments.design.setFeedbackRequest': function(designId, feedbackRequest) {
+    'galileo.experiments.design.setFeedbackRequest': function (designId, feedbackRequest) {
         ExperimentDesigns.update({
             _id: designId
         }, {
@@ -1857,7 +1853,7 @@ Meteor.methods({
             }
         });
     },
-    'galileo.experiments.design.setFollowupMessage': function(designId, followupMessageCause, followupMessageEffect) {
+    'galileo.experiments.design.setFollowupMessage': function (designId, followupMessageCause, followupMessageEffect) {
         ExperimentDesigns.update({
             _id: designId
         }, {
@@ -1867,7 +1863,7 @@ Meteor.methods({
             }
         });
     },
-    'galileo.experiments.design.setMechanism': function(designId, mechanism) {
+    'galileo.experiments.design.setMechanism': function (designId, mechanism) {
         ExperimentDesigns.update({
             _id: designId
         }, {
@@ -1876,7 +1872,7 @@ Meteor.methods({
             }
         });
     },
-    'galileo.experiments.design.setVariableIdentified': function(designId) {
+    'galileo.experiments.design.setVariableIdentified': function (designId) {
         ExperimentDesigns.update({
             _id: designId
         }, {
@@ -1885,7 +1881,7 @@ Meteor.methods({
             }
         });
     },
-    'galileo.experiments.design.setCauseMeasure': function(designId, causeMeasure) {
+    'galileo.experiments.design.setCauseMeasure': function (designId, causeMeasure) {
         ExperimentDesigns.update({
             _id: designId
         }, {
@@ -1894,7 +1890,7 @@ Meteor.methods({
             }
         });
     },
-    'galileo.experiments.design.setEffectMeasure': function(designId, effectMeasure) {
+    'galileo.experiments.design.setEffectMeasure': function (designId, effectMeasure) {
         ExperimentDesigns.update({
             _id: designId
         }, {
@@ -1903,9 +1899,9 @@ Meteor.methods({
             }
         });
     },
-    'galileo.experiments.design.setInclusionCriteria': function(designId, inclusionCriteria) {
+    'galileo.experiments.design.setInclusionCriteria': function (designId, inclusionCriteria) {
         let ic = [];
-        inclusionCriteria.forEach(function(elt) {
+        inclusionCriteria.forEach(function (elt) {
             if (elt.substring(0, 3).toLowerCase() === 'you') {
                 let length = elt.length + 1;
                 let validString = elt.substring(3, length);
@@ -1923,9 +1919,9 @@ Meteor.methods({
             }
         });
     },
-    'galileo.experiments.design.setExclusionCriteria': function(designId, exclusionCriteria) {
+    'galileo.experiments.design.setExclusionCriteria': function (designId, exclusionCriteria) {
         let ec = [];
-        exclusionCriteria.forEach(function(elt) {
+        exclusionCriteria.forEach(function (elt) {
             if (elt.substring(0, 3).toLowerCase() === 'you') {
                 let length = elt.length + 1;
                 let validString = elt.substring(3, length);
@@ -1943,7 +1939,7 @@ Meteor.methods({
             }
         });
     },
-    'galileo.experiments.design.setConditionInstructions': function(designId, control, controlGroupInstructions, experimental, expGroupInstructions, expGroupPrepInstructions, controlGroupPrepInstructions) {
+    'galileo.experiments.design.setConditionInstructions': function (designId, control, controlGroupInstructions, experimental, expGroupInstructions, expGroupPrepInstructions, controlGroupPrepInstructions) {
         ExperimentDesigns.update({
             _id: designId
         }, {
@@ -1964,7 +1960,7 @@ Meteor.methods({
             }
         });
     },
-    'galileo.experiments.analysis.printSingleCause': function(post_data) {
+    'galileo.experiments.analysis.printSingleCause': function (post_data) {
         let result = HTTP.call("post", getAPIURL(Meteor.settings.analysisScriptAPI, "printSingleCause"), {
             data: post_data
         });
@@ -1973,7 +1969,7 @@ Meteor.methods({
         console.log(filecontent)
         return filecontent;
     },
-    'galileo.experiments.analysis.printGreaterEffect': function(post_data) {
+    'galileo.experiments.analysis.printGreaterEffect': function (post_data) {
         let result = HTTP.call("post", getAPIURL(Meteor.settings.analysisScriptAPI, "printGreaterEffect"), {
             data: post_data
         });
@@ -2094,7 +2090,7 @@ function getExperimentWithParticipantDataHelper(expId) {
 
             if (exp.run_users.length > 0) {
                 let participantInfoResults = [];
-                exp.run_users.forEach(function(currentUser) {
+                exp.run_users.forEach(function (currentUser) {
                     let user_id = Meteor.call('galileo.run.getParticipantMapToUser', expId, currentUser);
                     var userDataTemp = Meteor.users.find({
                         _id: user_id
@@ -2144,7 +2140,7 @@ function getExperimentWithParticipantDataHelper(expId) {
                     userDataTemp.participantMap = currentUser;
                     userDataTemp.user_start_date = "";
 
-                    expParticipantsData.forEach(function(currentRecord) {
+                    expParticipantsData.forEach(function (currentRecord) {
                         if (currentRecord.user_id === user_id) {
                             userDataTemp.all_cause_data = currentRecord.cause_data;
                             userDataTemp.all_effect_data = currentRecord.effect_data;
@@ -2204,7 +2200,7 @@ function getExperimentsByUserHelper(targetUserID) {
     if (!targetUserID) {
         return null;
     } else {
-        let syncfunc = Meteor.wrapAsync(function(callback) {
+        let syncfunc = Meteor.wrapAsync(function (callback) {
             Experiments.rawCollection().aggregate([ // Raw Collection returns the original mongo db collection so that we can do aggregate on it
                 {
                     $match: { // First matching all the experiments that has status greater than merely created.

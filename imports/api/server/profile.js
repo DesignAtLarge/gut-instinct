@@ -17,7 +17,7 @@ Meteor.methods({
             throw new Meteor.Error('not-authorized');
         }
 
-        Accounts.setUsername(Meteor.user()._id, insertUserName);
+        Accounts.setUsername(Meteor.userAsync()._id, insertUserName);
     },
     'profile.hasEmail' () {
         if (!Meteor.userId()) {
@@ -25,7 +25,7 @@ Meteor.methods({
         }
 
         let currentEmailObj = UserEmail.findOne({
-            username: Meteor.user().username
+            username: Meteor.userAsync().username
         });
 
         if (!currentEmailObj || currentEmailObj.email === "") return false;
@@ -37,7 +37,7 @@ Meteor.methods({
         }
 
         let currentEmailObj = UserEmail.findOne({
-            username: Meteor.user().username
+            username: Meteor.userAsync().username
         });
 
         if (!currentEmailObj) {
@@ -99,7 +99,7 @@ Meteor.methods({
         }
 
         let currentUserObj = UserEmail.findOne({
-            username: Meteor.user().username
+            username: Meteor.userAsync().username
         });
         if ('noticeSet' in currentUserObj) {
             let updateNoticeSet = currentUserObj.noticeSet;
@@ -130,7 +130,7 @@ Meteor.methods({
     },
     'profile.getNotificationArray' () {
         let currentUserObj = UserEmail.findOne({
-            username: Meteor.user().username
+            username: Meteor.userAsync().username
         });
 
         if ('noticeSet' in currentUserObj) {
@@ -146,13 +146,13 @@ Meteor.methods({
         if (!Meteor.userId()) {
             throw new Meteor.Error('not-authorized');
         }
-        return Meteor.user().username;
+        return Meteor.userAsync().username;
     },
     'profile.getEmail': function() {
         if (!Meteor.userId()) {
             throw new Meteor.Error('not-authorized');
         }
-        let user = Meteor.user().findOne({_id: Meteor.userId()}, {
+        let user = Meteor.userAsync().findOne({_id: Meteor.userId()}, {
             fields: {
                 'email[0].address': 1
             }
@@ -162,7 +162,7 @@ Meteor.methods({
     
     'profile.setGIInterest' (gi_interest) {
         UserEmail.update({
-            username: Meteor.user().username
+            username: Meteor.userAsync().username
         }, {
             $set: {
                 interest: gi_interest
@@ -171,7 +171,7 @@ Meteor.methods({
     },
     'profile.getGIInterest' () {
         let currentUserObj = UserEmail.findOne({
-            username: Meteor.user().username
+            username: Meteor.userAsync().username
         });
         let curr_interest = currentUserObj.interest;
         if (!curr_interest) curr_interest = "";

@@ -1,0 +1,60 @@
+<template name="qmodule">
+  <div class="card qmodule cardquestion" question-hash="{{hash}}" question-id="{{_id}}">
+    <div class="card-content layer-1" style="word-wrap: break-word;">
+      {{#if isUserExpert}}
+      <span class="timestamp edit-question-hide">{{hash}} &nbsp;&nbsp; [qcondition {{this.qcondition}}]</span>
+      <br>
+      {{/if}}
+      <span class="timestamp edit-question-hide">{{livestamp created_at}} &bull; Added by</span>
+      <span class="mark edit-question-hide" style="text-transform:none; background-color: white;">
+        {{#if expert_question}}
+        <span class="expert-mark mark expertQuestion"
+          style="margin-left: 0px; background-color: #ffebee;">Researchers</span>
+        {{else}}
+        {{#if modified_by_expert}}
+        <span class="blue-text crowd-mark mark nonExpertQuestion" style="margin-left: 0px;">Citizen Scientist</span>
+        {{else}}
+        <span class="blue-text crowd-mark mark nonExpertQuestion" style="margin-left: 0px;">Citizen Scientist</span>
+        {{/if}}
+        {{#if isUserExpert}}
+        <span class="timestamp"> &nbsp;&nbsp;[{{this.owner.username}}]</span>
+        {{/if}}
+        {{/if}}
+      </span>
+
+      <div class="modal-content" style="height: 100%;">
+        <span style="font-size: 13pt; color: #9e9e9e;">Is this question..</span>
+        <br>
+        <br>
+
+        {{#each checks}}
+        <div class="row" style="margin-bottom: 5px;">
+          <div class="col s9" style="padding-top: 5px; padding-bottom: 5px;">
+            <span style="font-size: 13pt; color: #424242;">{{questionText}}</span>
+            <div class="feedback" style="text-align: right;">
+              <span id="guidecheck-{{index}}-{{checkId}}-correct" style="color: #8bc34a; display: none;">Your choice is
+                correct.</span>
+              <span id="guidecheck-{{index}}-{{checkId}}-incorrect" style="color: #f44336; display: none;">Your choice
+                is incorrect.</span>
+            </div>
+          </div>
+
+          <div class="col s3" style="padding-top: 5px; padding-bottom: 5px;">
+            {{#each options}}
+            <input class="with-gap guide-option" name="{{../index}}-{{checkId}}" type="radio"
+              id="guidecheck-{{../index}}-{{checkId}}-radio-{{optionId}}" personal-id="{{../index}}">
+            <label for="guidecheck-{{../index}}-{{checkId}}-radio-{{optionId}}"
+              style="font-size: 14pt; margin-right: 15px;">
+              <i class="icon ion-{{#if @first}}checkmark-round{{else}}close-round{{/if}}"></i>
+            </label>
+            {{/each}}
+          </div>
+        </div>
+        {{/each}}
+
+        <button href="#" class="modal-action modal-close red btn rate-submit"
+          style="top:5px;bottom:5px;transform:scale(.80);">Submit Rating</button>
+      </div>
+    </div>
+  </div>
+</template>

@@ -21,7 +21,7 @@ Template.welcome.onCreated(function() {
 
 Template.welcome.helpers({
     isEmailAsked: function() {
-        var currentUser = Meteor.user().username;
+        var currentUser = Meteor.userAsync().username;
 
         var fetchResult = UserEmail.findOne({
             "username": currentUser

@@ -1,0 +1,39 @@
+<template name="gutboard_slider_addq">
+  <div class="animateme">
+    <ul class="bg-bubbles">
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+    </ul>
+  </div>
+
+  {{#if isIntroCompleted}}
+    {{> header}}
+  {{else}}
+    {{> header_gray}}
+    {{> getProgressData}}
+  {{/if}}
+
+  <div class="container content gutboard" style="max-width: 700px;">
+    <div id="examples" class="modal modal-fixed-footer">
+      <div class="modal-content">
+        <h4 class="light-blue-text text-darken-4">Example Questions</h4>
+        {{#each exampleQuestions}}
+          {{> qmodule_example}}
+        {{/each}}
+      </div>
+      <div class="modal-footer">
+        <a href="#!" class="modal-action modal-close btn-flat light-blue-text">Close</a>
+      </div>
+    </div>
+  </div>
+</template>

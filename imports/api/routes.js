@@ -10,22 +10,22 @@ Router.route('/', function() {
     /*
     // TUSHAR COMMENTED ALL TO HANDLE GALILEO ROUTES, UNCOMMENT BELOW FOR DOCENT
 
-    if (Meteor.user()){
-        if (!Meteor.user().profile.consent_agreed) {
+    if (Meteor.userAsync()){
+        if (!Meteor.userAsync().profile.consent_agreed) {
             this.redirect('consent');
         } else {
 
-            if (!Meteor.user().profile.toured.username_page) {
+            if (!Meteor.userAsync().profile.toured.username_page) {
                 this.redirect('/username');
-            } else if (!Meteor.user().profile.took_pretest) {
+            } else if (!Meteor.userAsync().profile.took_pretest) {
                 this.redirect('/trial');
-            //} else if (Meteor.user().profile.questions.length == 1 && Meteor.user().profile.intro_completed) {
+            //} else if (Meteor.userAsync().profile.questions.length == 1 && Meteor.userAsync().profile.intro_completed) {
                 // this.redirect('/addq');
                 // setTimeout(function function_name(argument) {
                 //     Materialize.toast('You need to add one other question before accessing the entire Gut Instinct content', 4000, 'toast');
                 // }, 1000);
             } else {
-                if (!Meteor.user().profile.intro_completed){
+                if (!Meteor.userAsync().profile.intro_completed){
                     //this.redirect('intro');
                     //this.render('gutboard_slider');
                     //
@@ -54,7 +54,7 @@ Router.route('/', function() {
                     return;
                 }
                 else {
-                    if (Meteor.user().profile.condition == 7) this.redirect('/topics');
+                    if (Meteor.userAsync().profile.condition == 7) this.redirect('/topics');
                     else this.redirect('gutboard');
                     //alert("guide completed");
                 }
@@ -69,7 +69,7 @@ Router.route('/', function() {
 });
 
 Router.route('/login-admin', function() {
-    if (!Meteor.user()) {
+    if (!Meteor.userAsync()) {
         this.render('login');
     } else {
         this.redirect('consent');
@@ -78,7 +78,7 @@ Router.route('/login-admin', function() {
 
 
 Router.route('/signup', function() {
-    if (!Meteor.user()) {
+    if (!Meteor.userAsync()) {
         this.render('signup');
     } else {
         this.render("loading_wheel");
@@ -90,7 +90,7 @@ Router.route('/signup', function() {
 
 // TEMP LANDING ROUTE, change once ready
 Router.route('/login-admin1', function() {
-    if (!Meteor.user()) {
+    if (!Meteor.userAsync()) {
         this.render('new_login');
     } else {
         this.redirect('consent');
@@ -98,7 +98,7 @@ Router.route('/login-admin1', function() {
 });
 
 Router.route('/consent', function() {
-    if (!Meteor.user().profile.consent_agreed) {
+    if (!Meteor.userAsync().profile.consent_agreed) {
         Meteor.call("galileo.profile.updateProfile");
         this.render('consent');
     } else {
@@ -112,19 +112,19 @@ Router.route('/tutorial', function() {
 
 Router.route('/gutboard', function() {
     try {
-        if (Meteor.user() && !Meteor.user().profile.consent_agreed) {
+        if (Meteor.userAsync() && !Meteor.userAsync().profile.consent_agreed) {
             this.redirect('consent');
             return;
         }
-        if (Meteor.user() && !Meteor.user().profile.toured.username_page) {
+        if (Meteor.userAsync() && !Meteor.userAsync().profile.toured.username_page) {
             this.redirect('/username');
             return;
         }
-        if (Meteor.user() && !Meteor.user().profile.took_pretest) {
+        if (Meteor.userAsync() && !Meteor.userAsync().profile.took_pretest) {
             this.redirect('/trial');
             return;
         }
-        if (Meteor.user() && !Meteor.user().profile.intro_completed) {
+        if (Meteor.userAsync() && !Meteor.userAsync().profile.intro_completed) {
             //this.redirect('intro');
             //this.render('gutboard_slider');
             //
@@ -152,14 +152,14 @@ Router.route('/gutboard', function() {
             }, 1000);
             return;
         }
-        // if (Meteor.user() && Meteor.user().profile.questions.length == 1 && Meteor.user().profile.intro_completed) {
+        // if (Meteor.userAsync() && Meteor.userAsync().profile.questions.length == 1 && Meteor.userAsync().profile.intro_completed) {
         //     this.redirect('/addq');
         //     setTimeout(function function_name(argument) {
         //         Materialize.toast('You need to add one other question before accessing the entire Gut Instinct content', 4000, 'toast');
         //     }, 1000);
         //     return;
         // }
-        if (Meteor.user() && Meteor.user().profile.condition != 7)
+        if (Meteor.userAsync() && Meteor.userAsync().profile.condition != 7)
             this.render('gutboard_slider', {
                 data: function() {
                     return {
@@ -172,33 +172,33 @@ Router.route('/gutboard', function() {
 
 Router.route('/gutboard/:mendelcode', function() {
     try {
-        if (Meteor.user() && !Meteor.user().profile.consent_agreed) {
+        if (Meteor.userAsync() && !Meteor.userAsync().profile.consent_agreed) {
             this.redirect('consent');
             return;
         }
-        if (Meteor.user() && !Meteor.user().profile.toured.username_page) {
+        if (Meteor.userAsync() && !Meteor.userAsync().profile.toured.username_page) {
             this.redirect('/username');
             return;
         }
-        if (Meteor.user() && !Meteor.user().profile.took_pretest) {
+        if (Meteor.userAsync() && !Meteor.userAsync().profile.took_pretest) {
             this.redirect('/trial');
             return;
         }
-        if (Meteor.user() && !Meteor.user().profile.intro_completed) {
+        if (Meteor.userAsync() && !Meteor.userAsync().profile.intro_completed) {
             this.redirect('/guide');
             setTimeout(function function_name(argument) {
                 Materialize.toast('You need to finish this quick guide before accessing the entire Gut Instinct content', 4000, 'toast');
             }, 1000);
             return;
         }
-        // if (Meteor.user() && Meteor.user().profile.questions.length == 1 && Meteor.user().profile.intro_completed) {
+        // if (Meteor.userAsync() && Meteor.userAsync().profile.questions.length == 1 && Meteor.userAsync().profile.intro_completed) {
         //     this.redirect('/addq');
         //     setTimeout(function function_name(argument) {
         //         Materialize.toast('You need to add one other question before accessing the entire Gut Instinct content', 4000, 'toast');
         //     }, 1000);
         //     return;
         // }
-        if (Meteor.user() && Meteor.user().profile.condition != 7)
+        if (Meteor.userAsync() && Meteor.userAsync().profile.condition != 7)
             this.render('gutboard_slider', {
                 data: function() {
                     return {
@@ -221,20 +221,20 @@ Router.route('/gutboard/:mendelcode/search', {
 
 Router.route('/addq', function() {
     try {
-        if (Meteor.user() && !Meteor.user().profile.consent_agreed) {
+        if (Meteor.userAsync() && !Meteor.userAsync().profile.consent_agreed) {
             this.redirect('consent');
             return;
         }
-        if (Meteor.user() && !Meteor.user().profile.toured.username_page) {
+        if (Meteor.userAsync() && !Meteor.userAsync().profile.toured.username_page) {
             this.redirect('/username');
             return;
         }
-        if (Meteor.user() && !Meteor.user().profile.took_pretest) {
+        if (Meteor.userAsync() && !Meteor.userAsync().profile.took_pretest) {
             this.redirect('/trial');
             return;
         }
 
-        if (Meteor.user() && Meteor.user().profile.intro_completed && !Meteor.user().profile.guide_completed && Meteor.user().profile.condition == 10 && Meteor.user().profile.condition == 11) {
+        if (Meteor.userAsync() && Meteor.userAsync().profile.intro_completed && !Meteor.userAsync().profile.guide_completed && Meteor.userAsync().profile.condition == 10 && Meteor.userAsync().profile.condition == 11) {
             this.redirect('/guide');
             setTimeout(function function_name(argument) {
                 Materialize.toast('Before asking more questions, just complete this quick guide about asking useful questions', 5000, 'toast');
@@ -242,27 +242,27 @@ Router.route('/addq', function() {
             return;
         }
 
-        if (Meteor.user() && Meteor.user().profile.condition != 7)
+        if (Meteor.userAsync() && Meteor.userAsync().profile.condition != 7)
             this.render('gutboard_slider_addq');
     } catch (e) {}
 });
 
 Router.route('/gutboard_slider_addq', function() {
     try {
-        if (Meteor.user() && !Meteor.user().profile.consent_agreed) {
+        if (Meteor.userAsync() && !Meteor.userAsync().profile.consent_agreed) {
             this.redirect('consent');
             return;
         }
-        if (Meteor.user() && !Meteor.user().profile.toured.username_page) {
+        if (Meteor.userAsync() && !Meteor.userAsync().profile.toured.username_page) {
             this.redirect('/username');
             return;
         }
-        if (Meteor.user() && !Meteor.user().profile.took_pretest) {
+        if (Meteor.userAsync() && !Meteor.userAsync().profile.took_pretest) {
             this.redirect('/trial');
             return;
         }
 
-        if (Meteor.user() && Meteor.user().profile.intro_completed && !Meteor.user().profile.guide_completed) {
+        if (Meteor.userAsync() && Meteor.userAsync().profile.intro_completed && !Meteor.userAsync().profile.guide_completed) {
             this.redirect('/guide');
             setTimeout(function function_name(argument) {
                 Materialize.toast('Before asking more questions, just complete this quick guide about asking useful questions', 5000, 'toast');
@@ -270,14 +270,14 @@ Router.route('/gutboard_slider_addq', function() {
             return;
         }
 
-        if (Meteor.user() && Meteor.user().profile.condition != 7)
+        if (Meteor.userAsync() && Meteor.userAsync().profile.condition != 7)
             this.render('gutboard_slider_addq');
     } catch (e) {}
 });
 
 Router.route('/gutboard_old', function() {
-    let username = Meteor.user().username;
-    let condition = Meteor.user().profile.condition;
+    let username = Meteor.userAsync().username;
+    let condition = Meteor.userAsync().profile.condition;
 
     if (condition == 1) {
         this.redirect('problems');
@@ -288,20 +288,20 @@ Router.route('/gutboard_old', function() {
 
 Router.route('/gutboard_slider', function() {
 
-    if (Meteor.user()) {
-        if (Meteor.user() && !Meteor.user().profile.consent_agreed) {
+    if (Meteor.userAsync()) {
+        if (Meteor.userAsync() && !Meteor.userAsync().profile.consent_agreed) {
             this.redirect('consent');
             return;
         }
-        if (Meteor.user() && !Meteor.user().profile.toured.username_page) {
+        if (Meteor.userAsync() && !Meteor.userAsync().profile.toured.username_page) {
             this.redirect('/username');
             return;
         }
-        if (Meteor.user() && !Meteor.user().profile.took_pretest) {
+        if (Meteor.userAsync() && !Meteor.userAsync().profile.took_pretest) {
             this.redirect('/trial');
             return;
         }
-        if (Meteor.user() && !Meteor.user().profile.intro_completed) {
+        if (Meteor.userAsync() && !Meteor.userAsync().profile.intro_completed) {
             //this.redirect('intro');
             //this.render('gutboard_slider');
             //
@@ -329,21 +329,21 @@ Router.route('/gutboard_slider', function() {
             }, 1000);
             return;
         }
-        // if (Meteor.user() && Meteor.user().profile.questions.length == 1 && Meteor.user().profile.intro_completed) {
+        // if (Meteor.userAsync() && Meteor.userAsync().profile.questions.length == 1 && Meteor.userAsync().profile.intro_completed) {
         //     this.redirect('/addq');
         //     setTimeout(function function_name(argument) {
         //         Materialize.toast('You need to add one other question before accessing the entire Gut Instinct content', 4000, 'toast');
         //     }, 1000);
         //     return;
         // }
-        let username = Meteor.user().username;
-        let condition = Meteor.user().profile.condition;
+        let username = Meteor.userAsync().username;
+        let condition = Meteor.userAsync().profile.condition;
 
         if (condition == 1 || condition == 8) {
             this.render('gutboard_slider');
             return;
         } else {
-            if (!Meteor.user().profile.guide_completed) {
+            if (!Meteor.userAsync().profile.guide_completed) {
                 //alert("guide not completed");
                 //this.redirect('intro');
                 this.redirect('/guide');
@@ -359,7 +359,7 @@ Router.route('/gutboard_slider', function() {
 });
 
 Router.route('/problems', function() {
-    let condition = Meteor.user().profile.condition;
+    let condition = Meteor.userAsync().profile.condition;
 
     if (condition != 1) {
         this.redirect('gutboard');
@@ -369,7 +369,7 @@ Router.route('/problems', function() {
 });
 
 Router.route('/articles', function() {
-    let condition = Meteor.user().profile.condition;
+    let condition = Meteor.userAsync().profile.condition;
 
     if (condition != 2) {
         this.redirect('gutboard');
@@ -379,7 +379,7 @@ Router.route('/articles', function() {
 });
 
 Router.route('/bookmark', function() {
-    let condition = Meteor.user().profile.condition;
+    let condition = Meteor.userAsync().profile.condition;
 
     if (false && condition != 1) {
         this.redirect('gutboard');
@@ -391,8 +391,8 @@ Router.route('/bookmark', function() {
 Router.route('/welcome', function() {
 
     setTimeout(function() {
-        if (Meteor.user()) {
-            let username = Meteor.user().username;
+        if (Meteor.userAsync()) {
+            let username = Meteor.userAsync().username;
             // let fetchResult = UserEmail.findOne({"username": username});
 
             // if(fetchResult == undefined){
@@ -421,7 +421,7 @@ Router.route('/welcome', function() {
 
 Router.route('/welcome_uncheck', function() {
     // condition to db
-    let currentUsername = Meteor.user().username;
+    let currentUsername = Meteor.userAsync().username;
     let fetchResult = UserEmail.findOne({
         "username": currentUsername
     });
@@ -454,15 +454,15 @@ Router.route('/telluswhatyouknownow', function() {
 
 Router.route('/trial', function() {
     try {
-        if (Meteor.user() && !Meteor.user().profile.consent_agreed) {
+        if (Meteor.userAsync() && !Meteor.userAsync().profile.consent_agreed) {
             this.redirect('consent');
             return;
         }
-        if (Meteor.user() && !Meteor.user().profile.toured.username_page) {
+        if (Meteor.userAsync() && !Meteor.userAsync().profile.toured.username_page) {
             this.redirect('/username');
             return;
         }
-        if (Meteor.user()) {
+        if (Meteor.userAsync()) {
             this.render('trial', {
                 data: function() {
                     return {
@@ -476,15 +476,15 @@ Router.route('/trial', function() {
 
 Router.route('/survey', function() {
     try {
-        if (Meteor.user() && !Meteor.user().profile.consent_agreed) {
+        if (Meteor.userAsync() && !Meteor.userAsync().profile.consent_agreed) {
             this.redirect('consent');
             return;
         }
-        if (Meteor.user() && !Meteor.user().profile.toured.username_page) {
+        if (Meteor.userAsync() && !Meteor.userAsync().profile.toured.username_page) {
             this.redirect('/username');
             return;
         }
-        if (Meteor.user()) {
+        if (Meteor.userAsync()) {
             this.render('post_survey', {
                 data: function() {
                     return {
@@ -498,15 +498,15 @@ Router.route('/survey', function() {
 
 Router.route('/check', function() {
     try {
-        if (Meteor.user() && !Meteor.user().profile.consent_agreed) {
+        if (Meteor.userAsync() && !Meteor.userAsync().profile.consent_agreed) {
             this.redirect('consent');
             return;
         }
-        if (Meteor.user() && !Meteor.user().profile.toured.username_page) {
+        if (Meteor.userAsync() && !Meteor.userAsync().profile.toured.username_page) {
             this.redirect('/username');
             return;
         }
-        if (Meteor.user()) {
+        if (Meteor.userAsync()) {
             this.render('trial', {
                 data: function() {
                     return {
@@ -543,29 +543,29 @@ Router.route('/welcome_step2', function() {
 
 Router.route('/t/:name', function() {
     try {
-        if (Meteor.user() && !Meteor.user().profile.consent_agreed) {
+        if (Meteor.userAsync() && !Meteor.userAsync().profile.consent_agreed) {
             this.redirect('consent');
             return;
         }
-        if (Meteor.user() && !Meteor.user().profile.took_pretest) {
+        if (Meteor.userAsync() && !Meteor.userAsync().profile.took_pretest) {
             this.redirect('/trial');
             return;
         }
-        // if (Meteor.user() && Meteor.user().profile.questions.length == 1 && Meteor.user().profile.intro_completed) {
+        // if (Meteor.userAsync() && Meteor.userAsync().profile.questions.length == 1 && Meteor.userAsync().profile.intro_completed) {
         //     this.redirect('/addq');
         //     setTimeout(function function_name(argument) {
         //         Materialize.toast('You need to add one other question before accessing the entire Gut Instinct content', 4000, 'toast');
         //     }, 1000);
         //     return;
         // }
-        if (Meteor.user()) {
+        if (Meteor.userAsync()) {
             this.render('tag', {
                 data: function() {
                     try {
-                        if (Meteor.user())
+                        if (Meteor.userAsync())
                             return {
                                 name: this.params.name,
-                                user: Meteor.user().username
+                                user: Meteor.userAsync().username
                             };
                     } catch (e) {}
                 }
@@ -597,23 +597,23 @@ Router.route('/personal/:name', {
 
 Router.route('/guide_question', function() {
     try {
-        if (Meteor.user() && !Meteor.user().profile.consent_agreed) {
+        if (Meteor.userAsync() && !Meteor.userAsync().profile.consent_agreed) {
             this.redirect('consent');
             return;
         }
-        if (Meteor.user() && !Meteor.user().profile.took_pretest) {
+        if (Meteor.userAsync() && !Meteor.userAsync().profile.took_pretest) {
             this.redirect('/trial');
             return;
         }
-        if (Meteor.user()) {
-            let username = Meteor.user().username;
-            let condition = Meteor.user().profile.condition;
+        if (Meteor.userAsync()) {
+            let username = Meteor.userAsync().username;
+            let condition = Meteor.userAsync().profile.condition;
             //docent-exp: access guide only for cond 3 or 4
             if (condition == 3 || condition == 4 || condition == 5 || condition == 6 || condition == 0 || condition == 10 || condition == 11) {
                 this.render('guide_question_info', {
                     data: function() {
                         return {
-                            name: Meteor.user().username
+                            name: Meteor.userAsync().username
                         };
                     }
                 });
@@ -624,21 +624,21 @@ Router.route('/guide_question', function() {
 
 Router.route('/guide', function() {
     try {
-        if (Meteor.user() && !Meteor.user().profile.consent_agreed) {
+        if (Meteor.userAsync() && !Meteor.userAsync().profile.consent_agreed) {
             this.redirect('consent');
             return;
         }
-        if (Meteor.user() && !Meteor.user().profile.took_pretest) {
+        if (Meteor.userAsync() && !Meteor.userAsync().profile.took_pretest) {
             this.redirect('/trial');
             return;
         }
-        if (Meteor.user()) {
-            let condition = Meteor.user().profile.condition;
+        if (Meteor.userAsync()) {
+            let condition = Meteor.userAsync().profile.condition;
             //if (condicondition == 3 || condition == 4 || condition == 0) {
             this.render('guide_question_welcome', {
                 data: function() {
                     return {
-                        name: Meteor.user().username
+                        name: Meteor.userAsync().username
                     };
                 }
             });
@@ -657,16 +657,16 @@ Router.route('/guide_bin', function() {
 
 Router.route('/guide_result', function() {
     try {
-        if (Meteor.user() && !Meteor.user().profile.consent_agreed) {
+        if (Meteor.userAsync() && !Meteor.userAsync().profile.consent_agreed) {
             this.redirect('consent');
             return;
         }
-        if (Meteor.user() && !Meteor.user().profile.took_pretest) {
+        if (Meteor.userAsync() && !Meteor.userAsync().profile.took_pretest) {
             this.redirect('/trial');
             return;
         }
-        if (Meteor.user()) {
-            let condition = Meteor.user().profile.condition;
+        if (Meteor.userAsync()) {
+            let condition = Meteor.userAsync().profile.condition;
             if (condition == 3 || condition == 4 || condition == 5 || condition == 6 || condition == 0 || condition == 10 || condition == 11) {
                 this.render('guide_question_result');
             } else {
@@ -735,14 +735,14 @@ Router.route('/landing', function() {
 
 Router.route('/intro', function() {
     try {
-        if (Meteor.user() && !Meteor.user().profile.consent_agreed) {
+        if (Meteor.userAsync() && !Meteor.userAsync().profile.consent_agreed) {
             this.redirect('consent');
             return;
         }
-        if (Meteor.user()) {
-            let username = Meteor.user().username;
-            let condition = Meteor.user().profile.condition;
-            if (Meteor.user().profile.intro_completed) {
+        if (Meteor.userAsync()) {
+            let username = Meteor.userAsync().username;
+            let condition = Meteor.userAsync().profile.condition;
+            if (Meteor.userAsync().profile.intro_completed) {
                 this.redirect('/gutboard');
                 return;
             }
@@ -792,7 +792,7 @@ Router.route('/login-process', function() {
 
         } else {
 
-            if (!Meteor.user().profile.consent_agreed) {
+            if (!Meteor.userAsync().profile.consent_agreed) {
                 Router.go('/consent');
             } else {
                 if (userRedirect) {
@@ -808,13 +808,13 @@ Router.route('/login-process', function() {
 
 Router.route('/entrance', function() {
     try {
-        if (Meteor.user() && !Meteor.user().profile.consent_agreed) {
+        if (Meteor.userAsync() && !Meteor.userAsync().profile.consent_agreed) {
             this.redirect('consent');
             return;
         }
-        if (Meteor.user()) {
-            if (Meteor.user().profile.condition == 7 && Meteor.user().profile.guide_completed) this.redirect('/topics');
-            else if (Meteor.user().profile.condition == 7 && !Meteor.user().profile.guide_completed) this.redirect('/guide');
+        if (Meteor.userAsync()) {
+            if (Meteor.userAsync().profile.condition == 7 && Meteor.userAsync().profile.guide_completed) this.redirect('/topics');
+            else if (Meteor.userAsync().profile.condition == 7 && !Meteor.userAsync().profile.guide_completed) this.redirect('/guide');
             else this.render('entrance');
         }
     } catch (e) {}
@@ -824,15 +824,15 @@ Router.route('/entrance', function() {
 
 Router.route('/profile', function() {
     try {
-        if (Meteor.user() && !Meteor.user().profile.consent_agreed) {
+        if (Meteor.userAsync() && !Meteor.userAsync().profile.consent_agreed) {
             this.redirect('consent');
             return;
         }
-        if (Meteor.user() && !Meteor.user().profile.took_pretest) {
+        if (Meteor.userAsync() && !Meteor.userAsync().profile.took_pretest) {
             this.redirect('/trial');
             return;
         }
-        if (Meteor.user() && !Meteor.user().profile.intro_completed) {
+        if (Meteor.userAsync() && !Meteor.userAsync().profile.intro_completed) {
             //this.redirect('intro');
             //this.render('gutboard_slider');
             //
@@ -860,14 +860,14 @@ Router.route('/profile', function() {
             }, 1000);
             return;
         }
-        // if (Meteor.user() && Meteor.user().profile.questions.length == 1 && Meteor.user().profile.intro_completed) {
+        // if (Meteor.userAsync() && Meteor.userAsync().profile.questions.length == 1 && Meteor.userAsync().profile.intro_completed) {
         //     this.redirect('/addq');
         //     setTimeout(function function_name(argument) {
         //         Materialize.toast('You need to add one other question before accessing the entire Gut Instinct content', 4000, 'toast');
         //     }, 1000);
         //     return;
         // }
-        if (Meteor.user()) {
+        if (Meteor.userAsync()) {
             this.render('profile');
         }
     } catch (e) {}
@@ -875,15 +875,15 @@ Router.route('/profile', function() {
 
 Router.route('/topics', function() {
     try {
-        if (Meteor.user() && !Meteor.user().profile.consent_agreed) {
+        if (Meteor.userAsync() && !Meteor.userAsync().profile.consent_agreed) {
             this.redirect('consent');
             return;
         }
-        if (Meteor.user() && !Meteor.user().profile.took_pretest) {
+        if (Meteor.userAsync() && !Meteor.userAsync().profile.took_pretest) {
             this.redirect('/trial');
             return;
         }
-        if (Meteor.user() && !Meteor.user().profile.intro_completed) {
+        if (Meteor.userAsync() && !Meteor.userAsync().profile.intro_completed) {
             //this.redirect('intro');
             //this.render('gutboard_slider');
             //
@@ -911,15 +911,15 @@ Router.route('/topics', function() {
             }, 1000);
             return;
         }
-        // if (Meteor.user() && Meteor.user().profile.questions.length == 1 && Meteor.user().profile.intro_completed) {
+        // if (Meteor.userAsync() && Meteor.userAsync().profile.questions.length == 1 && Meteor.userAsync().profile.intro_completed) {
         //     this.redirect('/addq');
         //     setTimeout(function function_name(argument) {
         //         Materialize.toast('You need to add one other question before accessing the entire Gut Instinct content', 4000, 'toast');
         //     }, 1000);
         //     return;
         // }
-        if (Meteor.user()) {
-            let condition = Meteor.user().profile.condition;
+        if (Meteor.userAsync()) {
+            let condition = Meteor.userAsync().profile.condition;
 
             if (condition === 2 || condition === 4 || condition === 6 || condition === 7 || condition === 0 || condition === 9 || condition === 11) {
                 this.render('topics');
@@ -950,7 +950,7 @@ Router.onBeforeAction(function() {
 
     this.render("loading_wheel");
 
-    if (!Meteor.user() && !Meteor.loggingIn()) {
+    if (!Meteor.userAsync() && !Meteor.loggingIn()) {
 
         promiseWait(100);
 

@@ -25,7 +25,7 @@ Meteor.methods({
     },
     'galileo.tour.startTour': function() {
         getUser();
-        Meteor.users.update(Meteor.userId(), {
+        Meteor.users.updateAsync(Meteor.userId(), {
             $set: {
                 'galileo.tour.started': true
             }
@@ -33,7 +33,7 @@ Meteor.methods({
     },
     'galileo.tour.isTouring': function() {
         var user = getUser();
-        if (!user.galileo.tour.started) {
+        if (!user || !user.galileo || !user.galileo.tour || !user.galileo.tour.started) {
             return false;
         }
         var tourProgress = user.galileo.tour.progress;
@@ -56,7 +56,7 @@ Meteor.methods({
     },
     'galileo.tour.finishedTouring': function() {
         var user = getUser();
-        if (!user.galileo.tour.started) {
+        if (!user.galileo || !user.galileo.tour.started) {
             return false;
         }
         var tourProgress = user.galileo.tour.progress;
@@ -68,7 +68,7 @@ Meteor.methods({
         return true;
     },
     'galileo.tour.setSelectedIntuitionId': function(id) {
-        Meteor.users.update(Meteor.userId(), {
+        Meteor.users.updateAsync(Meteor.userId(), {
             $set: {
                 "galileo.tour.selected_intuition_id": id
             }
@@ -89,7 +89,7 @@ Meteor.methods({
         }
     },
     'galileo.tour.setDesignedExperimentId': function(id) {
-        Meteor.users.update(Meteor.userId(), {
+        Meteor.users.updateAsync(Meteor.userId(), {
             $set: {
                 "galileo.tour.designed_experiment_id": id
             }
@@ -116,7 +116,7 @@ Meteor.methods({
         return user.galileo.tour.progress.intro;
     },
     'galileo.tour.finishIntro': function() {
-        Meteor.users.update(Meteor.userId(), {
+        Meteor.users.updateAsync(Meteor.userId(), {
             $set: {
                 "galileo.tour.progress.intro": true
             }
@@ -127,7 +127,7 @@ Meteor.methods({
         return user.galileo.tour.progress.pretest;
     },
     'galileo.tour.finishPretest': function() {
-        Meteor.users.update(Meteor.userId(), {
+        Meteor.users.updateAsync(Meteor.userId(), {
             $set: {
                 "galileo.tour.progress.pretest": true
             }
@@ -141,7 +141,7 @@ Meteor.methods({
         return user.galileo.tour.progress.intuition;
     },
     'galileo.tour.finishIntuition': function() {
-        Meteor.users.update(Meteor.userId(), {
+        Meteor.users.updateAsync(Meteor.userId(), {
             $set: {
                 "galileo.tour.progress.intuition": true
             }
@@ -155,7 +155,7 @@ Meteor.methods({
         return user.galileo.tour.progress.intuition_board;
     },
     'galileo.tour.finishIntuitionBoard': function() {
-        Meteor.users.update(Meteor.userId(), {
+        Meteor.users.updateAsync(Meteor.userId(), {
             $set: {
                 "galileo.tour.progress.intuition_board": true
             }
@@ -169,7 +169,7 @@ Meteor.methods({
         return user.galileo.tour.progress.create;
     },
     'galileo.tour.finishCreate': function() {
-        Meteor.users.update(Meteor.userId(), {
+        Meteor.users.updateAsync(Meteor.userId(), {
             $set: {
                 "galileo.tour.progress.create": true
             }
@@ -183,7 +183,7 @@ Meteor.methods({
         return user.galileo.tour.progress.feedback;
     },
     'galileo.tour.finishFeedback': function() {
-        Meteor.users.update(Meteor.userId(), {
+        Meteor.users.updateAsync(Meteor.userId(), {
             $set: {
                 "galileo.tour.progress.feedback": true
             }
@@ -197,7 +197,7 @@ Meteor.methods({
         return user.galileo.tour.finish_notified;
     },
     'galileo.tour.notifyFinish': function() {
-        Meteor.users.update(Meteor.userId(), {
+        Meteor.users.updateAsync(Meteor.userId(), {
             $set: {
                 "galileo.tour.finish_notified": true
             }

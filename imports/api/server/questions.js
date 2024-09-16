@@ -121,8 +121,8 @@ Meteor.methods({
     'questions.getBookmarkedQuestions' () {
         var rawbk = Bookmarks.find({
             owner: {
-                username: Meteor.user().username,
-                _id: Meteor.user()._id,
+                username: Meteor.userAsync().username,
+                _id: Meteor.userAsync()._id,
             }
         }).fetch();
 
@@ -147,7 +147,7 @@ Meteor.methods({
             {
                 $and: [{
                         owner: {
-                            username: Meteor.user().username,
+                            username: Meteor.userAsync().username,
                             _id: Meteor.userId()
                         }
                     },
@@ -211,8 +211,8 @@ Meteor.methods({
                     text: comment,
                     created_at: created_at,
                     owner: {
-                        _id: Meteor.user()._id,
-                        username: Meteor.user().username
+                        _id: Meteor.userAsync()._id,
+                        username: Meteor.userAsync().username
                     },
                     attached_file: s3URL,
                     attached_url: userURL,
@@ -228,8 +228,8 @@ Meteor.methods({
                     text: comment,
                     created_at: created_at,
                     owner: {
-                        _id: Meteor.user()._id,
-                        username: Meteor.user().username
+                        _id: Meteor.userAsync()._id,
+                        username: Meteor.userAsync().username
                     },
                     feedback: {}
                 }

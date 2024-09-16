@@ -39,8 +39,8 @@ Template.header_gray.helpers({
     },
     isIntroCompleted: function() {
         try {
-            if (Meteor.user()) {
-                const intro_completed = Meteor.user().profile.intro_completed;
+            if (Meteor.userAsync()) {
+                const intro_completed = Meteor.userAsync().profile.intro_completed;
                 console.log("intro_completed check in isintrocompleted is " + intro_completed);
                 //alert("hanging in");
                 return intro_completed;
@@ -49,7 +49,7 @@ Template.header_gray.helpers({
     },
     user: function() {
         try {
-            return Meteor.user();
+            return Meteor.userAsync();
         } catch (e) {
             return {
                 username: ''
@@ -58,8 +58,8 @@ Template.header_gray.helpers({
     },
     counter: function() {
         try {
-            if (Meteor.user()) {
-                const answered = Meteor.user().profile.answered;
+            if (Meteor.userAsync()) {
+                const answered = Meteor.userAsync().profile.answered;
                 const questions = Questions.find({}).fetch();
 
                 var answered_count = 0;
@@ -86,8 +86,8 @@ Template.header_gray.helpers({
     },
     isLearnCondition: function() {
         try {
-            if (Meteor.user()) {
-                var condition = Meteor.user().profile.condition;
+            if (Meteor.userAsync()) {
+                var condition = Meteor.userAsync().profile.condition;
                 return condition == 1;
             }
         } catch (e) {
@@ -96,8 +96,8 @@ Template.header_gray.helpers({
     },
     isWorkCondition: function() {
         try {
-            if (Meteor.user()) {
-                var condition = Meteor.user().profile.condition;
+            if (Meteor.userAsync()) {
+                var condition = Meteor.userAsync().profile.condition;
                 return condition == 2;
             }
         } catch (e) {
@@ -106,8 +106,8 @@ Template.header_gray.helpers({
     },
     isCondition1or3or5or8or10: function() {
         try {
-            if (Meteor.user()) {
-                var condition = Meteor.user().profile.condition;
+            if (Meteor.userAsync()) {
+                var condition = Meteor.userAsync().profile.condition;
                 //console.log("my condition is in" + condition);
                 return condition == 1 || condition == 3 || condition == 5 || condition == 8 || condition == 10;
             }
@@ -117,8 +117,8 @@ Template.header_gray.helpers({
     },
     isCondition1: function() {
         try {
-            if (Meteor.user()) {
-                var condition = Meteor.user().profile.condition;
+            if (Meteor.userAsync()) {
+                var condition = Meteor.userAsync().profile.condition;
                 //console.log("my condition is in" + condition);
                 return condition == 1;
             }
@@ -128,8 +128,8 @@ Template.header_gray.helpers({
     },
     isCondition2: function() {
         try {
-            if (Meteor.user()) {
-                var condition = Meteor.user().profile.condition;
+            if (Meteor.userAsync()) {
+                var condition = Meteor.userAsync().profile.condition;
                 //console.log("my condition is in" + condition);
                 return condition == 2;
             }
@@ -139,8 +139,8 @@ Template.header_gray.helpers({
     },
     isCondition1or2or7or8or9: function() {
         try {
-            if (Meteor.user()) {
-                var condition = Meteor.user().profile.condition;
+            if (Meteor.userAsync()) {
+                var condition = Meteor.userAsync().profile.condition;
                 //console.log("my condition is in" + condition);
                 return condition == 1 || condition == 2 || condition == 7 || condition == 8 || condition == 9;
             }
@@ -150,8 +150,8 @@ Template.header_gray.helpers({
     },
     isCondition7: function() {
         try {
-            if (Meteor.user()) {
-                var condition = Meteor.user().profile.condition;
+            if (Meteor.userAsync()) {
+                var condition = Meteor.userAsync().profile.condition;
                 //console.log("my condition is in" + condition);
                 return condition == 7;
             }
@@ -161,8 +161,8 @@ Template.header_gray.helpers({
     },
     isCondition4or6or11: function() {
         try {
-            if (Meteor.user()) {
-                var condition = Meteor.user().profile.condition;
+            if (Meteor.userAsync()) {
+                var condition = Meteor.userAsync().profile.condition;
                 //console.log("my condition is in" + condition);
                 return condition == 4 || condition == 6 || condition == 11;
             }
@@ -172,7 +172,7 @@ Template.header_gray.helpers({
     },
     renderNotification: function() {
         var dbNotificationCheck = _.sortBy(Notifications.find({
-            raw_owner_name: Meteor.user().username,
+            raw_owner_name: Meteor.userAsync().username,
             isRead: 0
         }).fetch(), function(object) {
             return object.created_at.getTime();
@@ -182,7 +182,7 @@ Template.header_gray.helpers({
     },
     getNotificationCount: function() {
         var dbNotificationCheck = Notifications.find({
-            raw_owner_name: Meteor.user().username,
+            raw_owner_name: Meteor.userAsync().username,
             isRead: 0
         }).fetch();
         return dbNotificationCheck.length;
@@ -190,19 +190,19 @@ Template.header_gray.helpers({
     getBookmarkCount: function() {
         var dbBkCheck = Bookmarks.find({
             owner: {
-                'username': Meteor.user().username,
+                'username': Meteor.userAsync().username,
                 '_id': Meteor.userId()
             }
         }).fetch();
         return dbBkCheck.length;
     },
     isUnreadNotification: function() {
-        if (typeof Meteor.user() === 'undefined') {
+        if (typeof Meteor.userAsync() === 'undefined') {
             return false;
         }
 
         var dbNotificationCheck = Notifications.find({
-            raw_owner_name: Meteor.user().username,
+            raw_owner_name: Meteor.userAsync().username,
             isRead: 0
         }).fetch();
         if (dbNotificationCheck.length == 0) {
@@ -213,13 +213,13 @@ Template.header_gray.helpers({
 
     },
     isBookmarkCount: function() {
-        if (typeof Meteor.user() === 'undefined') {
+        if (typeof Meteor.userAsync() === 'undefined') {
             return false;
         }
 
         var dbBkCheck = Bookmarks.find({
             owner: {
-                'username': Meteor.user().username,
+                'username': Meteor.userAsync().username,
                 '_id': Meteor.userId()
             }
         }).fetch();
@@ -232,8 +232,8 @@ Template.header_gray.helpers({
     },
     checkComplete: function() {
         try {
-            if (Meteor.user()) {
-                var condition = Meteor.user().profile.condition;
+            if (Meteor.userAsync()) {
+                var condition = Meteor.userAsync().profile.condition;
                 if (parseInt(Template.instance().data.progress) == 100 && !Template.instance().completeCheckOnce.get()) {
                     Template.instance().completeCheckOnce.set(true);
                     setTimeout(function function_name(argument) {
@@ -271,7 +271,7 @@ Template.header_gray.events({
     },
     'click #addQuestionControlHeader': function(event, instance) {
 
-        const guide_completed = Meteor.user().profile.guide_completed;
+        const guide_completed = Meteor.userAsync().profile.guide_completed;
         console.log("guide_completed is " + guide_completed);
 
         //if(!doneTraining) {
@@ -291,7 +291,7 @@ Template.header_gray.events({
     },
     /*'click #bugControlHeader': function(event, instance) {
 
-     const guide_completed = Meteor.user().profile.guide_completed;
+     const guide_completed = Meteor.userAsync().profile.guide_completed;
      console.log("guide_completed is "+guide_completed);
 
      //if(!doneTraining) {

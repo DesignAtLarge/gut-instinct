@@ -16,13 +16,13 @@ Meteor.methods({
     },
     'test.setResponses' (pre_or_post, userRes) {
         var checkExist = (typeof UserTestResponse.findOne({
-            "username": Meteor.user().username
+            "username": Meteor.userAsync().username
         }) !== 'undefined');
 
         if (pre_or_post == "pre") {
             if (checkExist) {
                 var res = UserTestResponse.findOne({
-                    "username": Meteor.user().username
+                    "username": Meteor.userAsync().username
                 });
 
                 var response = res.pretest_response;
@@ -51,8 +51,8 @@ Meteor.methods({
 
             } else {
                 UserTestResponse.insert({
-                    "username": Meteor.user().username,
-                    "condition": Meteor.user().profile.condition,
+                    "username": Meteor.userAsync().username,
+                    "condition": Meteor.userAsync().profile.condition,
                     "pretest_response": userRes,
                     "posttest_response": []
                 });
@@ -60,7 +60,7 @@ Meteor.methods({
         } else {
             if (checkExist) {
                 var res = UserTestResponse.findOne({
-                    "username": Meteor.user().username
+                    "username": Meteor.userAsync().username
                 });
 
                 var response = res.posttest_response;
@@ -89,8 +89,8 @@ Meteor.methods({
 
             } else {
                 UserTestResponse.insert({
-                    "username": Meteor.user().username,
-                    "condition": Meteor.user().profile.condition,
+                    "username": Meteor.userAsync().username,
+                    "condition": Meteor.userAsync().profile.condition,
                     "pretest_response": [],
                     "posttest_response": userRes
                 });
@@ -100,14 +100,14 @@ Meteor.methods({
     'test.getResponses' (pre_or_post) {
         if (pre_or_post == "pre") {
             let obj = UserTestResponse.findOne({
-                "username": Meteor.user().username
+                "username": Meteor.userAsync().username
             });
 
             if (obj) return obj.pretest_response;
             else return obj;
         } else {
             let obj = UserTestResponse.findOne({
-                "username": Meteor.user().username
+                "username": Meteor.userAsync().username
             });
 
             if (obj) return obj.posttest_response;

@@ -119,7 +119,7 @@ Meteor.methods({
             }
         });
         let exp = Meteor.call("galileo.experiments.getExperiment", expId);
-        let participationObj = ExperimentHelper.getPilotParticipationCommonObject(exp, Meteor.user(), ParticipationStatus.WAITLIST, -1, null, null, null, null, null);
+        let participationObj = ExperimentHelper.getPilotParticipationCommonObject(exp, Meteor.userAsync(), ParticipationStatus.WAITLIST, -1, null, null, null, null, null);
         Participations.insert(participationObj);
     },
     'galileo.run.isWaitlisting': function(expId) {
@@ -259,11 +259,11 @@ Meteor.methods({
         return part.count() > 0 ? part.fetch()[0].status === ParticipationStatus.FAILED_CRITERIA : false;
     },
     'galileo.run.failedCriteria': function(exp, failedExclusion, failedInclusion) {
-        let participationObj = ExperimentHelper.getPilotParticipationCommonObject(exp, Meteor.user(), ParticipationStatus.FAILED_CRITERIA, -1, null, null, failedExclusion, failedInclusion, null);
+        let participationObj = ExperimentHelper.getPilotParticipationCommonObject(exp, Meteor.userAsync(), ParticipationStatus.FAILED_CRITERIA, -1, null, null, failedExclusion, failedInclusion, null);
         Participations.insert(participationObj);
     },
     'galileo.run.passedCriteria': function(exp) {
-        let participationObj = ExperimentHelper.getPilotParticipationCommonObject(exp, Meteor.user(), ParticipationStatus.PASSED_CRITERIA_HASNT_AGREED, -1, exp.start_date_time, exp.duration, null, null, -1);
+        let participationObj = ExperimentHelper.getPilotParticipationCommonObject(exp, Meteor.userAsync(), ParticipationStatus.PASSED_CRITERIA_HASNT_AGREED, -1, exp.start_date_time, exp.duration, null, null, -1);
         participationObj.join_date_time = new Date();
         Participations.insert(participationObj);
 

@@ -5,7 +5,7 @@ import { ReactiveVar } from 'meteor/reactive-var';
 
 
 Template.post_survey.rendered = function() {
-    let condition = Meteor.user().profile.condition;
+    let condition = Meteor.userAsync().profile.condition;
     let inst = Template.instance();
     Meteor.call("survey.getResponse", function(err, answers) {
 
@@ -55,16 +55,16 @@ Template.post_survey.rendered = function() {
             // if (condition == 3 || condition == 10 || condition == 5)
             //     total -= 1
 
-            // if (!Meteor.user().profile.intro_completed) total -= 2;
+            // if (!Meteor.userAsync().profile.intro_completed) total -= 2;
 
             // percent_complete = ((percent_complete/total) * 100).toFixed(0);
             // $(".percent").html("Survey " + percent_complete + "% Complete")
         }
 
-        condition = Meteor.user().profile.condition;
+        condition = Meteor.userAsync().profile.condition;
 
         setTimeout(function() {
-            if (!Meteor.user().profile.intro_completed) {
+            if (!Meteor.userAsync().profile.intro_completed) {
                 $("#3").hide();
                 $("#4").hide();
             }
@@ -112,7 +112,7 @@ Template.post_survey.onCreated(function() {
     var inst = this;
     this.surveyQuestions = new ReactiveVar(null);
     try {
-        if (Meteor.user()) {
+        if (Meteor.userAsync()) {
             Meteor.call("survey.getQuestions", function(err, result) {
                 let questions = result;
                 inst.surveyQuestions.set(questions);
@@ -351,14 +351,14 @@ Template.post_survey.events({
                 userRes[i] = response;
             }
         }
-        condition = Meteor.user().profile.condition;
+        condition = Meteor.userAsync().profile.condition;
         total = 25
         if (condition == 1 || condition == 8)
             total -= 2
         if (condition == 3 || condition == 10 || condition == 5)
             total -= 1
 
-        if (!Meteor.user().profile.intro_completed) total -= 2;
+        if (!Meteor.userAsync().profile.intro_completed) total -= 2;
 
         percent_complete = ((percent_complete / total) * 100).toFixed(0);
         if (percent_complete >= 100) {
@@ -384,7 +384,7 @@ Template.post_survey.events({
         $(".percent").html("Gut Survey " + 35 + "% Complete")
         $(".page_title").html("Part 2. Learning about the gut")
 
-        let condition = Meteor.user().profile.condition;
+        let condition = Meteor.userAsync().profile.condition;
         if (condition != 1 && condition != 3 && condition != 5 && condition != 8 && condition != 10)
             $("#0").show();
         $("#page_1_next").hide();

@@ -9,14 +9,14 @@ Template.trial.rendered = function() {
     Meteor.call("test.getResponses", inst.data.type, function(err, responses) {
         if (!responses || responses.length == 0) {
             try {
-                if (Meteor.user()) {
+                if (Meteor.userAsync()) {
                     if (inst.data.type == "pre") {
-                        let taken = Meteor.user().profile.took_pretest;
+                        let taken = Meteor.userAsync().profile.took_pretest;
                         if (!taken) {
                             alert("Before accessing your peers' questions and Gut Instinct\‘s expert-curated material, you should finish two quick tasks: (1) Answer some quick questions about the microbiome, and (2) Use our Docent guide to gain basic microbiome knowledge. These tasks will set you on your way to asking and answering questions on Gut Instinct like a pro!");
                         }
                     } else {
-                        let taken = Meteor.user().profile.took_posttest;
+                        let taken = Meteor.userAsync().profile.took_posttest;
                         if (!taken) {
                             alert("In the next few pages, you will help improve Gut Instinct team by demonstrating how much you've learnt, and by providing feedback on your experience of using Gut Instinct.")
                         }
@@ -82,13 +82,13 @@ Template.trial.onCreated(function() {
 Template.trial.helpers({
     isTaken: function(test) {
         try {
-            if (Meteor.user()) {
+            if (Meteor.userAsync()) {
                 if (test == "pre") {
-                    let taken = Meteor.user().profile.took_pretest;
+                    let taken = Meteor.userAsync().profile.took_pretest;
                     if (!taken) return false;
                     else return true;
                 } else {
-                    let taken = Meteor.user().profile.took_posttest;
+                    let taken = Meteor.userAsync().profile.took_posttest;
                     if (!taken) return false;
                     else return true;
                 }
@@ -115,8 +115,8 @@ Template.trial.helpers({
     },
     isCondition5: function() {
         try {
-            if (Meteor.user()) {
-                var condition = Meteor.user().profile.condition;
+            if (Meteor.userAsync()) {
+                var condition = Meteor.userAsync().profile.condition;
                 ////console.log("my condition is in" + condition);
                 return condition == 5;
             }
@@ -334,7 +334,7 @@ Template.trial.events({
 
         Meteor.call('test.setResponses', Template.instance().data.type, userRes);
 
-        let condition = Meteor.user().condition;
+        let condition = Meteor.userAsync().condition;
 
         if (localStorage.getItem("docentProgress"))
             localStorage.removeItem("docentProgress");

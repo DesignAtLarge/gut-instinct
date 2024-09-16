@@ -103,16 +103,16 @@ Template.profile.helpers({
     },
     getCurrentUserName: function() {
         try {
-            if (Meteor.user()) {
-                return Meteor.user().username;
+            if (Meteor.userAsync()) {
+                return Meteor.userAsync().username;
             }
         } catch (e) {}
     },
     getCurrentEmail: function() {
         try {
-            if (Meteor.user()) {
+            if (Meteor.userAsync()) {
                 let searchEmail = UserEmail.findOne({
-                    username: Meteor.user().username
+                    username: Meteor.userAsync().username
                 }).email;
                 if (searchEmail === undefined || searchEmail === '' || searchEmail === 'no-email@example.com') {
                     return '';
@@ -125,9 +125,9 @@ Template.profile.helpers({
     },
     getCurrentAGID: function() {
         try {
-            if (Meteor.user()) {
+            if (Meteor.userAsync()) {
                 let searchAG = UserEmail.findOne({
-                    username: Meteor.user().username
+                    username: Meteor.userAsync().username
                 }).agid;
                 if (searchAG === undefined || searchAG === '' || searchAG === 'no-id') {
                     return '';
@@ -139,9 +139,9 @@ Template.profile.helpers({
     },
     getCurrentLocation: function() {
         try {
-            if (Meteor.user()) {
+            if (Meteor.userAsync()) {
                 let searchLoc = UserEmail.findOne({
-                    username: Meteor.user().username
+                    username: Meteor.userAsync().username
                 }).location;
                 if (searchLoc === undefined || searchLoc === '' || searchLoc === 'no-location') {
                     return '';
@@ -153,9 +153,9 @@ Template.profile.helpers({
     },
     hasEmail: function() {
         try {
-            if (Meteor.user()) {
+            if (Meteor.userAsync()) {
                 let searchEmail = UserEmail.findOne({
-                    username: Meteor.user().username
+                    username: Meteor.userAsync().username
                 }).email;
                 if (searchEmail === undefined || searchEmail === '' || searchEmail === 'no-email@example.com') {
                     return false;
@@ -175,8 +175,8 @@ Template.profile.helpers({
     },
     isCondition7: function() {
         try {
-            if (Meteor.user()) {
-                var condition = Meteor.user().profile.condition;
+            if (Meteor.userAsync()) {
+                var condition = Meteor.userAsync().profile.condition;
                 ////console.log("my condition is in" + condition);
                 return condition == 7;
             }
@@ -186,8 +186,8 @@ Template.profile.helpers({
     },
     isCondition2or4or0or6or9or11: function() {
         try {
-            if (Meteor.user()) {
-                var condition = Meteor.user().profile.condition;
+            if (Meteor.userAsync()) {
+                var condition = Meteor.userAsync().profile.condition;
                 //console.log("my condition is in" + condition);
                 return condition == 2 || condition == 4 || condition == 0 || condition == 6 || condition == 9 || condition == 11;
             }
@@ -258,7 +258,7 @@ Template.profile.events({
                 data: {
                     token: token,
                     userEmail: emailUserAddr,
-                    userName: Meteor.user().username,
+                    userName: Meteor.userAsync().username,
                 },
                 success: function(data) {
                     //console.log("Onboarding email sent successfully!");
@@ -267,8 +267,8 @@ Template.profile.events({
         }
 
         function sendOnboardingEmail() {
-            //console.log("SENDING ONBOARDING EMAIL to " + Meteor.user().username);
-            let currentUserName = Meteor.user().username;
+            //console.log("SENDING ONBOARDING EMAIL to " + Meteor.userAsync().username);
+            let currentUserName = Meteor.userAsync().username;
             let emailUser = UserEmail.findOne({
                 username: currentUserName
             });

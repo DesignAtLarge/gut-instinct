@@ -177,7 +177,7 @@ function handleCreateUser(username, password, instance) {
         } else {
             UserMetrics.insert({
                 user_id: Meteor.userId(),
-                username: Meteor.user().username,
+                username: Meteor.userAsync().username,
                 login_counter: 0,
                 visit_counter: {
                     gutboard: 0,

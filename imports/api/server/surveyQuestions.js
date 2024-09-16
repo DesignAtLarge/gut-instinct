@@ -16,13 +16,13 @@ Meteor.methods({
     },
     'survey.setResponses' (userRes) {
         var checkExist = (typeof UserSurveyResponse.findOne({
-            "username": Meteor.user().username
+            "username": Meteor.userAsync().username
         }) !== 'undefined');
 
 
         if (checkExist) {
             var res = UserSurveyResponse.findOne({
-                "username": Meteor.user().username
+                "username": Meteor.userAsync().username
             });
 
             // var response = res.pretest_response;
@@ -51,21 +51,21 @@ Meteor.methods({
 
         } else {
             UserSurveyResponse.insert({
-                "username": Meteor.user().username,
+                "username": Meteor.userAsync().username,
                 "userid": Meteor.userId(),
-                "condition": Meteor.user().profile.condition,
+                "condition": Meteor.userAsync().profile.condition,
                 "survey_response": userRes,
             });
         }
     },
     'survey.getResponse' () {
         var checkExist = (typeof UserSurveyResponse.findOne({
-            "username": Meteor.user().username
+            "username": Meteor.userAsync().username
         }) !== 'undefined');
 
         if (checkExist) {
             var res = UserSurveyResponse.findOne({
-                "username": Meteor.user().username
+                "username": Meteor.userAsync().username
             });
             return res["survey_response"];
         } else {

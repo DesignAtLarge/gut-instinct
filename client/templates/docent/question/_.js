@@ -12,10 +12,10 @@ import {
 } from '../../../../imports/api/models.js';
 
 Template.question.rendered = function() {
-    // const toured = Meteor.user().profile.toured.question;
+    // const toured = Meteor.userAsync().profile.toured.question;
     // if (!toured) {
     //     introJs().setOption('showProgress', true).onchange(function(target) {
-    //         Meteor.users.update(Meteor.userId(), {
+    //         Meteor.users.updateAsync(Meteor.userId(), {
     //             $set: {
     //                 'profile.toured.question': true
     //             }
@@ -28,11 +28,11 @@ Template.question.rendered = function() {
 
     // display the attachment and urls
     try {
-        if (Meteor.user()) {
-            const toured = Meteor.user().profile.toured.question;
+        if (Meteor.userAsync()) {
+            const toured = Meteor.userAsync().profile.toured.question;
             if (!toured) {
                 introJs().setOption('showProgress', true).onchange(function(target) {
-                    Meteor.users.update(Meteor.userId(), {
+                    Meteor.users.updateAsync(Meteor.userId(), {
                         $set: {
                             'profile.toured.question': true
                         }
@@ -108,17 +108,17 @@ Template.question.helpers({
         return comment.downvote_count;
     },
     upvoted: function(hashcode) {
-        var voted = Meteor.user().profile.voted;
+        var voted = Meteor.userAsync().profile.voted;
         return voted[hashcode] === 'upvote';
     },
     downvoted: function(hashcode) {
-        var voted = Meteor.user().profile.voted;
+        var voted = Meteor.userAsync().profile.voted;
         return voted[hashcode] === 'downvote';
     },
     isLearnCondition: function() {
         try {
-            if (Meteor.user()) {
-                var participant = Meteor.user().username;
+            if (Meteor.userAsync()) {
+                var participant = Meteor.userAsync().username;
                 if (participant[0] === 'p' && !isNaN(parseInt(participant.substring(1)))) {
                     participant = parseInt(participant.substring(1));
                     if (participant >= 11 && participant <= 15) {
@@ -131,11 +131,11 @@ Template.question.helpers({
     },
     isUserExpert: function() {
         try {
-            if (Meteor.user()) {
-                //return (Meteor.user().username === 'expert') || (Meteor.user().username === 'knightlab');}
-                return (Meteor.user().username === 'expert') || (Meteor.user().username === 'knightlab') || (
-                    Meteor.user().username === 'e001') || (Meteor.user().username === 'e002') || (Meteor.user()
-                    .username === 'e003') || (Meteor.user().username === 'e004') || (Meteor.user().username ===
+            if (Meteor.userAsync()) {
+                //return (Meteor.userAsync().username === 'expert') || (Meteor.userAsync().username === 'knightlab');}
+                return (Meteor.userAsync().username === 'expert') || (Meteor.userAsync().username === 'knightlab') || (
+                    Meteor.userAsync().username === 'e001') || (Meteor.userAsync().username === 'e002') || (Meteor.userAsync()
+                    .username === 'e003') || (Meteor.userAsync().username === 'e004') || (Meteor.userAsync().username ===
                     'e005');
             } else {
                 console.log("meteor user in isUserExpert");
@@ -174,12 +174,12 @@ Template.question.events({
         const user_metric = UserMetrics.find({
             user_id: Meteor.userId()
         }).fetch()[0];
-        var discussed = Meteor.user().profile.discussed || {};
+        var discussed = Meteor.userAsync().profile.discussed || {};
         var cID = Comments.insert({
             text: event.target.comment.value,
             owner: {
-                _id: Meteor.user()._id,
-                username: Meteor.user().username
+                _id: Meteor.userAsync()._id,
+                username: Meteor.userAsync().username
             },
             created_at: created_at,
             upvote_count: 0,
@@ -203,12 +203,12 @@ Template.question.events({
         var noticeString = "Question: " + noticeQuestion.layer_1.text;
 
         // insert notification only you are not operating your questions
-        var sameUserCheck = searchOwnerName != Meteor.user().username;
+        var sameUserCheck = searchOwnerName != Meteor.userAsync().username;
         if (true) {
             var noticeID = Notifications.insert({
                 owner: {
-                    _id: Meteor.user()._id,
-                    username: Meteor.user().username
+                    _id: Meteor.userAsync()._id,
+                    username: Meteor.userAsync().username
                 },
                 raw_owner_name: searchOwnerName,
                 type: 'di',
@@ -245,13 +245,13 @@ Template.question.events({
 
         discussed[CryptoJS.MD5(instance._id._str || instance._id).toString()] = true;
 
-        Meteor.users.update(Meteor.userId(), {
+        Meteor.users.updateAsync(Meteor.userId(), {
             $set: {
                 'profile.discussed': discussed
             }
         });
 
-        // UserMetrics.update({ _id: user_metric._id }, {
+        // UserMetrics.updateAsync({ _id: user_metric._id }, {
         //     $set: {
         //         number_of_comments: user_metric.number_of_comments + 1
         //     }
@@ -328,7 +328,7 @@ Template.question.events({
     },
     'click .upvote': function() {
         const hashcode = this.hashcode;
-        var voted = Meteor.user().profile.voted;
+        var voted = Meteor.userAsync().profile.voted;
         const comment = Comments.find({
             "hashcode": hashcode
         }).fetch()[0]
@@ -342,7 +342,7 @@ Template.question.events({
 
         voted[hashcode] = voted[hashcode] === 'upvote' ? '' : 'upvote';
 
-        Meteor.users.update(Meteor.userId(), {
+        Meteor.users.updateAsync(Meteor.userId(), {
             $set: {
                 'profile.voted': voted
             }
@@ -350,12 +350,12 @@ Template.question.events({
     },
     'click .downvote': function() {
         const hashcode = this.hashcode;
-        var voted = Meteor.user().profile.voted;
+        var voted = Meteor.userAsync().profile.voted;
         const comment = Comments.find({
             "hashcode": hashcode
         }).fetch()[0]
 
-        Comments.update(comment._id, {
+        Comments.updateAsync(comment._id, {
             $set: {
                 upvote_count: comment.upvote_count + (voted[hashcode] === 'upvote' ? -1 : 0),
                 downvote_count: comment.downvote_count + (voted[hashcode] === 'downvote' ? -1 : 1)
@@ -364,7 +364,7 @@ Template.question.events({
 
         voted[hashcode] = voted[hashcode] === 'downvote' ? '' : 'downvote';
 
-        Meteor.users.update(Meteor.userId(), {
+        Meteor.users.updateAsync(Meteor.userId(), {
             $set: {
                 'profile.voted': voted
             }

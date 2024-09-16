@@ -8,6 +8,8 @@ import '../imports/api/ga-routes.js'
 Meteor.startup(() => {
 });
 
+import './templates/galileo/me/master.js';
+
 
 import './templates/logout/_.js';
 import './templates/reset_password/_.js';
@@ -135,7 +137,7 @@ import './templates/galileo/openHumans/gaOhSelectedDataSources/_.js';
 import './templates/galileo/openHumans/openHumansDataSourceModal/_.js';
 
 import './templates/docent/master.js';
-import './templates/galileo/me/master.js';
+
 
 
 

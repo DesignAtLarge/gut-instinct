@@ -1,0 +1,202 @@
+<template name="guide_question_info">
+    <!-- +header -->
+    {{#if isIntroCompleted}}
+        {{> header}}
+    {{else}}
+        {{> header_gray}}
+        {{> getProgressData}}
+    {{/if}}
+    
+    {{!-- Initialize hashcode --}}
+    <div>{{init hashcode}}</div>
+    <div>{{init hashcode}}</div>
+
+    <!-- Docent guide section -->
+    <div class="container content gutboard">
+        <div data-step="1" data-intro="The Gut Guide will help guide you into creating great gut questions!">
+            <h3 class="light-blue-text text-darken-4">
+                <i class="fa fa-list-ul" aria-hidden="true" style="font-size: 1em;"></i> Docent Guide
+            </h3>
+            <h5 class="light-blue-text text-darken-4">Learn how to ask expert-like questions</h5>
+            <br>
+        </div>
+
+        <!-- Question section -->
+        <div class="questions">
+            <div class="card qmodule cardquestion">
+                <div class="card-content layer-1" data-step="3" data-intro="Let’s now understand what makes a question useful in Gut Instinct!">
+                    <nav class="light-blue darken-4" style="position: absolute;" data-step="2" data-intro="Navigate the Gut Guide with these headers.">
+                        <div class="nav-wrapper light-blue darken-4" style="margin-left: 20px;">
+                            <div class="col s12">
+                                <!-- Breadcrumb -->
+                                <a class="breadcrumb" href="#!">Step 1: Learn about great questions</a>
+                            </div>
+                        </div>
+                    </nav>
+                    <div id="card-1" data-step="3" data-intro="Cards like this one will help provide you with specific tips about creating a useful question!" style="margin-top: 80px;">
+                        <span class="card-title" style="font-size: 30px; font-weight: 100;">A great gut instinct is clear, definite and provocative!</span>
+                        <span style="font-size: 20px; font-weight: 100;">How can you convert your vague insights into useful questions for your peers and researchers? <br><br> In the next few steps, the Docent guide will teach you how to create and identify great questions. Pay attention to how these questions evolve!</span>
+                        <ul class="collapsible" data-collapsible="expandable" style="margin-top: 60px;">
+                            <li>
+                                <div class="collapsible-header active blue-text text-darken-4" style="font-size: 1.4em; font-weight: 400;">
+                                    Let's begin!
+                                </div>
+                                <div class="collapsible-body">
+                                    <span style="font-size: 1.1em; font-weight: 100;">Suppose you're a frequent runner who is curious to understand how running might affect your health. You can imagine asking a friend a question like this one:</span>
+                                    <br><br>
+                                    <span style="font-size: 20px; font-weight: 400; color: black;">I wonder how running affects my health?</span>
+                                    <br><br>
+                                    <span style="font-size: 1.1em; font-weight: 100;">However, it's difficult for anyone to directly answer such an open-ended question. For instance, what is meant by health here. Also, wouldn't the effects depend on how frequently or how long a person runs? Fortunately, we have identified the following five features of useful questions!</span>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="collapsible-header blue-text text-darken-4" style="font-size: 1.4em; font-weight: 400;">
+                                    1. Answerable
+                                </div>
+                                <div class="collapsible-body">
+                                    <span style="font-size: 1.1em; font-weight: 100;">Others should be able to answer your question based on their experience.</span>
+                                    <br><br>
+                                    <span style="font-size: 20px; font-weight: 100; color: black;">I wonder how running affects my health?</span>
+                                    <br>
+                                    <span style="font-size: 20px; font-weight: 400; color: black;">
+                                        <i class="fa fa-arrow-right" aria-hidden="true"></i> Q1. <span style="font-style: italic;">How do you feel</span> when you run?
+                                    </span>
+                                    <br><br>
+                                    <span style="font-size: 15px; font-weight: 400;">Tip: If your question requires deep expertise to answer, think of what inspired you to come up with the question - it can help others respond!</span>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="collapsible-header blue-text text-darken-4" style="font-size: 1.4em; font-weight: 400;">
+                                    2. Definite
+                                </div>
+                                <div class="collapsible-body">
+                                    <span style="font-size: 20px; font-weight: 100; color: black;">
+                                        <i class="fa fa-arrow-right" aria-hidden="true"></i> Q1. <span style="font-style: italic;">How do you feel</span> when you run?
+                                    </span>
+                                    <br>
+                                    <span style="font-size: 20px; font-weight: 400; color: black;">
+                                        &nbsp;&nbsp;<i class="fa fa-arrow-right" aria-hidden="true"></i> Q2. Do you run <span style="font-style: italic;">daily</span>? How do you feel then?
+                                    </span>
+                                    <br><br>
+                                    <span style="font-size: 15px; font-weight: 400;">Tip: Shorter timeframes (like days/weeks) can be better than really long-term ones (years/decades) since people remember recent events better!</span>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="collapsible-header blue-text text-darken-4" style="font-size: 1.4em; font-weight: 400;">
+                                    3. A link between a cause and an effect
+                                </div>
+                                <div class="collapsible-body">
+                                    <span style="font-size: 20px; font-weight: 100; color: black;">
+                                        &nbsp;&nbsp;<i class="fa fa-arrow-right" aria-hidden="true"></i> Q2. Do you run <span style="font-style: italic;">daily</span>? How do you feel then?
+                                    </span>
+                                    <br>
+                                    <span style="font-size: 20px; font-weight: 400; color: black;">
+                                        &nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-arrow-right" aria-hidden="true"></i> Q3. <span style="font-style: italic;">Is your digestion better</span> when you run daily?
+                                    </span>
+                                    <br><br>
+                                    <span style="font-size: 15px; font-weight: 400;">Tip: Draw from your personal experience! Or even folk theories passed on in your family!</span>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="collapsible-header blue-text text-darken-4" style="font-size: 1.4em; font-weight: 400;">
+                                    4. Operational
+                                </div>
+                                <div class="collapsible-body">
+                                    <span style="font-size: 20px; font-weight: 100; color: black;">
+                                        &nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-arrow-right" aria-hidden="true"></i> Q3. <span style="font-style: italic;">Is your digestion better</span> when you run daily?
+                                    </span>
+                                    <br>
+                                    <span style="font-size: 20px; font-weight: 400; color: black;">
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-arrow-right" aria-hidden="true"></i> Q4. Are your bowel movements quicker and more frequent when you run daily?
+                                    </span>
+                                    <br><br>
+                                    <span style="font-size: 15px; font-weight: 400;">Tip: Think about how the <i><u>vague term (e.g., digestion above)</u></i> might show up in real life and use its operational version! You can always describe what you were thinking while discussing the question!</span>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="collapsible-header blue-text text-darken-4" style="font-size: 1.4em; font-weight: 400;">
+                                    5. Simple
+                                </div>
+                                <div class="collapsible-body">
+                                    <span style="font-size: 20px; font-weight: 100; color: black;">
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-arrow-right" aria-hidden="true"></i> Q4. Are your bowel movements quicker and more frequent when you run daily?
+                                    </span>
+                                    <br>
+                                    <span style="font-size: 20px; font-weight: 400; color: black;">
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-arrow-right" aria-hidden="true"></i> Q5. Two independent questions added separately!
+                                    </span>
+                                    <div>
+                                        <ol type="1">
+                                            <li>Are your bowel movements quicker when you run daily?</li>
+                                            <li>Are your bowel movements more frequent when you run daily?</li>
+                                        </ol>
+                                    </div>
+                                    <br>
+                                    <span style="font-size: 15px; font-weight: 400;">Tip: If your question has many elements, divide it into independent, multiple questions to keep things simple!</span>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="collapsible-header blue-text text-darken-4" style="font-size: 1.4em; font-weight: 400;">
+                                    Your ideas and experiences expressed simply!
+                                </div>
+                                <div class="collapsible-body">
+                                    <span style="font-size: 1.1em; font-weight: 100;">Congratulations! You were just guided into creating questions from your experiences!</span>
+                                    <br><br>
+                                    <span style="font-size: 20px; font-weight: 100; color: black;">I wonder how running affects my health?</span>
+                                    <br>
+                                    <span style="font-size: 20px; font-weight: 100; color: black;">
+                                        <i class="fa fa-arrow-right" aria-hidden="true"></i> Q1. <span style="font-style: italic;">How do you feel</span> when you run?
+                                    </span>
+                                    <br>
+                                    <span style="font-size: 20px; font-weight: 100; color: black;">
+                                        &nbsp;&nbsp;<i class="fa fa-arrow-right" aria-hidden="true"></i> Q2. Do you run <span style="font-style: italic;">daily</span>? How do you feel then?
+                                    </span>
+                                    <br>
+                                    <span style="font-size: 20px; font-weight: 100; color: black;">
+                                        &nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-arrow-right" aria-hidden="true"></i> Q3. <span style="font-style: italic;">Is your digestion better</span> when you run daily?
+                                    </span>
+                                    <br>
+                                    <span style="font-size: 20px; font-weight: 100; color: black;">
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-arrow-right" aria-hidden="true"></i> Q4. Are your bowel movements quicker and more frequent when you run daily?
+                                    </span>
+                                    <br>
+                                    <span style="font-size: 20px; font-weight: 400; color: black;">
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-arrow-right" aria-hidden="true"></i> Q5. Two independent questions added separately!
+                                    </span>
+                                    <div>
+                                        <ol type="1">
+                                            <li>Are your bowel movements quicker when you run daily?</li>
+                                            <li>Are your bowel movements more frequent when you run daily?</li>
+                                        </ol>
+                                    </div>
+                                    <br>
+                                    <span style="font-size: 1.1em; font-weight: 100;">This is the perfect time to practice your skills...</span>
+                                    <br><br>
+                                    <div class="questions" id="sliderControlDiv" style="text-align: center;">
+                                        <a href="#" id="backSliderControl" class="guttest-button" style="margin-top: 25px; margin-right: 50px;">
+                                            <i class="fa fa-chevron-circle-left fa-4x waves-effect waves-light" aria-hidden="true" style="vertical-align: middle; color: #455a64"></i>
+                                        </a>
+                                        <a href="#" id="sliderControl" class="guttest-button" style="margin-top: 25px; margin-left: 50px;">
+                                            <i class="fa fa-chevron-circle-right fa-4x waves-effect waves-light" aria-hidden="true" style="vertical-align: middle; color: #455a64"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <br>
+        <a href="/guide" style="margin-right: 10px; display: none;" id="prev-btn">
+            <button class="waves-effect waves-light btn light-blue submit-personal-question" id="prev-button">Previous</button>
+        </a>
+        
+        <a href="/guide_result" id="next-btn" style="display: none;">
+            <button class="waves-effect waves-light btn light-blue submit-personal-question" id="next-button">Step 2: Practice your skill!</button>
+        </a>
+        <br>
+        <span class="oi grey-text" data-glyph="chevron-left" style="text-align: left; font-size: 12pt;">Return to previous page</span>
+    </div>
+</template>

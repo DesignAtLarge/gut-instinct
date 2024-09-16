@@ -443,6 +443,41 @@ function handleCreateUser(username, password, instance) {
     Accounts.createUser({
         username: username,
         password: password,
+        profile: {
+            condition: 0,
+            permission_group: PERMISSION.SUDO_ADMIN,
+            consent_agreed: false,
+            toured: {
+                articles: false,
+                bookmark: false,
+                consent: false,
+                guide_question_bin: false,
+                guide_question_info: false,
+                guide_question_module: false,
+                guide_question_result: false,
+                gutboard: false,
+                gutboard_slider: false,
+                landing: false,
+                learn_discussions: false,
+                personal_question: false,
+                personal_question_bin: false,
+                personal_question_module: false,
+                personal_tag_question: false,
+                problems: false,
+                qmodule: false,
+                tag: false,
+                topics: false,
+                tutorial: false,
+                welcome_step2: false
+            },
+            topics_investigated: {},
+            answered: {},
+            discussed: {},
+            voted: {},
+            learn_questions_viewed: {},
+            learn_questions_answered: {},
+            learn_questions_discussed: {}
+        }
     }, function (err) {
         if (err) {
             handleBasicError(err, instance);
@@ -450,7 +485,7 @@ function handleCreateUser(username, password, instance) {
         } else {
             UserMetrics.insert({
                 user_id: Meteor.userId(),
-                username: Meteor.user().username,
+                username: Meteor.userAsync().username,
                 login_counter: 0,
                 visit_counter: {
                     gutboard: 0,

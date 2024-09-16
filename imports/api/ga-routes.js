@@ -8,7 +8,7 @@ import {
 
 window.onload = checkPath;
 
-function redirect(newPath) {
+export function redirect(newPath) {
     const baseUrl = 'http://localhost:3000';
 
     const newUrl = baseUrl + newPath;
@@ -23,6 +23,10 @@ function checkPath() {
     var params = new URLSearchParams(url.search);
     let currentUser = Meteor.userId();
     switch (path) {
+        
+        case '/landing':
+            Blaze.render(Template.landing, document.body);
+            break;
         case '/trial':
             Blaze.renderWithData(Template.trial, function () {
                 return { type: "pre" };
@@ -39,7 +43,7 @@ function checkPath() {
             redirect('/galileo');
             break;
         case '/login-admin':
-            if (!Meteor.user()) {
+            if (!Meteor.userAsync()) {
                 Blaze.render(Template.login, document.body);
             } else {
                 redirect('consent');
@@ -69,12 +73,12 @@ function checkPath() {
             }
             break;
         case '/galileo/consent':
-            if (!Meteor.user().profile.consent_agreed) {
+            if (Meteor.userAsync() || !Meteor.userAsync().profile || !Meteor.userAsync().profile.consent_agreed) {
                 Meteor.call("galileo.profile.updateProfile");
                 console.log('going to consent final');
                 Blaze.render(Template.consent, document.body);
             } else {
-                if (Meteor.user() && !Meteor.user().profile.toured.username_page) {
+                if (Meteor.userAsync() && !Meteor.userAsync().profile.toured.username_page) {
                     console.log('going to consent username');
                     redirect('/galileo/username');
                 } else if (localStorage.getItem("loginRedirectUrl")) {
@@ -116,12 +120,14 @@ function checkPath() {
             }
             break;
         case '/galileo/createdemo':
-            if (Meteor.user()) {
+            Blaze.render(Template.gaCreateDemo, document.body);
+            if (Meteor.userId()) {
                 if (!Meteor.user().profile.consent_agreed) {
                     redirect('/galileo/consent');
                 } else if (!Meteor.user().profile.toured.username_page) {
                     redirect('/galileo/username');
                 } else {
+                    Blaze.render(Template.gaCreateDemo, document.body);
                     if (params.has("expid")) {
                         Blaze.renderWithData(Template.gaCreateDemo, {
                             expId: params.get("expid")
@@ -274,7 +280,7 @@ function checkPath() {
                 if (can) {
                     Blaze.render(Template.gaPreTest, document.body);
                 } else {
-                    Materialize.toast("You haven't finished intro yet", 10000, 'toast rounded');
+                    //Materialize.toast("You haven't finished intro yet", 10000, 'toast rounded');
                     redirect("/galileo/intro");
                 }
             });
@@ -296,7 +302,7 @@ function checkPath() {
                     Blaze.render(Template.gaIntuitionBoard, document.body);
                 } else {
                     redirect("/galileo/intuition");
-                    Materialize.toast("You haven't entered three intuitions yet", 10000, 'toast rounded');
+                    //Materialize.toast("You haven't entered three intuitions yet", 10000, 'toast rounded');
                 }
             });
             break;
@@ -348,7 +354,7 @@ function checkPath() {
                             console.log('isFeedbacking executing server');
                         }
 
-                        if (is || isCreator || Meteor.user().profile.is_admin) {
+                        if (is || isCreator || Meteor.userAsync().profile.is_admin) {
                             Blaze.renderWithData(Template.gaExperimentFeedback, function () {
                                 return {
                                     id: params.get('exp_id'),
@@ -531,7 +537,7 @@ function checkPath() {
 
                     if (self.params.section === "design") {
                         Meteor.call("galileo.experiments.isCreator", params.get('exp_id'), function (err, can) {
-                            if (can || Meteor.user().profile.is_admin) {
+                            if (can || Meteor.userAsync().profile.is_admin) {
                                 Blaze.renderWithData(Template.gaExperimentFeedback, function () {
                                     //console.log("return creatorID to " + creatorID);
                                     return {
@@ -560,7 +566,7 @@ function checkPath() {
                 Blaze.render(Template.gaExperimentBoard, document.body);
                 localStorage.setItem("mendelcode_ga", params.get('mendelcode'));
             }
-            else if (canGoToBrowse(this)) {
+            else if (canGoToBrowse()) {
                 Blaze.render(Template.gaExperimentBoard, document.body);
             }
             break;
@@ -571,7 +577,7 @@ function checkPath() {
             break;
         case '/galileo/experiment':
             if (params.has('exp_id')) {
-                Blaze.renderWithData(Template.gaExperiment, {
+                Blaze.renderWithData(Template.gaExperimentBoard, {
                     id: params.get('exp_id')
                 }, document.body);
             }
@@ -698,12 +704,12 @@ function canGoToBrowse(thisRouter) {
     let user = Meteor.user();
     if (user) {
         if (!user.profile.consent_agreed) {
-            thisRouter.redirect('/galileo/consent');
+            redirect('/galileo/consent');
             return false;
         }
         if (!user.username) {
-            Materialize.toast("Please set a username before proceeding", 10000, 'toast rounded');
-            thisRouter.redirect('/galileo/username');
+            //Materialize.toast("Please set a username before proceeding", 10000, 'toast rounded');
+            redirect('/galileo/username');
             return false;
         }
     }

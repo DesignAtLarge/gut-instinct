@@ -59,8 +59,8 @@ Template.username.helpers({
     },
     getCurrentName: function() {
         try {
-            if (Meteor.user()) {
-                return Meteor.user().username;
+            if (Meteor.userAsync()) {
+                return Meteor.userAsync().username;
             } else {
                 console.log("User not populated");
             }
@@ -68,10 +68,10 @@ Template.username.helpers({
     },
     getEmail: function() {
         try {
-            if (Meteor.user()) {
-                if (Meteor.user().profile.source === 2) return Meteor.user().emails[0].address;
-                if (Meteor.user().profile.source === 3) return Meteor.user().services.google.email;
-                if (Meteor.user().profile.source === 4) return Meteor.user().services.facebook.email;
+            if (Meteor.userAsync()) {
+                if (Meteor.userAsync().profile.source === 2) return Meteor.userAsync().emails[0].address;
+                if (Meteor.userAsync().profile.source === 3) return Meteor.userAsync().services.google.email;
+                if (Meteor.userAsync().profile.source === 4) return Meteor.userAsync().services.facebook.email;
                 return Template.instance().profileObj.get().email;
                 //
             } else {
@@ -81,7 +81,7 @@ Template.username.helpers({
     },
     getAGID: function() {
         try {
-            if (Meteor.user()) {
+            if (Meteor.userAsync()) {
                 return Template.instance().profileObj.get().agid;
             } else {
                 console.log("User not populated");
@@ -90,36 +90,36 @@ Template.username.helpers({
     },
     preEnterName: function() {
         try {
-            if (Meteor.user()) {
-                if (typeof Meteor.user().username !== 'undefined') {
+            if (Meteor.userAsync()) {
+                if (typeof Meteor.userAsync().username !== 'undefined') {
                     return true;
                 }
                 return false;
             }
         } catch (e) {}
 
-        // if (typeof Meteor.user().username != 'undefined') {
+        // if (typeof Meteor.userAsync().username != 'undefined') {
         //     return true;
         // }
         //return false;
     },
     preEmail: function() {
         try {
-            if (Meteor.user()) {
-                if (Meteor.user().profile.source === 3 || Meteor.user().profile.source === 4 || Meteor.user().profile.source === 2) return true;
+            if (Meteor.userAsync()) {
+                if (Meteor.userAsync().profile.source === 3 || Meteor.userAsync().profile.source === 4 || Meteor.userAsync().profile.source === 2) return true;
                 if (Template.instance().profileObj.get().email === "") return false;
                 else return true;
             }
         } catch (e) {}
 
-        // if (typeof Meteor.user().username != 'undefined') {
+        // if (typeof Meteor.userAsync().username != 'undefined') {
         //     return true;
         // }
         //return false;
     },
     preAGID: function() {
         try {
-            if (Meteor.user()) {
+            if (Meteor.userAsync()) {
                 if (Template.instance().profileObj.get().agid && Template.instance().profileObj.get() !== "") return true;
                 if (Template.instance().profileObj.get().email === "") return false;
                 else return true;
@@ -337,7 +337,7 @@ Template.username.events({
                     if (isGalileo) {
                         Meteor.call('galileo.users.sendOnBoardingEmail');
                     } else {
-                        let currentUserName = Meteor.user().username;
+                        let currentUserName = Meteor.userAsync().username;
                         let emailUser = UserEmail.findOne({
                             username: currentUserName
                         });
@@ -399,11 +399,11 @@ Template.username.events({
                 let condition;
 
                 try {
-                    if (Meteor.user()) {
-                        username = Meteor.user().username;
-                        condition = Meteor.user().profile.condition;
-                        if (username === "expert" && Meteor.user().profile.condition !== 0) {
-                            Meteor.users.update(Meteor.userId(), {
+                    if (Meteor.userAsync()) {
+                        username = Meteor.userAsync().username;
+                        condition = Meteor.userAsync().profile.condition;
+                        if (username === "expert" && Meteor.userAsync().profile.condition !== 0) {
+                            Meteor.users.updateAsync(Meteor.userId(), {
                                 $set: {
                                     'profile.condition': 0
                                 }
@@ -418,12 +418,12 @@ Template.username.events({
 
                 setTimeout(function() {
                     console.log('updating username_page toured later');
-                    Meteor.users.update(Meteor.userId(), {
+                    Meteor.users.updateAsync(Meteor.userId(), {
                         $set: {
                             'profile.toured.username_page': true
                         }
                     });
-                    condition = Meteor.user().profile.condition;
+                    condition = Meteor.userAsync().profile.condition;
 
                     if (condition === 7) {
                         window.location.href = '/trial';
@@ -458,12 +458,12 @@ Template.username.events({
         const userRes = " ";  // Temporary user response
 
         let checkExist = (typeof UserTestResponse.findOne({
-            "username": Meteor.user().username
+            "username": Meteor.userAsync().username
         }) !== 'undefined');
 
         if (checkExist) {
             let targetID = UserTestResponse.findOne({
-                "username": Meteor.user().username
+                "username": Meteor.userAsync().username
             })._id;
             UserTestResponse.update({
                 _id: targetID
@@ -475,7 +475,7 @@ Template.username.events({
 
         } else {
             UserTestResponse.insert({
-                "username": Meteor.user().username,
+                "username": Meteor.userAsync().username,
                 "pretest_response": userRes
             });
         } */
@@ -490,9 +490,9 @@ Template.username.events({
         // let username;
         // let condition;
         // try {
-        //     if (Meteor.user()) {
-        //         username = Meteor.user().username;
-        //         condition = Meteor.user().profile.condition;
+        //     if (Meteor.userAsync()) {
+        //         username = Meteor.userAsync().username;
+        //         condition = Meteor.userAsync().profile.condition;
         //     }
         // } catch (e) {}
 

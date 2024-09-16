@@ -1,0 +1,215 @@
+<template name="qmodule_example">
+  <div class="card qmodule cardquestion" question-hash="{{hash}}" question-id="{{_id}}">
+    <div class="card-content layer-1">
+      <br>
+      <div class="card-title">
+        <div class="row question-display">
+          <span class="light-blue-text text-darken-4" style="font-weight: 500;">{{ex}}</span>
+          <span style="color: black; font-weight: 500;">{{layer_1.text}}</span>
+          <br>
+        </div>
+      </div>
+
+      <div>
+        <div class="layer1OptionCheck">
+          {{#each layer_1.options}}
+          <div style="margin-bottom: 5px;" data-option-index="{{option_index}}">
+            <input disabled class="with-gap toplevelOption" id="{{../hash}}-{{option_index}}" type="checkbox">
+            <label for="{{../hash}}-{{option_index}}" id="{{../hash}}-{{option_index}}-label"
+              style="font-size: 17px;">{{option_text}}
+              <span id="{{../hash}}-{{option_index}}-label-stats" style="font-style: italic; color: #bdbdbd;"></span>
+            </label>
+            <span>&nbsp;&nbsp;</span>
+            <br>
+            <div class="input-field option-input-field" style="display: none;">
+              <input disabled value="{{option_text}}" id="{{../hash}}-{{option_index}}-label-edit" type="text"
+                class="validate option-edit-input" style="font-size: 17px;">
+              <label class="active" for="{{../hash}}-{{option_index}}-label-edit">Edit this option</label>
+              <button type="button" class="waves-light btn light-blue darken-3 save-l1-option-edit"
+                style="margin-bottom: 0px; text-transform:none;" data-editid="{{../_id}}-edit-input">Submit
+                Edit</button>
+              <button type="button" class="waves-light btn grey darken-1 cancel-l1-option-edit"
+                style="margin-bottom: 0px; text-transform:none;">Cancel</button>
+            </div>
+          </div>
+          {{/each}}
+
+          <input class="with-gap userAddOptionCheckBox" id="{{hash}}-userAddOption" type="checkbox">
+          <br>
+          <label id="optionTip" class="timestamp animated fadeIn" style="font-size: 15px; display: none;">Great options
+            are specific to the question. <br> Poor options are too long and vague.</label>
+          <input class="addOptionInput" type="text" placeholder="Add option here" style="display: none;">
+          <br>
+        </div>
+
+        <div class="row">
+          <div class="col s12">
+            <div class="tags">
+              <div class="chips chips-initial">
+                {{#unless tagmode}}
+                {{#each tags}}
+                <div class="chip">
+                  {{#if tagExists name}}
+                  <a href="#">{{name}}</a>
+                  {{else}}
+                  <a href="#">{{name}}</a>
+                  {{/if}}
+                </div>
+                {{/each}}
+                {{else}}
+                <button class="waves-effect waves-light btn light-blue save-tag">Save</button>
+                <button class="waves-effect waves-light btn red cancel-edit-tag">Cancel</button>
+                {{/unless}}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {{#if hasMechanism}}
+        <div id="authorMechanism">
+          {{#if isCondition2or4or0or6or9or11}}
+          <span class="card-title">Author's mechanism</span>
+          <a href="#" id="mechHelp" class="light-blue-text">(?)</a>
+          <label id="mechTip" class="timestamp animated fadeIn" style="font-size: 15px; display: none;">A mechanism
+            provides an explanation of how a phenomenon happens. Guessing the mechanism for an event is an important
+            skill for a scientist. Here's the author's guess about how the gut microbiome might (or might not) be
+            related to their question.</label>
+          <br>
+          {{else}}
+          <span class="card-title">Author's comment</span>
+          {{/if}}
+          <span class="timestamp">Updated {{livestamp layer_1.mechanism.created_at}} by</span>
+          {{#if checkExpert owner.username}}
+          <span class="expert-mark mark expertQuestion" style="background-color: #ffebee;">Researchers</span>
+          {{else}}
+          <span class="blue-text">&nbsp;{{owner.username}}</span>
+          {{/if}}
+          <span class="oi edit-mech timestamp" data-glyph="pencil">&nbsp;&nbsp;Edit</span>
+          <textarea class="topMechanism with-gap materialize-textarea" style="color: black;" type="text" required
+            disabled>{{layer_1.mechanism.text}}</textarea>
+          <button id="mechanismBtn" type="button" class="waves-effect waves-light btn light-blue"
+            style="display:none">Update mechanism</button>
+          <br><br>
+        </div>
+        {{else}}
+        <textarea class="with-gap materialize-textarea" style="color: black;" disabled type="text"
+          required>{{layer_1.mechanism.text}}</textarea>
+        {{/if}}
+        <br>
+
+        {{#if layer2Viewable}}
+        <div class="card-content layer-2" style="display: block; margin-left: 60px; margin-top: -30px">
+          <span class="card-title" style="font-weight: bold">Dive deeper with these follow-up questions!</span>
+          {{#each layer_2}}
+          <div class="layer2QuestionCard" layer-id="{{layer_2_index}}">
+            <span class="card-title l2-old-question-display"
+              style="font-size: 20px; font-weight: 500;">{{question}}</span>
+            <div class="layer2OptionCheck">
+              {{#each options}}
+              <input disabled class="with-gap followupOption" id="{{../hash}}-layer2-{{layer_2_index}}-{{option_index}}"
+                type="checkbox">
+              <label for="{{../hash}}-layer2-{{layer_2_index}}-{{option_index}}"
+                style="font-size: 12pt;">{{option_text}}
+                <span id="{{../hash}}-layer2-{{layer_2_index}}-{{option_index}}-label-stats"
+                  style="font-style: italic; color: #bdbdbd;"></span>
+              </label>
+              <br>
+              {{/each}}
+              <input class="with-gap addFollowOptionChoiceCheckbox" id="{{../hash}}-{{layer_2_index}}-followupAddOption"
+                type="checkbox">
+              <br>
+              <input class="followUpAddOptionInput" type="text" placeholder="Add option here" style="display: none;">
+              <br>
+              <button type="button" class="saveFollowOptionChoice waves-effect btn light-blue darken-3"
+                style="margin-bottom: 10px; margin-left: 0px; margin-right: 5px; text-transform:none; display: none;">Save
+                your option</button>
+              <br><br>
+              <div class="divider"></div>
+              <br>
+            </div>
+          </div>
+          {{/each}}
+        </div>
+        {{/if}}
+
+        {{#unless inQuestionPage}}
+        <div class="card-action layer-3">
+          <span class="card-title"></span>
+          <a href="/q/{{hash}}" class="see-more card-title"
+            style="font-weight: 300; color: #2196F3; text-transform: initial">Click here to join the discussion</a>
+          <br>
+          <span>Latest Comment:</span>
+          <span style="display: inline-block; font-weight: 300; margin-top: 10px">{{firstComment}}</span>
+        </div>
+        {{/unless}}
+
+        <div class="modal confirm-delete" style="width: 500px">
+          <div class="modal-content">
+            <p>Are you sure about deleting this question?</p>
+          </div>
+          <div class="modal-footer">
+            <a href="#"
+              class="modal-action modal-close waves-effect waves-light-blue btn-flat confirm-delete-yes">Yes</a>
+            <a href="#" class="modal-action modal-close waves-effect waves-red btn-flat">No</a>
+          </div>
+        </div>
+        <br>
+
+        <div class="divider"></div>
+        <br>
+
+        {{#if isCondition2or4or0or6or9or11}}
+        <span class="card-title" style="font-weight: bold">Guess the mechanism!</span>
+        <span>Great Example</span>
+        <a href="#" id="mechExHelp" class="light-blue-text">(?)</a>
+        <label id="mechEx" class="timestamp animated fadeIn" style="font-size: 15px; display: none;"><br> Nasal
+          allergies lead to dehydration, which might change the population of bacteria in the mouth, and possibly also
+          the gut.</label>
+        <br>
+        {{else}}
+        <span class="card-title" style="font-weight: bold">Add to the discussion!</span>
+        {{/if}}
+
+        <span class="card-title">
+          {{#each comments}}
+          <div class="divClass" style="word-wrap: break-word;">
+            <div style="margin-bottom: -50px;">
+              <span class="timestamp" style="font-size: 11pt;">by</span>
+              <span class="blue-text" style="font-size: 12pt; font-weight: 400;">{{owner.username}}</span>
+              <span class="timestamp">{{livestamp created_at}} &nbsp;&nbsp;</span>
+              <br>
+              <span class="timestamp">{{pluralize 'Upvote' (upvote_count hashcode)}}</span>
+              {{#if upvoted hashcode}}
+              <i class="vote fa fa-thumbs-up fa-5x" style="cursor: pointer; color: #03A9F4;" aria-hidden="true"></i>
+              {{else}}
+              <i class="vote fa fa-thumbs-o-up fa-5x" style="cursor: pointer; color: grey;" aria-hidden="true"></i>
+              {{/if}}
+              &nbsp;&nbsp;| | &nbsp;&nbsp;
+              {{pluralize 'Downvote' (downvote_count hashcode)}}
+              {{#if downvoted hashcode}}
+              <i class="vote fa fa-thumbs-down fa-5x" style="cursor: pointer; color: red;" aria-hidden="true"></i>
+              {{else}}
+              <i class="vote fa fa-thumbs-o-down fa-5x" style="cursor: pointer; color: grey;" aria-hidden="true"></i>
+              {{/if}}
+              <br>
+              <span style="font-size: 17px">{{{text}}}</span>
+              <br>
+              <br>
+              {{#if hasFile hashcode}}
+              <a class="targetFile" href="" target="_blank">
+                <button class="waves-effect waves-light btn light-blue" style="display: inline">View File</button>
+              </a>
+              {{/if}}
+              {{#if hasURL hashcode}}
+              <a class="targetURL" href="" target="_blank">
+                <button class="waves-effect waves-light btn light-blue" style="display: inline">Open URL</button>
+              </a>
+              {{/if}}
+            </div>
+          </div>
+          {{/each}}
+        </span>
+      </div>
+    </div>
+  </div>
+</template>

@@ -62,10 +62,10 @@ Template.bookmark.rendered = function() {
     }
     sessionStorage.setItem('moved', '');
     try {
-        const toured = Meteor.user().profile.toured.bookmark;
+        const toured = Meteor.userAsync().profile.toured.bookmark;
         if (!toured) {
             introJs().setOption('showProgress', true).onchange(function(target) {
-                Meteor.users.update(Meteor.userId(), {
+                Meteor.users.updateAsync(Meteor.userId(), {
                     $set: {
                         'profile.toured.bookmark': true
                     }
@@ -104,7 +104,7 @@ Template.bookmark.helpers({
             const _id = Tags.find({
                 name: name
             }).fetch()[0]._id;
-            return Meteor.user().profile.topics_investigated[_id];
+            return Meteor.userAsync().profile.topics_investigated[_id];
         } catch (e) {
             return false;
         }
@@ -124,8 +124,8 @@ Template.bookmark.helpers({
         //add the user check on the bookmark
         var rawbk = Bookmarks.find({
             owner: {
-                username: Meteor.user().username,
-                _id: Meteor.user()._id,
+                username: Meteor.userAsync().username,
+                _id: Meteor.userAsync()._id,
             }
         }).fetch();
 
@@ -152,7 +152,7 @@ Template.bookmark.helpers({
     qaccept: function(hashcode) {
         const qstatus = Template.instance().qstatus.get() || '0';
         try {
-            var profile = Meteor.user().profile;
+            var profile = Meteor.userAsync().profile;
             if (qstatus == 0) {
                 const answered = !profile.answered[hashcode] || profile.answered[hashcode].length < 3;
                 return answered && !profile.discussed[hashcode];
@@ -190,7 +190,7 @@ Template.bookmark.helpers({
     qlength: function(state) {
         try {
             const questions = Questions.find({}).fetch();
-            var profile = Meteor.user().profile;
+            var profile = Meteor.userAsync().profile;
             if (state == 0) {
                 return _.filter(questions, function(question) {
                     const answered = !profile.answered[question.hash] || profile.answered[question.hash]
@@ -288,8 +288,8 @@ Template.bookmark.events({
         }).fetch()[0];
 
         ucondition = 0;
-        if (Meteor.user()) {
-            ucondition = Meteor.user().profile.condition;
+        if (Meteor.userAsync()) {
+            ucondition = Meteor.userAsync().profile.condition;
             console.log("my condition is in (bookmark) " + ucondition);
         } else {
             console.log("meteor user not ready - my condition is in (bookmark) " + ucondition);
@@ -299,8 +299,8 @@ Template.bookmark.events({
         var qID = Questions.insert({
             hash: '',
             owner: {
-                _id: Meteor.user()._id,
-                username: Meteor.user().username
+                _id: Meteor.userAsync()._id,
+                username: Meteor.userAsync().username
             },
             layer_1: {
                 text: primary_question,
@@ -385,12 +385,12 @@ Template.bookmark.events({
         });
 
         if (comment) {
-            var discussed = Meteor.user().profile.discussed;
+            var discussed = Meteor.userAsync().profile.discussed;
             var cID = Comments.insert({
                 text: comment,
                 owner: {
-                    _id: Meteor.user()._id,
-                    username: Meteor.user().username
+                    _id: Meteor.userAsync()._id,
+                    username: Meteor.userAsync().username
                 },
                 created_at: created_at,
                 upvote_count: 0,
@@ -408,15 +408,15 @@ Template.bookmark.events({
                         text: comment,
                         created_at: created_at,
                         owner: {
-                            _id: Meteor.user()._id,
-                            username: Meteor.user().username
+                            _id: Meteor.userAsync()._id,
+                            username: Meteor.userAsync().username
                         }
                     }
                 }
             });
 
             discussed[CryptoJS.MD5(qID).toString()] = true;
-            Meteor.users.update(Meteor.userId(), {
+            Meteor.users.updateAsync(Meteor.userId(), {
                 $set: {
                     'profile.discussed': discussed
                 }
@@ -428,7 +428,7 @@ Template.bookmark.events({
             // });
         }
 
-        Meteor.users.update(Meteor.userId(), {
+        Meteor.users.updateAsync(Meteor.userId(), {
             $push: {
                 'profile.questions': {
                     hash: CryptoJS.MD5(qID).toString(),

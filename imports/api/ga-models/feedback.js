@@ -37,7 +37,7 @@ Meteor.methods({
             // });
 
             // update which experiments are being reviewed in users table
-            Meteor.users.update({
+            Meteor.users.updateAsync({
                 "_id": Meteor.userId()
             }, {
                 $push: {

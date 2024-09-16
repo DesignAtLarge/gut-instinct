@@ -17,6 +17,7 @@ function loadDatabase() {
   SurveyQuestions.dropCollectionAsync();
   Boards.dropCollectionAsync();
   Examples.dropCollectionAsync();
+  //Meteor.users.dropCollectionAsync();
   try {
     const surveyQuestionsDataFile = fs.readFileSync("/Users/gunasekharathuluri/NodeProjects/migration_gut-instinct/script/source/survey_questions.json", 'utf8');
     const boardsDataFile = fs.readFileSync("/Users/gunasekharathuluri/NodeProjects/migration_gut-instinct/script/source/galileo_boards.json", 'utf8');

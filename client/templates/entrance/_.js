@@ -16,8 +16,8 @@ Template.entrance.onCreated(function() {});
 Template.entrance.helpers({
     isIntroCompleted: function() {
         try {
-            if (Meteor.user()) {
-                const intro_completed = Meteor.user().profile.intro_completed;
+            if (Meteor.userAsync()) {
+                const intro_completed = Meteor.userAsync().profile.intro_completed;
                 //console.log("intro_completed check in isintrocompleted is " + intro_completed);
                 //alert("hanging in");
                 return intro_completed;
@@ -26,8 +26,8 @@ Template.entrance.helpers({
     },
     isGuideCompleted: function() {
         try {
-            if (Meteor.user()) {
-                const guide_completed = Meteor.user().profile.guide_completed;
+            if (Meteor.userAsync()) {
+                const guide_completed = Meteor.userAsync().profile.guide_completed;
                 //console.log("intro_completed check in isintrocompleted is " + intro_completed);
                 //alert("hanging in");
                 return guide_completed;
@@ -36,12 +36,12 @@ Template.entrance.helpers({
     },
     getNewQuestionCountsbyCondition: function(currentMendel) {
         try {
-            if (Meteor.user()) {
+            if (Meteor.userAsync()) {
                 //var fetchArr = Questions.find({}).fetch();
                 //get user condition first
                 ucondition = 0;
-                if (Meteor.user()) {
-                    ucondition = Meteor.user().profile.condition;
+                if (Meteor.userAsync()) {
+                    ucondition = Meteor.userAsync().profile.condition;
                     //console.log("my condition is in (getnewquestions) " + ucondition);
                 } else {
                     console.log("meteor user not ready - my condition is in (getnewquestions) " + ucondition);
@@ -119,12 +119,12 @@ Template.entrance.helpers({
     },
     getUsersCounts: function(currentMendel) {
         try {
-            if (Meteor.user()) {
+            if (Meteor.userAsync()) {
                 //var fetchArr = Questions.find({}).fetch();
                 //get user condition first
                 ucondition = 0;
-                if (Meteor.user()) {
-                    ucondition = Meteor.user().profile.condition;
+                if (Meteor.userAsync()) {
+                    ucondition = Meteor.userAsync().profile.condition;
                     //console.log("my condition is in (getnewquestions) " + ucondition);
                 } else {
                     console.log("meteor user not ready - my condition is in (getnewquestions) " + ucondition);
@@ -203,8 +203,8 @@ Template.entrance.helpers({
     },
     tookPretest: function() {
         try {
-            if (Meteor.user()) {
-                let taken = Meteor.user().profile.took_pretest;
+            if (Meteor.userAsync()) {
+                let taken = Meteor.userAsync().profile.took_pretest;
                 if (!taken) return false;
                 else return true;
             }

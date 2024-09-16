@@ -62,11 +62,11 @@ Template.gutboard_slider_addq.rendered = function() {
     }
 
     try {
-        const toured = Meteor.user().profile.toured.gutboard_slider_addq;
+        const toured = Meteor.userAsync().profile.toured.gutboard_slider_addq;
         //console.log("toured in gutboard_slider_addq " + toured);
         if (!toured) {
             introJs().setOption('showProgress', true).onchange(function(target) {
-                Meteor.users.update(Meteor.userId(), {
+                Meteor.users.updateAsync(Meteor.userId(), {
                     $set: {
                         'profile.toured.gutboard_slider_addq': true
                     }
@@ -104,7 +104,7 @@ Template.gutboard_slider_addq.helpers({
 
         var currentMendelCode = sessionStorage.mendelcode;
         if (currentMendelCode === undefined) {
-            if (!Meteor.user().profile.intro_completed) {
+            if (!Meteor.userAsync().profile.intro_completed) {
                 sessionStorage.setItem("mendelcode", "AmericanGutProject");
                 return;
             }
@@ -117,8 +117,8 @@ Template.gutboard_slider_addq.helpers({
     },
 
     isIntroCompleted: function() {
-        if (Meteor.user()) {
-            const intro_completed = Meteor.user().profile.intro_completed;
+        if (Meteor.userAsync()) {
+            const intro_completed = Meteor.userAsync().profile.intro_completed;
             //console.log("intro_completed check in isintrocompleted is " + intro_completed);
             //alert("hanging in");
             return intro_completed;
@@ -126,8 +126,8 @@ Template.gutboard_slider_addq.helpers({
     },
     isGuideCompleted: function() {
         try {
-            if (Meteor.user()) {
-                const guide_completed = Meteor.user().profile.guide_completed;
+            if (Meteor.userAsync()) {
+                const guide_completed = Meteor.userAsync().profile.guide_completed;
                 //console.log("intro_completed check in isintrocompleted is " + intro_completed);
                 //alert("hanging in");
                 return guide_completed;
@@ -137,7 +137,7 @@ Template.gutboard_slider_addq.helpers({
     qaccept: function(hashcode) {
         const qstatus = Template.instance().qstatus.get() || '0';
         try {
-            var profile = Meteor.user().profile;
+            var profile = Meteor.userAsync().profile;
             if (qstatus == 0) {
                 const answered = !profile.answered[hashcode] || profile.answered[hashcode].length < 3;
                 return answered && !profile.discussed[hashcode];
@@ -159,8 +159,8 @@ Template.gutboard_slider_addq.helpers({
     },
     isCondition1: function() {
         try {
-            if (Meteor.user()) {
-                var condition = Meteor.user().profile.condition;
+            if (Meteor.userAsync()) {
+                var condition = Meteor.userAsync().profile.condition;
                 //console.log("my condition is in" + condition);
                 return condition == 1;
             }
@@ -170,7 +170,7 @@ Template.gutboard_slider_addq.helpers({
     },
     isCondition2: function() {
         try {
-            var condition = Meteor.user().profile.condition;
+            var condition = Meteor.userAsync().profile.condition;
             //console.log("my condition is in" + condition);
             return condition == 2;
         } catch (e) {
@@ -179,8 +179,8 @@ Template.gutboard_slider_addq.helpers({
     },
     isCondition1or2or8or9: function() {
         try {
-            if (Meteor.user()) {
-                var condition = Meteor.user().profile.condition;
+            if (Meteor.userAsync()) {
+                var condition = Meteor.userAsync().profile.condition;
                 //console.log("my condition is in" + condition);
                 return condition == 1 || condition == 2 || condition == 8 || condition == 9;
             }
@@ -190,8 +190,8 @@ Template.gutboard_slider_addq.helpers({
     },
     isCondition2or4or0or6or9or11: function() {
         try {
-            if (Meteor.user()) {
-                var condition = Meteor.user().profile.condition;
+            if (Meteor.userAsync()) {
+                var condition = Meteor.userAsync().profile.condition;
                 //console.log("my condition is in" + condition);
                 return condition == 2 || condition == 4 || condition == 0 || condition == 6 || condition == 9 || condition == 11;
             }
@@ -201,8 +201,8 @@ Template.gutboard_slider_addq.helpers({
     },
     isCondition0or10or11: function() {
         try {
-            if (Meteor.user()) {
-                var condition = Meteor.user().profile.condition;
+            if (Meteor.userAsync()) {
+                var condition = Meteor.userAsync().profile.condition;
                 //console.log("my condition is in" + condition);
                 return condition == 0 || condition == 10 || condition == 11;
             }
@@ -212,9 +212,9 @@ Template.gutboard_slider_addq.helpers({
     },
     hasAddedMoreThanOneQuestion: function() {
         try {
-            if (Meteor.user()) {
+            if (Meteor.userAsync()) {
                 return true;
-                return (Meteor.user().profile.questions.length > 1 && Meteor.user().profile.intro_completed);
+                return (Meteor.userAsync().profile.questions.length > 1 && Meteor.userAsync().profile.intro_completed);
             }
         } catch (e) {}
     },
@@ -242,16 +242,16 @@ Template.gutboard_slider_addq.events({
     },
     'click #set-intro-completed-btn': function(event) {
         try {
-            //console.log("intro_completed before is " + Meteor.user().profile.intro_completed);
+            //console.log("intro_completed before is " + Meteor.userAsync().profile.intro_completed);
             //console.log("updating intro_completed bit");
             //alert("whaa");
-            Meteor.users.update(Meteor.userId(), {
+            Meteor.users.updateAsync(Meteor.userId(), {
                 $set: {
                     'profile.intro_completed': true
                 }
             });
             //console.log("updated intro_completed bit");
-            //console.log("guide_completed after is " + Meteor.user().profile.intro_completed);
+            //console.log("guide_completed after is " + Meteor.userAsync().profile.intro_completed);
             //alert("just hanging in");
         } catch (e) {}
     },
@@ -361,8 +361,8 @@ Template.gutboard_slider_addq.events({
         if (id == 'step-4') {
             const mechanism = $('#start_discussion').val().trim();
             if (mechanism == '') {
-                let condition = Meteor.user().profile.condition;
-                if (Meteor.user().profile.intro_completed && (condition == 2 || condition == 4 || condition == 0 || condition == 6 || condition == 9 || condition == 11))
+                let condition = Meteor.userAsync().profile.condition;
+                if (Meteor.userAsync().profile.intro_completed && (condition == 2 || condition == 4 || condition == 0 || condition == 6 || condition == 9 || condition == 11))
                     Materialize.toast('Please complete Step 4 by providing a mechanism', 3000, 'toast-alert');
                 else
                     Materialize.toast('Please complete Step 4 by providing a comment', 3000, 'toast-alert');
@@ -532,8 +532,8 @@ Template.gutboard_slider_addq.events({
         const mechanism = $('#start_discussion').val().trim();
 
         if (mechanism == '') {
-            let condition = Meteor.user().profile.condition;
-            if (Meteor.user().profile.intro_completed && (condition == 2 || condition == 4 || condition == 0 || condition == 6 || condition == 9 || condition == 11))
+            let condition = Meteor.userAsync().profile.condition;
+            if (Meteor.userAsync().profile.intro_completed && (condition == 2 || condition == 4 || condition == 0 || condition == 6 || condition == 9 || condition == 11))
                 Materialize.toast('Please complete Step 4 by providing a mechanism', 3000, 'toast-alert');
             else
                 Materialize.toast('Please complete Step 4 by providing a comment', 3000, 'toast-alert');
@@ -679,28 +679,28 @@ Template.gutboard_slider_addq.events({
 
                     //preparation to insert user-condition
                     ucondition = 0;
-                    if (Meteor.user()) {
-                        ucondition = Meteor.user().profile.condition;
+                    if (Meteor.userAsync()) {
+                        ucondition = Meteor.userAsync().profile.condition;
                         //console.log("my condition is in (addq1) " + ucondition);
                     } else {
                         //console.log("meteor user not ready - my condition is in (addq1) " + ucondition);
                     }
 
-                    Meteor.call('questions.insertQuestion', Meteor.user().username, Meteor.user()._id, currentMendelCode, dbLayer1, dbLayer2, created_at, ucondition, function(error, result) {
+                    Meteor.call('questions.insertQuestion', Meteor.userAsync().username, Meteor.userAsync()._id, currentMendelCode, dbLayer1, dbLayer2, created_at, ucondition, function(error, result) {
                         var qID = result
                         Meteor.call('questions.setHash', qID);
 
                         try {
-                            console.log("intro_completed before is " + Meteor.user().profile.intro_completed);
+                            console.log("intro_completed before is " + Meteor.userAsync().profile.intro_completed);
                             console.log("updating intro_completed bit2");
                             //alert("whaa");
-                            Meteor.users.update(Meteor.userId(), {
+                            Meteor.users.updateAsync(Meteor.userId(), {
                                 $set: {
                                     'profile.intro_completed': true
                                 }
                             });
                             console.log("updated intro_completed bit");
-                            console.log("guide_completed after is " + Meteor.user().profile.intro_completed);
+                            console.log("guide_completed after is " + Meteor.userAsync().profile.intro_completed);
                             //alert("just hanging in2");
                         } catch (e) {}
 
@@ -723,7 +723,7 @@ Template.gutboard_slider_addq.events({
                         Meteor.call('user.updateProfileQuestions', qID, created_at);
 
                         if (comment) {
-                            var discussed = Meteor.user().profile.discussed;
+                            var discussed = Meteor.userAsync().profile.discussed;
                             Meteor.call('comments.insertCommment', comment, created_at, s3URL, userURL, function(error, result) {
                                 var cID = result;
                                 Meteor.call('comments.setHash', cID);
@@ -751,16 +751,16 @@ Template.gutboard_slider_addq.events({
         else {
             // create new question
             ucondition = 0;
-            if (Meteor.user()) {
-                ucondition = Meteor.user().profile.condition;
+            if (Meteor.userAsync()) {
+                ucondition = Meteor.userAsync().profile.condition;
                 // temp
-                if (Meteor.user().username == 'expert') ucondition = 0;
+                if (Meteor.userAsync().username == 'expert') ucondition = 0;
                 //console.log("my condition is in (addq2) " + ucondition);
             } else {
                 //console.log("meteor user not ready - my condition is in (addq2) " + ucondition);
             }
 
-            Meteor.call('questions.insertQuestion', Meteor.user().username, Meteor.user()._id, currentMendelCode, dbLayer1, dbLayer2, created_at, ucondition, function(error, result) {
+            Meteor.call('questions.insertQuestion', Meteor.userAsync().username, Meteor.userAsync()._id, currentMendelCode, dbLayer1, dbLayer2, created_at, ucondition, function(error, result) {
                 var qID = result
                 Meteor.call('questions.setHash', qID);
                 var tags = [];
@@ -782,7 +782,7 @@ Template.gutboard_slider_addq.events({
 
 
                 if (comment) {
-                    var discussed = Meteor.user().profile.discussed;
+                    var discussed = Meteor.userAsync().profile.discussed;
                     //console.log("0")
                     Meteor.call('comments.insertCommment', comment, created_at, "-1", userURL, function(error, result) {
                         //console.log("0.5")
@@ -816,8 +816,8 @@ Template.gutboard_slider_addq.events({
             // var qID = Questions.insert({
             //     hash: '',
             //     owner: {
-            //         username: Meteor.user().username,
-            //         _id: Meteor.user()._id
+            //         username: Meteor.userAsync().username,
+            //         _id: Meteor.userAsync()._id
             //     },
             //     mendel_id: currentMendelCode,
             //     layer_1: dbLayer1,
@@ -893,12 +893,12 @@ Template.gutboard_slider_addq.events({
             // });
 
             // if (comment) {
-            //     var discussed = Meteor.user().profile.discussed;
+            //     var discussed = Meteor.userAsync().profile.discussed;
             //     var cID = Comments.insert({
             //         text: comment,
             //         owner: {
-            //             username: Meteor.user().username,
-            //             _id: Meteor.user()._id
+            //             username: Meteor.userAsync().username,
+            //             _id: Meteor.userAsync()._id
             //         },
             //         created_at: created_at,
             //         // upvote_count: 0,
@@ -918,8 +918,8 @@ Template.gutboard_slider_addq.events({
             //                 text: comment,
             //                 created_at: created_at,
             //                 owner: {
-            //                     _id: Meteor.user()._id,
-            //                     username: Meteor.user().username
+            //                     _id: Meteor.userAsync()._id,
+            //                     username: Meteor.userAsync().username
             //                 },
             //                 attached_file: s3URL,
             //                 attached_url: userURL
@@ -930,14 +930,14 @@ Template.gutboard_slider_addq.events({
             //     //vineet
 
             //     discussed[CryptoJS.MD5(qID).toString()] = true;
-            //     Meteor.users.update(Meteor.userId(), {
+            //     Meteor.users.updateAsync(Meteor.userId(), {
             //         $set: {
             //             'profile.discussed': discussed
             //         }
             //     });
             // }
 
-            // Meteor.users.update(Meteor.userId(), {
+            // Meteor.users.updateAsync(Meteor.userId(), {
             //     $push: {
             //         'profile.questions': {
             //             hash: CryptoJS.MD5(qID).toString()
@@ -949,12 +949,12 @@ Template.gutboard_slider_addq.events({
 
         // setTimeout(function() {
         //     try {
-        //         //console.log("intro_completed before is " + Meteor.user().profile.intro_completed);
+        //         //console.log("intro_completed before is " + Meteor.userAsync().profile.intro_completed);
         //         //console.log("updating intro_completed bit2");
         //         Meteor.call('user.updateHasAddedQuestion');
         //         Meteor.call('user.updateIntroCompleted');
-        //         //console.log("updated intro_completed bit is " + Meteor.user().profile.intro_completed);
-        //         //console.log("guide_completed after is " + Meteor.user().profile.intro_completed);
+        //         //console.log("updated intro_completed bit is " + Meteor.userAsync().profile.intro_completed);
+        //         //console.log("guide_completed after is " + Meteor.userAsync().profile.intro_completed);
         //         //alert("just hanging in2");
         //     } catch (e) {}
         //     $("#returnBoardBottom").click();

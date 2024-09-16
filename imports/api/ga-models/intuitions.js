@@ -92,7 +92,7 @@ Meteor.methods({
     },
 
     'galileo.intuition.getFirstThreeIntuitions': function() {
-        var user = Meteor.users.findOne({
+        var user = Meteor.users.findOneAsync({
             _id: Meteor.userId()
         });
         if (!user) {

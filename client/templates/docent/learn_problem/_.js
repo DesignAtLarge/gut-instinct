@@ -11,10 +11,10 @@ import {
 
 Template.learn_problem.rendered = function() {
     try {
-        const toured = Meteor.user().profile.toured.learn_discussions || false;
+        const toured = Meteor.userAsync().profile.toured.learn_discussions || false;
         if (!toured) {
             introJs().setOption('showProgress', true).onchange(function(target) {
-                Meteor.users.update(Meteor.userId(), {
+                Meteor.users.updateAsync(Meteor.userId(), {
                     $set: {
                         'profile.toured.learn_discussions': true
                     }
@@ -33,7 +33,7 @@ Template.learn_problem.helpers({
     init: function(hashcode) {
         Template.instance().hashcode = hashcode;
         try {
-            const answered = Meteor.user().profile.learn_questions_answered;
+            const answered = Meteor.userAsync().profile.learn_questions_answered;
             const self = LearnQuestions.find({
                 hashcode: hashcode
             }).fetch()[0];
@@ -62,7 +62,7 @@ Template.learn_problem.helpers({
     answered: function() {
         try {
             const hashcode = Template.instance().hashcode;
-            const learn_questions_answered = Meteor.user().profile.learn_questions_answered[hashcode];
+            const learn_questions_answered = Meteor.userAsync().profile.learn_questions_answered[hashcode];
             if (learn_questions_answered) {
                 learn_questions_answered.hashcode = hashcode;
             }
@@ -74,7 +74,7 @@ Template.learn_problem.helpers({
     chose: function(index) {
         try {
             const hashcode = Template.instance().hashcode;
-            const learn_questions_answered = Meteor.user().profile.learn_questions_answered[hashcode];
+            const learn_questions_answered = Meteor.userAsync().profile.learn_questions_answered[hashcode];
             if (_.isUndefined(learn_questions_answered)) {
                 return false;
             }
@@ -84,7 +84,7 @@ Template.learn_problem.helpers({
         }
     },
     isUserExpert: function() {
-        return (Meteor.user().username === 'expert') || (Meteor.user().username === 'knightlab');
+        return (Meteor.userAsync().username === 'expert') || (Meteor.userAsync().username === 'knightlab');
     }
 });
 
@@ -93,13 +93,13 @@ Template.learn_problem.events({
         event.preventDefault();
         const created_at = new Date();
         // const user_metric = UserMetrics.find({ user_id: Meteor.userId() }).fetch()[0];
-        var discussed = Meteor.user().profile.learn_questions_discussed || {};
+        var discussed = Meteor.userAsync().profile.learn_questions_discussed || {};
         var cID = LearnDiscussions.insert({
             learn_question: instance.hashcode,
             text: event.target.comment.value,
             owner: {
-                _id: Meteor.user()._id,
-                username: Meteor.user().username
+                _id: Meteor.userAsync()._id,
+                username: Meteor.userAsync().username
             },
             created_at: created_at
         });
@@ -126,7 +126,7 @@ Template.learn_problem.events({
 
         discussed[instance.hashcode] = true;
 
-        Meteor.users.update(Meteor.userId(), {
+        Meteor.users.updateAsync(Meteor.userId(), {
             $set: {
                 'profile.learn_questions_discussed': discussed
             }

@@ -14,9 +14,9 @@ var maxDisplay = 7;
 
 Template.guide_question_welcome.rendered = function() {
     try {
-        if (Meteor.user()) {
-            const toured = Meteor.user().profile.toured.guide_question_info;
-            //console.log("intro_completed is" + Meteor.user().profile.intro_completed);
+        if (Meteor.userAsync()) {
+            const toured = Meteor.userAsync().profile.toured.guide_question_info;
+            //console.log("intro_completed is" + Meteor.userAsync().profile.intro_completed);
             if (!toured) {
                 introJs().setOption('showProgress', true).onchange(function(target) {
                     Meteor.call('user.updateProfileTouredGuideQuestionInfo');
@@ -84,7 +84,7 @@ Template.guide_question_welcome.events({
             for (var i = 0; i < personalFetchResult.length; i++) {
                 var userRes = $($("input:radio:checked")[i]).attr("personal-id");
                 var targetID = personalFetchResult[i]._id;
-                var targetUser = Meteor.user().username;
+                var targetUser = Meteor.userAsync().username;
                 PersonalQuestions.update({
                     _id: targetID
                 }, {
@@ -104,7 +104,7 @@ Template.guide_question_welcome.events({
             var targetTagID = Tags.findOne({
                 name: currentQueryTag
             })._id;
-            var targetUserName = Meteor.user().username;
+            var targetUserName = Meteor.userAsync().username;
 
             Tags.update({
                 _id: targetTagID
@@ -120,8 +120,8 @@ Template.guide_question_welcome.events({
     'click #sliderControl': function(event) {
 
 
-        const intro_completed = Meteor.user().profile.intro_completed;
-        const condition = Meteor.user().profile.condition;
+        const intro_completed = Meteor.userAsync().profile.intro_completed;
+        const condition = Meteor.userAsync().profile.condition;
 
         if (intro_completed) {
             if (condition == 1 || condition == 2 || condition == 8 || condition == 9)
@@ -171,8 +171,8 @@ Template.guide_question_welcome.events({
 Template.guide_question_welcome.helpers({
     isGuideCompleted: function() {
         try {
-            if (Meteor.user()) {
-                const guide_completed = Meteor.user().profile.guide_completed;
+            if (Meteor.userAsync()) {
+                const guide_completed = Meteor.userAsync().profile.guide_completed;
                 //console.log("intro_completed check in isintrocompleted is " + intro_completed);
                 //alert("hanging in");
                 return guide_completed;
@@ -181,8 +181,8 @@ Template.guide_question_welcome.helpers({
     },
     isIntroCompleted: function() {
         try {
-            if (Meteor.user()) {
-                const intro_completed = Meteor.user().profile.intro_completed;
+            if (Meteor.userAsync()) {
+                const intro_completed = Meteor.userAsync().profile.intro_completed;
                 //console.log("intro_completed check in isintrocompleted is " + intro_completed);
                 //alert("hanging in");
                 return intro_completed;
@@ -191,8 +191,8 @@ Template.guide_question_welcome.helpers({
     },
     isCondition1or2or7or8or9: function() {
         try {
-            if (Meteor.user()) {
-                var condition = Meteor.user().profile.condition;
+            if (Meteor.userAsync()) {
+                var condition = Meteor.userAsync().profile.condition;
                 //console.log("my condition is in" + condition);
                 return condition == 1 || condition == 2 || condition == 7 || condition == 8 || condition == 9;
             }
@@ -202,8 +202,8 @@ Template.guide_question_welcome.helpers({
     },
     isCondition2or7: function() {
         try {
-            if (Meteor.user()) {
-                var condition = Meteor.user().profile.condition;
+            if (Meteor.userAsync()) {
+                var condition = Meteor.userAsync().profile.condition;
                 //console.log("my condition is in" + condition);
                 return condition == 2 || condition == 7;
             }
@@ -213,8 +213,8 @@ Template.guide_question_welcome.helpers({
     },
     isCondition2: function() {
         try {
-            if (Meteor.user()) {
-                var condition = Meteor.user().profile.condition;
+            if (Meteor.userAsync()) {
+                var condition = Meteor.userAsync().profile.condition;
                 //console.log("my condition is in" + condition);
                 return condition == 2;
             }
@@ -224,8 +224,8 @@ Template.guide_question_welcome.helpers({
     },
     isCondition1or2or8or9: function() {
         try {
-            if (Meteor.user()) {
-                var condition = Meteor.user().profile.condition;
+            if (Meteor.userAsync()) {
+                var condition = Meteor.userAsync().profile.condition;
                 //console.log("my condition is in" + condition);
                 return condition == 1 || condition == 2 || condition == 8 || condition == 9;
             }
@@ -235,8 +235,8 @@ Template.guide_question_welcome.helpers({
     },
     isCondition7: function() {
         try {
-            if (Meteor.user()) {
-                var condition = Meteor.user().profile.condition;
+            if (Meteor.userAsync()) {
+                var condition = Meteor.userAsync().profile.condition;
                 //console.log("my condition is in" + condition);
                 return condition == 7;
             }

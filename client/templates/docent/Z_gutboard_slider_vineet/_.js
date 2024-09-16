@@ -37,12 +37,12 @@ Template.gutboard_slider_vineet.rendered = function() {
     };
 
     try {
-        const toured = Meteor.user().profile.toured.gutboard_slider;
+        const toured = Meteor.userAsync().profile.toured.gutboard_slider;
         console.log("toured in gutboard_slider_vineet " + toured);
         if (!toured) {
             console.log("inside if");
             /*introJs().setOption('showProgress', true).onchange(function(target) {
-                Meteor.users.update(Meteor.userId(), {
+                Meteor.users.updateAsync(Meteor.userId(), {
                     $set: {
                         'profile.toured.gutboard_slider': true
                     }
@@ -52,7 +52,7 @@ Template.gutboard_slider_vineet.rendered = function() {
             //introJs().addHints();
 
             introJs().onchange(function(target) {
-                Meteor.users.update(Meteor.userId(), {
+                Meteor.users.updateAsync(Meteor.userId(), {
                     $set: {
                         'profile.toured.gutboard_slider': true
                     }
@@ -99,10 +99,10 @@ Template.gutboard_slider_vineet.rendered = function() {
     // sessionStorage.setItem('moved', '');
 
     // try {
-    //     const toured = Meteor.user().profile.toured.gutboard;
+    //     const toured = Meteor.userAsync().profile.toured.gutboard;
     //     if (!toured) {
     //         introJs().setOption('showProgress', true).onchange(function(target) {
-    //             Meteor.users.update(Meteor.userId(), {
+    //             Meteor.users.updateAsync(Meteor.userId(), {
     //                 $set: {
     //                     'profile.toured.gutboard': true
     //                 }
@@ -162,7 +162,7 @@ Template.gutboard_slider_vineet.rendered = function() {
             var currentResponseArr = currentLayer1.user_response;
 
             var currentQuestionID = currentHash;
-            var currentUsername = Meteor.user().username;
+            var currentUsername = Meteor.userAsync().username;
 
             for (var k = 0; k < currentResponseArr.length; k++) {
                 if (currentResponseArr[k].username == currentUsername) {
@@ -226,7 +226,7 @@ Template.gutboard_slider_vineet.rendered = function() {
             }
 
             var currentQuestionID = currentHash;
-            var currentUsername = Meteor.user().username;
+            var currentUsername = Meteor.userAsync().username;
 
             for (var k = 0; k < l2CurrentResponseArr.length; k++) {
 
@@ -270,7 +270,7 @@ Template.gutboard_slider_vineet.helpers({
         //     return;
         // }
         //
-        // var targetUser = Meteor.user().username;
+        // var targetUser = Meteor.userAsync().username;
         // localStorage.setItem("currentUserName", targetUser);
 
         return _.sortBy(Questions.find({}).fetch(), function(object) {
@@ -280,7 +280,7 @@ Template.gutboard_slider_vineet.helpers({
     qaccept: function(hashcode) {
         const qstatus = Template.instance().qstatus.get() || '0';
         try {
-            var profile = Meteor.user().profile;
+            var profile = Meteor.userAsync().profile;
             if (qstatus == 0) {
                 const answered = !profile.answered[hashcode] || profile.answered[hashcode].length < 3;
                 return answered && !profile.discussed[hashcode];
@@ -300,7 +300,7 @@ Template.gutboard_slider_vineet.helpers({
     qlength: function(state) {
         try {
             const questions = Questions.find({}).fetch();
-            var profile = Meteor.user().profile;
+            var profile = Meteor.userAsync().profile;
             if (state == 0) {
                 return _.filter(questions, function(question) {
                     const answered = !profile.answered[question.hash] || profile.answered[question.hash].length < 3;
@@ -407,7 +407,7 @@ Template.gutboard_slider_vineet.events({
 
         /*//check training condition
         var userArray = TrainingQuestions.findOne({index: 0}).user_response;
-        var targetUserName = Meteor.user().username;
+        var targetUserName = Meteor.userAsync().username;
         console.log("TrainingQuestions is"+TrainingQuestions);
         alert("vvaw");
         console.log("userArray.length is "+userArray.length);
@@ -423,7 +423,7 @@ Template.gutboard_slider_vineet.events({
         }
         console.log("doneTraining is "+doneTraining);*/
 
-        const guide_completed = Meteor.user().profile.guide_completed;
+        const guide_completed = Meteor.userAsync().profile.guide_completed;
         console.log("guide_completed is " + guide_completed);
         alert("hanging in");
         //if(!doneTraining) {
@@ -583,8 +583,8 @@ Template.gutboard_slider_vineet.events({
                     var qID = Questions.insert({
                         hash: '',
                         owner: {
-                            _id: Meteor.user()._id,
-                            username: Meteor.user().username
+                            _id: Meteor.userAsync()._id,
+                            username: Meteor.userAsync().username
                         },
                         layer_1: {
                             text: primary_question
@@ -666,12 +666,12 @@ Template.gutboard_slider_vineet.events({
                     });
 
                     if (comment) {
-                        var discussed = Meteor.user().profile.discussed;
+                        var discussed = Meteor.userAsync().profile.discussed;
                         var cID = Comments.insert({
                             text: comment,
                             owner: {
-                                _id: Meteor.user()._id,
-                                username: Meteor.user().username
+                                _id: Meteor.userAsync()._id,
+                                username: Meteor.userAsync().username
                             },
                             created_at: created_at,
                             upvote_count: 0,
@@ -691,8 +691,8 @@ Template.gutboard_slider_vineet.events({
                                     text: comment,
                                     created_at: created_at,
                                     owner: {
-                                        _id: Meteor.user()._id,
-                                        username: Meteor.user().username
+                                        _id: Meteor.userAsync()._id,
+                                        username: Meteor.userAsync().username
                                     },
                                     attached_file: s3URL,
                                     attached_url: userURL
@@ -701,19 +701,19 @@ Template.gutboard_slider_vineet.events({
                         });
 
                         discussed[CryptoJS.MD5(qID).toString()] = true;
-                        Meteor.users.update(Meteor.userId(), {
+                        Meteor.users.updateAsync(Meteor.userId(), {
                             $set: {
                                 'profile.discussed': discussed
                             }
                         });
-                        // UserMetrics.update({ _id: user_metric._id }, {
+                        // UserMetrics.updateAsync({ _id: user_metric._id }, {
                         //     $set: {
                         //         number_of_comments: user_metric.number_of_comments + 1
                         //     }
                         // });
                     }
 
-                    Meteor.users.update(Meteor.userId(), {
+                    Meteor.users.updateAsync(Meteor.userId(), {
                         $push: {
                             'profile.questions': {
                                 hash: CryptoJS.MD5(qID).toString(),
@@ -754,8 +754,8 @@ Template.gutboard_slider_vineet.events({
             var qID = Questions.insert({
                 hash: '',
                 owner: {
-                    _id: Meteor.user()._id,
-                    username: Meteor.user().username
+                    _id: Meteor.userAsync()._id,
+                    username: Meteor.userAsync().username
                 },
                 layer_1: {
                     text: primary_question,
@@ -839,12 +839,12 @@ Template.gutboard_slider_vineet.events({
             });
 
             if (comment) {
-                var discussed = Meteor.user().profile.discussed;
+                var discussed = Meteor.userAsync().profile.discussed;
                 var cID = Comments.insert({
                     text: comment,
                     owner: {
-                        _id: Meteor.user()._id,
-                        username: Meteor.user().username
+                        _id: Meteor.userAsync()._id,
+                        username: Meteor.userAsync().username
                     },
                     created_at: created_at,
                     upvote_count: 0,
@@ -864,8 +864,8 @@ Template.gutboard_slider_vineet.events({
                             text: comment,
                             created_at: created_at,
                             owner: {
-                                _id: Meteor.user()._id,
-                                username: Meteor.user().username
+                                _id: Meteor.userAsync()._id,
+                                username: Meteor.userAsync().username
                             },
                             attached_file: s3URL,
                             attached_url: userURL
@@ -874,19 +874,19 @@ Template.gutboard_slider_vineet.events({
                 });
 
                 discussed[CryptoJS.MD5(qID).toString()] = true;
-                Meteor.users.update(Meteor.userId(), {
+                Meteor.users.updateAsync(Meteor.userId(), {
                     $set: {
                         'profile.discussed': discussed
                     }
                 });
-                // UserMetrics.update({ _id: user_metric._id }, {
+                // UserMetrics.updateAsync({ _id: user_metric._id }, {
                 //     $set: {
                 //         number_of_comments: user_metric.number_of_comments + 1
                 //     }
                 // });
             }
 
-            Meteor.users.update(Meteor.userId(), {
+            Meteor.users.updateAsync(Meteor.userId(), {
                 $push: {
                     'profile.questions': {
                         hash: CryptoJS.MD5(qID).toString(),

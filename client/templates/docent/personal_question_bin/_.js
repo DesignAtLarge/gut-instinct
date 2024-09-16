@@ -9,11 +9,11 @@ import {
 } from '../../../../imports/api/models.js';
 
 Template.personal_question_bin.rendered = function() {
-    if (Meteor.user()) {
-        const toured = Meteor.user().profile.toured.personal_question;
+    if (Meteor.userAsync()) {
+        const toured = Meteor.userAsync().profile.toured.personal_question;
         if (!toured) {
             introJs().setOption('showProgress', true).onchange(function(target) {
-                Meteor.users.update(Meteor.userId(), {
+                Meteor.users.updateAsync(Meteor.userId(), {
                     $set: {
                         'profile.toured.personal_question': true
                     }

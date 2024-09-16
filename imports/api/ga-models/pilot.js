@@ -87,7 +87,7 @@ Meteor.methods({
                 let exp = Meteor.call("galileo.experiments.getExperiment", expId);
 
                 // Calculate pilot data time
-                let user = Meteor.user();
+                let user = Meteor.userAsync();
 
                 // Then generate the data slot and insert into database
                 let pilot = ExperimentHelper.getPilotParticipationCommonObject(exp, user, PilotStatus.ONGOING, group, startDate, duration);

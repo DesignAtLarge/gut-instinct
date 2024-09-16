@@ -31,16 +31,16 @@ Template.tag.rendered = function() {
     });
 
     try {
-        if (Meteor.user()) {
-            const guide_completed = Meteor.user().profile.guide_completed;
-            const toured = Meteor.user().profile.toured.tag;
+        if (Meteor.userAsync()) {
+            const guide_completed = Meteor.userAsync().profile.guide_completed;
+            const toured = Meteor.userAsync().profile.toured.tag;
             //console.log("toured and intro_completed in tag page are " + toured + " " + intro_completed);
             //alert("Whaaa");
             if (guide_completed) { //intro is completed, which means the shorter tour doesnt need to be run
                 if (!toured) {
                     introJs().setOption('showProgress', true).onchange(function(target) {
                         //introJs().setOptions({'showProgress': true, 'doneLabel': 'Done tour'}).onchange(function(target) {
-                        Meteor.users.update(Meteor.userId(), {
+                        Meteor.users.updateAsync(Meteor.userId(), {
                             $set: {
                                 'profile.toured.tag': true
                             }
@@ -107,26 +107,26 @@ Template.tag.helpers({
                 name: name
             }).fetch()[0]._id;
 
-            let topics_investigated = Meteor.user().profile.topics_investigated;
+            let topics_investigated = Meteor.userAsync().profile.topics_investigated;
 
             topics_investigated[_id] = true;
 
-            Meteor.users.update(Meteor.userId(), {
+            Meteor.users.updateAsync(Meteor.userId(), {
                 $set: {
                     'profile.topics_investigated': topics_investigated
                 }
             });
 
             // check this user has visited this tag or not
-            var username = Meteor.user().username;
-            var condition = Meteor.user().profile.condition;
+            var username = Meteor.userAsync().username;
+            var condition = Meteor.userAsync().profile.condition;
 
             //docent-exp
             if (condition == 2 || condition == 4 || condition == 0 || condition == 6 || condition == 9 || condition == 11) {
                 if (Template.instance()._data.has_personal_question) {
                     var viewedUserList = Template.instance()._data.viewed_user;
 
-                    if ($.inArray(Meteor.user().username, viewedUserList) > -1) {
+                    if ($.inArray(Meteor.userAsync().username, viewedUserList) > -1) {
                         // when user has viewed, keep going, nothing happened
                     } else {
                         var pathArray = location.href.split('/');
@@ -182,8 +182,8 @@ Template.tag.helpers({
     questions: function() {
         try {
             ucondition = 0;
-            if (Meteor.user()) {
-                ucondition = Meteor.user().profile.condition;
+            if (Meteor.userAsync()) {
+                ucondition = Meteor.userAsync().profile.condition;
                 //console.log("my condition is in (questions-tag) " + ucondition);
             } else {
                 //console.log("meteor user not ready - my condition is in (questions-tag) " + ucondition);
@@ -258,7 +258,7 @@ Template.tag.helpers({
         } catch (e) {}
     },
     getFeedback: function() {
-        const topic_investigated = Meteor.user().profile.topics_investigated[Template.instance()._data._id];
+        const topic_investigated = Meteor.userAsync().profile.topics_investigated[Template.instance()._data._id];
         if (_.isUndefined(topic_investigated)) {
             return '';
         }
@@ -276,14 +276,14 @@ Template.tag.helpers({
         // console.log(this)
     },
     chose: function(index) {
-        const topic_investigated = Meteor.user().profile.topics_investigated[Template.instance()._data._id];
+        const topic_investigated = Meteor.userAsync().profile.topics_investigated[Template.instance()._data._id];
         if (_.isUndefined(topic_investigated)) {
             return false;
         }
         return topic_investigated.chose == index;
     },
     answered_tag_question: function() {
-        const topic_investigated = Meteor.user().profile.topics_investigated[Template.instance()._data._id];
+        const topic_investigated = Meteor.userAsync().profile.topics_investigated[Template.instance()._data._id];
         return topic_investigated;
         // if (_.isUndefined(topic_investigated)) {
         //     return false;
@@ -292,8 +292,8 @@ Template.tag.helpers({
     },
     isLearnCondition: function() {
         try {
-            if (Meteor.user()) {
-                var participant = Meteor.user().username;
+            if (Meteor.userAsync()) {
+                var participant = Meteor.userAsync().username;
                 if (participant[0] === 'p' && !isNaN(parseInt(participant.substring(1)))) {
                     participant = parseInt(participant.substring(1));
                     if (participant >= 11 && participant <= 15) {
@@ -306,8 +306,8 @@ Template.tag.helpers({
     },
     isCondition1: function() {
         try {
-            if (Meteor.user()) {
-                var condition = Meteor.user().profile.condition;
+            if (Meteor.userAsync()) {
+                var condition = Meteor.userAsync().profile.condition;
                 //console.log("my condition is in" + condition);
                 return condition == 1;
             }
@@ -317,8 +317,8 @@ Template.tag.helpers({
     },
     isCondition1or3or7or5: function() {
         try {
-            if (Meteor.user()) {
-                var condition = Meteor.user().profile.condition;
+            if (Meteor.userAsync()) {
+                var condition = Meteor.userAsync().profile.condition;
                 //console.log("my condition is in" + condition);
                 return condition == 1 || condition == 3 || condition == 7 || condition == 5;
             }
@@ -328,8 +328,8 @@ Template.tag.helpers({
     },
     isCondition1or3or5or8or10: function() {
         try {
-            if (Meteor.user()) {
-                var condition = Meteor.user().profile.condition;
+            if (Meteor.userAsync()) {
+                var condition = Meteor.userAsync().profile.condition;
                 //console.log("my condition is in" + condition);
                 return condition == 1 || condition == 3 || condition == 5 || condition == 8 || condition == 10;
             }
@@ -339,8 +339,8 @@ Template.tag.helpers({
     },
     isCondition1or2or7or8or9: function() {
         try {
-            if (Meteor.user()) {
-                var condition = Meteor.user().profile.condition;
+            if (Meteor.userAsync()) {
+                var condition = Meteor.userAsync().profile.condition;
                 //console.log("my condition is in" + condition);
                 return condition == 1 || condition == 2 || condition == 7 || condition == 8 || condition == 9;
             }
@@ -350,8 +350,8 @@ Template.tag.helpers({
     },
     isCondition2: function() {
         try {
-            if (Meteor.user()) {
-                var condition = Meteor.user().profile.condition;
+            if (Meteor.userAsync()) {
+                var condition = Meteor.userAsync().profile.condition;
                 //console.log("my condition is in" + condition);
                 return condition == 2;
             }
@@ -361,8 +361,8 @@ Template.tag.helpers({
     },
     isCondition7: function() {
         try {
-            if (Meteor.user()) {
-                var condition = Meteor.user().profile.condition;
+            if (Meteor.userAsync()) {
+                var condition = Meteor.userAsync().profile.condition;
                 //console.log("my condition is in" + condition);
                 return condition == 7;
             }
@@ -372,8 +372,8 @@ Template.tag.helpers({
     },
     isCondition1or2or8or9: function() {
         try {
-            if (Meteor.user()) {
-                var condition = Meteor.user().profile.condition;
+            if (Meteor.userAsync()) {
+                var condition = Meteor.userAsync().profile.condition;
                 //console.log("my condition is in" + condition);
                 return condition == 1 || condition == 2 || condition == 8 || condition == 9;
             }
@@ -383,8 +383,8 @@ Template.tag.helpers({
     },
     isCondition2or4or7or0or6or9or11: function() {
         try {
-            if (Meteor.user()) {
-                var condition = Meteor.user().profile.condition;
+            if (Meteor.userAsync()) {
+                var condition = Meteor.userAsync().profile.condition;
                 //console.log("my condition is in" + condition);
                 return condition == 2 || condition == 4 || condition == 7 || condition == 0 || condition == 6 || condition == 9 || condition == 11;
             }
@@ -394,8 +394,8 @@ Template.tag.helpers({
     },
     isCondition2or4: function() {
         try {
-            if (Meteor.user()) {
-                var condition = Meteor.user().profile.condition;
+            if (Meteor.userAsync()) {
+                var condition = Meteor.userAsync().profile.condition;
                 //console.log("my condition is in" + condition);
                 return condition == 2 || condition == 4 || condition == 0;
             }
@@ -405,8 +405,8 @@ Template.tag.helpers({
     },
     isCondition2or4or0or6or9or11: function() {
         try {
-            if (Meteor.user()) {
-                var condition = Meteor.user().profile.condition;
+            if (Meteor.userAsync()) {
+                var condition = Meteor.userAsync().profile.condition;
                 //console.log("my condition is in" + condition);
                 return condition == 2 || condition == 4 || condition == 0 || condition == 6 || condition == 9 || condition == 11;
             }
@@ -415,8 +415,8 @@ Template.tag.helpers({
         }
     },
     isIntroCompleted: function() {
-        if (Meteor.user()) {
-            const intro_completed = Meteor.user().profile.intro_completed;
+        if (Meteor.userAsync()) {
+            const intro_completed = Meteor.userAsync().profile.intro_completed;
             //console.log("intro_completed check in isintrocompleted is " + intro_completed);
             //alert("hanging in");
             return intro_completed;
@@ -424,8 +424,8 @@ Template.tag.helpers({
     },
     isGuideCompleted: function() {
         try {
-            if (Meteor.user()) {
-                const guide_completed = Meteor.user().profile.guide_completed;
+            if (Meteor.userAsync()) {
+                const guide_completed = Meteor.userAsync().profile.guide_completed;
                 //console.log("intro_completed check in isintrocompleted is " + intro_completed);
                 //alert("hanging in");
                 return guide_completed;
@@ -452,7 +452,7 @@ Template.tag.helpers({
     },
     personal_question_exist: function() {
         try {
-            if (Meteor.user()) {
+            if (Meteor.userAsync()) {
                 var currentQueryTag = window.location.pathname.split('/').filter(function(el) {
                     return !!el;
                 }).pop();
@@ -556,17 +556,17 @@ Template.tag.events({
     },
     'click #go-to-guide-btn': function(event) {
         try {
-            if (Meteor.user() && Meteor.user().profile.condition == 7) {
-                //console.log("intro_completed before is "+ Meteor.user().profile.intro_completed);
+            if (Meteor.userAsync() && Meteor.userAsync().profile.condition == 7) {
+                //console.log("intro_completed before is "+ Meteor.userAsync().profile.intro_completed);
                 //console.log("updating intro_completed bit");
                 //alert("whaa");
-                Meteor.users.update(Meteor.userId(), {
+                Meteor.users.updateAsync(Meteor.userId(), {
                     $set: {
                         'profile.guide_completed': true
                     }
                 });
                 //console.log("updated intro_completed bit");
-                //console.log("guide_completed after is "+ Meteor.user().profile.intro_completed);
+                //console.log("guide_completed after is "+ Meteor.userAsync().profile.intro_completed);
                 //alert("just hanging in");
             }
         } catch (e) {}
@@ -602,7 +602,7 @@ Template.tag.events({
 
         var userContent = $("#add-learning-note-input").val();
         var currentTime = ($("#tag-video-element")[0].currentTime).toFixed(2);
-        var currentUser = Meteor.user().username;
+        var currentUser = Meteor.userAsync().username;
 
         var currentQueryTag = window.location.pathname.split('/').filter(function(el) {
             return !!el;
@@ -729,7 +729,7 @@ Template.tag.events({
     //     const scID = ScienceCollabs.insert({
     //         hashcode: '',
     //         text: contrib,
-    //         writer: { _id: Meteor.userId(), username: Meteor.user().username },
+    //         writer: { _id: Meteor.userId(), username: Meteor.userAsync().username },
     //         created_at: created_at
     //     });
     //     ScienceCollabs.update(scID, {
@@ -742,7 +742,7 @@ Template.tag.events({
     //             contributions: {
     //                 hashcode: CryptoJS.MD5(scID).toString(),
     //                 text: contrib,
-    //                 writer: { _id: Meteor.userId(), username: Meteor.user().username },
+    //                 writer: { _id: Meteor.userId(), username: Meteor.userAsync().username },
     //                 created_at: created_at
     //             }
     //         }
@@ -755,7 +755,7 @@ Template.tag.events({
     //     event.target.contrib.value = '';
     // },
     'click #addQuestiontoGutBoard': function(event, instance) {
-        const guide_completed = Meteor.user().profile.guide_completed;
+        const guide_completed = Meteor.userAsync().profile.guide_completed;
         //console.log("guide_completed is " + guide_completed);
         if (!guide_completed) {
             //alert("1.1");
@@ -769,7 +769,7 @@ Template.tag.events({
     },
 
     /*'click #addQuestionControlr': function(event, instance) {
-     const intro_completed = Meteor.user().profile.intro_completed;
+     const intro_completed = Meteor.userAsync().profile.intro_completed;
      console.log("intro_completed is "+intro_completed);
      //alert("hanging in");
      if(!intro_completed){
@@ -830,7 +830,7 @@ Template.tag.events({
             }
 
             var targetID = personalFetchResult[i]._id;
-            var targetUser = Meteor.user().username;
+            var targetUser = Meteor.userAsync().username;
 
             if (checkExtra) {
                 // user choose the extra option
@@ -842,7 +842,7 @@ Template.tag.events({
                 var newText = $('#tag-' + currentCluster + "-answer-extra-text-text").val();
 
                 //userRes = currentCluster + "-" + currentPushIndex;
-                var newAuthor = Meteor.user().username;
+                var newAuthor = Meteor.userAsync().username;
 
                 Meteor.call('personalQuestions.pushChoices', targetID, currentCluster, newIndex, "None", newText, newAuthor);
                 // PersonalQuestions.update({
@@ -895,7 +895,7 @@ Template.tag.events({
             hashcode: hashcode
         }).fetch()[0]
         const correct_answer = $(event.target).parent().find('#tag-question-answer-' + tag_question.correct_answer);
-        const topics_investigated = Meteor.user().profile.topics_investigated;
+        const topics_investigated = Meteor.userAsync().profile.topics_investigated;
         if (correct_answer.is(':checked')) {
             // const answer_text = tag_question.choices[tag_question.correct_answer].text;
             // $('.tag-question-feedback').text(tag_question.);
@@ -924,7 +924,7 @@ Template.tag.events({
                 'color': '#F44336'
             });
         }
-        Meteor.users.update(Meteor.userId(), {
+        Meteor.users.updateAsync(Meteor.userId(), {
             $set: {
                 'profile.topics_investigated': topics_investigated
             }

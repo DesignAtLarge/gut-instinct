@@ -13,11 +13,11 @@ Template.guide_question_module.onCreated(function() {
 Template.guide_question_module.rendered = function() {
 
     try {
-        if (Meteor.user()) {
-            const toured = Meteor.user().profile.toured.guide_question_module;
+        if (Meteor.userAsync()) {
+            const toured = Meteor.userAsync().profile.toured.guide_question_module;
             if (!toured) {
                 introJs().setOption('showProgress', true).onchange(function(target) {
-                    Meteor.users.update(Meteor.userId(), {
+                    Meteor.users.updateAsync(Meteor.userId(), {
                         $set: {
                             'profile.toured.guide_question_module': true
                         }
@@ -35,8 +35,8 @@ Template.guide_question_module.rendered = function() {
 Template.guide_question_module.helpers({
     isIntroCompleted: function() {
         try {
-            if (Meteor.user()) {
-                const intro_completed = Meteor.user().profile.intro_completed;
+            if (Meteor.userAsync()) {
+                const intro_completed = Meteor.userAsync().profile.intro_completed;
                 //console.log("intro_completed check in isintrocompleted is " + intro_completed);
                 //alert("hanging in");
                 return intro_completed;

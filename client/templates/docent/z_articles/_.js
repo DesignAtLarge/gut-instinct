@@ -25,11 +25,11 @@ Template.articles.rendered = function() {
     } catch (e) {}
 
     try {
-        const toured = Meteor.user().profile.toured.articles;
+        const toured = Meteor.userAsync().profile.toured.articles;
 
         if (!toured) {
             introJs().setOption('showProgress', true).onchange(function(target) {
-                Meteor.users.update(Meteor.userId(), {
+                Meteor.users.updateAsync(Meteor.userId(), {
                     $set: {
                         'profile.toured.articles': true
                     }

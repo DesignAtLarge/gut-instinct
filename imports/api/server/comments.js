@@ -11,8 +11,8 @@ Meteor.methods({
         let cID = Comments.insert({
             text: comment,
             owner: {
-                username: Meteor.user().username,
-                _id: Meteor.user()._id
+                username: Meteor.userAsync().username,
+                _id: Meteor.userAsync()._id
             },
             created_at: created_at,
             attached_file: s3URL,

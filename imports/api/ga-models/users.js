@@ -20,7 +20,7 @@ Meteor.methods({
     },
     'galileo.users.sendOnBoardingEmail': function() {
         console.log('~~~~~sendOnBoardingEmail beginning');
-        let user = Meteor.user();
+        let user = Meteor.userAsync();
 
         if (!user) {
             return;

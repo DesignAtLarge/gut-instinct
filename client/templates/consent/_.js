@@ -1,5 +1,6 @@
 import './_.html';
 import { Template } from 'meteor/templating';
+import { redirect } from '../../../imports/api/ga-routes.js';
 
 Template.consent.events({
     'submit form': function(event) {
@@ -17,11 +18,11 @@ Template.consent.events({
 
         if (window.location.pathname === '/galileo/consent') {
             // Router.go('/galileo/landing');
-            Router.go('/galileo/username');
+            redirect('/galileo/username');
         } else {
             //Router.go('/intro');
             //Vineet editing to hardcode Galileo rather than giving an intro
-            Router.go('/galileo/username');
+            redirect('/galileo/username');
         }
     }
 });

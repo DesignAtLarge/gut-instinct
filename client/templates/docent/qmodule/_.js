@@ -32,11 +32,11 @@ Template.qmodule.rendered = function() {
     });
 
     try {
-        if (Meteor.user()) {
-            const toured = Meteor.user().profile.toured.qmodule;
+        if (Meteor.userAsync()) {
+            const toured = Meteor.userAsync().profile.toured.qmodule;
             if (!toured) {
                 introJs().setOption('showProgress', true).onchange(function(target) {
-                    Meteor.users.update(Meteor.userId(), {
+                    Meteor.users.updateAsync(Meteor.userId(), {
                         $set: {
                             'profile.toured.qmodule': true
                         }
@@ -51,7 +51,7 @@ Template.qmodule.rendered = function() {
             var currentResponseArr = currentLayer1.user_response;
 
             var currentQuestionID = currentHash;
-            var currentUsername = Meteor.user().username;
+            var currentUsername = Meteor.userAsync().username;
 
             for (var k = 0; k < currentResponseArr.length; k++) {
                 if (currentResponseArr[k].username == currentUsername) {
@@ -147,7 +147,7 @@ Template.qmodule.rendered = function() {
 
 Template.qmodule.helpers({
     init: function(hashcode) {
-        if (Meteor.user().profile.answered[hashcode][0]) {
+        if (Meteor.userAsync().profile.answered[hashcode][0]) {
             $('.layer-2').show();
         }
         //console.log('current id is ' + this._id);
@@ -172,7 +172,7 @@ Template.qmodule.helpers({
     },
     followup_answer: function(hashcode) {
         try {
-            return Meteor.user().profile.answered[hashcode][1] || '';
+            return Meteor.userAsync().profile.answered[hashcode][1] || '';
         } catch (e) {
             return '';
         }
@@ -226,14 +226,14 @@ Template.qmodule.helpers({
     },
     owns: function(_id) {
         try {
-            return Meteor.user()._id === _id;
+            return Meteor.userAsync()._id === _id;
         } catch (e) {
             return false;
         }
     },
     answered: function(answer) {
         try {
-            return Meteor.user().profile.answered[this.hash][0] === answer;
+            return Meteor.userAsync().profile.answered[this.hash][0] === answer;
         } catch (e) {
             return true;
         }
@@ -263,9 +263,9 @@ Template.qmodule.helpers({
     },
     layer2Viewable: function() {
         try {
-            if (Meteor.user()) {
+            if (Meteor.userAsync()) {
                 // //console.log(this);
-                var currentUserName = Meteor.user().username;
+                var currentUserName = Meteor.userAsync().username;
                 // //console.log("layer2 user check: " + currentUserName);
                 var question = Questions.findOne({
                     _id: this._id
@@ -281,21 +281,21 @@ Template.qmodule.helpers({
                 }
                 return false;
 
-                // return Router.current().route.getName() === 'q.:hashcode' && Meteor.user().profile.answered[this.hash][0];
+                // return Router.current().route.getName() === 'q.:hashcode' && Meteor.userAsync().profile.answered[this.hash][0];
             }
         } catch (e) {}
     },
     layer2Submitted: function() {
         return false;
-        // return !!Meteor.user().profile.answered[this.hash][1];
+        // return !!Meteor.userAsync().profile.answered[this.hash][1];
     },
     isUserExpert: function() {
         try {
-            if (Meteor.user()) {
-                return (Meteor.user().username === 'expert') || (Meteor.user().username === 'knightlab') ||
-                    (Meteor.user().username === 'e001') || (Meteor.user().username === 'e002') ||
-                    (Meteor.user().username === 'e003') || (Meteor.user().username === 'e004') ||
-                    (Meteor.user().username === 'e005');
+            if (Meteor.userAsync()) {
+                return (Meteor.userAsync().username === 'expert') || (Meteor.userAsync().username === 'knightlab') ||
+                    (Meteor.userAsync().username === 'e001') || (Meteor.userAsync().username === 'e002') ||
+                    (Meteor.userAsync().username === 'e003') || (Meteor.userAsync().username === 'e004') ||
+                    (Meteor.userAsync().username === 'e005');
             } else {
                 ////console.log("meteor user in isUserExpert");
             }
@@ -303,7 +303,7 @@ Template.qmodule.helpers({
     },
     isInBKDB: function() {
         try {
-            if (Meteor.user()) {
+            if (Meteor.userAsync()) {
                 var targetID = this._id;
 
                 searchid = this._id;
@@ -317,8 +317,8 @@ Template.qmodule.helpers({
                 var fetchResult = Bookmarks.findOne({
                     "typeid": insertTypeID,
                     owner: {
-                        username: Meteor.user().username,
-                        _id: Meteor.user()._id
+                        username: Meteor.userAsync().username,
+                        _id: Meteor.userAsync()._id
                     }
                 });
 
@@ -333,7 +333,7 @@ Template.qmodule.helpers({
     isInFlaggedQues: function() {
         console.log("in isflaggedques");
         try {
-            if (Meteor.user()) {
+            if (Meteor.userAsync()) {
                 var targetID = this._id;
 
                 searchid = this._id;
@@ -365,8 +365,8 @@ Template.qmodule.helpers({
     },
     ownsMechanism: function() {
         try {
-            if (Meteor.user())
-                return this.owner.username == Meteor.user().username;
+            if (Meteor.userAsync())
+                return this.owner.username == Meteor.userAsync().username;
         } catch (e) {}
     },
     getFeedback: function(mechanism) {
@@ -379,10 +379,10 @@ Template.qmodule.helpers({
     },
     hasFeedbackOrExpert: function() {
         try {
-            if ((Meteor.user().username === 'expert') || this.layer_1.mechanism.feedback.text || (Meteor.user().username === 'knightlab') ||
-                (Meteor.user().username === 'e001') || (Meteor.user().username === 'e002') ||
-                (Meteor.user().username === 'e003') || (Meteor.user().username === 'e004') ||
-                (Meteor.user().username === 'e005'))
+            if ((Meteor.userAsync().username === 'expert') || this.layer_1.mechanism.feedback.text || (Meteor.userAsync().username === 'knightlab') ||
+                (Meteor.userAsync().username === 'e001') || (Meteor.userAsync().username === 'e002') ||
+                (Meteor.userAsync().username === 'e003') || (Meteor.userAsync().username === 'e004') ||
+                (Meteor.userAsync().username === 'e005'))
                 return true;
             else return false;
         } catch (e) {}
@@ -405,11 +405,11 @@ Template.qmodule.helpers({
             return comment.downvote_count;
     },
     upvoted: function(hashcode) {
-        var voted = Meteor.user().profile.voted;
+        var voted = Meteor.userAsync().profile.voted;
         return voted[hashcode] === 'upvote';
     },
     downvoted: function(hashcode) {
-        var voted = Meteor.user().profile.voted;
+        var voted = Meteor.userAsync().profile.voted;
         return voted[hashcode] === 'downvote';
     },
     hasFile: function(hashcode) {
@@ -432,8 +432,8 @@ Template.qmodule.helpers({
     },
     isCondition2or4or0or6or9or11: function() {
         try {
-            if (Meteor.user()) {
-                var condition = Meteor.user().profile.condition;
+            if (Meteor.userAsync()) {
+                var condition = Meteor.userAsync().profile.condition;
                 //console.log("my condition is in" + condition);
                 return condition == 2 || condition == 4 || condition == 0 || condition == 6 || condition == 9 || condition == 11;
             }
@@ -459,11 +459,7 @@ Template.qmodule.events({
     //     $(event.target).hide();
     //     $(event.target).parent().find(".addOptionInput").show();
     // },
-    'change .toplevelOption': _.debounce(function(event) {
-        $(event.target).parent().parent().parent().find(".saveOptionChoice").attr("from-add", false);
-        $(event.target).parent().parent().parent().find(".saveOptionChoice").trigger("click");
-    }, 1000),
-
+   
     'click .saveOptionChoice': function(event) {
 
         var currentLayer1 = Questions.findOne({
@@ -484,7 +480,7 @@ Template.qmodule.events({
 
         var currentUserResponse = currentLayer1.user_response;
         var currentUserResponseStats = currentLayer1.stats;
-        var currentUsername = Meteor.user().username;
+        var currentUsername = Meteor.userAsync().username;
 
         for (var i = 0; i < currentUserResponse.length; i++) {
             if (currentUserResponse[i].username == currentUsername) {
@@ -517,7 +513,7 @@ Template.qmodule.events({
         var noticeString = "Question: " + noticeQuestion.layer_1.text;
 
         // insert notification only you are not operating your questions
-        var sameUserCheck = searchOwnerName != Meteor.user().username;
+        var sameUserCheck = searchOwnerName != Meteor.userAsync().username;
 
         if (userAddOptionValue !== '') {
             let inst = this;
@@ -579,7 +575,7 @@ Template.qmodule.events({
             }, {
                 $push: {
                     'layer_1.user_response': {
-                        'username': Meteor.user().username,
+                        'username': Meteor.userAsync().username,
                         'response': userResponseArr
                     }
                 }
@@ -666,7 +662,7 @@ Template.qmodule.events({
             }, {
                 $push: {
                     'layer_1.user_response': {
-                        'username': Meteor.user().username,
+                        'username': Meteor.userAsync().username,
                         'response': userResponseArr
                     }
                 }
@@ -751,7 +747,7 @@ Template.qmodule.events({
                     hash: currentHash
                 }).layer_1.user_response;
                 var currentQuestionID = currentHash;
-                var currentUsername = Meteor.user().username;
+                var currentUsername = Meteor.userAsync().username;
 
                 for (var k = 0; k < currentResponseArr.length; k++) {
                     if (currentResponseArr[k].username == currentUsername) {
@@ -813,7 +809,7 @@ Template.qmodule.events({
         var noticeString = "Question: " + noticeQuestion.layer_1.text;
 
         // insert notification only you are not operating your questions
-        var sameUserCheck = searchOwnerName != Meteor.user().username;
+        var sameUserCheck = searchOwnerName != Meteor.userAsync().username;
 
         let inst = this;
         let currentQuestionOwner = Questions.findOne({
@@ -953,7 +949,7 @@ Template.qmodule.events({
 
         // insert notification only you are not operating your questions
         let inst = this;
-        var sameUserCheck = searchOwnerName != Meteor.user().username;
+        var sameUserCheck = searchOwnerName != Meteor.userAsync().username;
         if (sameUserCheck) {
             let inst = this;
             let currentQuestionOwner = Questions.findOne({
@@ -1042,10 +1038,7 @@ Template.qmodule.events({
     },
 
 
-    'change .followupOption': _.debounce(function(event) {
-        $(event.target).parent().parent().find(".saveFollowOptionChoice").attr("from-add", false);
-        $(event.target).parent().parent().find(".saveFollowOptionChoice").trigger("click");
-    }, 1000),
+   
 
 
     'click .saveFollowOptionChoice': function(event) {
@@ -1074,7 +1067,7 @@ Template.qmodule.events({
             var prevRes = prevDBRes.layer_2_user_response;
             for (var index = 0; index < prevRes.length; index++) {
                 if ((prevRes[index].layer_2_index == targetLayer2Index) && (prevRes[index].username ==
-                        Meteor.user().username)) {
+                        Meteor.userAsync().username)) {
                     //console.log('found prev res');
                     var prevLayer2 = prevDBRes.layer_2;
 
@@ -1155,7 +1148,7 @@ Template.qmodule.events({
                     $push: {
                         'layer_2_user_response': {
                             'layer_2_index': targetLayer2Index,
-                            'username': Meteor.user().username,
+                            'username': Meteor.userAsync().username,
                             'response': userResponseArr
                         }
                     }
@@ -1195,7 +1188,7 @@ Template.qmodule.events({
                 });
                 let inst = this;
 
-                if ('username' in currentQuestionOwner && Meteor.user().username != currentQuestionOwner.username) {
+                if ('username' in currentQuestionOwner && Meteor.userAsync().username != currentQuestionOwner.username) {
                     //console.log("Sending email to " + currentQuestionOwner.username + " ...");
                     let currentQuestionOwnerProfile = UserEmail.findOne({
                         username: currentQuestionOwner.username
@@ -1251,7 +1244,7 @@ Template.qmodule.events({
                     $push: {
                         'layer_2_user_response': {
                             'layer_2_index': targetLayer2Index,
-                            'username': Meteor.user().username,
+                            'username': Meteor.userAsync().username,
                             'response': userResponseArr
                         }
                     }
@@ -1314,7 +1307,7 @@ Template.qmodule.events({
 
                     for (var k = 0; k < l2CurrentResponseArr.length; k++) {
 
-                        if (l2CurrentResponseArr[k].username === Meteor.user().username) {
+                        if (l2CurrentResponseArr[k].username === Meteor.userAsync().username) {
                             ////console.log('username matched l2');
                             var targetUserResponse = l2CurrentResponseArr[k].response;
 
@@ -1379,8 +1372,8 @@ Template.qmodule.events({
         var fetchResult = Bookmarks.findOne({
             "typeid": insertTypeID,
             owner: {
-                username: Meteor.user().username,
-                _id: Meteor.user()._id
+                username: Meteor.userAsync().username,
+                _id: Meteor.userAsync()._id
             }
         });
 
@@ -1391,8 +1384,8 @@ Template.qmodule.events({
                 "type": "q",
                 "typeid": insertTypeID,
                 owner: {
-                    username: Meteor.user().username,
-                    _id: Meteor.user()._id
+                    username: Meteor.userAsync().username,
+                    _id: Meteor.userAsync()._id
                 }
             });
 
@@ -1468,8 +1461,8 @@ Template.qmodule.events({
                 "type": "q",
                 "typeid": insertTypeID,
                 flagged_by: {
-                    username: Meteor.user().username,
-                    _id: Meteor.user()._id
+                    username: Meteor.userAsync().username,
+                    _id: Meteor.userAsync()._id
                 }
             });
     },
@@ -1507,8 +1500,8 @@ Template.qmodule.events({
         var fetchResult = Bookmarks.findOne({
             "typeid": insertTypeID,
             owner: {
-                username: Meteor.user().username,
-                _id: Meteor.user()._id
+                username: Meteor.userAsync().username,
+                _id: Meteor.userAsync()._id
             }
         });
 
@@ -1523,8 +1516,8 @@ Template.qmodule.events({
         //         "type": "q",
         //         "typeid": insertTypeID,
         //         owner: {
-        //             username: Meteor.user().username,
-        //             _id: Meteor.user()._id
+        //             username: Meteor.userAsync().username,
+        //             _id: Meteor.userAsync()._id
         //         }
         //     });
 
@@ -1599,11 +1592,11 @@ Template.qmodule.events({
         target.slideDown();
 
         var self = this;
-        var answered = Meteor.user().profile.answered;
+        var answered = Meteor.userAsync().profile.answered;
         answered[self.hash] = answered[self.hash] || [];
         answered[self.hash][1] = followup_answer;
 
-        Meteor.users.update(Meteor.userId(), {
+        Meteor.users.updateAsync(Meteor.userId(), {
             $set: {
                 'profile.answered': answered
             }
@@ -1630,11 +1623,11 @@ Template.qmodule.events({
             target.slideDown();
 
             var self = this;
-            var answered = Meteor.user().profile.answered;
+            var answered = Meteor.userAsync().profile.answered;
             answered[self.hash] = answered[self.hash] || [];
             answered[self.hash][1] = followup_answer;
 
-            Meteor.users.update(Meteor.userId(), {
+            Meteor.users.updateAsync(Meteor.userId(), {
                 $set: {
                     'profile.answered': answered
                 }
@@ -1652,11 +1645,11 @@ Template.qmodule.events({
         target.slideDown();
 
         var self = this;
-        var answered = Meteor.user().profile.answered;
+        var answered = Meteor.userAsync().profile.answered;
         answered[self.hash] = answered[self.hash] || [];
         answered[self.hash][1] = '';
 
-        Meteor.users.update(Meteor.userId(), {
+        Meteor.users.updateAsync(Meteor.userId(), {
             $set: {
                 'profile.answered': answered
             }
@@ -1664,10 +1657,10 @@ Template.qmodule.events({
     },
     'click .see-more': function(event) {
         var self = this;
-        var answered = Meteor.user().profile.answered;
+        var answered = Meteor.userAsync().profile.answered;
         answered[self.hash] = answered[self.hash] || [];
         answered[self.hash][2] = true;
-        Meteor.users.update(Meteor.userId(), {
+        Meteor.users.updateAsync(Meteor.userId(), {
             $set: {
                 'profile.answered': answered
             }
@@ -1825,7 +1818,7 @@ Template.qmodule.events({
         }
 
         currentHistory.push({
-            editor: Meteor.user().username,
+            editor: Meteor.userAsync().username,
             oldText: currentLayer1.text,
             created_at: created_at
         });
@@ -1938,7 +1931,7 @@ Template.qmodule.events({
         }
 
         currentHistory.push({
-            editor: Meteor.user().username,
+            editor: Meteor.userAsync().username,
             oldText: currentLayer2[foundLayer2ID].question,
             created_at: created_at
         });
@@ -1994,7 +1987,7 @@ Template.qmodule.events({
         }
 
         currentEditHistory.push({
-            editor: Meteor.user().username,
+            editor: Meteor.userAsync().username,
             oldText: currentLayer1.options[targetOptionArrayIndex].option_text,
             created_at: created_at
         });
@@ -2044,7 +2037,7 @@ Template.qmodule.events({
     },
     'click .upvote': function() {
         const hashcode = this.hashcode;
-        var voted = Meteor.user().profile.voted;
+        var voted = Meteor.userAsync().profile.voted;
         const comment = Comments.find({
             "hashcode": hashcode
         }).fetch()[0]
@@ -2058,7 +2051,7 @@ Template.qmodule.events({
 
         voted[hashcode] = voted[hashcode] === 'upvote' ? '' : 'upvote';
 
-        Meteor.users.update(Meteor.userId(), {
+        Meteor.users.updateAsync(Meteor.userId(), {
             $set: {
                 'profile.voted': voted
             }
@@ -2066,7 +2059,7 @@ Template.qmodule.events({
     },
     'click .downvote': function() {
         const hashcode = this.hashcode;
-        var voted = Meteor.user().profile.voted;
+        var voted = Meteor.userAsync().profile.voted;
         const comment = Comments.find({
             "hashcode": hashcode
         }).fetch()[0]
@@ -2080,7 +2073,7 @@ Template.qmodule.events({
 
         voted[hashcode] = voted[hashcode] === 'downvote' ? '' : 'downvote';
 
-        Meteor.users.update(Meteor.userId(), {
+        Meteor.users.updateAsync(Meteor.userId(), {
             $set: {
                 'profile.voted': voted
             }
@@ -2093,12 +2086,12 @@ Template.qmodule.events({
         const user_metric = UserMetrics.find({
             user_id: Meteor.userId()
         }).fetch()[0];
-        var discussed = Meteor.user().profile.discussed || {};
+        var discussed = Meteor.userAsync().profile.discussed || {};
         var cID = Comments.insert({
             text: event.target[0].value,
             owner: {
-                _id: Meteor.user()._id,
-                username: Meteor.user().username
+                _id: Meteor.userAsync()._id,
+                username: Meteor.userAsync().username
             },
             created_at: created_at,
             upvote_count: 0,
@@ -2123,7 +2116,7 @@ Template.qmodule.events({
 
         // insert notification only you are not operating your questions
         let inst = this;
-        var sameUserCheck = searchOwnerName != Meteor.user().username;
+        var sameUserCheck = searchOwnerName != Meteor.userAsync().username;
         if (sameUserCheck) {
             let inst = this;
             let currentQuestionOwner = Questions.findOne({
@@ -2166,8 +2159,8 @@ Template.qmodule.events({
                         $each: [{
                             hashcode: CryptoJS.MD5(cID).toString(),
                             owner: {
-                                _id: Meteor.user()._id,
-                                username: Meteor.user().username
+                                _id: Meteor.userAsync()._id,
+                                username: Meteor.userAsync().username
                             },
                             text: event.target.comment.value,
                             created_at: created_at,
@@ -2183,7 +2176,7 @@ Template.qmodule.events({
 
         discussed[CryptoJS.MD5(instance._id._str || instance._id).toString()] = true;
 
-        Meteor.users.update(Meteor.userId(), {
+        Meteor.users.updateAsync(Meteor.userId(), {
             $set: {
                 'profile.discussed': discussed
             }
@@ -2271,7 +2264,7 @@ Template.qmodule.events({
     'click #researcherFeedbackBtn': function(event) {
         const created_at = new Date();
         const feedback = $(event.target).parent().find('.researcherFeedback').val().trim();
-        Meteor.call('questions.setFeedback', this._id, feedback, Meteor.user().username, created_at);
+        Meteor.call('questions.setFeedback', this._id, feedback, Meteor.userAsync().username, created_at);
         var noticeQuestion = Questions.findOne({
             _id: this._id
         });
@@ -2281,7 +2274,7 @@ Template.qmodule.events({
 
         // insert notification only you are not operating your questions
         let inst = this;
-        var sameUserCheck = searchOwnerName != Meteor.user().username;
+        var sameUserCheck = searchOwnerName != Meteor.userAsync().username;
 
         if (sameUserCheck) {
             let inst = this;

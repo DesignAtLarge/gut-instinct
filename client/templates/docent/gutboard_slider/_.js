@@ -66,8 +66,8 @@ Template.gutboard_slider.rendered = function() {
     $('#tags_entry').material_chip();
 
     try {
-        if (Meteor.user()) {
-            const toured = Meteor.user().profile.toured.gutboard_slider;
+        if (Meteor.userAsync()) {
+            const toured = Meteor.userAsync().profile.toured.gutboard_slider;
             //console.log("toured in gutboard_slider " + toured)
             if (!toured) {
                 introJs().setOption('showProgress', true).onchange(function(target) {
@@ -173,11 +173,11 @@ Template.gutboard_slider.helpers({
     },
     isUserExpert: function() {
         try {
-            if (Meteor.user()) {
-                return (Meteor.user().username === 'expert') || (Meteor.user().username === 'knightlab') ||
-                    (Meteor.user().username === 'e001') || (Meteor.user().username === 'e002') ||
-                    (Meteor.user().username === 'e003') || (Meteor.user().username === 'e004') ||
-                    (Meteor.user().username === 'e005');
+            if (Meteor.userAsync()) {
+                return (Meteor.userAsync().username === 'expert') || (Meteor.userAsync().username === 'knightlab') ||
+                    (Meteor.userAsync().username === 'e001') || (Meteor.userAsync().username === 'e002') ||
+                    (Meteor.userAsync().username === 'e003') || (Meteor.userAsync().username === 'e004') ||
+                    (Meteor.userAsync().username === 'e005');
             } else {
                 ////console.log("meteor user in isUserExpert");
             }
@@ -190,7 +190,7 @@ Template.gutboard_slider.helpers({
             return;
         }
 
-        var targetUser = Meteor.user().username;
+        var targetUser = Meteor.userAsync().username;
         localStorage.setItem("currentUserName", targetUser);
 
         return _.sortBy(Questions.find({}).fetch(), function(object) {
@@ -202,7 +202,7 @@ Template.gutboard_slider.helpers({
     },
     questions: function() {
         // try {
-        //     if (Meteor.user()) {
+        //     if (Meteor.userAsync()) {
         //         //console.log(mongoJsonify(sessionStorage.getItem('MENDELQs')));
         //         var db_question = _.sortBy(mongoJsonify(sessionStorage.getItem('MENDELQs')), function(object) {
         //                     var d = new Date(object.created_at);
@@ -216,12 +216,12 @@ Template.gutboard_slider.helpers({
         // } catch(e) {}
 
         try {
-            if (Meteor.user()) {
+            if (Meteor.userAsync()) {
                 var currentMendel = sessionStorage.mendelcode;
                 //console.log("GET QUESTION SESSION - " + currentMendel);
                 ucondition = 0;
-                if (Meteor.user()) {
-                    ucondition = Meteor.user().profile.condition;
+                if (Meteor.userAsync()) {
+                    ucondition = Meteor.userAsync().profile.condition;
                     //console.log("my condition is in (questions) " + ucondition);
                 } else {
                     console.log("meteor user not ready - my condition is in (questions) " + ucondition);
@@ -310,12 +310,12 @@ Template.gutboard_slider.helpers({
     },
     getNewQuestionCountsbyCondition: function() {
         try {
-            if (Meteor.user()) {
+            if (Meteor.userAsync()) {
                 //var fetchArr = Questions.find({}).fetch();
                 //get user condition first
                 ucondition = 0;
-                if (Meteor.user()) {
-                    ucondition = Meteor.user().profile.condition;
+                if (Meteor.userAsync()) {
+                    ucondition = Meteor.userAsync().profile.condition;
                     //console.log("my condition is in (getnewquestions) " + ucondition);
                 } else {
                     console.log("meteor user not ready - my condition is in (getnewquestions) " + ucondition);
@@ -394,11 +394,11 @@ Template.gutboard_slider.helpers({
     },
     getBookmarkQuestionCounts: function() {
         try {
-            if (Meteor.user()) {
+            if (Meteor.userAsync()) {
                 var fetchArr = Bookmarks.find({
                     owner: {
-                        username: Meteor.user().username,
-                        _id: Meteor.user()._id,
+                        username: Meteor.userAsync().username,
+                        _id: Meteor.userAsync()._id,
                     }
                 }).fetch();
                 return fetchArr.length;
@@ -407,10 +407,10 @@ Template.gutboard_slider.helpers({
     },
     getWrittenQuestionCounts: function() {
         try {
-            if (Meteor.user()) {
+            if (Meteor.userAsync()) {
                 var fetchArr = Questions.find({
                     owner: {
-                        username: Meteor.user().username,
+                        username: Meteor.userAsync().username,
                         _id: Meteor.userId()
                     }
                 }).fetch();
@@ -448,8 +448,8 @@ Template.gutboard_slider.helpers({
         //get user condition first
         ucondition = 0;
         try {
-            if (Meteor.user()) {
-                ucondition = Meteor.user().profile.condition;
+            if (Meteor.userAsync()) {
+                ucondition = Meteor.userAsync().profile.condition;
                 //console.log("my condition is in (getstarred)" + ucondition);
                 var fetchArr;
 
@@ -495,8 +495,8 @@ Template.gutboard_slider.helpers({
     },
     isCondition3: function() {
         try {
-            if (Meteor.user()) {
-                var condition = Meteor.user().profile.condition;
+            if (Meteor.userAsync()) {
+                var condition = Meteor.userAsync().profile.condition;
                 //console.log("my condition is in" + condition);
                 return condition == 3;
             }
@@ -506,8 +506,8 @@ Template.gutboard_slider.helpers({
     },
     isCondition3or4: function() {
         try {
-            if (Meteor.user()) {
-                var condition = Meteor.user().profile.condition;
+            if (Meteor.userAsync()) {
+                var condition = Meteor.userAsync().profile.condition;
                 //console.log("my condition is in" + condition);
                 return condition == 3 || condition == 4;
             }
@@ -517,8 +517,8 @@ Template.gutboard_slider.helpers({
     },
     isCondition2or4or9or11: function() {
         try {
-            if (Meteor.user()) {
-                var condition = Meteor.user().profile.condition;
+            if (Meteor.userAsync()) {
+                var condition = Meteor.userAsync().profile.condition;
                 //console.log("my condition is in" + condition);
                 return condition == 2 || condition == 4 || condition == 9 || condition == 11;
             }
@@ -528,8 +528,8 @@ Template.gutboard_slider.helpers({
     },
     isCondition1: function() {
         try {
-            if (Meteor.user()) {
-                var condition = Meteor.user().profile.condition;
+            if (Meteor.userAsync()) {
+                var condition = Meteor.userAsync().profile.condition;
                 //console.log("my condition is in" + condition);
                 return condition == 1;
             }
@@ -541,11 +541,11 @@ Template.gutboard_slider.helpers({
         //this function will return all the bookmarks
         //add the user check on the bookmark
         try {
-            if (Meteor.user()) {
+            if (Meteor.userAsync()) {
                 var rawbk = Bookmarks.find({
                     owner: {
-                        username: Meteor.user().username,
-                        _id: Meteor.user()._id,
+                        username: Meteor.userAsync().username,
+                        _id: Meteor.userAsync()._id,
                     }
                 }).fetch();
 
@@ -583,8 +583,8 @@ Template.gutboard_slider.helpers({
 
     getStarQuestionsbyCondition: function() {
         ucondition = 0;
-        if (Meteor.user()) {
-            ucondition = Meteor.user().profile.condition;
+        if (Meteor.userAsync()) {
+            ucondition = Meteor.userAsync().profile.condition;
             //console.log("my condition is in (starred_questions) " + ucondition);
         } else {
             console.log("meteor user not ready - my condition is in (starred_questions) " + ucondition);
@@ -630,14 +630,14 @@ Template.gutboard_slider.helpers({
     },
     getMineQuestions: function() {
         try {
-            if (Meteor.user()) {
+            if (Meteor.userAsync()) {
                 let currentMendel = sessionStorage.mendelcode;
                 return Questions.find(
 
                     {
                         $and: [{
                                 owner: {
-                                    username: Meteor.user().username,
+                                    username: Meteor.userAsync().username,
                                     _id: Meteor.userId()
                                 }
                             },
@@ -655,8 +655,8 @@ Template.gutboard_slider.helpers({
     qaccept: function(hashcode) {
         const qstatus = Template.instance().qstatus.get() || '0';
         try {
-            if (Meteor.user()) {
-                var profile = Meteor.user().profile;
+            if (Meteor.userAsync()) {
+                var profile = Meteor.userAsync().profile;
                 if (qstatus == 0) {
                     const answered = !profile.answered[hashcode] || profile.answered[hashcode].length < 3;
                     return answered && !profile.discussed[hashcode];
@@ -677,7 +677,7 @@ Template.gutboard_slider.helpers({
     qlength: function(state) {
         try {
             const questions = Questions.find({}).fetch();
-            var profile = Meteor.user().profile;
+            var profile = Meteor.userAsync().profile;
             if (state == 0) {
                 return _.filter(questions, function(question) {
                     const answered = !profile.answered[question.hash] || profile.answered[question.hash]
@@ -719,8 +719,8 @@ Template.gutboard_slider.helpers({
     },
     isCondition0or10or11: function() {
         try {
-            if (Meteor.user()) {
-                var condition = Meteor.user().profile.condition;
+            if (Meteor.userAsync()) {
+                var condition = Meteor.userAsync().profile.condition;
                 return condition == 0 || condition == 10 || condition == 11;
             }
         } catch (e) {
@@ -769,7 +769,7 @@ Template.gutboard_slider.events({
         //         var currentResponseArr = currentLayer1.user_response;
 
         //         var currentQuestionID = currentHash;
-        //         var currentUsername = Meteor.user().username;
+        //         var currentUsername = Meteor.userAsync().username;
 
         //         for (var k = 0; k < currentResponseArr.length; k++) {
         //             if (currentResponseArr[k].username == currentUsername) {
@@ -818,7 +818,7 @@ Template.gutboard_slider.events({
         //         }
 
         //         var currentQuestionID = currentHash;
-        //         var currentUsername = Meteor.user().username;
+        //         var currentUsername = Meteor.userAsync().username;
 
         //         for (var k = 0; k < l2CurrentResponseArr.length; k++) {
 
@@ -1031,7 +1031,7 @@ Template.gutboard_slider.events({
 
         /*//check training condition
          var userArray = TrainingQuestions.findOne({index: 0}).user_response;
-         var targetUserName = Meteor.user().username;
+         var targetUserName = Meteor.userAsync().username;
          console.log("TrainingQuestions is"+TrainingQuestions);
          alert("vvaw");
          console.log("userArray.length is "+userArray.length);
@@ -1047,7 +1047,7 @@ Template.gutboard_slider.events({
          }
          console.log("doneTraining is "+doneTraining);*/
 
-        const guide_completed = Meteor.user().profile.guide_completed;
+        const guide_completed = Meteor.userAsync().profile.guide_completed;
         console.log("guide_completed is " + guide_completed);
         //alert("hanging in");
         //if(!doneTraining) {
@@ -1148,8 +1148,8 @@ Template.gutboard_slider.events({
         /* Get only mendel questions */
         var currentMendel = sessionStorage.mendelcode;
         ucondition = 0;
-        if (Meteor.user()) {
-            ucondition = Meteor.user().profile.condition;
+        if (Meteor.userAsync()) {
+            ucondition = Meteor.userAsync().profile.condition;
             //console.log("my condition is in (questions) " + ucondition);
         } else {
             console.log("meteor user not ready - my condition is in (questions) " + ucondition);

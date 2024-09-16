@@ -58,7 +58,7 @@ Template.topics.rendered = function() {
     //     localStorage.setItem("gut_diseases_tags", JSON.stringify(result));
     // });
 
-    const toured = Meteor.user().profile.toured.topics;
+    const toured = Meteor.userAsync().profile.toured.topics;
     //console.log("toured is " + toured);
 
     function initTopics() {
@@ -73,7 +73,7 @@ Template.topics.rendered = function() {
         introJs().setOption('showProgress', true).onchange(function(target) {
 
             Meteor.call('user.updateProfileTouredTopics');
-            // Meteor.users.update(Meteor.userId(), {
+            // Meteor.users.updateAsync(Meteor.userId(), {
             //     $set: {
             //         'profile.toured.topics': true
             //     }
@@ -194,7 +194,7 @@ Template.topics.helpers({
                 name: name
             }).fetch()[0]._id;
 
-            return Meteor.user().profile.topics_investigated[_id];
+            return Meteor.userAsync().profile.topics_investigated[_id];
         } catch (e) {
             return false;
         }

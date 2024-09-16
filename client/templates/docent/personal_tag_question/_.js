@@ -15,12 +15,12 @@ import {
 
 Template.personal_tag_question.rendered = function() {
     try {
-        if (Meteor.user()) {
-            const toured = Meteor.user().profile.toured.personal_tag_question;
+        if (Meteor.userAsync()) {
+            const toured = Meteor.userAsync().profile.toured.personal_tag_question;
             if (!toured) {
                 introJs().setOption('showProgress', true).onchange(function(target) {
                     Meteor.call('user.updateProfileTouredPersonalTagQuestion');
-                    // Meteor.users.update(Meteor.userId(), {
+                    // Meteor.users.updateAsync(Meteor.userId(), {
                     //     $set: {
                     //         'profile.toured.personal_tag_question': true
                     //     }
@@ -113,7 +113,7 @@ Template.personal_tag_question.events({
             }
 
             var targetID = personalFetchResult[i]._id;
-            var targetUser = Meteor.user().username;
+            var targetUser = Meteor.userAsync().username;
 
             if (checkExtra) {
                 // user choose the extra option
@@ -125,7 +125,7 @@ Template.personal_tag_question.events({
                 var newText = $('#tag-' + currentCluster + "-answer-extra-text-text").val();
 
                 //userRes = currentCluster + "-" + currentPushIndex;
-                var newAuthor = Meteor.user().username;
+                var newAuthor = Meteor.userAsync().username;
 
                 Meteor.call('personalQuestions.pushChoices', targetID, currentCluster, newIndex, "None", newText, newAuthor);
                 // PersonalQuestions.update({
@@ -176,12 +176,12 @@ Template.personal_tag_question.events({
 
 
         // store the personal question status in tag db
-        var targetUserName = Meteor.user().username;
+        var targetUserName = Meteor.userAsync().username;
         Meteor.call('tags.pushViewedStatus', currentQueryTag, targetUserName);
         // var targetTagID = Tags.findOne({
         //     name: currentQueryTag
         // })._id;
-        // var targetUserName = Meteor.user().username;
+        // var targetUserName = Meteor.userAsync().username;
         // Tags.update({
         //     _id: targetTagID
         // }, {

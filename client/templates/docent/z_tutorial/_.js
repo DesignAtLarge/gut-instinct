@@ -10,10 +10,10 @@ import {
 
 Template.tutorial.rendered = function(argument) {
     try {
-        const toured = Meteor.user().profile.toured.tutorial;
+        const toured = Meteor.userAsync().profile.toured.tutorial;
         if (!toured) {
             introJs().setOption('showProgress', true).onchange(function(target) {
-                Meteor.users.update(Meteor.userId(), {
+                Meteor.users.updateAsync(Meteor.userId(), {
                     $set: {
                         'profile.toured.tutorial': true
                     }
@@ -38,9 +38,9 @@ Template.tutorial.rendered = function(argument) {
 Template.tutorial.helpers({
     isLearnCondition: function() {
         try {
-            const condition = Meteor.user().profile.condition;
+            const condition = Meteor.userAsync().profile.condition;
             return condition == 1;
-            // var username = Meteor.user().username;
+            // var username = Meteor.userAsync().username;
             // if (username[0] === 'p' && !isNaN(parseInt(username.substring(1)))) {
             //     const participant = parseInt(username.substring(1));
             //     if (participant >= 6 && participant <= 10) {

@@ -18,10 +18,10 @@ Template.qmodule_min.onCreated(function() {
 Template.qmodule_min.rendered = function() {
     $('.chips-initial').hide();
 
-    const toured = Meteor.user().profile.toured.qmodule;
+    const toured = Meteor.userAsync().profile.toured.qmodule;
     if (!toured) {
         introJs().setOption('showProgress', true).onchange(function(target) {
-            Meteor.users.update(Meteor.userId(), {
+            Meteor.users.updateAsync(Meteor.userId(), {
                 $set: {
                     'profile.toured.qmodule': true
                 }
@@ -32,7 +32,7 @@ Template.qmodule_min.rendered = function() {
 
 Template.qmodule_min.helpers({
     init: function(hashcode) {
-        if (Meteor.user().profile.answered[hashcode][0]) {
+        if (Meteor.userAsync().profile.answered[hashcode][0]) {
             $('.layer-2').show();
         }
         console.log('current id is ' + this._id);
@@ -57,7 +57,7 @@ Template.qmodule_min.helpers({
     },
     followup_answer: function(hashcode) {
         try {
-            return Meteor.user().profile.answered[hashcode][1] || '';
+            return Meteor.userAsync().profile.answered[hashcode][1] || '';
         } catch (e) {
             return '';
         }
@@ -77,7 +77,7 @@ Template.qmodule_min.helpers({
     },
     isCondition1: function() {
         try {
-            var condition = Meteor.user().profile.condition;
+            var condition = Meteor.userAsync().profile.condition;
             //console.log("my condition is in" + condition);
             return condition == 1;
         } catch (e) {
@@ -86,8 +86,8 @@ Template.qmodule_min.helpers({
     },
     isCondition2or4or0or6or9or11: function() {
         try {
-            if (Meteor.user()) {
-                var condition = Meteor.user().profile.condition;
+            if (Meteor.userAsync()) {
+                var condition = Meteor.userAsync().profile.condition;
                 //console.log("my condition is in" + condition);
                 return condition == 2 || condition == 4 || condition == 0 || condition == 6 || condition == 9 || condition == 11;
             }
@@ -97,14 +97,14 @@ Template.qmodule_min.helpers({
     },
     owns: function(_id) {
         try {
-            return Meteor.user()._id === _id;
+            return Meteor.userAsync()._id === _id;
         } catch (e) {
             return false;
         }
     },
     answered: function(answer) {
         try {
-            return Meteor.user().profile.answered[this.hash][0] === answer;
+            return Meteor.userAsync().profile.answered[this.hash][0] === answer;
         } catch (e) {
             return true;
         }
@@ -134,7 +134,7 @@ Template.qmodule_min.helpers({
     },
     layer2Viewable: function() {
         // console.log(this);
-        var currentUserName = Meteor.user().username;
+        var currentUserName = Meteor.userAsync().username;
         // console.log("layer2 user check: " + currentUserName);
         var targetResponseArr = Questions.findOne({
             _id: this._id
@@ -146,18 +146,18 @@ Template.qmodule_min.helpers({
         }
         return false;
 
-        // return Router.current().route.getName() === 'q.:hashcode' && Meteor.user().profile.answered[this.hash][0];
+        // return Router.current().route.getName() === 'q.:hashcode' && Meteor.userAsync().profile.answered[this.hash][0];
     },
     layer2Submitted: function() {
         return false;
-        // return !!Meteor.user().profile.answered[this.hash][1];
+        // return !!Meteor.userAsync().profile.answered[this.hash][1];
     },
     isUserExpert: function() {
-        if (Meteor.user()) {
-            //return (Meteor.user().username === 'expert') || (Meteor.user().username === 'knightlab');}
-            return (Meteor.user().username === 'expert') || (Meteor.user().username === 'knightlab') || (
-                Meteor.user().username === 'e001') || (Meteor.user().username === 'e002') || (Meteor.user()
-                .username === 'e003') || (Meteor.user().username === 'e004') || (Meteor.user().username ===
+        if (Meteor.userAsync()) {
+            //return (Meteor.userAsync().username === 'expert') || (Meteor.userAsync().username === 'knightlab');}
+            return (Meteor.userAsync().username === 'expert') || (Meteor.userAsync().username === 'knightlab') || (
+                Meteor.userAsync().username === 'e001') || (Meteor.userAsync().username === 'e002') || (Meteor.userAsync()
+                .username === 'e003') || (Meteor.userAsync().username === 'e004') || (Meteor.userAsync().username ===
                 'e005');
         } else {
             console.log("meteor user in isUserExpert");
@@ -165,7 +165,7 @@ Template.qmodule_min.helpers({
     },
     isInBKDB: function() {
         try {
-            if (Meteor.user()) {
+            if (Meteor.userAsync()) {
                 var targetID = this._id;
 
                 searchid = this._id;
@@ -179,8 +179,8 @@ Template.qmodule_min.helpers({
                 var fetchResult = Bookmarks.findOne({
                     "typeid": insertTypeID,
                     owner: {
-                        username: Meteor.user().username,
-                        _id: Meteor.user()._id
+                        username: Meteor.userAsync().username,
+                        _id: Meteor.userAsync()._id
                     }
                 });
 
@@ -208,8 +208,8 @@ Template.qmodule_min.events({
         var fetchResult = Bookmarks.findOne({
             "typeid": insertTypeID,
             owner: {
-                username: Meteor.user().username,
-                _id: Meteor.user()._id
+                username: Meteor.userAsync().username,
+                _id: Meteor.userAsync()._id
             }
         });
 
@@ -220,8 +220,8 @@ Template.qmodule_min.events({
                 "type": "q",
                 "typeid": insertTypeID,
                 owner: {
-                    username: Meteor.user().username,
-                    _id: Meteor.user()._id
+                    username: Meteor.userAsync().username,
+                    _id: Meteor.userAsync()._id
                 }
             });
 
@@ -291,8 +291,8 @@ Template.qmodule_min.events({
         var fetchResult = Bookmarks.findOne({
             "typeid": insertTypeID,
             owner: {
-                username: Meteor.user().username,
-                _id: Meteor.user()._id
+                username: Meteor.userAsync().username,
+                _id: Meteor.userAsync()._id
             }
         });
 
@@ -307,8 +307,8 @@ Template.qmodule_min.events({
         //         "type": "q",
         //         "typeid": insertTypeID,
         //         owner: {
-        //             username: Meteor.user().username,
-        //             _id: Meteor.user()._id
+        //             username: Meteor.userAsync().username,
+        //             _id: Meteor.userAsync()._id
         //         }
         //     });
 

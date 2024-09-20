@@ -163,7 +163,7 @@ Template.gutboard_slider.helpers({
         setTimeout(function() {
             if (mendelcode == "AmericanGutProject" || mendelcode == "AmericanGutProjectEXP2") {
                 $('#mendelCodeHeader').html(
-                    "<i class='material-icons' style='margin-right: 10px; margin-left: 25px;'>view_week</i> <img src='/images/logos/agp.png' height='60' style='padding-top: 5px;'/>");
+                    "<i class='material-icons' style='margin-right: 10px; margin-left: 25px;'>view_week</i> <img src='/images/logos/microsetta.png' height='60' style='padding-top: 5px;'/>");
             } else
                 $('#mendelCodeHeader').html(
                     '&nbsp;&nbsp;<i class="material-icons" style="margin-right: 10px; margin-left: 25px;">view_week</i>' +

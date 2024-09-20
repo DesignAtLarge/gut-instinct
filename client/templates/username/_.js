@@ -6,19 +6,20 @@ import {
     //UserTestResponse
     UserEmail
 } from '../../../imports/api/models.js';
+import { redirect } from '../../../imports/api/ga-routes.js';
 
-Template.username.rendered = function() {};
+Template.username.rendered = function () { };
 
-Template.username.onRendered(function() {
+Template.username.onRendered(function () {
 
-    $(document).ready(function() {
-        Materialize.updateTextFields();
-
-        $('select').material_select();
-    });
+    /* $(document).ready(function() {
+         Materialize.updateTextFields();
+ 
+         $('select').material_select();
+     });*/
 });
 
-Template.username.onCreated(function() {
+Template.username.onCreated(function () {
     let inst = this;
     this.profileObj = new ReactiveVar(null);
     this.timezone = new ReactiveVar(null);
@@ -27,23 +28,23 @@ Template.username.onCreated(function() {
     this.isDst = new ReactiveVar(null);
     this.galileoObj = new ReactiveVar(null);
 
-    Meteor.call("users.getUsername", function(err, username) {
+    Meteor.call("users.getUsername", function (err, username) {
         if (err) {
             alert("Server Connection Error");
         } else {
             inst.profileObj.set(UserEmail.findOne({
                 username: username
             }));
-            setTimeout(function() {
-                Materialize.updateTextFields();
+            setTimeout(function () {
+                //Materialize.updateTextFields();
             }, 200);
-            Meteor.call("galileo.profile.getProfile", function(err, profile) {
+            Meteor.call("galileo.profile.getProfile", function (err, profile) {
                 if (err) {
                     throw new Meteor.Error("Server Connection Error");
                 } else {
                     inst.galileoObj.set(profile);
-                    setTimeout(function() {
-                        Materialize.updateTextFields();
+                    setTimeout(function () {
+                        // Materialize.updateTextFields();
                     }, 200);
                 }
             });
@@ -54,21 +55,25 @@ Template.username.onCreated(function() {
 });
 
 Template.username.helpers({
-    init: function() {
+    init: function () {
 
     },
-    getCurrentName: function() {
+    getCurrentName: function () {
         try {
             if (Meteor.userAsync()) {
                 return Meteor.userAsync().username;
             } else {
                 console.log("User not populated");
             }
-        } catch (e) {}
+        } catch (e) { }
     },
-    getEmail: function() {
+    getEmail: function () {
+        var email = Meteor.user().emails[0].address;
+        console.log(email);
+        return email;
         try {
-            if (Meteor.userAsync()) {
+            if (Meteor.user()) {
+                console.log(Meteor.user().emails[0].address);
                 if (Meteor.userAsync().profile.source === 2) return Meteor.userAsync().emails[0].address;
                 if (Meteor.userAsync().profile.source === 3) return Meteor.userAsync().services.google.email;
                 if (Meteor.userAsync().profile.source === 4) return Meteor.userAsync().services.facebook.email;
@@ -77,18 +82,18 @@ Template.username.helpers({
             } else {
                 console.log("User not populated");
             }
-        } catch (e) {}
+        } catch (e) { }
     },
-    getAGID: function() {
+    getAGID: function () {
         try {
             if (Meteor.userAsync()) {
                 return Template.instance().profileObj.get().agid;
             } else {
                 console.log("User not populated");
             }
-        } catch (e) {}
+        } catch (e) { }
     },
-    preEnterName: function() {
+    preEnterName: function () {
         try {
             if (Meteor.userAsync()) {
                 if (typeof Meteor.userAsync().username !== 'undefined') {
@@ -96,52 +101,53 @@ Template.username.helpers({
                 }
                 return false;
             }
-        } catch (e) {}
+        } catch (e) { }
 
         // if (typeof Meteor.userAsync().username != 'undefined') {
         //     return true;
         // }
         //return false;
     },
-    preEmail: function() {
+    preEmail: function () {
+        return true;
         try {
             if (Meteor.userAsync()) {
                 if (Meteor.userAsync().profile.source === 3 || Meteor.userAsync().profile.source === 4 || Meteor.userAsync().profile.source === 2) return true;
                 if (Template.instance().profileObj.get().email === "") return false;
                 else return true;
             }
-        } catch (e) {}
+        } catch (e) { }
 
         // if (typeof Meteor.userAsync().username != 'undefined') {
         //     return true;
         // }
         //return false;
     },
-    preAGID: function() {
+    preAGID: function () {
         try {
             if (Meteor.userAsync()) {
                 if (Template.instance().profileObj.get().agid && Template.instance().profileObj.get() !== "") return true;
                 if (Template.instance().profileObj.get().email === "") return false;
                 else return true;
             }
-        } catch (e) {}
+        } catch (e) { }
     },
-    notGalileo: function(instance) {
+    notGalileo: function (instance) {
         return !Template.instance().isGalileo.get();
     },
-    isGalileo: function(instance) {
+    isGalileo: function (instance) {
         return Template.instance().isGalileo.get();
     },
-    getCity: function(instance) {
+    getCity: function (instance) {
         try { // fills it if there's something already
             if (Meteor.userId()) {
                 return Template.instance().galileoObj.get().city;
             } else {
                 console.log("City not populated");
             }
-        } catch (e) {}
+        } catch (e) { }
     },
-    getCountry: function(instance) {
+    getCountry: function (instance) {
         try { // fills it if there's something already
             if (Meteor.userId()) {
                 let country = Template.instance().galileoObj.get().country;
@@ -155,9 +161,9 @@ Template.username.helpers({
             } else {
                 console.log("Country not populated");
             }
-        } catch (e) {}
+        } catch (e) { }
     },
-    getTimeZone: function(instance) {
+    getTimeZone: function (instance) {
         try { // fills it if there's something already
             if (Meteor.userId()) {
                 let timezone = Template.instance().galileoObj.get().timezone;
@@ -168,7 +174,7 @@ Template.username.helpers({
                 } else {
                     if ($("#ga-timezone").val() === null || $("#ga-timezone") === undefined || $("#ga-timezone") === "") {
                         x = new Date();
-                        let offset = ((x.stdTimezoneOffset()) * -1)/60;
+                        let offset = ((x.stdTimezoneOffset()) * -1) / 60;
                         $("#ga-timezone").val(offset);
                         $("#ga-timezone").material_select();
                         return timezone;
@@ -177,9 +183,9 @@ Template.username.helpers({
             } else {
                 console.log("Timezone not populated");
             }
-        } catch (e) {}
+        } catch (e) { }
     },
-    getDst: function() {
+    getDst: function () {
         try { // fills it if there's something already
             if (Meteor.userId()) {
                 let isDst = Template.instance().galileoObj.get().isDst;
@@ -205,7 +211,7 @@ Template.username.helpers({
             } else {
                 console.log("DST not populated");
             }
-        } catch (e) {}
+        } catch (e) { }
     },
 
 
@@ -220,19 +226,19 @@ Template.username.events({
         window.open("https://twitter.com/GutInstinctUCSD");
     },
 
-    'click #submitTest': function(event, instance) {
+    'click #submitTest': function (event, instance) {
         event.preventDefault();
 
         let isGalileo = Template.instance().isGalileo.get();
         let inst = Template.instance();
 
-        if (isGalileo) {
+        /*if (isGalileo) {
             let country = $("#ga-country").val();
             if (country !== "" && country != null) {
                 inst.country.set(country);
-                Meteor.call('galileo.profile.setCountry', country, function(err) {
+                Meteor.call('galileo.profile.setCountry', country, function (err) {
                     if (err) {
-                        Materialize.toast('Error!', 1500, 'toast rounded');
+                        // Materialize.toast('Error!', 1500, 'toast rounded');
                     }
                 });
 
@@ -241,9 +247,9 @@ Template.username.events({
             let city = $('#ga-city').val().trim();
             if (city !== "" && city != null) {
                 inst.city.set(city);
-                Meteor.call('galileo.profile.setCity', city, function(err) {
+                Meteor.call('galileo.profile.setCity', city, function (err) {
                     if (err) {
-                        Materialize.toast('Error!', 1500, 'toast rounded');
+                        // Materialize.toast('Error!', 1500, 'toast rounded');
                     }
                 });
 
@@ -254,22 +260,22 @@ Template.username.events({
             let isDst = $("#ga-dst").val();
             //let isDst = "0";
             if (timezone === null || timezone === "") {
-                Materialize.toast('Please pick your timezone', 2500, 'toast rounded');
+                // Materialize.toast('Please pick your timezone', 2500, 'toast rounded');
                 return;
             } else if (isDst === null || isDst === "") {
-                Materialize.toast('Please answer Daylight savings question', 2500, 'toast rounded');
+                // Materialize.toast('Please answer Daylight savings question', 2500, 'toast rounded');
                 return;
             } else {
                 timezone = parseInt(timezone);
                 inst.timezone.set(timezone);
                 inst.isDst.set(isDst);
-                Meteor.call("galileo.profile.setTimeZone", timezone, isDst, function(err) {
+                Meteor.call("galileo.profile.setTimeZone", timezone, isDst, function (err) {
                     if (err) {
-                        Materialize.toast('Error!', 1500, 'toast rounded');
+                        // Materialize.toast('Error!', 1500, 'toast rounded');
                     }
                 });
             }
-        }
+        }*/
 
         function validateEmail(email) {
             console.log("checking email value --> " + email);
@@ -293,27 +299,46 @@ Template.username.events({
                 return;
             }
         }
+        Meteor.call('profile.addUserName', tryUserName);
+                console.log('calling galileo.profile.setUsernameToured');
+                Meteor.call('galileo.profile.setUsernameToured', function (err, res) {
+                    if (err) {
+                        console.log(err);
+                    } else {
+                        redirect("/galileo/me");
+                    }
+                });
 
         if (tryUserName === '') {
-            Materialize.toast("Please select a username", 2000, "toast");
+            //Materialize.toast("Please select a username", 2000, "toast");
             return;
         }
 
 
 
 
-        Meteor.call('profile.checkExist', tryUserName, function(error, result) {
+
+        Meteor.call('profile.checkExist', tryUserName, function (error, result) {
             if (!document.getElementById('userNameAnswerText').disabled && result) {
-                Materialize.toast("Username already exists; Please pick a new one.", 2000, "toast");
+                //Materialize.toast("Username already exists; Please pick a new one.", 2000, "toast");
                 return;
             }
 
             if (!document.getElementById('userNameAnswerText').disabled) {
                 Meteor.call('profile.addUserName', tryUserName);
+                console.log('calling galileo.profile.setUsernameToured');
+                Meteor.call('galileo.profile.setUsernameToured', function (err, res) {
+                    if (err) {
+                        console.log(err);
+                    } else {
+                        redirect("/galileo/browse");
+                    }
+                });
+
             }
 
-            let city = inst.city.get();
-            Meteor.call('profile.insertFullProfile', tryUserName, tryEmail, tryAgid, function(err, result) {
+            /*let city = inst.city.get();
+            Meteor.call('profile.insertFullProfile', tryUserName, tryEmail, tryAgid, function (err, result) {
                 function postEmail(token, api, emailUser) {
                     let emailUserAddr = emailUser.email;
                     let emailUserName = emailUser.username;
@@ -325,7 +350,7 @@ Template.username.events({
                             userEmail: emailUserAddr,
                             userName: emailUserName,
                         },
-                        success: function(data) {
+                        success: function (data) {
                             console.log("onboarding email sent");
                         }
                     });
@@ -343,7 +368,7 @@ Template.username.events({
                         });
 
                         if (emailUser !== 'undefined' && 'email' in emailUser) {
-                            Meteor.call('email.getToken', function(error, result) {
+                            Meteor.call('email.getToken', function (error, result) {
                                 if (error) {
                                     console.log("Error: " + error);
                                     return;
@@ -351,7 +376,7 @@ Template.username.events({
                                 console.log("Recived email token.");
 
                                 let currentToken = result;
-                                Meteor.call('email.getAPI', function(error, result) {
+                                Meteor.call('email.getAPI', function (error, result) {
                                     let currentAPI = result;
                                     console.log("got api");
                                     postEmail(currentToken, currentAPI + "sendOnboardingEmail",
@@ -366,7 +391,7 @@ Template.username.events({
                 // calling this before sending on boarding email because that operation takes a long time to return
                 if (isGalileo) {
                     console.log('calling galileo.profile.setUsernameToured');
-                    Meteor.call('galileo.profile.setUsernameToured', function(err, res) {
+                    Meteor.call('galileo.profile.setUsernameToured', function (err, res) {
                         if (err) {
                             console.log(err);
                         }
@@ -374,10 +399,10 @@ Template.username.events({
                 }
 
                 if (result)
-                    sendOnboardingEmail();
+                    //sendOnboardingEmail();
 
                 // TODO: calling this after onboarding flow for now, figure out onboarding blocking stuff
-                if (isGalileo) {
+                /*if (isGalileo) {
                     if (localStorage.getItem("loginRedirectUrl")) {
                         let redirectTo = localStorage.getItem("loginRedirectUrl");
                         localStorage.removeItem('loginRedirectUrl');
@@ -391,60 +416,60 @@ Template.username.events({
                         window.location.href = '/galileo/entrance';
                     }
                     return;
-                }
+                }*/
 
 
-                //docent-exp
-                let username;
-                let condition;
+            //docent-exp
+            // let username;
+            //let condition;
 
-                try {
-                    if (Meteor.userAsync()) {
-                        username = Meteor.userAsync().username;
-                        condition = Meteor.userAsync().profile.condition;
-                        if (username === "expert" && Meteor.userAsync().profile.condition !== 0) {
-                            Meteor.users.updateAsync(Meteor.userId(), {
-                                $set: {
-                                    'profile.condition': 0
-                                }
-                            });
-                        }
-                        if (username === "expert" || username === "citizen") {
-                            Meteor.call('user.updateHasAddedQuestion');
-                        }
-                    }
-                } catch (e) {}
+            /* try {
+                 if (Meteor.userAsync()) {
+                     username = Meteor.userAsync().username;
+                     condition = Meteor.userAsync().profile.condition;
+                     if (username === "expert" && Meteor.userAsync().profile.condition !== 0) {
+                         Meteor.users.updateAsync(Meteor.userId(), {
+                             $set: {
+                                 'profile.condition': 0
+                             }
+                         });
+                     }
+                     if (username === "expert" || username === "citizen") {
+                         Meteor.call('user.updateHasAddedQuestion');
+                     }
+                 }
+             } catch (e) { }*/
 
 
-                setTimeout(function() {
-                    console.log('updating username_page toured later');
-                    Meteor.users.updateAsync(Meteor.userId(), {
-                        $set: {
-                            'profile.toured.username_page': true
-                        }
-                    });
-                    condition = Meteor.userAsync().profile.condition;
+            /* setTimeout(function () {
+                 console.log('updating username_page toured later');
+                 Meteor.users.updateAsync(Meteor.userId(), {
+                     $set: {
+                         'profile.toured.username_page': true
+                     }
+                 });
+                 condition = Meteor.userAsync().profile.condition;
 
-                    if (condition === 7) {
-                        window.location.href = '/trial';
-                    } else {
-                        if (isGalileo) {
-                            if (localStorage.getItem("loginRedirectUrl")) {
-                                let redirectTo = localStorage.getItem("loginRedirectUrl");
-                                localStorage.removeItem('loginRedirectUrl');
-                                console.log('going to ' + redirectTo);
-                                window.location.href = redirectTo;
-                            } else {
-                                console.log('going to entrance');
-                                window.location.href = '/galileo/entrance';
-                            }
-                            return;
-                        } else {
-                            window.location.href = '/entrance';
-                        }
-                    }
-                }, 500);
-            });
+                 if (condition === 7) {
+                     window.location.href = '/trial';
+                 } else {
+                     if (isGalileo) {
+                         if (localStorage.getItem("loginRedirectUrl")) {
+                             let redirectTo = localStorage.getItem("loginRedirectUrl");
+                             localStorage.removeItem('loginRedirectUrl');
+                             console.log('going to ' + redirectTo);
+                             window.location.href = redirectTo;
+                         } else {
+                             console.log('going to entrance');
+                             window.location.href = '/galileo/entrance';
+                         }
+                         return;
+                     } else {
+                         window.location.href = '/entrance';
+                     }
+                 }
+             }, 500);*/
+            /*});*/
         });
 
 
@@ -480,9 +505,7 @@ Template.username.events({
             });
         } */
 
-        // if (!document.getElementById('userNameAnswerText').disabled) {
-        //     Meteor.call('profile.addUserName', tryUserName);
-        // }
+
 
         // Meteor.call('profile.insertFullProfile', tryUserName);
 
@@ -520,26 +543,26 @@ Template.username.events({
 });
 
 
-Date.prototype.stdTimezoneOffset = function() {
-    var fy=this.getFullYear();
+Date.prototype.stdTimezoneOffset = function () {
+    var fy = this.getFullYear();
     if (!Date.prototype.stdTimezoneOffset.cache.hasOwnProperty(fy)) {
 
         var maxOffset = new Date(fy, 0, 1).getTimezoneOffset();
-        var monthsTestOrder=[6,7,5,8,4,9,3,10,2,11,1,0];
+        var monthsTestOrder = [6, 7, 5, 8, 4, 9, 3, 10, 2, 11, 1, 0];
 
-        for(var mi=0;mi<12;mi++) {
-            var offset=new Date(fy, monthsTestOrder[mi], 1).getTimezoneOffset();
-            if (offset!=maxOffset) { 
-                maxOffset=Math.max(maxOffset,offset);
+        for (var mi = 0; mi < 12; mi++) {
+            var offset = new Date(fy, monthsTestOrder[mi], 1).getTimezoneOffset();
+            if (offset != maxOffset) {
+                maxOffset = Math.max(maxOffset, offset);
                 break;
             }
         }
-        Date.prototype.stdTimezoneOffset.cache[fy]=maxOffset;
+        Date.prototype.stdTimezoneOffset.cache[fy] = maxOffset;
     }
     return Date.prototype.stdTimezoneOffset.cache[fy];
 };
-Date.prototype.isDST = function() {
-    return this.getTimezoneOffset() < this.stdTimezoneOffset(); 
+Date.prototype.isDST = function () {
+    return this.getTimezoneOffset() < this.stdTimezoneOffset();
 };
 
-Date.prototype.stdTimezoneOffset.cache={};
+Date.prototype.stdTimezoneOffset.cache = {};

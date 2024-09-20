@@ -51,58 +51,7 @@
                                         <label for="ga-profile-email-input">Personal Email (Recommended)</label>
                                     </div>
                                 </div>
-                                <div class="row">
-                                    <div class="input-field col s6">
-                                        <i class="material-icons prefix">my_location</i>
-                                        <input id="ga-profile-location-input" class="validate" type="text" value="{{getCurrentLocation}}">
-                                        <label for="ga-profile-location-input">Your City</label>
-                                    </div>
-                                    <div class="input-field col s6">
-                                        <i class="material-icons prefix">flag</i>
-                                        <select id="ga-country" style="margin-left: 50px" value="{{getCountry}}">
-                                            <option value="0" selected disabled>Your Country</option>
-                                            <option value="AFG">Afghanistan</option>
-                                            <option value="ALA">Åland Islands</option>
-                                            <!-- Add other options here -->
-                                            <option value="ZMB">Zambia</option>
-                                            <option value="ZWE">Zimbabwe</option>
-                                        </select>
-                                        <label for="ga-country">Your Country</label>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="input-field col s6">
-                                        <i class="material-icons prefix">perm_phone_msg</i>
-                                        <input id="ga-profile-phone-input" type="text" value="{{getPhone}}" placeholder="(Only accepting US numbers right now. Do not add country code)">
-                                        <label for="ga-profile-phone-input">Phone Number</label>
-                                    </div>
-                                    <div class="input-field col s6">
-                                        <i class="material-icons prefix">language</i>
-                                        <select id="ga-timezone" value="{{getTimezone}}">
-                                            <option value="" disabled selected>Choose your time zone</option>
-                                            <option timeZoneId="1" gmtAdjustment="GMT-12:00" useDaylightTime="0" value="-12">(GMT-12:00) International Date Line West</option>
-                                            <!-- Add other options here -->
-                                            <option timeZoneId="82" gmtAdjustment="GMT+13:00" useDaylightTime="0" value="13">(GMT+13:00) Nuku'alofa</option>
-                                        </select>
-                                        <label for="ga-timezone">Time Zone</label>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="input-field col s6">
-                                        <i class="material-icons prefix">swap_vertical_circle</i>
-                                        <input id="ga-profile-agid-input" class="validate" type="tel" value="{{getCurrentAGID}}">
-                                        <label for="ga-profile-agid-input">American Gut ID (Recommended)</label>
-                                    </div>
-                                    <div class="input-field col s6">
-                                        <i class="material-icons prefix">access_time</i>
-                                        <select id="ga-dst" value="{{getDst}}">
-                                            <option value="" disabled selected>Choose your answer</option>
-                                            <option isDst="1" value="1">Yes</option>
-                                            <option isDst="0" value="0">No</option>
-                                        </select>
-                                        <label for="ga-dst">Are you in daylight savings time?</label>
-                                    </div>
-                                </div>
+                               
                                 <div class="row">
                                     <div class="input-field col s12">
                                         <i class="material-icons prefix">textsms</i>

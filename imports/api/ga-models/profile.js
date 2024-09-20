@@ -18,6 +18,42 @@ import {
 const PHONE_NUM_REGEX = /^\d{10}$/;
 
 const NUM_CONDITIONS = 2;
+const DEFAULT_PROFILE = {
+    condition: 0,
+    //permission_group: PERMISSION.SUDO_ADMIN,
+    consent_agreed: false,
+    toured: {
+        articles: false,
+        bookmark: false,
+        consent: false,
+        username_page: false,
+        guide_question_bin: false,
+        guide_question_info: false,
+        guide_question_module: false,
+        guide_question_result: false,
+        gutboard: false,
+        gutboard_slider: false,
+        landing: false,
+        learn_discussions: false,
+        personal_question: false,
+        personal_question_bin: false,
+        personal_question_module: false,
+        personal_tag_question: false,
+        problems: false,
+        qmodule: false,
+        tag: false,
+        topics: false,
+        tutorial: false,
+        welcome_step2: false
+    },
+    topics_investigated: {},
+    answered: {},
+    discussed: {},
+    voted: {},
+    learn_questions_viewed: {},
+    learn_questions_answered: {},
+    learn_questions_discussed: {}
+};
 
 const DEFAULT_GALILEO_PROFILE = {
     notification: {
@@ -45,6 +81,18 @@ const DEFAULT_GALILEO_PROFILE = {
     feedback_experiments: [],
     finishedEthicsTraining: true // TODO remove once ethics is complete
 };
+
+async function fetchUser() {
+    try {
+        const currentUser = await Meteor.userAsync();
+
+        return currentUser;
+
+    } catch (error) {
+        console.error("Error fetching user:", error);
+        return null;
+    }
+}
 
 Meteor.methods({
     'galileo.profile.setMendel': function (mendel) {
@@ -158,15 +206,23 @@ Meteor.methods({
         }
 
         // Generate random condition for the user
+        let setprofobj = JSON.parse(JSON.stringify(DEFAULT_PROFILE));
+
         let setobj = JSON.parse(JSON.stringify(DEFAULT_GALILEO_PROFILE));
         setobj.condition = Math.floor(Math.random() * NUM_CONDITIONS);
 
         // Get the current user and add the default galileo profile
         Meteor.users.updateAsync(Meteor.userId(), {
             $set: {
-                'galileo': setobj
+                'galileo': setobj,
+                'profile': setprofobj
             }
         });
+        if ('galileo' in Meteor.userAsync()) {
+            console.log("GALILEO ADDED");
+        } else {
+            console.log("GALILEO NOT ADDED");
+        }
     },
 
     /*
@@ -203,7 +259,7 @@ Meteor.methods({
             }
         });
     },
-    'galileo.profile.getProfile': function (user_id) {
+    'galileo.profile.getProfile': function(user_id) {
         // Check user authorized
         if (!Meteor.userId()) {
             throw new Meteor.Error('not-authorized');
@@ -211,7 +267,15 @@ Meteor.methods({
         if (user_id === undefined || user_id === null) {
             user_id = Meteor.userId();
         }
-        return Meteor.users.find(user_id).fetch()[0].galileo;
+
+        let user = Meteor.users.findOneAsync({
+            _id: user_id
+        });
+        
+        fetchUser().then(userData => {
+            return userData.profile;
+        });
+        //return Meteor.userAsync().;
     },
     'galileo.profile.getCtryFlagByArray': function (id_array) {
         let result = [];
@@ -270,15 +334,15 @@ Meteor.methods({
             }
         });
         const experimentsArray = Array.from(experimentsCursor.fetch());
-    
+
         const getExperiment = Meteor.wrapAsync(Meteor.call, Meteor);
-    
+
         return experimentsArray.map(exp => getExperiment("galileo.experiments.getExperiment", exp._id));
 
 
 
 
-        
+
     },
     'galileo.profile.getReadyToRunExperiments': function () {
         if (!Meteor.userId()) {
@@ -297,13 +361,13 @@ Meteor.methods({
             }
         });
         const experimentsArray = Array.from(experimentsCursor.fetch());
-    
+
         const getExperiment = Meteor.wrapAsync(Meteor.call, Meteor);
-    
+
         return experimentsArray.map(exp => getExperiment("galileo.experiments.getExperiment", exp._id));
 
 
-       
+
     },
     'galileo.profile.getCreatedExperiments': function () {
         if (!Meteor.userId()) {
@@ -374,9 +438,9 @@ Meteor.methods({
             }
         });
         const experimentsArray = Array.from(experimentsCursor.fetch());
-    
+
         const getExperiment = Meteor.wrapAsync(Meteor.call, Meteor);
-    
+
         return experimentsArray.map(exp => getExperiment("galileo.experiments.getExperiment", exp._id));
     },
     'galileo.profile.getPilotingExperiments': function () {

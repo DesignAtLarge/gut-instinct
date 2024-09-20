@@ -2,6 +2,12 @@ import './_.html';
 import { Template } from 'meteor/templating';
 import { redirect } from '../../../imports/api/ga-routes.js';
 
+Template.consent.rendered = function() {
+    console.log("Template.consent.rendered");
+    if (Meteor.user()) {
+        console.log(Meteor.user().profile);
+    }
+}
 Template.consent.events({
     'submit form': function(event) {
         event.preventDefault();

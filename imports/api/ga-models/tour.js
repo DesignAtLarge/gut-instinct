@@ -210,13 +210,14 @@ Meteor.methods({
 
 function getUser() {
     if (!Meteor.userId()) {
-        throw new Meteor.Error("not-authorized");
+        return null;
+        //throw new Meteor.Error("not-authorized");
     }
     var user = Meteor.users.findOneAsync({
         _id: Meteor.userId()
     });
     if (!user) {
-        throw new Meteor.Error("user-not-found");
+        //throw new Meteor.Error("user-not-found");
     }
     return user;
 }

@@ -19,7 +19,7 @@
                         </div>
                         <div class="col s4">
                             <a class="waves-effect waves-light white-text z-depth-3 light-blue darken-4 hoverable modal-trigger"
-                                id="designExp"
+                                href="/galileo/signup" id="designExp"
                                 style="margin: 5px; padding:25px; border-radius:6px; text-align:center; width:100%;">Design
                                 an Experiment Now!</a>
                         </div>
@@ -186,13 +186,14 @@
                             <div class="col m1"></div>
                             <div class="col m5 s12">
                                 <a class="waves-effect waves-light white-text z-depth-3 light-blue darken-4 hoverable modal-trigger"
+                                href="/galileo/signup"
                                     id="designExp"
                                     style="padding:25px; border-radius:6px; text-align:center; width:100%;">Design an
                                     Experiment Now!</a>
                             </div>
                             <div class="col m5 s12">
                                 <a class="waves-effect waves-light white-text z-depth-3 light-blue darken-4 hoverable"
-                                    id="browseAll" href=""
+                                    id="browseAll" href="/galileo/signup"
                                     style="padding:25px; border-radius:6px; text-align:center; width:100%;">Browse all
                                     experiments</a>
                             </div>
@@ -235,35 +236,7 @@
                         </div>
                     </div>
 
-                    <footer class="page-footer" style="background-color:#ffffff">
-                        <div class="container">
-                            <h5>Powered by</h5>
-                            <br />
-                            <div class="row">
-                                <div class="col s12 m3">
-                                    <a href="http://americangut.org/" target="_blank">
-                                        <img src="/images/logos/footer-agut.png" height="70" />
-                                    </a>
-                                </div>
-                                <div class="col s12 m3">
-                                    <a href="https://knightlab.ucsd.edu/" target="_blank">
-                                        <img src="/images/logos/footer-knight.png" height="70" />
-                                    </a>
-                                </div>
-                                <div class="col s12 m3">
-                                    <a href="http://designlab.ucsd.edu/" target="_blank">
-                                        <img src="/images/logos/footer-dlab.png" height="70" />
-                                    </a>
-                                </div>
-                                <div class="col s12 m3">
-                                    <a href="https://www.openhumans.org/" target="_blank">
-                                        <img src="/images/logos/openhuman.png" height="70" />
-                                    </a>
-                                </div>
-                            </div>
-                            <br />
-                        </div>
-                    </footer>
+                    {{> pageFooter}}
                 </div>
             </div>
         </div>

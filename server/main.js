@@ -36,6 +36,7 @@ function loadDatabase() {
     examplesData.forEach(data => {
       Examples.insertAsync(data);
     });
+  
   } catch (error) {
     console.error('Error reading or parsing JSON file:', error);
   }

@@ -145,12 +145,12 @@ header {
             a {
                 display: block;
                 text-align: center;
-                
+
                 color: inherit;
             }
 
             .one-line {
-               
+
                 height: 60px;
             }
         }
@@ -522,7 +522,7 @@ input[type="password"] {
             position: relative;
             top: calc(50% - 68px);
             left: 50%;
-           // @include transform(translate(-50%, -50%));
+            // @include transform(translate(-50%, -50%));
             text-align: center;
 
             input[type='email'],
@@ -629,11 +629,11 @@ input[type="password"] {
 .signup_wrapper {
     position: absolute;
     display: inline-block;
-    top: 40%;
     left: 50%;
-    //@include transform(translate(-50%, -50%));
-    width: 500px;
-    height: 550px;
+    transform: translate(-50%, -50%);
+    width: 33%;
+    max-width: 500px;
+    min-width: 400px;
     -webkit-box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.5);
     -moz-box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.5);
     box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.5);
@@ -782,15 +782,15 @@ input[type="password"] {
             background-image: url('/images/landing/back-chevron.png');
         }
 
-        #login-coursera {
+        #login-email {
             @extend .login-button;
-            background-color: #4A89DC;
-            background-image: url('/images/landing/login-coursera.png');
+            background-color: #f30c08;
+            background-image: url('/images/landing/email-xxl.png');
         }
 
         #login-google {
             @extend .login-button;
-            background-color: #c13c31;
+            background-color: #de7316;
             background-image: url('/images/landing/login-google.png');
         }
 

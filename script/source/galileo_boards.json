@@ -20,32 +20,22 @@
     },
     {
         "mendel_code": "AMERICANGUT",
-        "mendel_name": "American Gut Project",
-        "img": "/images/logos/american-gut.png",
-        "note": "Join the American Gut Project community to design, review, and participate in experiments!",
-        "hint": "American Gut Project",
+        "mendel_name": "Microsetta",
+        "img": "/images/logos/microsetta.png",
+        "note": "Join the Microsetta community to design, review, and participate in experiments!",
+        "hint": "Microsetts",
         "google_form_id" : "1FAIpQLSdBE-8nUKnRRjQ8GHW71IRlJZcxxFGoldY5bMkCVzpeVAmUGA",
         "blog" : "AGP",
         "status": 1
     },
     {
-        "mendel_code": "AMERICANGUT",
+        "mendel_code": "MICROSETTA",
         "mendel_name": "Coursera Gut Check",
         "img": "/images/logos/GutCheck.jpg",
         "note": "Join the Coursera Gut Check community to design, review, and participate in experiments!",
         "hint": "Coursera Gut Check",
         "google_form_id" : "1FAIpQLSdBE-8nUKnRRjQ8GHW71IRlJZcxxFGoldY5bMkCVzpeVAmUGA",
         "blog" : "GUT-CHECK",
-        "status": 1
-    },
-    {
-        "mendel_code": "OPENHUMANS",
-        "mendel_name": "Open Humans",
-        "img": "/images/galileo/entrance/ohlogo.png",
-        "note": "If you are interested in Open Humans, click here to design, review and participate in experiments",
-        "hint": "Open Humans",
-        "google_form_id" : "1FAIpQLSclk9X_oIdAzxzURRRQV9-mY-s70YGq82qBBRRByRoIxHQU2g",
-        "blog" : "OPENHUMANS",
         "status": 1
     },
     {

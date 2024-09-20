@@ -15,7 +15,7 @@ import './templates/logout/_.js';
 import './templates/reset_password/_.js';
 import './templates/login/_.js';
 import './templates/login-process/_.js';
-import './templates/signup/_.js';
+import './templates/authentication/_.js';
 import './templates/username/_.js';
 import './templates/landing/_.js';
 import './templates/consent/_.js';
@@ -44,6 +44,8 @@ import './templates/galileo/intuitionTour/_.js';
 import './templates/galileo/pilot/_.js';
 import './templates/galileo/pretest/_.js';
 import './templates/galileo/run/_.js';
+import './templates/galileo/pageFooter/_.js';
+
 
 import './templates/galileo/intuitionBoard/board/_.js';
 import './templates/galileo/intuitionBoard/item/_.js';

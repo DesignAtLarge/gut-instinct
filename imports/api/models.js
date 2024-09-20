@@ -168,7 +168,7 @@ export const Articles = new Mongo.Collection('articles');
 }
 */
 export const UserMetrics = new Mongo.Collection('user_metrics');
-
+//export const Users = new Mongo.Collection('users');
 // overall metrics: total and average for number_of_questions, number_of_comments, number_of_science_articles.
 // overall metrics: average depth of discussion per page
 

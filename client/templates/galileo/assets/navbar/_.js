@@ -142,7 +142,7 @@ Template.gaNavbar.events({
     },
     "click #logout": function (event) {
         if (confirm("Are you sure you want to log out? You can just close the tab and open it later without having to log back in.")) {
-            window.location.href = "/logout";
+            //window.location.href = "/logout";
         }
     },
     "click #markAllAsRead": function (event) {
@@ -232,9 +232,6 @@ function testUrl(url) { // tests which page you are one
     if (/galileo\/browse/.test(url)) {
         return "viewAllTab";
     } else if (/galileo\/createedu/.test(url) || /galileo\/createdemo/.test(url)) {
-        return "designTab";
-    }
-    else if (/galileo\/createedu/.test(url) || /galileo\/createdemo/.test(url)) {
         return "designTab";
     }
     else if (/galileo\/me\/intuitions/.test(url)) {

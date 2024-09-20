@@ -1,0 +1,140 @@
+<template name="signup">
+  <div id="login" style="padding-top:40%; padding-bottom: 40%;">
+    <div class="signup_wrapper">
+      <section class="description">
+        <article>
+          <a href="{{homeUrl}}">
+            <h1 style="background-color: #1D3866;">
+              <img src="{{imageUrl}}" height="60px" alt="Logo">
+            </h1>
+          </a>
+          <br>
+          <span class="login_error">{{error_message}}</span>
+          <div class="account_signin">
+            <div class="sigin_div">
+              <div class="login-buttons">
+                <div class="second-back" id="back-coursera" style="top: 20%; margin-left: -40px; display: none;">back
+                </div>
+              </div>
+              <span id="signin_check" class="timestamp animated fadeIn"
+                style="color: red; font-size: 15px; display: none;"></span>
+              <br>
+              <form>
+                <label class="active timestamp control-label" for="enter_email" style="font-size: 15px;">Email</label>
+                <input id="enter_email" type="email" class="validate" style="font-size: 24px;">
+
+                <label id="enter_password_label" class="active timestamp control-label" for="enter_password"
+                  style="font-size: 15px;">Password</label>
+                <input id="enter_password" type="password" class="validate" style="font-size: 24px;">
+              </form>
+              <br>
+              <button id="signin" class="btn btn-block light-blue" style="text-align: center;">Sign in</button>
+              <button id="send-reset" class="btn btn-block light-blue" style="text-align: center; display: none;">Send
+                me a reset link</button>
+              <br>
+              <a id="forgot-pass" style="text-decoration: none; cursor: pointer;">forgot password?</a>
+              <br>
+              <span id="reset-link" class="timestamp animated fadeIn"
+                style="color: green; font-size: 15px; display: none;">email sent</span>
+              <br>
+            </div>
+            <!--
+              <div class="forgot_div" style="display: none;">
+                <span id="email_check" class="timestamp animated fadeIn" style="color: red; font-size: 15px; display: none;"></span>
+                <br>
+                <form>
+                  <label class="active timestamp control-label" for="enter_email" style="font-size: 15px;">Email</label>
+                  <input id="enter_email" type="email" class="validate" style="font-size: 24px;">
+                </form>
+                <button id="reset-link" class="btn btn-block light-blue" style="text-align: center;">get reset link</button>
+              </div>
+              -->
+          </div>
+
+          <div class="account_create" style="display: none;">
+            <div class="login-buttons">
+              <div class="second-back" id="back-coursera" style="top: 20%; margin-left: -40px; display: none;">back
+              </div>
+            </div>
+            <span id="create_err" class="timestamp animated fadeIn"
+              style="color: red; font-size: 15px; display: none;"></span>
+            <br>
+            <form>
+              <label class="active timestamp control-label" for="new_email" style="font-size: 15px;">Email</label>
+              <input id="new_email" type="email" class="validate" style="font-size: 24px;">
+
+              <label class="active timestamp control-label" for="new_password" style="font-size: 15px;">Password</label>
+              <input id="new_password" type="password" class="validate" style="font-size: 24px;">
+
+              <label class="active timestamp control-label" for="confirm_password" style="font-size: 15px;">Reenter
+                password</label>
+              <input id="confirm_password" type="password" class="validate" style="font-size: 24px;">
+            </form>
+            <br>
+            <button id="signup" class="btn btn-block light-blue" style="text-align: center;">Sign up</button>
+            <br>
+            <br>
+          </div>
+
+          <div class="signup-links" style="text-align: center;">
+            <div class="login-buttons">
+              <div class="second-back" id="back-coursera" style="top: 20%; margin-left: -40px; display: none;">back
+              </div>
+            </div>
+            <div class="email_signin"> <a id="email_signin" style="text-decoration: none; cursor: pointer;">Sign in with
+                email &nbsp;<i class="fa-caret-right" aria-hidden="true"></i></a></div>
+            <div class="email_create"> <a id="email_create" style="text-decoration: none; cursor: pointer;">Create an
+                account &nbsp;<i class="fa-caret-right" aria-hidden="true"></i></a></div>
+
+          </div>
+
+          <div class="login-buttons">
+            <button id="login-google" class="btn btn-block">login with google</button>
+            <button id="login-facebook" class="btn btn-block">login with facebook</button>
+            <br>
+            <br>
+          </div>
+          <div id="powered-info">
+            <div style="display: block; margin:0 auto; text-align: center;">
+              <span style="color:#000000; opacity:0;">----</span>
+              <br>
+              <span style="color:#000000; font-weight: bold; font-size:14px;">Powered by</span>
+            </div>
+            <div id="powered-logos" class="row"
+              style="display: block; margin:0 auto; text-align: center; margin-top: 10px; width: 64%;">
+              <div style="background-color: rgba(29,57,102,1); height: 40px; width: 93px; float: right;">
+                <a href="https://www.cs.utah.edu/" target="_blank">
+                  <img src="/images/logos/utah_ksoc.png" height="40" alt="Ksoc">
+                </a>
+              </div>
+              <div
+                style="background-color: rgba(29,57,102,1); height: 40px; width: 85px; float: right; margin-left: 1px; margin-right: 1px;">
+                <a href="https://knightlab.ucsd.edu/" target="_blank">
+                  <img src="/images/logos/footer-knight.png" height="40" alt="Knight Lab">
+                </a>
+              </div>
+              <div style="background-color: rgba(29,57,102,1); height: 40px; width: 88px; float: right;">
+                <a href="https://microsetta.ucsd.edu/" target="_blank">
+                  <img src="/images/logos/microsetta.png" height="40" alt="Microsetta">
+                </a>
+              </div>
+            </div>
+            <div style="display: block; margin:0 auto; text-align: center;">
+              <span style="color:#000000; opacity:0; font-size:14px;">----</span>
+              <br>
+              <a href="https://www.cs.utah.edu/" target="_blank">
+                <span style="color:#000000; font-weight: bold;">Visit Info Page</span>
+                <br>
+                <span style="color:#000000; font-weight: bold;">cs.utah.edu/</span>
+              </a>
+            </div>
+            <div style="height: 50px;"></div>
+          </div>
+        </article>
+      </section>
+    </div>
+    <div id="loading" class="hide">
+      {{> loading_wheel}}
+    </div>
+  </div>
+</template>

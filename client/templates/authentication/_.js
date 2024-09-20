@@ -1,6 +1,10 @@
 import './_.html';
 import { Template } from 'meteor/templating';
 import { ReactiveVar } from 'meteor/reactive-var';
+import {
+    Meteor
+} from 'meteor/meteor';
+import { redirect } from '../../../imports/api/ga-routes.js';
 
 import {
     UserMetrics,
@@ -11,8 +15,13 @@ import {
 } from 'meteor/accounts-base';
 
 Template.signup.rendered = function () {
-    $('.coursera-options').hide();
-    $('.coursera-info').hide();
+    //showForm('login-form');
+    //$('.coursera-options').hide();
+    //$('.coursera-info').hide();
+    $('.email_create').show();
+    $('.email_signin').hide();
+    $('.account_create').hide();
+
 };
 
 Template.signup.onCreated(function () {
@@ -194,33 +203,28 @@ Template.signup.events({
     },
     'click #email_create': function (event) {
         event.preventDefault();
-        $('.second-back').show();
-        $('#login-coursera').hide();
-        $('#login-facebook').hide();
-        $('#login-google').hide();
-        $('#login-openhumans').hide();
-        $('#login-reddit').hide();
-        $('#powered-info').hide();
         $('.account_signin').hide();
-        $('.signup-links').hide();
         $('.account_create').show();
-        $("#create_err").hide();
-        $("#signin_check").hide();
+        $('.email_signin').show();
+        $('.email_create').hide();
+        //$('#login-coursera').hide();
+        //$('#login-facebook').hide();
+        //$('#login-google').hide();
+        //$('#login-openhumans').hide();
+        //$('#login-reddit').hide();
+        //$('#powered-info').hide();
+        //$('.account_signin').hide();
+        //$('.signup-links').hide();
+        //$('.account_create').show();
+        //$("#create_err").hide();
+        //$("#signin_check").hide();
     },
     'click #email_signin': function (event) {
         event.preventDefault();
-        $('.second-back').show();
-        $('#login-coursera').hide();
-        $('#login-facebook').hide();
-        $('#login-google').hide();
-        $('#login-openhumans').hide();
-        $('#login-reddit').hide();
-        $('#powered-info').hide();
-        $('.signup-links').hide();
-        $('.account_create').hide();
         $('.account_signin').show();
-        $("#create_err").hide();
-        $("#signin_check").hide();
+        $('.email_signin').hide();
+        $('.account_create').hide();
+        $('.email_create').show();
     },
     'click #signup': function (event) {
         event.preventDefault();
@@ -245,8 +249,8 @@ Template.signup.events({
         }
         $("#pass_check").hide();
 
-        $("#login").toggleClass("hide");
-        $("#loading").toggleClass("hide");
+        //$("#login").toggleClass("hide");
+        //$("#loading").toggleClass("hide");
 
         console.log('starting to create account');
         Accounts.createUser({
@@ -256,10 +260,13 @@ Template.signup.events({
             console.log('create account done');
             if (err) {
                 console.log(err.reason);
-                $("#login").toggleClass("hide");
-                $("#loading").toggleClass("hide");
-                $createErr.show();
-                $createErr.html(err.reason);
+                //$("#login").toggleClass("hide");
+                //$("#loading").toggleClass("hide");
+                //$createErr.show();
+                //$createErr.html(err.reason);
+            } else {
+                Meteor.call("galileo.profile.updateProfile");
+                redirect("/galileo/consent");
             }
         });
     },
@@ -278,19 +285,23 @@ Template.signup.events({
 
         const password = $("#enter_password").val();
 
-        $("#login").toggleClass("hide");
-        $("#loading").toggleClass("hide");
+        //$("#login").toggleClass("hide");
+        //$("#loading").toggleClass("hide");
 
         console.log('starting to sign in');
         Meteor.loginWithPassword({
             email: email
         }, password, function (err) {
-            console.log('log in complete');
+
             if (err) {
-                $("#login").toggleClass("hide");
-                $("#loading").toggleClass("hide");
-                $signInCheck.show();
-                $signInCheck.html(err.reason);
+                console.log(err.reason);
+                //$("#login").toggleClass("hide");
+                // $("#loading").toggleClass("hide");
+                // $signInCheck.show();
+                //$signInCheck.html(err.reason);
+            } else {
+                console.log('log in complete');
+                redirect("/galileo/consent");
             }
         });
     },
@@ -419,7 +430,7 @@ function handleBasicError(err, instance) {
 function handleLogin(username, password, instance) {
     Meteor.loginWithPassword(username, password, function (err) {
         if (err) {
-            console.log("Login Error"+err);
+            console.log("Login Error" + err);
             handleBasicError(err, instance);
         } else {
             console.log("Logged iN");
@@ -435,6 +446,7 @@ function handleLogin(username, password, instance) {
                     login_counter: user_metric.login_counter
                 }
             });
+            //redirect("galileo/consent");
         }
     });
 }
@@ -451,6 +463,7 @@ function handleCreateUser(username, password, instance) {
                 articles: false,
                 bookmark: false,
                 consent: false,
+                username_page: false,
                 guide_question_bin: false,
                 guide_question_info: false,
                 guide_question_module: false,
@@ -499,6 +512,7 @@ function handleCreateUser(username, password, instance) {
                 number_of_comments: 0,
                 number_of_science_articles: 0
             });
+            // redirect("galileo/browse");
         }
         // sessionStorage.setItem("novice", true);
         instance.error.set("");

@@ -2,11 +2,12 @@ import {
     Meteor
 } from 'meteor/meteor';
 import {
-    UserEmail
+    UserEmail,UserMetrics
 } from './../models.js';
 
 
 Meteor.methods({
+
     'profile.checkExist' (tryUserName) {
         return (typeof Meteor.users.findOne({
             "username": tryUserName
@@ -17,7 +18,7 @@ Meteor.methods({
             throw new Meteor.Error('not-authorized');
         }
 
-        Accounts.setUsername(Meteor.userAsync()._id, insertUserName);
+        Accounts.setUsername(Meteor.userId(), insertUserName);
     },
     'profile.hasEmail' () {
         if (!Meteor.userId()) {

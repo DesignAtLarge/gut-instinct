@@ -64,7 +64,8 @@ Template.gaIntuitionBoard.helpers({
         return Template.instance().tags.get();
     },
     hasIntuition: function() {
-        return Template.instance().intuitions.get().length > 0;
+        return true;
+        //Template.instance().intuitions.get().length > 0;
     }
 });
 

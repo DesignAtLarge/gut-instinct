@@ -2,6 +2,7 @@ import './_.html';
 import { Template } from 'meteor/templating';
 import { redirect } from '../../../imports/api/ga-routes.js';
 
+
 Template.consent.rendered = function() {
     console.log("Template.consent.rendered");
     if (Meteor.user()) {
@@ -9,6 +10,9 @@ Template.consent.rendered = function() {
     }
 }
 Template.consent.events({
+    "click #logout": function () {
+        redirect("/galileo/logout");
+    },
     'submit form': function(event) {
         event.preventDefault();
 

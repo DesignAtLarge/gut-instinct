@@ -383,7 +383,7 @@ Meteor.methods({
                 {
                     $match: {
                         status: { $gte: ExperimentStatus.DESIGNED },
-                        mendel_ga_id: { $in: ["KOMBUCHA", "KEFIR", "AMERICANGUT", "DIET", "OPENHUMANS", "SOYLENT", "ATHLETES"] }
+                        mendel_ga_id: { $in: ["KOMBUCHA", "KEFIR", "MICROSETTA", "DIET", "OPENHUMANS", "SOYLENT", "ATHLETES"] }
                     }
                 },
                 {
@@ -1721,7 +1721,7 @@ Meteor.methods({
         return reviewers;
     },
     'galileo.experiments.design.get': function (designId) {
-        return ExperimentDesigns.findOne({
+        return ExperimentDesigns.findOneAsync({
             _id: designId
         });
     },

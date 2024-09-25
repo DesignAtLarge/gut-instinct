@@ -2,6 +2,7 @@ import './_.html';
 import { Template } from 'meteor/templating';
 import { ReactiveVar } from 'meteor/reactive-var';
 
+
 import {
     //UserTestResponse
     UserEmail
@@ -219,6 +220,9 @@ Template.username.helpers({
 });
 
 Template.username.events({
+    "click #logout": function () {
+        redirect("/galileo/logout");
+    },
     'click #facebook-btn': function () {
         window.open("https://www.facebook.com/gutinstinct.ucsd");
     },
@@ -231,51 +235,6 @@ Template.username.events({
 
         let isGalileo = Template.instance().isGalileo.get();
         let inst = Template.instance();
-
-        /*if (isGalileo) {
-            let country = $("#ga-country").val();
-            if (country !== "" && country != null) {
-                inst.country.set(country);
-                Meteor.call('galileo.profile.setCountry', country, function (err) {
-                    if (err) {
-                        // Materialize.toast('Error!', 1500, 'toast rounded');
-                    }
-                });
-
-            }
-
-            let city = $('#ga-city').val().trim();
-            if (city !== "" && city != null) {
-                inst.city.set(city);
-                Meteor.call('galileo.profile.setCity', city, function (err) {
-                    if (err) {
-                        // Materialize.toast('Error!', 1500, 'toast rounded');
-                    }
-                });
-
-            }
-
-            let timezone = $("#ga-timezone").val();
-            //let timezone = "-7";
-            let isDst = $("#ga-dst").val();
-            //let isDst = "0";
-            if (timezone === null || timezone === "") {
-                // Materialize.toast('Please pick your timezone', 2500, 'toast rounded');
-                return;
-            } else if (isDst === null || isDst === "") {
-                // Materialize.toast('Please answer Daylight savings question', 2500, 'toast rounded');
-                return;
-            } else {
-                timezone = parseInt(timezone);
-                inst.timezone.set(timezone);
-                inst.isDst.set(isDst);
-                Meteor.call("galileo.profile.setTimeZone", timezone, isDst, function (err) {
-                    if (err) {
-                        // Materialize.toast('Error!', 1500, 'toast rounded');
-                    }
-                });
-            }
-        }*/
 
         function validateEmail(email) {
             console.log("checking email value --> " + email);
@@ -300,33 +259,21 @@ Template.username.events({
             }
         }
         Meteor.call('profile.addUserName', tryUserName);
-                console.log('calling galileo.profile.setUsernameToured');
-                Meteor.call('galileo.profile.setUsernameToured', function (err, res) {
-                    if (err) {
-                        console.log(err);
-                    } else {
-                        redirect("/galileo/me");
-                    }
-                });
+        console.log('calling galileo.profile.setUsernameToured');
+        Meteor.call('galileo.profile.setUsernameToured', function (err, res) {
+            if (err) {
+                console.log(err);
+            } else {
+                redirect("/galileo/me");
+            }
+        });
 
         if (tryUserName === '') {
-            //Materialize.toast("Please select a username", 2000, "toast");
             return;
         }
-
-
-
-
-
         Meteor.call('profile.checkExist', tryUserName, function (error, result) {
-            if (!document.getElementById('userNameAnswerText').disabled && result) {
-                //Materialize.toast("Username already exists; Please pick a new one.", 2000, "toast");
-                return;
-            }
-
             if (!document.getElementById('userNameAnswerText').disabled) {
                 Meteor.call('profile.addUserName', tryUserName);
-                console.log('calling galileo.profile.setUsernameToured');
                 Meteor.call('galileo.profile.setUsernameToured', function (err, res) {
                     if (err) {
                         console.log(err);
@@ -334,235 +281,7 @@ Template.username.events({
                         redirect("/galileo/browse");
                     }
                 });
-
             }
-
-            /*let city = inst.city.get();
-            Meteor.call('profile.insertFullProfile', tryUserName, tryEmail, tryAgid, function (err, result) {
-                function postEmail(token, api, emailUser) {
-                    let emailUserAddr = emailUser.email;
-                    let emailUserName = emailUser.username;
-                    $.ajax({
-                        type: "POST",
-                        url: api,
-                        data: {
-                            token: token,
-                            userEmail: emailUserAddr,
-                            userName: emailUserName,
-                        },
-                        success: function (data) {
-                            console.log("onboarding email sent");
-                        }
-                    });
-                }
-
-                function sendOnboardingEmail() {
-                    console.log("SENDING ONBOARDING EMAIL to " + tryUserName);
-
-                    if (isGalileo) {
-                        Meteor.call('galileo.users.sendOnBoardingEmail');
-                    } else {
-                        let currentUserName = Meteor.userAsync().username;
-                        let emailUser = UserEmail.findOne({
-                            username: currentUserName
-                        });
-
-                        if (emailUser !== 'undefined' && 'email' in emailUser) {
-                            Meteor.call('email.getToken', function (error, result) {
-                                if (error) {
-                                    console.log("Error: " + error);
-                                    return;
-                                }
-                                console.log("Recived email token.");
-
-                                let currentToken = result;
-                                Meteor.call('email.getAPI', function (error, result) {
-                                    let currentAPI = result;
-                                    console.log("got api");
-                                    postEmail(currentToken, currentAPI + "sendOnboardingEmail",
-                                        emailUser);
-                                });
-                            });
-
-                        }
-                    }
-                }
-
-                // calling this before sending on boarding email because that operation takes a long time to return
-                if (isGalileo) {
-                    console.log('calling galileo.profile.setUsernameToured');
-                    Meteor.call('galileo.profile.setUsernameToured', function (err, res) {
-                        if (err) {
-                            console.log(err);
-                        }
-                    });
-                }
-
-                if (result)
-                    //sendOnboardingEmail();
-
-                // TODO: calling this after onboarding flow for now, figure out onboarding blocking stuff
-                /*if (isGalileo) {
-                    if (localStorage.getItem("loginRedirectUrl")) {
-                        let redirectTo = localStorage.getItem("loginRedirectUrl");
-                        localStorage.removeItem('loginRedirectUrl');
-                        console.log('going to ' + redirectTo);
-                        window.location.href = redirectTo;
-                    } else if (localStorage.getItem("mendelcode_ga") && localStorage.getItem("mendelcode_ga") != "undefined" && localStorage.getItem("mendelcode_ga") != "") {
-                        console.log("going to browse - " + localStorage.getItem("mendelcode_ga"))
-                        window.location.href = '/galileo/browse'
-                    } else {
-                        console.log('going to entrance');
-                        window.location.href = '/galileo/entrance';
-                    }
-                    return;
-                }*/
-
-
-            //docent-exp
-            // let username;
-            //let condition;
-
-            /* try {
-                 if (Meteor.userAsync()) {
-                     username = Meteor.userAsync().username;
-                     condition = Meteor.userAsync().profile.condition;
-                     if (username === "expert" && Meteor.userAsync().profile.condition !== 0) {
-                         Meteor.users.updateAsync(Meteor.userId(), {
-                             $set: {
-                                 'profile.condition': 0
-                             }
-                         });
-                     }
-                     if (username === "expert" || username === "citizen") {
-                         Meteor.call('user.updateHasAddedQuestion');
-                     }
-                 }
-             } catch (e) { }*/
-
-
-            /* setTimeout(function () {
-                 console.log('updating username_page toured later');
-                 Meteor.users.updateAsync(Meteor.userId(), {
-                     $set: {
-                         'profile.toured.username_page': true
-                     }
-                 });
-                 condition = Meteor.userAsync().profile.condition;
-
-                 if (condition === 7) {
-                     window.location.href = '/trial';
-                 } else {
-                     if (isGalileo) {
-                         if (localStorage.getItem("loginRedirectUrl")) {
-                             let redirectTo = localStorage.getItem("loginRedirectUrl");
-                             localStorage.removeItem('loginRedirectUrl');
-                             console.log('going to ' + redirectTo);
-                             window.location.href = redirectTo;
-                         } else {
-                             console.log('going to entrance');
-                             window.location.href = '/galileo/entrance';
-                         }
-                         return;
-                     } else {
-                         window.location.href = '/entrance';
-                     }
-                 }
-             }, 500);*/
-            /*});*/
         });
-
-
-
-        /*if ($('#userAnswerText').val() === '') {
-            alert("Please tell us your understanding about the gut microbiome before continuing!");
-            return;
-        }
-
-        const userRes = $('#userAnswerText').val().trim();
-        const userRes = " ";  // Temporary user response
-
-        let checkExist = (typeof UserTestResponse.findOne({
-            "username": Meteor.userAsync().username
-        }) !== 'undefined');
-
-        if (checkExist) {
-            let targetID = UserTestResponse.findOne({
-                "username": Meteor.userAsync().username
-            })._id;
-            UserTestResponse.update({
-                _id: targetID
-            }, {
-                $set: {
-                    "pretest_response": userRes
-                }
-            });
-
-        } else {
-            UserTestResponse.insert({
-                "username": Meteor.userAsync().username,
-                "pretest_response": userRes
-            });
-        } */
-
-
-
-        // Meteor.call('profile.insertFullProfile', tryUserName);
-
-        // //docent-exp
-        // let username;
-        // let condition;
-        // try {
-        //     if (Meteor.userAsync()) {
-        //         username = Meteor.userAsync().username;
-        //         condition = Meteor.userAsync().profile.condition;
-        //     }
-        // } catch (e) {}
-
-
-        // if (condition == 1) { //cond-1 goes directly to gutboard - others go to introduction sequence
-        //     window.location.href = '/gutboard';
-        //     return;
-        // } else {
-        //     if (condition == 2) {
-        //         //window.location.href = '/t/introduction';
-        //         window.location.href = '/entrance';
-        //         return;
-        //     } else
-        //     if (condition == 3) {
-        //         //window.location.href = '/t/introduction';
-        //         window.location.href = '/entrance';
-        //         //return;
-        //     } else { //in some weird case when cond is not 1,2,or 3 - we route to best version
-        //         //window.location.href = '/t/introduction';
-        //         window.location.href = '/entrance';
-        //         return;
-        //     }
-        // }
     }
 });
-
-
-Date.prototype.stdTimezoneOffset = function () {
-    var fy = this.getFullYear();
-    if (!Date.prototype.stdTimezoneOffset.cache.hasOwnProperty(fy)) {
-
-        var maxOffset = new Date(fy, 0, 1).getTimezoneOffset();
-        var monthsTestOrder = [6, 7, 5, 8, 4, 9, 3, 10, 2, 11, 1, 0];
-
-        for (var mi = 0; mi < 12; mi++) {
-            var offset = new Date(fy, monthsTestOrder[mi], 1).getTimezoneOffset();
-            if (offset != maxOffset) {
-                maxOffset = Math.max(maxOffset, offset);
-                break;
-            }
-        }
-        Date.prototype.stdTimezoneOffset.cache[fy] = maxOffset;
-    }
-    return Date.prototype.stdTimezoneOffset.cache[fy];
-};
-Date.prototype.isDST = function () {
-    return this.getTimezoneOffset() < this.stdTimezoneOffset();
-};
-
-Date.prototype.stdTimezoneOffset.cache = {};

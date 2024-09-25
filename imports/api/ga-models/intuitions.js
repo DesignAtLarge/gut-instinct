@@ -26,21 +26,20 @@ Meteor.methods({
     },
 
     'galileo.intuition.getIntuitions': function() {
-
-        if (!Meteor.userId()) {
+        var user = Meteor.users.find({
+            _id: Meteor.userId()
+        });
+        if (!user) {
             throw new Meteor.Error("not-authorized");
         }
-
-        var intuitions = Intuitions.find().fetch();
-        intuitions.forEach((intuition) => {
-            var user = Meteor.users.findOne({
-                _id: intuition.user_id
-            });
-            if (user) {
-                intuition.username = user.username;
+        var ints = Intuitions.find({
+            'user_id': Meteor.userId()
+        }, {
+            sort: {
+                'insert_date': 1
             }
-        });
-        return intuitions;
+        }).fetch();
+        return ints;
     },
 
     'galileo.intuition.getIntuitionById': function(id) {
@@ -68,6 +67,7 @@ Meteor.methods({
                 tags: 1
             }
         }).fetch();
+        console.log(allTags);
         var tagDict = {};
         for (var i = 0; i < allTags.length; i++) {
             for (var j = 0; j < allTags[i].tags.length; j++) {
@@ -82,17 +82,25 @@ Meteor.methods({
     },
 
     'galileo.intuition.getMyIntuitions': function() {
-        return Intuitions.find({
-            "user_id": Meteor.userId()
+        var user = Meteor.users.find({
+            _id: Meteor.userId()
+        });
+        if (!user) {
+            throw new Meteor.Error("not-authorized");
+        }
+        var ints = Intuitions.find({
+            'user_id': Meteor.userId()
         }, {
+            limit: 3,
             sort: {
                 'insert_date': 1
             }
         }).fetch();
+        return ints;
     },
 
     'galileo.intuition.getFirstThreeIntuitions': function() {
-        var user = Meteor.users.findOneAsync({
+        var user = Meteor.users.find({
             _id: Meteor.userId()
         });
         if (!user) {

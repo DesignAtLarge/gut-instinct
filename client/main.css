@@ -1,0 +1,13 @@
+circle {
+    cursor: pointer;
+  }
+  
+  .selected {
+    fill: orange;
+  }
+  
+  .brush .selection {
+    fill: lightblue;
+    stroke: blue;
+    stroke-width: 1.5px;
+  }
